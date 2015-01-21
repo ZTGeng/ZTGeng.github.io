@@ -100,7 +100,7 @@ var reset = function() {
 		if (random != 40) $(grids[random]).addClass('opened');
 	}
 	catMove(40);
-	$('.field').on("click", '.grid', open);
+	$('.field').off().on("click", '.grid', open);
 	$('.result').text("抓猫开始！");
 	step = 0;
 };
