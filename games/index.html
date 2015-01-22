@@ -2,34 +2,98 @@
 <html>
     <head>
         <title>小游戏</title>
+        <style type="text/css">
+        	body {
+        		font-family: 微软雅黑;
+        	}
+			td {
+				width: 300px;
+			}
+			.game {
+				text-align: center;
+			}
+			img {
+				box-shadow: 5px 5px 5px black;
+			}
+			.ruleButton {
+				cursor: pointer;
+			}
+        </style>
+        <script type="text/javascript" src="jquery-2.1.1.js"></script>
     </head>
     <body id="body">
-    	<h1>五子棋</h1>
-    	<div>
-    		<a href="gomoku.html"><img src="images/gomoku.PNG"><p>五子棋基本版</p></a>
-    		<p>规则：</p>
-    		<p>15x15棋盘。双人游戏。黑方无禁手。</p>
-    	</div>
-    	<h1>“抓住猫”系列小游戏</h1>
+    	<h1 id="title">朴素游戏</h1>
+    	<p id="greeting">这里展示了设计师缺席的情况下做出的游戏是什么样子。</p>
+    	<h2 id="group1">五子棋</h2>
+    	<table>
+	    	<tr style="vertical-align: top">
+			    <td>
+			    	<div>
+			    		<div class="game">
+			    			<a href="gomoku.html">
+				    			<img src="images/gomoku.PNG" />
+				    			<p id="item1-1">五子棋基本版</p>
+			    			</a>
+			    		</div>
+			    		<p class="ruleButton">规则 -></p>
+			    		<ul class="rules">
+			    			<li>15x15棋盘。双人游戏。黑方无禁手。</li>
+			    		</ul>
+			    	</div>
+		    	</td>
+	    	</tr>
+    	</table>
+    	<h2 id="group2">“抓猫”系列</h2>
         <table>
 	    	<tr style="vertical-align: top">
 		        <td>
 		        	<div>
-		    			<a href="catchcat.html"><img src="images/screen1.PNG"><p>“抓住猫”原版</p></a>
+		        		<div class="game">
+		    				<a href="catchcat.html">
+		    					<img src="images/cat-original.png" />
+		    					<p id="item2-1">“抓猫”原版</p>
+		    				</a>
+		    			</div>
 		    		</div>
 		    	</td>
 		    	<td>
 			    	<div>
-				    	<a href="catchcatpoo.html"><img src="images/screen2.PNG"><p>“抓住猫”扫雷版</p></a>
-				    	<p>规则：</p>
-				    	<ul>
-					    	<li>部分格子埋着猫屎。踩中猫屎就输。</li>
-					    	<li>格子中的数字显示其周围6个格子中有多少猫屎。</li>
+				    	<div class="game">
+				    	   	<a href="catchcatpoo.html">
+				    	   		<img src="images/cat-poo.png" />
+				    	   		<p id="item2-2">“抓猫”扫雷版</p>
+				    	   	</a>
+				    	</div>
+				    	<p class="ruleButton">规则 -></p>
+				    	<ul class="rules">
+					    	<li>部分格子埋着猫屎。踩中猫屎则输。</li>
 					    	<li>猫不会走进有猫屎的格子。</li>
+					    	<li>数字显示相邻格子中有多少猫屎。</li>
+					    	<li>使用右键标记和解除标记疑似猫屎。</li>
 				    	</ul>
 			    	</div>
 	        	</td>
 	        </tr>
         </table>
+        <script type="text/javascript">
+        	$('.rules').hide();
+        	$('.ruleButton').on("click", function() {
+        		$(this).next($('.rules')).toggle();
+        	});
+    		var lang = navigator.language;
+    		if (lang.slice(0, 2) == "en") {
+    			$('#title').text("Austerity Games");
+    			$('#greeting').text("Here shows how games look like when visual designers are absent.");
+
+    			$('#group1').text("Gomoku");
+    			$('#item1-1').text("Gomoku original");
+
+    			$('#group2').text("Catch the Cat");
+    			$('#item2-1').text("Catch the Cat original");
+    			$('#item2-2').text("Catch the Smelly Cat");
+
+    			$('.ruleButton').text("Rule ->");
+    		}
+    	</script>
     </body>
 </html>
