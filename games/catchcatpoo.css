@@ -2,11 +2,6 @@ body {
 	text-align: center;
 }
 
-/*div {
-	color: red;
-	font-size: 10;
-}*/
-
 #cat {
 	width: 30px;
 	height: 30px;
@@ -54,23 +49,15 @@ body {
 .opened {
 	background-color: orange;
 }
-/*
-.occupied {
-	background: url("images/cat1-30px.jpg");
+
+.marked {
+	background: url("images/flag.png");
 }
-*/
+
 .showPoo {
 	background: url("images/poo-30px.jpg");
 }
-/*
-.end {
-	background: url("images/cat2-30px.jpg");
-}
 
-.out {
-	background: blue;
-}
-*/
 .result {
 	color: red;
 }

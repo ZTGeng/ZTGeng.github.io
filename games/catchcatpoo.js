@@ -1,5 +1,5 @@
 /**
- * @version 0.2
+ * @version 0.21
  * @author Geng
  */
 var grids;		// grids = $('.grid');
@@ -9,6 +9,7 @@ var step = 0;
 
 /**
  * 点击格子，并依次判断：
+ * 若格子被标记，则函数终止。否则继续
  * 若该格子为猫屎格，则回合数加1，游戏结束，玩家失败。否则继续
  * 若该格子已打开或被猫占据，则函数终止。否则继续
  * 将该格子标记为打开，回合数加1，显示周围猫屎数量
@@ -18,6 +19,8 @@ var step = 0;
  * 否则，更新提示文字
  */
 var open = function() {
+	if ($(this).hasClass('marked')) return;
+	
 	if ($(this).hasClass('poo')) {
 		step++;
 		$('.result').text("你在第 " + step + " 步踩到了猫屎！");
@@ -52,6 +55,18 @@ var open = function() {
 		return;
 	}
 	$('.result').text("你已经用了 " + step + " 步还没抓住猫！");
+};
+
+/**
+ * 标记或取消标记一个未打开、为被猫占据的格子
+ */
+var mark = function() {
+	if ($(this).hasClass('opened') || $(this).hasClass('occupied')) {
+		return false;
+	}
+	
+	$(this).toggleClass('marked');
+	return false;
 };
 
 /**
@@ -96,11 +111,13 @@ var findPath = function(choices) {
 
 /**
  * 将猫从当前位置移到序列号为newPos的格
+ * 若newPos格已被标记，则清除标记
  */
 var catMove = function(newPos) {
 	catAnime(catPos, newPos);
 	$(grids[catPos]).removeClass('occupied');
 	$(grids[newPos]).addClass('occupied');
+	$(grids[newPos]).removeClass('marked');
 	catPos = newPos;
 };
 
@@ -173,6 +190,7 @@ var reset = function() {
 	$('.occupied').removeClass('occupied');	// 重置被猫占据的格
 	$('.poo').removeClass('showPoo poo');	// 重置所有猫屎格
 	$('.opened').removeClass('opened');		// 重置所有已打开的格
+	$('.marked').removeClass('marked');		// 重置所有已标记的格
 	grids.html("");							// 重置所有格子的显示文字（清空格子内容）
 	// 随机将不多于8个格子设为猫屎格，避开40号中央格
 	for (var i = 0; i < 8; i++) {
@@ -198,7 +216,7 @@ var reset = function() {
 	});
 	cat.css('background', 'url("images/cat1-30px.jpg")');
 	// 重置所有格子的点击事件监听
-	$('.field').off().on("click", '.grid', open);
+	$('.field').off().on('click', '.grid', open).on('contextmenu', '.grid', mark);
 	// 重置显示文字和回合数变量
 	$('.result').text("抓猫开始！");
 	step = 0;
