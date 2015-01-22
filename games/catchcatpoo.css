@@ -7,6 +7,15 @@ body {
 	font-size: 10;
 }*/
 
+#cat {
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+	background: url("images/cat1-30px.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
 .field {
 	border-radius: 5px;
 	margin: 0 auto;
@@ -24,6 +33,7 @@ body {
 }
 
 .grid {
+	cursor: pointer;
 	display: inline-block;
 	border-radius: 100%;
 	/*border: solid 1px black;*/
@@ -44,19 +54,19 @@ body {
 .opened {
 	background-color: orange;
 }
-
+/*
 .occupied {
 	background: url("images/cat1-30px.jpg");
 }
-
+*/
 .showPoo {
 	background: url("images/poo-30px.jpg");
 }
-
+/*
 .end {
 	background: url("images/cat2-30px.jpg");
 }
-/*
+
 .out {
 	background: blue;
 }

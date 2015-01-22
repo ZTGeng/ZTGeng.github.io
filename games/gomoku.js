@@ -1,4 +1,5 @@
 /**
+ * @version 0.11
  * @author Geng
  */
 
@@ -6,11 +7,12 @@ var isBlack = true;
 
 var reset = function() {
 	isBlack = true;
-	$('.player').removeClass('inactive');
+	$('.inactive').removeClass('inactive');
 	$('.player').last().addClass('inactive');
 	$('#bwin, #wwin').text("");
 	
-	$('.grid').removeClass('preBlack preWhite black white');
+	$('.black').removeClass('black');
+	$('.white').removeClass('white');
 	$('.field').off().on('mouseenter', '.grid', function() {
 		if ($(this).hasClass('black') || $(this).hasClass('white')) return;
 		
@@ -27,33 +29,43 @@ var reset = function() {
 		if (isBlack) $(this).addClass('black');
 		else $(this).addClass('white');
 		
-		if (isDone($(this))) return;
+		var id = +($(this).attr('id').slice(1));
+		var r = Math.floor(id/100), c = id%100;
+		var c1 = count1(r, c);
+		if (c1 > 4) {
+			flash1(r, c);
+			end();
+			return;
+		}
+		var c2 = count2(r, c);
+		if (c2 > 4) {
+			flash2(r, c);
+			end();
+			return;
+		}
+		var c3 = count3(r, c);
+		if (c3 > 4) {
+			flash3(r, c);
+			end();
+			return;
+		}
+		var c4 = count4(r, c);
+		if (c4 > 4) {
+			flash4(r, c);
+			end();
+			return;
+		}
 		
 		$('.player').toggleClass('inactive');
 		isBlack = !isBlack;
-		//$(this).off();
 	});
-	//$('#a0').addClass('white');
-	//var a = "black";
-	//alert($('#a1012').id);
-	//alert(document.getElementById('a1012').id);
 };
 
-var isDone = function(element) {
-	var id = parseInt(element.attr('id').slice(1));
-	var c1 = count1(Math.floor(id/100), id%100);
-	var c2 = count2(Math.floor(id/100), id%100);
-	var c3 = count3(Math.floor(id/100), id%100);
-	var c4 = count4(Math.floor(id/100), id%100);
-	//alert(c1 + " " + c2 + " " + c3 + " " + c4);
-	if (c1 > 4 || c2 > 4 || c3 > 4 || c4 > 4) {
-		$('.player').removeClass('inactive');
-		if (isBlack) $('#bwin').text("胜");
-		else $('#wwin').text("胜");
-		$('.field').off();
-		return true;
-	}
-	return false;
+var end = function() {
+	$('.inactive').removeClass('inactive');
+	if (isBlack) $('#bwin').text("胜");
+	else $('#wwin').text("胜");
+	$('.field').off();
 };
 
 var count1 = function(r, c) {
@@ -68,7 +80,6 @@ var count1 = function(r, c) {
 	}
 	return num;
 };
-
 var count2 = function(r, c) {
 	var num = 1;
 	for (var rr = r - 1; rr >= 0; rr--) {
@@ -81,7 +92,6 @@ var count2 = function(r, c) {
 	}
 	return num;
 };
-
 var count3 = function(r, c) {
 	var num = 1;
 	for (var rr = r - 1, cc = c - 1; rr >= 0 && cc >= 0; rr--, cc--) {
@@ -94,7 +104,6 @@ var count3 = function(r, c) {
 	}
 	return num;
 };
-
 var count4 = function(r, c) {
 	var num = 1;
 	for (var rr = r - 1, cc = c + 1; rr >= 0 && cc < 15; rr--, cc++) {
@@ -106,6 +115,79 @@ var count4 = function(r, c) {
 		else break;
 	}
 	return num;
+};
+
+var flash1 = function(r, c) {
+	$('#a' + (r*100+c)).addClass('flash');
+	var elem;
+	for (var cc = c - 1; cc >= 0; cc--) {
+		elem = $('#a' + (r*100+cc));
+		if (isSame(elem)) elem.addClass('flash');
+		else break;
+	}
+	for (var cc = c + 1; cc < 15; cc++) {
+		elem = $('#a' + (r*100+cc));
+		if (isSame(elem)) elem.addClass('flash');
+		else break;
+	}
+	flash();
+};
+var flash2 = function(r, c) {
+	$('#a' + (r*100+c)).addClass('flash');
+	var elem;
+	for (var rr = r - 1; rr >= 0; rr--) {
+		elem = $('#a' + (rr*100+c));
+		if (isSame(elem)) elem.addClass('flash');
+		else break;
+	}
+	for (var rr = r + 1; rr < 15; rr++) {
+		elem = $('#a' + (rr*100+c));
+		if (isSame(elem)) elem.addClass('flash');
+		else break;
+	}
+	flash();
+};
+var flash3 = function(r, c) {
+	$('#a' + (r*100+c)).addClass('flash');
+	var elem;
+	for (var rr = r - 1, cc = c - 1; rr >= 0 && cc >= 0; rr--, cc--) {
+		elem = $('#a' + (rr*100+cc));
+		if (isSame(elem)) elem.addClass('flash');
+		else break;
+	}
+	for (var rr = r + 1, cc = c + 1; rr < 15 && cc < 15; rr++, cc++) {
+		elem = $('#a' + (rr*100+cc));
+		if (isSame(elem)) elem.addClass('flash');
+		else break;
+	}
+	flash();
+};
+var flash4 = function(r, c) {
+	$('#a' + (r*100+c)).addClass('flash');
+	var elem;
+	for (var rr = r - 1, cc = c + 1; rr >= 0 && cc < 15; rr--, cc++) {
+		elem = $('#a' + (rr*100+cc));
+		if (isSame(elem)) elem.addClass('flash');
+		else break;
+	}
+	for (var rr = r + 1, cc = c - 1; rr < 15 && cc >= 0; rr++, cc--) {
+		elem = $('#a' + (rr*100+cc));
+		if (isSame(elem)) elem.addClass('flash');
+		else break;
+	}
+	flash();
+};
+
+var flash = function() {
+	for (var i = 0; i < 3; i++) {
+		$('.flash').animate({
+			opacity: 0.3
+		}, 500);
+		$('.flash').animate({
+			opacity: 1
+		}, 500);
+	}
+	$('.flash').removeClass('flash');
 };
 
 var isSame = function(element) {
