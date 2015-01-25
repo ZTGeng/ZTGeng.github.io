@@ -3,6 +3,9 @@ body {
 }
 
 #cat {
+	/* float和margin阻止#cat占据宽度和高度 */
+	float: right;
+	margin-bottom: -30px;
 	width: 30px;
 	height: 30px;
 	border-radius: 100%;
@@ -48,6 +51,18 @@ body {
 
 .opened {
 	background-color: orange;
+}
+
+.occupied {
+	background: url("images/cat1-30px.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.end {
+	background: url("images/cat2-30px.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .marked {

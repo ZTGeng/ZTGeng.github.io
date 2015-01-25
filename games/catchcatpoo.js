@@ -1,5 +1,5 @@
 /**
- * @version 0.21
+ * @version 0.3
  * @author Geng
  */
 var grids;		// grids = $('.grid');
@@ -42,7 +42,7 @@ var open = function() {
 	});
 	if (choices.length == 0) {
 		$('.result').text("你在第 " + step + " 步抓住了猫！");
-		cat.css('background', 'url("images/cat2-30px.jpg")');
+		$('.occupied').addClass('end');
 		$('.poo').addClass('showPoo');
 		$('.field').off();
 		return;
@@ -114,23 +114,23 @@ var findPath = function(choices) {
  * 若newPos格已被标记，则清除标记
  */
 var catMove = function(newPos) {
-	catAnime(catPos, newPos);
 	$(grids[catPos]).removeClass('occupied');
-	$(grids[newPos]).addClass('occupied');
-	$(grids[newPos]).removeClass('marked');
-	catPos = newPos;
-};
-
-/**
- * 猫移动的动画特效
- */
-var catAnime = function(pos1, pos2) {
-	var position1 = $(grids[pos1]).position();
-	var position2 = $(grids[pos2]).position();
+	
+	cat.show();
+	cat.offset({
+		left: $(grids[catPos]).position().left,
+		top:  $(grids[catPos]).position().top
+	});
 	cat.animate({
-		left : "+=" + (position2.left - position1.left) + "px",
-		top : "+=" + (position2.top - position1.top) + "px"
-	}, 200);
+		left: "+=" + ($(grids[newPos]).position().left - $(grids[catPos]).position().left) + "px",
+		top:  "+=" + ($(grids[newPos]).position().top -  $(grids[catPos]).position().top) +  "px"
+	}, 200, function() {
+		cat.hide();
+		$(grids[newPos]).addClass('occupied');
+		$(grids[newPos]).removeClass('marked');
+	});
+	
+	catPos = newPos;
 };
 
 /**
@@ -188,6 +188,7 @@ var showNum = function(pos) {
  */
 var reset = function() {
 	$('.occupied').removeClass('occupied');	// 重置被猫占据的格
+	$('.end').removeClass('end');
 	$('.poo').removeClass('showPoo poo');	// 重置所有猫屎格
 	$('.opened').removeClass('opened');		// 重置所有已打开的格
 	$('.marked').removeClass('marked');		// 重置所有已标记的格
@@ -210,11 +211,7 @@ var reset = function() {
 	// 重置猫的图像为站立的猫
 	$(grids[40]).addClass('occupied');
 	catPos = 40;
-	cat.offset({
-		left: $(grids[40]).position().left,
-		top:  $(grids[40]).position().top
-	});
-	cat.css('background', 'url("images/cat1-30px.jpg")');
+	cat.stop().hide();
 	// 重置所有格子的点击事件监听
 	$('.field').off().on('click', '.grid', open).on('contextmenu', '.grid', mark);
 	// 重置显示文字和回合数变量

@@ -1,5 +1,5 @@
 /**
- * @version 0.2
+ * @version 0.3
  * @author Geng
  */
 var grids;		// grids = $('.grid');
@@ -25,7 +25,7 @@ var open = function() {
 	var choices = around(catPos);
 	if (choices.length == 0) {
 		$('.result').text("你在第 " + step + " 步抓住了猫！");
-		cat.css('background', 'url("images/cat2-30px.jpg")');
+		$('.occupied').addClass('end');
 		$('.field').off();
 		return;
 	}
@@ -78,20 +78,22 @@ var findPath = function(choices) {
  * 将猫从当前位置移到序列号为newPos的格
  */
 var catMove = function(newPos) {
-	catAnime(catPos, newPos);
 	$(grids[catPos]).removeClass('occupied');
-	$(grids[newPos]).addClass('occupied');
-	catPos = newPos;
-};
-
-/**
- * 猫移动的动画特效
- */
-var catAnime = function(pos1, pos2) {
+	
+	cat.show();
+	cat.offset({
+		left: $(grids[catPos]).position().left,
+		top:  $(grids[catPos]).position().top
+	});
 	cat.animate({
-		left: "+=" + ($(grids[pos2]).position().left - $(grids[pos1]).position().left) + "px",
-		top:  "+=" + ($(grids[pos2]).position().top -  $(grids[pos1]).position().top) +  "px"
-	}, 200);
+		left: "+=" + ($(grids[newPos]).position().left - $(grids[catPos]).position().left) + "px",
+		top:  "+=" + ($(grids[newPos]).position().top -  $(grids[catPos]).position().top) +  "px"
+	}, 200, function() {
+		cat.hide();
+		$(grids[newPos]).addClass('occupied');
+	});
+	
+	catPos = newPos;
 };
 
 /**
@@ -139,6 +141,7 @@ var around = function(pos) {
  */
 var reset = function() {
 	$('.occupied').removeClass('occupied');	// 重置被猫占据的格
+	$('.end').removeClass('end');
 	$('.opened').removeClass('opened');		// 重置所有已打开的格
 	// 随机打开不多于8个格子，避开40号中央格
 	for (var i = 0; i < 8; i++) {
@@ -150,11 +153,7 @@ var reset = function() {
 	// 重置猫的图像为站立的猫
 	$(grids[40]).addClass('occupied');
 	catPos = 40;
-	cat.offset({
-		left: $(grids[40]).position().left,
-		top:  $(grids[40]).position().top
-	});
-	cat.css('background', 'url("images/cat1-30px.jpg")');
+	cat.stop().hide();
 	// 重置所有格子的点击事件监听
 	$('.field').off().on("click", '.grid', open);
 	// 重置提示文字和回合数变量

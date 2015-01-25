@@ -9,8 +9,17 @@
 			td {
 				width: 300px;
 			}
+			.ruleButton {
+				font-weight: bold;
+				padding: 0 20px;
+				margin: -10px 0;
+			}
 			.game {
 				text-align: center;
+			}
+			a {
+				color: inherit;
+				text-decoration: none;
 			}
 			img {
 				box-shadow: 5px 5px 5px black;
@@ -19,7 +28,7 @@
 				cursor: pointer;
 			}
         </style>
-        <script type="text/javascript" src="jquery-2.1.1.js"></script>
+        <script type="text/javascript" src="jquery.js"></script>
     </head>
     <body id="body">
     	<h1 id="title">朴素游戏</h1>
@@ -30,9 +39,9 @@
 			    <td>
 			    	<div>
 			    		<div class="game">
-			    			<a href="gomoku.html">
+			    			<a href="gomoku.html" target="_blank">
 				    			<img src="images/gomoku.PNG" />
-				    			<p id="item1-1">五子棋基本版</p>
+				    			<p id="name1-1">五子棋基本版</p>
 			    			</a>
 			    		</div>
 			    		<p class="ruleButton">规则 -></p>
@@ -49,9 +58,9 @@
 		        <td>
 		        	<div>
 		        		<div class="game">
-		    				<a href="catchcat.html">
+		    				<a href="catchcat.html" target="_blank">
 		    					<img src="images/cat-original.png" />
-		    					<p id="item2-1">“抓猫”原版</p>
+		    					<p id="name2-1">“抓猫”原版</p>
 		    				</a>
 		    			</div>
 		    		</div>
@@ -59,9 +68,9 @@
 		    	<td>
 			    	<div>
 				    	<div class="game">
-				    	   	<a href="catchcatpoo.html">
+				    	   	<a href="catchcatpoo.html" target="_blank">
 				    	   		<img src="images/cat-poo.png" />
-				    	   		<p id="item2-2">“抓猫”扫雷版</p>
+				    	   		<p id="name2-2">“抓猫”扫雷版</p>
 				    	   	</a>
 				    	</div>
 				    	<p class="ruleButton">规则 -></p>
@@ -77,7 +86,8 @@
         </table>
         <script type="text/javascript">
         	$('.rules').hide();
-        	$('.ruleButton').on("click", function() {
+        	$('.ruleButton').on("click", function(e) {
+        		//e.preventDefault();
         		$(this).next($('.rules')).toggle();
         	});
     		var lang = navigator.language;
@@ -86,11 +96,11 @@
     			$('#greeting').text("Here shows how games look like when visual designers are absent.");
 
     			$('#group1').text("Gomoku");
-    			$('#item1-1').text("Gomoku original");
+    			$('#name1-1').text("Gomoku original");
 
     			$('#group2').text("Catch the Cat");
-    			$('#item2-1').text("Catch the Cat original");
-    			$('#item2-2').text("Catch the Smelly Cat");
+    			$('#name2-1').text("Catch the Cat original");
+    			$('#name2-2').text("Catch the Smelly Cat");
 
     			$('.ruleButton').text("Rule ->");
     		}
