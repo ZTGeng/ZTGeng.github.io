@@ -1,5 +1,5 @@
 /**
- * @version 0.3
+ * @version 0.31
  * @author Geng
  */
 var grids;		// grids = $('.grid');
@@ -169,19 +169,16 @@ var main = function() {
 	for (var i = 0; i < 9; i++) {
 		var row = $('<div></div>').appendTo($('.field'));
 		if (i % 2 == 0)
-			row.addClass("oddrow");
+			row.addClass('oddrow');
 		else
-			row.addClass("evenrow");
+			row.addClass('evenrow');
 		for (var j = 0; j < 9; j++) {
-			$('<div class="grid"></div>').appendTo(row);
+			var grid = $('<div class="grid"></div>').appendTo(row);
+			if (i === 0 || i === 8 || j === 0 || j === 8)
+				grid.addClass('out');
 		}
 	}
 	grids = $('.grid');
-	// 给边缘的格子添加类名'out'
-	$('.grid:nth-child(9n)').addClass('out');
-	$('.grid:nth-child(9n+1)').addClass('out');
-	$('.grid:lt(8)').addClass('out');
-	$('.grid:gt(72)').addClass('out');
 	// 产生猫的图像格子，添加类名'cat'，储存入变量cat
 	cat = $('<div id="cat"></div>').appendTo($('.field'));
 	// 给重置按钮添加点击事件，并触发一次
