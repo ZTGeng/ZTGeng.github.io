@@ -4,6 +4,7 @@
 		<title>小游戏</title>
 		<style type="text/css">
 			body {
+				margin: 10px;
 				font-family: 微软雅黑;
 			}
 			td {
@@ -31,9 +32,9 @@
 		<script type="text/javascript" src="jquery.js"></script>
 	</head>
 	<body id="body">
-		<h1 id="title">朴素游戏</h1>
-		<p id="greeting">这里展示了设计师缺席的情况下做出的游戏是什么样子。</p>
-		<h2 id="group1">五子棋</h2>
+		<h1 id="title">Austerity Games</h1>
+		<p id="greeting">Here shows how games look like when visual designers are absent.</p>
+		<h2 id="group1">Gomoku</h2>
 		<table>
 			<tr style="vertical-align: top">
 				<td>
@@ -41,18 +42,18 @@
 						<div class="game">
 							<a href="gomoku.html" target="_blank">
 								<img src="images/gomoku.PNG" />
-								<p id="name1-1">五子棋基本版</p>
+								<p id="name1-1">Gomoku original</p>
 							</a>
 						</div>
-						<p class="ruleButton">规则 -></p>
-						<ul class="rules">
-							<li>15x15棋盘。双人游戏。黑方无禁手。</li>
+						<p class="ruleButton">Rule -></p>
+						<ul class="rules" id="rule1-1">
+							<li>The board is 15x15. Need two players. No disallowed moves applied to Black.</li>
 						</ul>
 					</div>
 				</td>
 			</tr>
 		</table>
-		<h2 id="group2">“抓猫”系列</h2>
+		<h2 id="group2">Catch the Cat</h2>
 		<table>
 			<tr style="vertical-align: top">
 				<td>
@@ -60,7 +61,7 @@
 						<div class="game">
 							<a href="catchcat.html" target="_blank">
 								<img src="images/cat-original.png" />
-								<p id="name2-1">“抓猫”原版</p>
+								<p id="name2-1">Catch the Cat original</p>
 							</a>
 						</div>
 					</div>
@@ -70,15 +71,15 @@
 						<div class="game">
 							<a href="catchcatpoo.html" target="_blank">
 								<img src="images/cat-poo.png" />
-								<p id="name2-2">“抓猫”扫雷版</p>
+								<p id="name2-2">Catch the Smelly Cat</p>
 							</a>
 						</div>
-						<p class="ruleButton">规则 -></p>
-						<ul class="rules">
-							<li>部分格子埋着猫屎。踩中猫屎则输。</li>
-							<li>猫不会走进有猫屎的格子。</li>
-							<li>数字显示相邻格子中有多少猫屎。</li>
-							<li>使用右键标记和解除标记疑似猫屎。</li>
+						<p class="ruleButton">Rule -></p>
+						<ul class="rules" id="rule2-2">
+							<li>Some of the dots contain cat poop. Don't click them.</li>
+							<li>Cat avoids poop dots.</li>
+							<li>Number on dot shows how many dots around it contain poop.</li>
+							<li>Right click to mark or unmark a dot.</li>
 						</ul>
 					</div>
 				</td>
@@ -87,14 +88,14 @@
 						<div class="game">
 							<a href="catch2cat.html" target="_blank">
 								<img src="images/cat-two.png" />
-								<p id="name2-3">“抓猫”双猫版</p>
+								<p id="name2-3">Catch Two Cats</p>
 							</a>
 						</div>
-						<p class="ruleButton">规则 -></p>
-						<ul class="rules">
-							<li>共有两只猫，每回合各走一步。</li>
-							<li>每回合可以点开两格。</li>
-							<li>猫不会走进相同的格子。</li>
+						<p class="ruleButton">Rule -></p>
+						<ul class="rules" id="rule2-3">
+							<li>Two cats. Each moves one step every round.</li>
+							<li>You can click two dots in a round.</li>
+							<li>Cats never stay in the same dot.</li>
 						</ul>
 					</div>
 				</td>
@@ -107,19 +108,22 @@
 				$(this).next($('.rules')).toggle();
 			});
 			var lang = navigator.language;
-			if (lang.slice(0, 2) == "en") {
-				$('#title').text("Austerity Games");
-				$('#greeting').text("Here shows how games look like when visual designers are absent.");
+			if (lang.slice(0, 2) === "zh") {
+				$('#title').text("朴素游戏");
+				$('#greeting').text("这里展示了设计师缺席的情况下做出的游戏是什么样子。");
 
-				$('#group1').text("Gomoku");
-				$('#name1-1').text("Gomoku original");
+				$('#group1').text("五子棋");
+				$('#name1-1').text("五子棋基本版");
+				$('#rule1-1').html("<li>15x15棋盘。双人游戏。黑方无禁手。</li>");
 
-				$('#group2').text("Catch the Cat");
-				$('#name2-1').text("Catch the Cat original");
-				$('#name2-2').text("Catch the Smelly Cat");
-				$('#name2-3').text("Catch Two Cats");
+				$('#group2').text("“抓猫”系列");
+				$('#name2-1').text("“抓猫”原版");
+				$('#name2-2').text("“抓猫”扫雷版");
+				$('#rule2-2').html("<li>部分格子埋着猫屎。踩中猫屎则输。</li><li>猫不会走进有猫屎的格子。</li><li>数字显示相邻格子中有多少猫屎。</li><li>使用右键标记和解除标记疑似猫屎。</li>");
+				$('#name2-3').text("“抓猫”双猫版");
+				$('#rule2-3').html("<li>共有两只猫，每回合各走一步。</li><li>每回合可以点开两格。</li><li>猫不会走进相同的格子。</li>");
 
-				$('.ruleButton').text("Rule ->");
+				$('.ruleButton').text("规则 ->");
 			}
 		</script>
 	</body>

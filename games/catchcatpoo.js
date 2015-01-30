@@ -6,6 +6,7 @@ var grids;		// grids = $('.grid');
 var cat;		// cat = $('<div id="cat"></div>').appendTo($('.field'));
 var catPos = 40;
 var step = 0;
+var zh = true;
 
 /**
  * 点击格子，并依次判断：
@@ -23,7 +24,8 @@ var open = function() {
 	
 	if ($(this).hasClass('poo')) {
 		step++;
-		$('.result').text("你在第 " + step + " 步踩到了猫屎！");
+		if (zh) $('.result').text("你在第 " + step + " 步踩到了猫屎！");
+		else $('.result').text("You step on cat poop at step " + step + "!");
 		$('.poo').addClass('showPoo');
 		$('.field').off();
 		return;
@@ -41,7 +43,8 @@ var open = function() {
 		return !$(grids[each]).hasClass('poo');
 	});
 	if (choices.length == 0) {
-		$('.result').text("你在第 " + step + " 步抓住了猫！");
+		if (zh) $('.result').text("你在第 " + step + " 步抓住了猫！");
+		else $('.result').text("You catch the cat at step " + step + "!");
 		$('.occupied').addClass('end');
 		$('.poo').addClass('showPoo');
 		$('.field').off();
@@ -49,12 +52,14 @@ var open = function() {
 	}
 	catMove(findPath(choices));		// choices长度大于0
 	if ($(grids[catPos]).hasClass('out')) {
-		$('.result').text("猫在第 " + step + " 步成功逃跑了！");
+		if (zh) $('.result').text("猫在第 " + step + " 步成功逃跑了！");
+		else $('.result').text("Cat escapes at step " + step + "!");
 		$('.poo').addClass('showPoo');
 		$('.field').off();
 		return;
 	}
-	$('.result').text("你已经用了 " + step + " 步还没抓住猫！");
+	if (zh) $('.result').text("你已经用了 " + step + " 步还没抓住猫！");
+	else $('.result').text("You have used " + step + " steps.");
 };
 
 /**
@@ -215,7 +220,8 @@ var reset = function() {
 	// 重置所有格子的点击事件监听
 	$('.field').off().on('click', '.grid', open).on('contextmenu', '.grid', mark);
 	// 重置显示文字和回合数变量
-	$('.result').text("抓猫开始！");
+	if (zh) $('.result').text("抓猫开始！");
+	else $('.result').text("Game start!");
 	step = 0;
 };
 
@@ -223,6 +229,7 @@ var reset = function() {
  * 主方法。初始化游戏元素
  */
 var main = function() {
+	zh = (navigator.language.slice(0, 2) === "zh");
 	// 产生9x9个格子，添加类名'grid'，全部储存入变量grids
 	for (var i = 0; i < 9; i++) {
 		var row = $('<div></div>').appendTo($('.field'));
@@ -240,8 +247,8 @@ var main = function() {
 	// 产生猫的图像格子，添加类名'cat'，储存入变量cat
 	cat = $('<div id="cat"></div>').appendTo($('.field'));
 	// 给重置按钮添加点击事件，并触发一次
-	$('.reset').on('click', reset);
-	$('.reset').trigger('click');
+	$('#reset').on('click', reset);
+	$('#reset').trigger('click');
 };
 
 $(document).ready(main);
