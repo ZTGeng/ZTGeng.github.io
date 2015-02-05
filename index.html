@@ -13,29 +13,130 @@
 
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
 
-		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-		<link rel="shortcut icon" href="/favicon.ico">
-		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-		
+		<style type="text/css">
+			body {
+				margin: 0 auto;
+				max-width: 600px;
+			}
+			
+			h3 {
+				margin-bottom: -20px;
+			}
+
+			.animated {
+				-webkit-animation-duration: 1s;
+				-webkit-animation-fill-mode: both;
+				/*-moz-animation-duration: 1s;
+				-moz-animation-fill-mode: both;*/
+				animation-duration: 1s;
+				animation-fill-mode: both;
+			}
+
+			@-webkit-keyframes hinge {
+				0% {
+					-webkit-transform-origin: top left;
+					-webkit-animation-timing-function: ease-in-out;
+				}
+
+				20%, 60% {
+					-webkit-transform: rotate3d(0, 0, 1, 80deg);
+					-webkit-transform-origin: top left;
+					-webkit-animation-timing-function: ease-in-out;
+				}
+
+				40%, 80% {
+					-webkit-transform: rotate3d(0, 0, 1, 60deg);
+					-webkit-transform-origin: top left;
+					-webkit-animation-timing-function: ease-in-out;
+					opacity: 1;
+				}
+
+				100% {
+					-webkit-transform: translate3d(0, 700px, 0);
+					opacity: 0;
+				}
+			}
+/*
+			@-moz-keyframes hinge {
+				0% {
+					-moz-transform-origin: top left;
+					-moz-animation-timing-function: ease-in-out;
+				}
+
+				20%, 60% {
+					-moz-transform: rotate3d(0, 0, 1, 80deg);
+					-moz-transform-origin: top left;
+					-moz-animation-timing-function: ease-in-out;
+				}
+
+				40%, 80% {
+					-moz-transform: rotate3d(0, 0, 1, 60deg);
+					-moz-transform-origin: top left;
+					-moz-animation-timing-function: ease-in-out;
+					opacity: 1;
+				}
+
+				100% {
+					-moz-transform: translate3d(0, 700px, 0);
+					opacity: 0;
+				}
+			}*/
+
+			@keyframes hinge {
+			0% {
+				transform-origin: top left;
+				animation-timing-function: ease-in-out;
+			}
+
+			20%, 60% {
+				transform: rotate3d(0, 0, 1, 80deg);
+				transform-origin: top left;
+				animation-timing-function: ease-in-out;
+			}
+
+			40%, 80% {
+				transform: rotate3d(0, 0, 1, 60deg);
+				transform-origin: top left;
+				animation-timing-function: ease-in-out;
+				opacity: 1;
+			}
+
+			100% {
+				transform: translate3d(0, 700px, 0);
+				opacity: 0;
+				}
+			}
+
+			.hinge {
+				-webkit-animation-name: hinge;
+				/*-moz-animation-name: hinge;*/
+				animation-name: hinge;
+			}
+			span {
+				display: inline-block;
+			}
+		</style>
 	</head>
 
 	<body>
 		<div>
 			<header>
-				<h1>A Simple, Humble Homepage</h1>
+				<h1><span>A</span> <span>Simple,</span> <span>Humble</span> <span>Homepage</span></h1>
 			</header>
 			<nav>
+				<h3>
+					<a href="/">:::Home:::</a>
+				</h3>
 				<p>
-					<a href="/">Home</a>
+					This link is meaningless because you're already at the homepage.
 				</p>
+				<h3>
+					<a href="/games">:::Games:::</a>
+				</h3>
 				<p>
-					<a href="/games">Games</a>
+					Some handmake small javascript games.
 				</p>
 			</nav>
-
-			<div>
-
-			</div>
 
 			<footer>
 				<p>
@@ -43,6 +144,13 @@
 				</p>
 			</footer>
 		</div>
-		
+		<script type="text/javascript">
+			var spans = document.getElementsByTagName('span');
+			for (var i = 0; i < spans.length; i++) {
+				spans[i].onmouseenter = function() {
+					this.className = "animated hinge";
+				};
+			}
+		</script>
 	</body>
 </html>

@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE HTML>
 <html>
 	<head>
-		<title>小游戏</title>
+		<title id="webTitle">Games</title>
 		<style type="text/css">
 			body {
 				margin: 10px;
@@ -109,6 +109,7 @@
 			});
 			var lang = navigator.language;
 			if (lang.slice(0, 2) === "zh") {
+				$('#webTitle').text("小游戏");
 				$('#title').text("朴素游戏");
 				$('#greeting').text("这里展示了设计师缺席的情况下做出的游戏是什么样子。");
 
