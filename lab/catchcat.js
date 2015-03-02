@@ -187,8 +187,21 @@ var main = function() {
 	// 产生猫的图像格子，添加类名'cat'，储存入变量cat
 	cat = $('<div id="cat"></div>').appendTo($('.field'));
 	// 给重置按钮添加点击事件，并触发一次
-	$('.reset').on('click', reset);
-	$('.reset').trigger('click');
+	$('.reset').on('click', ajax);
+	reset();
 };
 
 $(document).ready(main);
+
+var ajax = function() {
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			reset();
+			console.log(xmlhttp.responseText);
+		}
+	};
+	xmlhttp.open("GET", "catchcat.css", true);
+	xmlhttp.send();
+};
+
