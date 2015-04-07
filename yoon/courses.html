@@ -4,6 +4,18 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/magnific-popup.css" />
+		<script type="text/javascript" src="javascript/jquery.js"></script>
+		<script type="text/javascript" src="javascript/jquery.magnific-popup.min.js"></script>
+		<style>
+			.picture-group {
+				margin: 10px 0;
+			}
+			.picture-group div {
+				max-width: 303px;
+				float: left;
+			}
+		</style>
 		<title>New Web Project</title>
 	</head>
 	<body>
@@ -36,7 +48,7 @@
 			</nav>
 			
 			<div class="row">
-				<div class="col-sm-12">
+				<div class="col-sm-4">
 					<article>
 						<br />
 						<strong>SFSU</strong>
@@ -56,11 +68,61 @@
 						</ul>
 					</article>
 				</div>
+				<div class="col-sm-8">
+					<br />
+					<div class="popup-gallery">
+						<div class="picture-group">
+							<a href="images/wob-5.png" title="SFSU World of Balance"><img src="images/wob-5-s.jpg"></a>
+							<a href="images/wob-4.jpg" title="SFSU World of Balance"><img src="images/wob-4-s.jpg"></a>
+							<a href="images/wob-1.jpg" title="SFSU World of Balance"><img src="images/wob-1-s.jpg"></a>
+							<a href="images/wob-2.jpg" title="SFSU World of Balance"><img src="images/wob-2-s.jpg"></a>
+							<a href="images/wob-3.jpg" title="SFSU World of Balance"><img src="images/wob-3-s.jpg"></a>
+						</div>
+						<div class="picture-group">
+							<a href="images/debugger-1.png" title="SFSU Debugger"><img src="images/debugger-1-s.jpg"></a>
+							<a href="images/debugger-2.png" title="SFSU Debugger"><img src="images/debugger-2-s.jpg"></a>
+							<a href="images/debugger-3.png" title="SFSU Debugger"><img src="images/debugger-3-s.jpg"></a>
+							<a href="images/debugger-4.png" title="SFSU Debugger"><img src="images/debugger-4-s.jpg"></a>
+						</div>
+						<div class="picture-group">
+							<div>
+								<a href="images/CSULA-CS454-Fall14-1.jpg" title="CSULA Fall 2014"><img src="images/CSULA-CS454-Fall14-1-s.jpg"></a>
+								<a href="images/CSULA-CS454-Fall14-3.png" title="CSULA Fall 2014"><img src="images/CSULA-CS454-Fall14-3-s.jpg"></a>
+								<a href="images/CSULA-CS454-Fall14-4.png" title="CSULA Fall 2014"><img src="images/CSULA-CS454-Fall14-4-s.jpg"></a>
+							</div>
+							<div>
+								<a href="images/CSULA-CS454-Fall14-2.png" title="CSULA Fall 2014"><img src="images/CSULA-CS454-Fall14-2-s.jpg"></a>
+								<a href="images/CSULA-CS454-Fall14-5.png" title="CSULA Fall 2014"><img src="images/CSULA-CS454-Fall14-5-s.jpg"></a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			
 			<footer>
 				
 			</footer>
 		</div>
+		<script>
+			$(document).ready(function() {
+				$('.popup-gallery').magnificPopup({
+					delegate: 'a',
+					type: 'image',
+					tLoading: 'Loading image #%curr%...',
+					mainClass: 'mfp-img-mobile',
+					gallery: {
+						enabled: true,
+						navigateByImgClick: true,
+						preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+					},
+					image: {
+						tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+						titleSrc: function(item) {
+							return item.el.attr('title');
+						}
+					}
+				});
+			});
+		</script>
 	</body>
 </html>
