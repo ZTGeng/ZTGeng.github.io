@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title id="title">Weight the Coins</title>
+		<meta name="description" content="">
+		<meta name="author" content="Geng">
+
+		<link rel="stylesheet" type="text/css" href="coins.css" />
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="coins.js"></script>
+	</head>
+
+	<body>
+		<div>
+			<header>
+				<h1 id="gameName">Weight the Coins</h1>
+			</header>
+			
+			<div id="rules">
+				<p>How to play:</p>
+				<ol>
+					<li>
+						<p>Select in your heart:</p>
+						<ul>
+							<li><strong>Which</strong> coin has different weight with the others?</li>
+							<li>Is it <strong>heavier</strong> or <strong>lighter</strong>?</li>
+						</ul>
+						<p>Do not change your selection during the game. Don't tell the computer your selection.</p>
+					</li>
+					<li>
+						<p>Click "START". Check the coins on the pans and choose the correct move of the balance.</p>
+					</li>
+					<li>
+						<p>After three rounds of weighing, the computer will guess your selection.</p>
+					</li>
+				</ol>
+			</div>
+			<div>
+				<div>
+					<button id="start">START</button>
+					<span id="round"><span id="round_en"></span></span>
+					<button id="reset">RESET</button>
+				</div>
+				<div id="balance">
+					<div id="left_pan"></div>
+					<div id="right_pan"></div>
+				</div>
+				<div>
+					<button class="choice" id="left_heavier">Left Heavier</button>
+					<button class="choice" id="same_heavy">Same Heavy</button>
+					<button class="choice" id="right_heavier">Right Heavier</button>
+				</div>
+				<div id="twelve_coins">
+					
+				</div>
+				<div id="result">
+					<p>The Coin #<span id="result_number"></span> is <span id="result_heavier_en"></span> Than the Others!</p>
+				</div>
+			</div>
+
+				<a href="index.html" id="back">All the games...</a>
+			<footer>
+				<p>
+					&copy; Copyright by Geng
+				</p>
+			</footer>
+		</div>
+		<script type="text/javascript">
+			var lang = navigator.language;
+			if (lang.slice(0, 2) === "zh") {
+				$('#title').text("称硬币");
+				$('#gameName').text("称硬币");
+				$('#start').text("开始游戏");
+				$('#reset').text("重新开始");
+				$('#left_heavier').text("左边较重");
+				$('#same_heavy').text("一样重");
+				$('#right_heavier').text("右边较重");
+				$('#back').text("所有游戏...");
+				$('#round').html('<span id="round_zh"></span>');
+				$('#result').html('<p>第 <span id="result_number"></span> 号硬币比其他硬币较<span id="result_heavier_zh"></span>！</p>');
+				$('#rules').html(
+					'<p>游戏方法：</p><ol><li><p>在心里默默选择：</p><ul><li><strong>第几号</strong>硬币与其他硬币重量不同；</li><li>该硬币比其他硬币<strong>较轻</strong>还是<strong>较重</strong>。</li></ul><p>选好之后不得更换。不要将你的选择告诉计算机。</p></li><li><p>点击“开始游戏”，根据天平上的硬币编号，选择该情况下天平的正确偏转方向。</p></li><li><p>三轮称重之后，计算机将猜出你开始时的选择。</p></li></ol>'
+				);
+			}
+		</script>
+	</body>
+</html>

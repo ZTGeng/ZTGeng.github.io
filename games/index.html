@@ -101,6 +101,26 @@
 				</td>
 			</tr>
 		</table>
+		<h2 id="group3">Puzzels</h2>
+		<table>
+			<tr style="vertical-align: top">
+				<td>
+					<div>
+						<div class="game">
+							<a href="coins.html" target="_blank">
+								<img src="images/coins.PNG" />
+								<p id="name3-1">Coins</p>
+							</a>
+						</div>
+						<p class="ruleButton">Rule -></p>
+						<ul class="rules" id="rule3-1">
+							<li>You choose one of 12 coins. It has different weight with the others.</li>
+							<li>Answer 3 questions. The computer will guess your choice.</li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+		</table>
 		<script type="text/javascript">
 			$('.rules').hide();
 			$('.ruleButton').on("click", function(e) {
@@ -123,6 +143,10 @@
 				$('#rule2-2').html("<li>部分格子埋着猫屎。踩中猫屎则输。</li><li>猫不会走进有猫屎的格子。</li><li>数字显示相邻格子中有多少猫屎。</li><li>使用右键标记和解除标记疑似猫屎。</li>");
 				$('#name2-3').text("“抓猫”双猫版");
 				$('#rule2-3').html("<li>共有两只猫，每回合各走一步。</li><li>每回合可以点开两格。</li><li>猫不会走进相同的格子。</li>");
+				
+				$('#group3').text("谜题");
+				$('#name3-1').text("称硬币");
+				$('#rule3-1').html("<li>从12枚硬币中指定一枚重量不同的。</li><li>正确回答三轮问题，计算机将猜出你开始时的选择。</li>");
 
 				$('.ruleButton').text("规则 ->");
 			}
