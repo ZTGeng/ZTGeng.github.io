@@ -60,11 +60,11 @@
 					
 				</div>
 				<div id="result">
-					<p>The Coin #<span id="result_number"></span> is <span id="result_heavier_en"></span> Than the Others!</p>
+					<p id="result_en"></p>
 				</div>
 			</div>
 
-				<a href="index.html" id="back">All the games...</a>
+			<a href="index.html" id="back">All the games...</a>
 			<footer>
 				<p>
 					&copy; Copyright by Geng
@@ -83,7 +83,7 @@
 				$('#right_heavier').text("右边较重");
 				$('#back').text("所有游戏...");
 				$('#round').html('<span id="round_zh"></span>');
-				$('#result').html('<p>第 <span id="result_number"></span> 号硬币比其他硬币较<span id="result_heavier_zh"></span>！</p>');
+				$('#result').html('<p id="result_zh"></p>');
 				$('#rules').html(
 					'<p>游戏方法：</p><ol><li><p>在心里默默选择：</p><ul><li><strong>第几号</strong>硬币与其他硬币重量不同；</li><li>该硬币比其他硬币<strong>较轻</strong>还是<strong>较重</strong>。</li></ul><p>选好之后不得更换。不要将你的选择告诉计算机。</p></li><li><p>点击“开始游戏”，根据天平上的硬币编号，选择该情况下天平的正确偏转方向。</p></li><li><p>三轮称重之后，计算机将猜出你开始时的选择。</p></li></ol>'
 				);

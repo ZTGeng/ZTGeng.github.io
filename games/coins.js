@@ -79,9 +79,16 @@ var main = function() {
 			$('.choice').prop('disabled', true);
 			var resString = choice[0] + choice[1] + choice[2];
 			var result = resMap[resString];
-			$('#result_number').text(result[0]);
-			$('#result_heavier_en').text(result[1]);
-			$('#result_heavier_zh').text(result[2]);
+            if (result[0] === 0) {
+                $('#result_en').text('All of the coins are equally heavy.');
+                $('#result_zh').text('所有的硬币重量相同。');
+            } else {
+                $('#result_en').html('The Coin #<span id="result_number"></span> is <span id="result_heavier_en"></span> Than the Others!');
+                $('#result_zh').html('第 <span id="result_number"></span> 号硬币比其他硬币较<span id="result_heavier_zh"></span>！');
+                $('#result_number').text(result[0]);
+                $('#result_heavier_en').text(result[1]);
+                $('#result_heavier_zh').text(result[2]);
+            }
 			$('#result').show();
 		}
 	};

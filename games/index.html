@@ -41,7 +41,7 @@
 					<div>
 						<div class="game">
 							<a href="gomoku.html" target="_blank">
-								<img src="images/gomoku.PNG" />
+								<img src="images/gomoku.png" />
 								<p id="name1-1">Gomoku original</p>
 							</a>
 						</div>
@@ -121,6 +121,26 @@
 				</td>
 			</tr>
 		</table>
+        <h2 id="group4">Mini Games</h2>
+		<table>
+			<tr style="vertical-align: top">
+				<td>
+					<div>
+						<div class="game">
+							<a href="memory.html" target="_blank">
+								<img src="images/memory.png" />
+								<p id="name4-1">Memory Game (Hard)</p>
+							</a>
+						</div>
+						<p class="ruleButton">Rule -></p>
+						<ul class="rules" id="rule4-1">
+							<li>Match two grids with the same picture and color.</li>
+							<li>Matching will not happen before half of the grids are explored.</li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+		</table>
 		<script type="text/javascript">
 			$('.rules').hide();
 			$('.ruleButton').on("click", function(e) {
@@ -147,6 +167,10 @@
 				$('#group3').text("谜题");
 				$('#name3-1').text("称硬币");
 				$('#rule3-1').html("<li>从12枚硬币中指定一枚重量不同的。</li><li>正确回答三轮问题，计算机将猜出你开始时的选择。</li>");
+                
+                $('#group4').text("益智游戏");
+				$('#name4-1').text("记忆游戏超难版");
+				$('#rule4-1').html("<li>需连续点开两个图案及颜色相同的格子。</li><li>点击半数格子前不会出现相同图案及颜色。</li>");
 
 				$('.ruleButton').text("规则 ->");
 			}

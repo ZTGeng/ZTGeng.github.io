@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Memory (Hard)</title>
+        <script type="text/javascript" src="jquery.js"></script>
+        <link rel="stylesheet" type="text/css" href="memory.css" />
+    </head>
+    <body>
+        <h1 id="gameName">Memory Game (Hard) v0.1</h1>
+        <div id="rule">
+            <ol>
+                <li>Match two grids with the same picture and color.</li>
+                <li>Matching will not happen before half of the grids are explored.</li>
+            </ol>
+        </div>
+        <div id="board">
+        	
+        </div>
+        <div id="panel">
+            <p id="steps">Step: <span id="count">0</span></p>
+        	<button id="b4x4">4 X 4</button>
+            <button id="b8x4">8 X 4</button>
+            <button id="b8x8">8 X 8</button>
+        </div>
+        
+        <a href="index.html" id="back">All the games...</a>
+        <footer>
+			<p>
+				&copy; Copyright by Geng
+			</p>
+		</footer>
+        <script type="text/javascript" src="memory.js"></script>
+        <script type="text/javascript">
+			var lang = navigator.language;
+			if (lang.slice(0, 2) === "zh") {
+				$('#title').text("记忆游戏超难版");
+				$('#gameName').text("记忆游戏超难版 v0.1");
+				$('#steps').html('第<span id="count">0</span>步');
+				$('#rule').html(
+                    '<ol><li>需连续点开两个图案及颜色相同的格子。</li><li>点击半数格子前不会出现相同图案及颜色。</li></ol>'
+                );
+				$('#back').text("所有游戏...");
+			}
+		</script>
+    </body>
+</html>

@@ -202,7 +202,7 @@ var isSame = function(element) {
 };
 
 var main = function() {
-	var row;
+	var col;
 	for (var c = 0; c < 15; c++) {
 		col = $('<div class="col"></div>').appendTo($('.field'));
 		for (var r = 0; r < 15; r++) {

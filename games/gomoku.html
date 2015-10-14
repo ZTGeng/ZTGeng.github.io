@@ -7,22 +7,35 @@
         <link rel="stylesheet" type="text/css" href="gomoku.css" />
     </head>
     <body>
-        <h1>五子棋 v0.12</h1>
-        <p id="rule">双人游戏，无禁手。</p>
+        <h1 id="gameName">Gomoku v0.12</h1>
+        <p id="rule">Two players take turns. No bans.</p>
         <div class="field">
         	
         </div>
         <div class="players">
-        	<div class="player" style="float: left"><img src="images/blackpiece.jpg" style="float: left" /><p>黑方</p><p id="bwin"></p></div>
-        	<div class="player" style="float: right"><img src="images/whitepiece.jpg" style="float: right" /><p>白方</p><p id="wwin"></p></div>
-        	<button id="reset">重新开始</button>
+        	<div class="player" style="float: left"><img src="images/blackpiece.jpg" style="float: left" /><p id="blabel">BLACK</p><p id="bwin"></p></div>
+        	<div class="player" style="float: right"><img src="images/whitepiece.jpg" style="float: right" /><p id="wlabel">WHITE</p><p id="wwin"></p></div>
+        	<button id="reset">RESET</button>
         </div>
         
+        <a href="index.html" id="back">All the games...</a>
         <footer>
 			<p>
 				&copy; Copyright by Geng
 			</p>
 		</footer>
+        <script type="text/javascript">
+            var lang = navigator.language;
+			if (lang.slice(0, 2) === "zh") {
+				$('#title').text("五子棋");
+				$('#gameName').text("五子棋 v0.12");
+				$('#blabel').html('黑方');
+				$('#wlabel').html('白方');
+				$('#rule').html('双人游戏，无禁手。');
+                $('#reset').text('重新开始');
+				$('#back').text('所有游戏...');
+			}
+        </script>
         <script type="text/javascript" src="gomoku.js"></script>
     </body>
 </html>
