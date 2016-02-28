@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Geng CV</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <style>
+        .right-offset {
+            padding-left: 20px
+        }
+        .dropdown-menu > li {
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            font-weight: 400;
+            line-height: 1.42857143;
+            color: #333;
+            white-space: nowrap
+        }
+        .clickable {
+            cursor: pointer
+        }
+        #photo {
+            box-shadow: 3px 3px 2px;
+            border-radius: 4px
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+    </header>
+    <div class="container">
+        <div id="info" class="row">
+            <div class="col-md-3 col-sm-4">
+                <h1><img id="photo" src="images/photo.png" alt="My Photo"></h1>
+            </div>
+            <div class="col-md-9 col-sm-8">
+                <h1>Zhitao Geng</h1>
+                <p>Master Student in Computer Science</p>
+                <address>
+                    Newark, California<br>
+                    <a href="mailto:zhtgeng@gmail.com">zhtgeng@gmail.com 
+                        <small><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></small>
+                    </a><br>
+                    <a href="https://www.linkedin.com/in/zhitao-geng-48766331/" target="_blank">LinkedIn 
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                    </a> | 
+                    <a href="https://www.facebook.com/zhtgeng/" target="_blank">Facebook 
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                    </a> | 
+                    <a href="https://github.com/ZTGeng/" target="_blank">GitHub 
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                    </a>
+                </address>
+            </div>
+        </div>
+        <div id="summary" class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Summary 
+                    <button id="btn-summary" class="btn btn-default btn-xs collapse-btn"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                </h3>
+            </div>
+            <p class="panel-body">
+                <strong>Career Changer:</strong> Have M.S. degree in Biology and used to work as a science editor in Guokr.com, 
+                a science website in China. After one year of self-learning in Computer Science, got accepted into 
+                San Francisco State University. Now pursuing M.S. degree in Computer Science. 
+                Experienced in Java, Android and Unity3D development. Worked as team leader in an Android project and a Unity3D project.
+            </p>
+        </div>
+        <div id="education" class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Education 
+                    <button id="btn-education" class="btn btn-default btn-xs collapse-btn"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                </h3>
+            </div>
+            <div class="list-group-item">
+                <a href="http://www.sfsu.edu/" target="_blank"><img class="pull-right" src="images/sfsu_logo.png" alt="SFSU logo"></a>
+                <h4>San Francisco State University<br>
+                <small>Master's Degree, Computer Science, GPA 3.67/4.0</small></h4>
+                <p class="small">February 2015 - Now</p>
+                <p class="right-offset">
+                    <strong>Website management in Confucius Institute:</strong> Modify and run a online registration system (in PHP); 
+                    manage its database; update the official website of the 
+                    <a href="http://www.sfsu.edu/~ci/" target="_blank">Confucius Institute  
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                    </a>in <abbr title="San Francisco State University" class="initialism">SFSU</abbr>.<br>
+                    <strong>Server maintenance for "World of Balance" online game platform:</strong> routinely check and restart the 
+                    server of a multiplayer online education game. The server is running on the PaaS provider Bracket Computing.<br>
+                </p>
+                <div class="dropdown right-offset">
+                    <p class="dropdown-toggle clickable" id="sfsu-course-list" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Course List <span class="caret"></span>
+                    </p>
+                    <ul class="dropdown-menu" aria-labelledby="sfsu-course-list">
+                        <li>Analysis of Algorithms II</li>
+                        <li>Advanced Object Oriented Software Design and Development</li>
+                        <li>Multiplayer Game Development</li>
+                        <li>Application Development for Mobile Devices</li>
+                        <li>Advanced Internet Application Design and Development</li>
+                        <li>High-performance Computing</li>
+                        <li>Advanced Operating Systems</li>
+                        <li>Introduction to Database Systems</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <h4>Self-learning</h4>
+                <p class="small">2013 - 2014</p>
+                <p class="right-offset">
+                    Took 20+ online courses on Computer Science, Math and Bioinformatics, including Algorithms, Data Structure, 
+                    Object-oriented Design, Biostatistics, Machine Learning, and Programming in Java, C++ and Python.<br>
+                    These learning experiences helped me to get admission into San Francisco State University without prerequisite courses, 
+                    i.e. these courses were considered equivalent to a bachelor's education in Computer Science.
+                </p>
+                <div class="dropdown right-offset">
+                    <p class="dropdown-toggle clickable" id="self-course-list" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Selected Course List <span class="caret"></span>
+                    </p>
+                    <ul class="dropdown-menu" aria-labelledby="self-course-list">
+                        <li>Algorithms <small class="text-muted">Princeton University</small></li>
+                        <li>Algorithms: Design and Analysis <small class="text-muted">Stanford University</small></li>
+                        <li>Data Structures <small class="text-muted">Tsinghua University</small></li>
+                        <li>Introduction to Computer Science and Programming Using Python <small class="text-muted">MIT</small></li>
+                        <li>Introduction to Computational Thinking and Data Science <small class="text-muted">MIT</small></li>
+                        <li>Intro to Programming Problem Solving with Java <small class="text-muted">San Jose State University</small></li>
+                        <li>Machine Learning <small class="text-muted">Stanford University</small></li>
+                        <li>Mathematical Biostatistics Boot Camp <small class="text-muted">Johns Hopkins University</small></li>
+                        <li>Bioinformatic Methods <small class="text-muted">University of Toronto</small></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <a href="http://english.bnu.edu.cn/" target="_blank"><img class="pull-right" src="images/bnu_logo.png" alt="BNU logo"></a>
+                <h4>Beijing Normal University <small>Beijing, China<br>
+                Master's Degree, Neurosciences, GPA 3.3/4.0</small></h4>
+                <p class="small">September 2004 - July 2007</p>
+                <p></p>
+            </div>
+            <div class="list-group-item">
+                <a href="http://english.bnu.edu.cn/" target="_blank"><img class="pull-right" src="images/bnu_logo.png" alt="BNU logo"></a>
+                <h4>Beijing Normal University <small>Beijing, China<br>
+                Bachelor's Degree, Biology Sciences, GPA 3.0/4.0</small></h4>
+                <p class="small">September 2000 - July 2004</p>
+                <p></p>
+            </div>
+        </div>
+        <div id="experience" class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Experience 
+                    <button id="btn-experience" class="btn btn-default btn-xs collapse-btn"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                </h3>
+            </div>
+            <div class="list-group-item">
+                <a href="http://www.guokr.com/" target="_blank"><img class="pull-right" src="images/guokr_logo.png" alt="Guokr logo"></a>
+                <h4>Science Editor<br>
+                    <small>
+                        <a href="http://www.guokr.com" target="_blank">Guokr.com 
+                            <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                        </a> | Beijing, China
+                    </small>
+                </h4>
+                <p class="small">October 2010 - June 2013</p>
+                <p class="right-offset">Scientific writing and editing. Web content managing. Social network account managing.<br>
+                Produced over 100 articles. Increased followers of the weibo account 
+                <a href="http://weibo.com/wohaoxiangwen" target="_blank">"Guokr Ask" 
+                    <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                </a> from 0 to over 400,000.</p>
+            </div>
+            <div class="list-group-item">
+                <img class="pull-right" src="images/yigene_logo.png" alt="Yigene logo">
+                <h4>R&D Manager<br>
+                <small>Yigene Inc | Beijing, China</small></h4>
+                <p class="small">June 2009 - May 2010</p>
+                <p class="right-offset">Partaking in the development of a genetic information platform on internet. Product designing and developing. 
+                    Managing business collaboration.</p>
+            </div>
+            <div class="list-group-item">
+                <img class="pull-right" src="images/ug_logo.png" alt="United Gene logo">
+                <h4>Researcher<br>
+                <small>United Gene High-Tech | Shanghai, China</small></h4>
+                <p class="small">November 2008 - May 2009</p>
+                <p class="right-offset">Designing and optimizing the products of genetic testing and health evaluating.</p>
+            </div>
+            <div class="list-group-item">
+                <a href="http://www.ion.ac.cn/" target="_blank"><img class="pull-right" src="images/ion_logo.png" alt="ION logo"></a>
+                <h4>Research Assistant<br>
+                <small>Institute of Neurobiology, Chinese Academy of Sciences | Shanghai, China</small></h4>
+                <p class="small">July 2007 - October 2008</p>
+                <p class="right-offset">Neuroscience research.</p>
+            </div>
+        </div>
+        <div id="projects" class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Projects 
+                    <button id="btn-projects" class="btn btn-default btn-xs collapse-btn"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                </h3>
+            </div>
+            <div class="list-group-item">
+                <h4>Running Rhino - A Multiplayer Online Game<br>
+                    <small>February 2015 - May 2015</small>
+                </h4>
+                <p class="right-offset">
+                    This is a multiplayer real-time racing game. It has a client developed with Unity3D and a server written with Java. 
+                    After finished, it was integrated into a online game platform called World of Balance, which is an education project 
+                    running by Professor Ilmi Yoon in <abbr title="San Francisco State University" class="initialism">SFSU</abbr>. 
+                    I was the team leader and one of the client developers.
+                </p>
+                <p class="right-offset">
+                    <a href="https://github.com/ZTGeng/CSC631-831NewIdea2/" target="_blank">Source Code
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                    </a>
+                </p>
+            </div>
+            <div class="list-group-item">
+                <h4>Street Sweeping Reminder - An Android App<br>
+                    <small>February 2015 - May 2015</small>
+                </h4>
+                <p class="right-offset">
+                    We developed an Android App to show the street sweeping information in San Francisco. It can show the sweeping schedule 
+                    of each street on the map, show the time of next sweeping, and set alarms for it. The app is based on the public data 
+                    of SF street cleaning information and google map service. I was the team leader and developed this app from scratch with 
+                    another member of the team.
+                </p>
+                <p class="right-offset">
+                    <a href="https://github.com/ZTGeng/CSC780/" target="_blank">Source Code
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                    </a>
+                </p>
+            </div>
+            <div class="list-group-item">
+                <h4>Life is a Stage - A Unity3D Game<br>
+                    <small>November 2015</small>
+                </h4>
+                <p class="right-offset">
+                    This is a single-player video game made in the 
+                    <a href="http://www20.csueastbay.edu/events/gamejam/index.html" target="_blank">CSUEB Game Jam 
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                    </a> Fall 2015. The game was developed in two days from idea to delivery 
+                    with Unity3D. I provided most of the code.
+                </p>
+                <p class="right-offset">
+                    <a href="http://ztgeng.github.io/gamejam/demo.html" target="_blank">Demo 
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                    </a> | 
+                    <a href="https://github.com/ZTGeng/Life_Is_A_Stage/" target="_blank">Source Code
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div id="skills" class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Skills 
+                    <button id="btn-skills" class="btn btn-default btn-xs collapse-btn"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <span class="label label-default">JAVA</span> Solved 200+ algorithm problems in 
+                <a href="https://leetcode.com/" target="_blank">Leetcode.com 
+                    <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                </a>. Contributed to the open source project 
+                <a href="https://github.com/ZTGeng/accessmonitor/" target="_blank">OpenMRS 
+                    <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                </a> using java with Spring and Hibernate framworks. Made some 
+                <a href="https://github.com/ZTGeng/PsychoCatsCode/" target="_blank">small Java games  
+                    <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                </a>.<br>
+                
+                <span class="label label-default">Android</span> Developed a 
+                <a href="https://github.com/ZTGeng/CSC780/" target="_blank">street sweeping alarm app   
+                    <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                </a> using Google Map Service.<br>
+                
+                <span class="label label-default">HTML / JavaScript / CSS</span> Made some 
+                <a href="games/index.html" target="_blank">small JavaScript games</a>. Built webpages for 
+                <a href="http://smurf.sfsu.edu/~csif/" target="_blank">an education project 
+                    <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                </a> and the 
+                <a href="http://www.sfsu.edu/~ci/" target="_blank">Confucius Institute  
+                    <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                </a> in <abbr title="San Francisco State University" class="initialism">SFSU</abbr>.<br>
+                
+                <span class="label label-default">Python</span> 
+                <span class="label label-default">Ruby on Rails</span> 
+                <span class="label label-default">C</span> 
+                <span class="label label-default">C++</span> 
+                <span class="label label-default">C# in Unity3D</span> Experienced in coding.
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+
+    </footer>
+    
+    <script>
+        $(".collapse-btn").click(function() {
+            $(this).parents(".panel").children(".list-group-item, .panel-body").toggleClass("hide");
+            $(this).children().first().toggleClass("glyphicon-minus glyphicon-plus");
+        });
+    </script>
+</body>
+
+</html>
