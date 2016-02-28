@@ -10,7 +10,7 @@ body {
 	width: 30px;
 	height: 30px;
 	border-radius: 100%;
-	background: url("images/cat1-30px.jpg");
+	background: url("../images/cat1-30px.jpg");
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -55,23 +55,23 @@ body {
 }
 
 .occupied {
-	background: url("images/cat1-30px.jpg");
+	background: url("../images/cat1-30px.jpg");
 	background-repeat: no-repeat;
 	background-position: center;
 }
 
 .end {
-	background: url("images/cat2-30px.jpg");
+	background: url("../images/cat2-30px.jpg");
 	background-repeat: no-repeat;
 	background-position: center;
 }
 
 .marked {
-	background: url("images/flag.png");
+	background: url("../images/flag.png");
 }
 
 .showPoo {
-	background: url("images/poo-30px.jpg");
+	background: url("../images/poo-30px.jpg");
 }
 
 .result {

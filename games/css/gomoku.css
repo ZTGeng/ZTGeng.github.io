@@ -14,7 +14,7 @@ h1 {
 .field {
 	margin: 0 auto;
 	max-width: 500px;
-	background: url("images/field15.PNG");
+	background: url("../images/field15.PNG");
 	background-repeat: no-repeat;
 	background-position: center;
 }

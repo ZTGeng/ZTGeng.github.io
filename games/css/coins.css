@@ -23,7 +23,7 @@ span {
 	padding: 10px 0;
 	width: 570px;
 	height: 230px;
-	background-image: url("images/balance.gif");
+	background-image: url("../images/balance.gif");
 	background-repeat: no-repeat;
 	background-position: center;
 }
