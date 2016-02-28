@@ -1,50 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
 
-		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+<head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
 		Remove this if you use the .htaccess -->
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-		<title id="title">Catch Two Cats</title>
-		<meta name="description" content="Catch Two Cats">
-		<meta name="author" content="Geng">
+    <title id="title">Catch Two Cats</title>
+    <meta name="description" content="Catch Two Cats">
+    <meta name="author" content="Geng">
 
-		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0">
 
-		<link rel="stylesheet" type="text/css" href="catch2cat.css" />
-		<script type="text/javascript" src="jquery.js"></script>
-		<script type="text/javascript" src="catch2cat.js"></script>
-	</head>
+    <link rel="stylesheet" type="text/css" href="css/catch2cat.css" />
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/catch2cat.js"></script>
+</head>
 
-	<body>
-		<div>
-			<header>
-				<h1 id="gameName">Catch the Cat: Two Cats</h1>
-			</header>
+<body>
+    <header>
+        <h1 id="gameName">Catch the Cat: Two Cats</h1>
+    </header>
 
-			<div class="field" style="margin: auto">
-			</div>
-			<div><p class="result"></p></div>
-			<button id="reset">RESET</button>
-			<a href="index.html" id="back">All the games...</a>
-			<div id="rule">
-			<p>Rule:</p>
-			<ul>
-				<li>Two cats. Each moves one step every round.</li>
-				<li>You can click two dots in a round.</li>
-				<li>Cats never stay in the same dot.</li>
-			</ul>
-			</div>
-			<footer>
-				<p>
-					&copy; Copyright  by Geng
-				</p>
-			</footer>
-		</div>
-		<script type="text/javascript">
-			var lang = navigator.language;
+    <div class="field" style="margin: auto">
+    </div>
+    <div>
+        <p class="result"></p>
+    </div>
+    <button id="reset">RESET</button>
+    <a href="index.html" id="back">All the games...</a>
+    <div id="rule">
+        <p>Rule:</p>
+        <ul>
+            <li>Two cats. Each moves one step every round.</li>
+            <li>You can click two dots in a round.</li>
+            <li>Cats never stay in the same dot.</li>
+        </ul>
+    </div>
+    <footer>
+        <p>
+            &copy; Copyright by Geng
+        </p>
+    </footer>
+    <script type="text/javascript">
+        var lang = navigator.language;
 			if (lang.slice(0, 2) === "zh") {
 				$('#title').text("抓猫 - 双猫奇谭");
 				$('#gameName').text("抓住这只猫 之 双猫奇谭");
@@ -52,6 +53,7 @@
 				$('#back').text("所有抓猫游戏...");
 				$('#rule').html("<p>规则：</p><ul><li>共有两只猫，每回合各走一步。</li><li>每回合可以点开两格。</li><li>猫不会走进相同的格子。</li></ul>");
 			}
-		</script>
-	</body>
+    </script>
+</body>
+
 </html>

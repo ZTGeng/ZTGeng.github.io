@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>Geng's Homepage</title>
+		<meta name="description" content="">
+		<meta name="author" content="Geng">
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+		<style type="text/css">
+			body {
+				margin: 0 auto;
+				max-width: 600px;
+			}
+			
+			h3 {
+				margin-bottom: -20px;
+			}
+
+			.animated {
+				-webkit-animation-duration: 1s;
+				-webkit-animation-fill-mode: both;
+				/*-moz-animation-duration: 1s;
+				-moz-animation-fill-mode: both;*/
+				animation-duration: 1s;
+				animation-fill-mode: both;
+			}
+
+			@-webkit-keyframes hinge {
+				0% {
+					-webkit-transform-origin: top left;
+					-webkit-animation-timing-function: ease-in-out;
+				}
+
+				20%, 60% {
+					-webkit-transform: rotate3d(0, 0, 1, 80deg);
+					-webkit-transform-origin: top left;
+					-webkit-animation-timing-function: ease-in-out;
+				}
+
+				40%, 80% {
+					-webkit-transform: rotate3d(0, 0, 1, 60deg);
+					-webkit-transform-origin: top left;
+					-webkit-animation-timing-function: ease-in-out;
+					opacity: 1;
+				}
+
+				100% {
+					-webkit-transform: translate3d(0, 700px, 0);
+					opacity: 0;
+				}
+			}
+/*
+			@-moz-keyframes hinge {
+				0% {
+					-moz-transform-origin: top left;
+					-moz-animation-timing-function: ease-in-out;
+				}
+
+				20%, 60% {
+					-moz-transform: rotate3d(0, 0, 1, 80deg);
+					-moz-transform-origin: top left;
+					-moz-animation-timing-function: ease-in-out;
+				}
+
+				40%, 80% {
+					-moz-transform: rotate3d(0, 0, 1, 60deg);
+					-moz-transform-origin: top left;
+					-moz-animation-timing-function: ease-in-out;
+					opacity: 1;
+				}
+
+				100% {
+					-moz-transform: translate3d(0, 700px, 0);
+					opacity: 0;
+				}
+			}*/
+
+			@keyframes hinge {
+			0% {
+				transform-origin: top left;
+				animation-timing-function: ease-in-out;
+			}
+
+			20%, 60% {
+				transform: rotate3d(0, 0, 1, 80deg);
+				transform-origin: top left;
+				animation-timing-function: ease-in-out;
+			}
+
+			40%, 80% {
+				transform: rotate3d(0, 0, 1, 60deg);
+				transform-origin: top left;
+				animation-timing-function: ease-in-out;
+				opacity: 1;
+			}
+
+			100% {
+				transform: translate3d(0, 700px, 0);
+				opacity: 0;
+				}
+			}
+
+			.hinge {
+				-webkit-animation-name: hinge;
+				/*-moz-animation-name: hinge;*/
+				animation-name: hinge;
+			}
+			span {
+				display: inline-block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<header>
+				<h1><span>A</span> <span>Simple,</span> <span>Humble</span> <span>Homepage</span></h1>
+			</header>
+			<nav>
+				<h3>
+					<a href="/">:::Home:::</a>
+				</h3>
+				<p>
+					This link is meaningless because you're already at the homepage.
+				</p>
+				<h3>
+					<a href="/cv.html">:::My CV:::</a>
+				</h3>
+				<p>
+					My CV, you know, resume.
+				</p>
+				<h3>
+					<a href="/games">:::Games:::</a>
+				</h3>
+				<p>
+					Some handmake small javascript games.
+				</p>
+			</nav>
+
+			<footer>
+				<p>
+					&copy; Copyright by Geng
+				</p>
+			</footer>
+		</div>
+		<script type="text/javascript">
+			var spans = document.getElementsByTagName('span');
+			for (var i = 0; i < spans.length; i++) {
+				spans[i].onmouseenter = function() {
+					this.className = "animated hinge";
+				};
+			}
+		</script>
+	</body>
+</html>
