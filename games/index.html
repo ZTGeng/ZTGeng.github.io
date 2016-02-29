@@ -1,186 +1,201 @@
 ﻿<!DOCTYPE HTML>
 <html>
-	<head>
-		<title id="webTitle">Games</title>
-		<style type="text/css">
-			body {
-				margin: 10px;
-				font-family: 微软雅黑;
-			}
-			td {
-				width: 300px;
-			}
-			.ruleButton {
-				font-weight: bold;
-				padding: 0 20px;
-				margin: -10px 0;
-			}
-			.game {
-				text-align: center;
-			}
-			a {
-				color: inherit;
-				text-decoration: none;
-			}
-			img {
-				box-shadow: 5px 5px 5px black;
-			}
-			.ruleButton {
-				cursor: pointer;
-			}
-		</style>
-		<script type="text/javascript" src="jquery.js"></script>
-	</head>
-	<body id="body">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title id="webTitle">Games</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <style>
+        .game-pic {
+            box-shadow: 3px 3px 2px #333;
+            border-radius: 4px
+        }
+        .dropdown-menu > p {
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            font-weight: 400;
+            line-height: 1.42857143;
+            color: #333;
+            white-space: nowrap
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
         <header>
-            
+            <ul class="nav nav-tabs">
+                <li role="presentation"><a href="../index.html">HOME</a></li>
+                <li role="presentation"><a href="../cv.html">My CV</a></li>
+                <li role="presentation" class="active"><a href="#">GAME</a></li>
+            </ul>
+            <br>
+            <ol class="breadcrumb">
+                <li><a href="../index.html">Home</a></li>
+                <li class="active">Game</li>
+            </ol>
         </header>
-		<h1 id="title">Austerity Games</h1>
-		<p id="greeting">Here shows how games look like when visual designers are absent.</p>
-		<h2 id="group1">Gomoku</h2>
-		<table>
-			<tr style="vertical-align: top">
-				<td>
-					<div>
-						<div class="game">
-							<a href="gomoku.html" target="_blank">
-								<img src="images/gomoku.png" />
-								<p id="name1-1">Gomoku original</p>
-							</a>
-						</div>
-						<p class="ruleButton">Rule -></p>
-						<ul class="rules" id="rule1-1">
-							<li>The board is 15x15. Need two players. No disallowed moves applied to Black.</li>
-						</ul>
-					</div>
-				</td>
-			</tr>
-		</table>
-		<h2 id="group2">Catch the Cat</h2>
-		<table>
-			<tr style="vertical-align: top">
-				<td>
-					<div>
-						<div class="game">
-							<a href="catchcat.html" target="_blank">
-								<img src="images/cat-original.png" />
-								<p id="name2-1">Catch the Cat original</p>
-							</a>
-						</div>
-					</div>
-				</td>
-				<td>
-					<div>
-						<div class="game">
-							<a href="catchcatpoo.html" target="_blank">
-								<img src="images/cat-poo.png" />
-								<p id="name2-2">Catch the Smelly Cat</p>
-							</a>
-						</div>
-						<p class="ruleButton">Rule -></p>
-						<ul class="rules" id="rule2-2">
-							<li>Some of the dots contain cat poop. Don't click them.</li>
-							<li>Cat avoids poop dots.</li>
-							<li>Number on dot shows how many dots around it contain poop.</li>
-							<li>Right click to mark or unmark a dot.</li>
-						</ul>
-					</div>
-				</td>
-				<td>
-					<div>
-						<div class="game">
-							<a href="catch2cat.html" target="_blank">
-								<img src="images/cat-two.png" />
-								<p id="name2-3">Catch Two Cats</p>
-							</a>
-						</div>
-						<p class="ruleButton">Rule -></p>
-						<ul class="rules" id="rule2-3">
-							<li>Two cats. Each moves one step every round.</li>
-							<li>You can click two dots in a round.</li>
-							<li>Cats never stay in the same dot.</li>
-						</ul>
-					</div>
-				</td>
-			</tr>
-		</table>
-		<h2 id="group3">Puzzels</h2>
-		<table>
-			<tr style="vertical-align: top">
-				<td>
-					<div>
-						<div class="game">
-							<a href="coins.html" target="_blank">
-								<img src="images/coins.png" />
-								<p id="name3-1">Coins</p>
-							</a>
-						</div>
-						<p class="ruleButton">Rule -></p>
-						<ul class="rules" id="rule3-1">
-							<li>You choose one of 12 coins. It has different weight with the others.</li>
-							<li>Answer 3 questions. The computer will guess your choice.</li>
-						</ul>
-					</div>
-				</td>
-			</tr>
-		</table>
-        <h2 id="group4">Mini Games</h2>
-		<table>
-			<tr style="vertical-align: top">
-				<td>
-					<div>
-						<div class="game">
-							<a href="memory.html" target="_blank">
-								<img src="images/memory.png" />
-								<p id="name4-1">Memory Game (Hard)</p>
-							</a>
-						</div>
-						<p class="ruleButton">Rule -></p>
-						<ul class="rules" id="rule4-1">
-							<li>Match two grids with the same picture and color.</li>
-							<li>Matching will not happen before half of the grids are explored.</li>
-						</ul>
-					</div>
-				</td>
-			</tr>
-		</table>
+        <h1 id="title" class="row">Austerity Games<br>
+            <small id="greeting">Here shows how games look like when visual designers are absent.</small>
+        </h1>
+        
+        <div class="row">
+            <h2 id="group1">Gomoku</h2>
+            <div class="col-md-3 col-sm-4 col-xs-6">
+                <a class="thumbnail" href="gomoku.html">
+                    <img src="images/gomoku.png" class="game-pic" alt="gomoku pic">
+                    <div class="caption">
+                        <h4 id="name1-1" class="text-center">Gomoku original</h4>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="gomoku-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Rule <span class="caret"></span>
+                            </button>
+                            <div id="rule1-1" class="dropdown-menu" aria-labelledby="gomoku-rule">
+                                <p>The board is 15x15. Need two players. <br>No disallowed moves applied to Black.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <hr>
+        
+        <div class="row">
+            <h2 id="group2">Catch Cat</h2>
+            <div class="col-md-3 col-sm-4 col-xs-6">
+                <a class="thumbnail" href="catchcat.html">
+                    <img src="images/cat-original.png" class="game-pic" alt="catch cat pic">
+                    <div class="caption">
+                        <h4 id="name2-1" class="text-center">Catch Cat Original</h4>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="catchcat-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Rule <span class="caret"></span>
+                            </button>
+                            <div id="rule2-1" class="dropdown-menu" aria-labelledby="catchcat-rule">
+                                <p>Click on dots to block the cat.<br>
+                                You lose when cat reach the edge.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6">
+                <a class="thumbnail" href="catchcatpoo.html">
+                    <img src="images/cat-poo.png" class="game-pic" alt="catch smelly cat pic">
+                    <div class="caption">
+                        <h4 id="name2-2" class="text-center">Catch Smelly Cat</h4>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="catchcatpoo-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Rule <span class="caret"></span>
+                            </button>
+                            <div id="rule2-2" class="dropdown-menu" aria-labelledby="catchcatpoo-rule">
+                                <p>Some of the dots contain cat poop. Don't click them.<br>
+                                Cat avoids poop dots.<br>
+                                Number on dot shows how many dots around it contain poop.<br>
+                                Right click to mark or unmark a dot.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6">
+                <a class="thumbnail" href="catch2cat.html">
+                    <img src="images/cat-two.png" class="game-pic" alt="catch two cat pic">
+                    <div class="caption">
+                        <h4 id="name2-3" class="text-center">Catch Two Cats</h4>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="catch2cat-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Rule <span class="caret"></span>
+                            </button>
+                            <div id="rule2-3" class="dropdown-menu" aria-labelledby="catch2cat-rule">
+                                <p>Two cats. Each moves one step every round.<br>
+                                You can click two dots in a round.<br>
+                                Cats never stay in the same dot.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <hr>
+        
+        <div class="row">
+            <h2 id="group3">Puzzels</h2>
+            <div class="col-md-3 col-sm-4 col-xs-6">
+                <a class="thumbnail" href="coins.html">
+                    <img src="images/coins.png" class="game-pic" alt="coins pic">
+                    <div class="caption">
+                        <h4 id="name3-1" class="text-center">Coins</h4>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="coins-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Rule <span class="caret"></span>
+                            </button>
+                            <div id="rule3-1" class="dropdown-menu" aria-labelledby="coins-rule">
+                                <p>You choose one of 12 coins. It has different weight with the others.<br>
+                                Answer 3 questions. The computer will guess your choice.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <hr>
+        
+        <div class="row">
+            <h2 id="group4">Mini Games</h2>
+            <div class="col-md-3 col-sm-4 col-xs-6">
+                <a class="thumbnail" href="memory.html">
+                    <img src="images/memory.png" class="game-pic" alt="memory pic">
+                    <div class="caption">
+                        <h4 id="name4-1" class="text-center">Memory Game (Hard)</h4>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="memory-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Rule <span class="caret"></span>
+                            </button>
+                            <div id="rule4-1" class="dropdown-menu" aria-labelledby="memory-rule">
+                                <p>Match two grids with the same picture and color.<br>
+                                Matching will not happen before half of the grids are explored.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
         <footer>
             <p>&copy; Copyright by Geng</p>
         </footer>
-        
-		<script type="text/javascript">
-			$('.rules').hide();
-			$('.ruleButton').on("click", function(e) {
-				//e.preventDefault();
-				$(this).next($('.rules')).toggle();
-			});
-			var lang = navigator.language;
-			if (lang.slice(0, 2) === "zh") {
-				$('#webTitle').text("小游戏");
-				$('#title').text("朴素游戏");
-				$('#greeting').text("这里展示了设计师缺席的情况下做出的游戏是什么样子。");
+    </div>
+    <script type="text/javascript">
+		var lang = navigator.language;
+		if (lang.slice(0, 2) === "zh") {
+			$('#webTitle').text("小游戏");
+			$('#title').text("朴素游戏");
+			$('#greeting').text("这里展示了设计师缺席的情况下做出的游戏是什么样子。");
+			$('#group1').text("五子棋");
+			$('#name1-1').text("五子棋基本版");
+			$('#rule1-1').html("<p>15x15棋盘。双人游戏。黑方无禁手。</p>");
+			$('#group2').text("“抓猫”系列");
+			$('#name2-1').text("“抓猫”原版");
+			$('#rule2-1').html("<p>点击格子将猫围住。<br>猫跑到边缘则游戏结束。</p>");
+			$('#name2-2').text("“抓猫”扫雷版");
+			$('#rule2-2').html("<p>部分格子埋着猫屎。踩中猫屎则输。<br>猫不会走进有猫屎的格子。<br>数字显示相邻格子中有多少猫屎。<br>使用右键标记和解除标记疑似猫屎。</p>");
+			$('#name2-3').text("“抓猫”双猫版");
+			$('#rule2-3').html("<p>共有两只猫，每回合各走一步。<br>每回合可以点开两格。<br>猫不会走进相同的格子。</p>");
+			$('#group3').text("谜题");
+			$('#name3-1').text("称硬币");
+			$('#rule3-1').html("<p>从12枚硬币中指定一枚重量不同的。<br>正确回答三轮问题，计算机将猜出你开始时的选择。</p>");
+            $('#group4').text("益智游戏");
+			$('#name4-1').text("记忆游戏超难版");
+			$('#rule4-1').html("<p>需连续点开两个图案及颜色相同的格子。<br>点击半数格子前不会出现相同图案及颜色。</p>");
+			$('.dropdown-toggle').html('规则 <span class="caret"></span>');
+		}
+    </script>
+</body>
 
-				$('#group1').text("五子棋");
-				$('#name1-1').text("五子棋基本版");
-				$('#rule1-1').html("<li>15x15棋盘。双人游戏。黑方无禁手。</li>");
-
-				$('#group2').text("“抓猫”系列");
-				$('#name2-1').text("“抓猫”原版");
-				$('#name2-2').text("“抓猫”扫雷版");
-				$('#rule2-2').html("<li>部分格子埋着猫屎。踩中猫屎则输。</li><li>猫不会走进有猫屎的格子。</li><li>数字显示相邻格子中有多少猫屎。</li><li>使用右键标记和解除标记疑似猫屎。</li>");
-				$('#name2-3').text("“抓猫”双猫版");
-				$('#rule2-3').html("<li>共有两只猫，每回合各走一步。</li><li>每回合可以点开两格。</li><li>猫不会走进相同的格子。</li>");
-				
-				$('#group3').text("谜题");
-				$('#name3-1').text("称硬币");
-				$('#rule3-1').html("<li>从12枚硬币中指定一枚重量不同的。</li><li>正确回答三轮问题，计算机将猜出你开始时的选择。</li>");
-                
-                $('#group4').text("益智游戏");
-				$('#name4-1').text("记忆游戏超难版");
-				$('#rule4-1').html("<li>需连续点开两个图案及颜色相同的格子。</li><li>点击半数格子前不会出现相同图案及颜色。</li>");
-
-				$('.ruleButton').text("规则 ->");
-			}
-		</script>
-	</body>
 </html>

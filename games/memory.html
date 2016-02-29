@@ -1,46 +1,69 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <title>Memory (Hard)</title>
-        <script type="text/javascript" src="js/jquery.js"></script>
+    <meta name="description" content="gomoku">
+    <meta name="author" content="Geng">
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/memory.css" />
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/memory.js"></script>
     </head>
     <body>
-        <h1 id="gameName">Memory Game (Hard) v0.1</h1>
-        <div id="rule">
-            <ol>
-                <li>Match two grids with the same picture and color.</li>
-                <li>Matching will not happen before half of the grids are explored.</li>
+        <div class="container">
+            <header>
+                <ul class="nav nav-tabs">
+                <li role="presentation"><a href="../index.html">HOME</a></li>
+                <li role="presentation"><a href="../cv.html">My CV</a></li>
+                <li role="presentation" class="active"><a href="index.html">GAME</a></li>
+            </ul>
+            <br>
+            <ol class="breadcrumb">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html">Game</a></li>
+                <li class="active">Memory</li>
             </ol>
-        </div>
-        <div id="board">
-        	
-        </div>
-        <div id="panel">
-            <p id="steps">Step: <span id="count">0</span></p>
-        	<button id="b4x4">4 X 4</button>
-            <button id="b8x4">8 X 4</button>
-            <button id="b8x8">8 X 8</button>
+            </header>
+            <div class="text-center">
+            <h1 id="gameName">Memory Game (Hard) <small>v0.1</small></h1>
+            <div id="rule">
+                <ol>
+                    <li>Match two grids with the same picture and color.</li>
+                    <li>Matching will not happen before half of the grids are explored.</li>
+                </ol>
+            </div>
+            <div id="board" class="lead">
+                
+            </div>
+            <div id="panel">
+                <p class="lead"><span id="steps" class="label label-primary">Step: <span id="count">0</span></span></p>
+                <button id="b4x4" class="btn btn-default">4 X 4</button>
+                <button id="b8x4" class="btn btn-default">8 X 4</button>
+                <button id="b8x8" class="btn btn-default">8 X 8</button>
+            </div>
+            </div>
+            <footer>
+                <p>
+                    &copy; Copyright by Geng
+                </p>
+            </footer>
         </div>
         
-        <a href="index.html" id="back">All the games...</a>
-        <footer>
-			<p>
-				&copy; Copyright by Geng
-			</p>
-		</footer>
-        <script type="text/javascript" src="js/memory.js"></script>
         <script type="text/javascript">
 			var lang = navigator.language;
 			if (lang.slice(0, 2) === "zh") {
 				$('#title').text("记忆游戏超难版");
-				$('#gameName').text("记忆游戏超难版 v0.1");
+				$('#gameName').html("记忆游戏超难版 <small>v0.1</small>");
 				$('#steps').html('第<span id="count">0</span>步');
 				$('#rule').html(
                     '<ol><li>需连续点开两个图案及颜色相同的格子。</li><li>点击半数格子前不会出现相同图案及颜色。</li></ol>'
                 );
-				$('#back').text("所有游戏...");
 			}
 		</script>
     </body>

@@ -1,41 +1,76 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Gomoku</title>
-        <script type="text/javascript" src="js/jquery.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/gomoku.css" />
-    </head>
-    <body>
-        <h1 id="gameName">Gomoku v0.12</h1>
-        <p id="rule">Two players take turns. No bans.</p>
-        <div class="field">
-        	
-        </div>
-        <div class="players">
-        	<div class="player" style="float: left"><img src="images/blackpiece.jpg" style="float: left" /><p id="blabel">BLACK</p><p id="bwin"></p></div>
-        	<div class="player" style="float: right"><img src="images/whitepiece.jpg" style="float: right" /><p id="wlabel">WHITE</p><p id="wwin"></p></div>
-        	<button id="reset">RESET</button>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Gomoku</title>
+    <meta name="description" content="gomoku">
+    <meta name="author" content="Geng">
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/gomoku.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/gomoku.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <ul class="nav nav-tabs">
+                <li role="presentation"><a href="../index.html">HOME</a></li>
+                <li role="presentation"><a href="../cv.html">My CV</a></li>
+                <li role="presentation" class="active"><a href="index.html">GAME</a></li>
+            </ul>
+            <br>
+            <ol class="breadcrumb">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html">Game</a></li>
+                <li class="active">Gomoku</li>
+            </ol>
+        </header>
+        
+        <div class="text-center">
+            <h1><span id="gameName">Gomoku</span> <small>v0.12<br>
+            <span id="rule">Two players take turns. No bans.</span></small></h1>
+            <div class="field">
+
+            </div>
+            <div class="players">
+                <div class="player" style="float: left"><img src="images/blackpiece.jpg" style="float: left" />
+                    <p id="blabel">BLACK</p>
+                    <p id="bwin"></p>
+                </div>
+                <div class="player" style="float: right"><img src="images/whitepiece.jpg" style="float: right" />
+                    <p id="wlabel">WHITE</p>
+                    <p id="wwin"></p>
+                </div>
+                <button id="reset" class="btn btn-default">RESET</button>
+            </div>
         </div>
         
-        <a href="index.html" id="back">All the games...</a>
         <footer>
-			<p>
-				&copy; Copyright by Geng
-			</p>
-		</footer>
-        <script type="text/javascript">
-            var lang = navigator.language;
-			if (lang.slice(0, 2) === "zh") {
-				$('#title').text("五子棋");
-				$('#gameName').text("五子棋 v0.12");
-				$('#blabel').html('黑方');
-				$('#wlabel').html('白方');
-				$('#rule').html('双人游戏，无禁手。');
-                $('#reset').text('重新开始');
-				$('#back').text('所有游戏...');
-			}
-        </script>
-        <script type="text/javascript" src="js/gomoku.js"></script>
-    </body>
+            <p>
+                &copy; Copyright by Geng
+            </p>
+        </footer>
+    </div>
+    
+    <script type="text/javascript">
+        var lang = navigator.language;
+		if (lang.slice(0, 2) === "zh") {
+			$('#title').text("五子棋");
+			$('#gameName').text("五子棋 v0.12");
+			$('#blabel').html('黑方');
+			$('#wlabel').html('白方');
+			$('#rule').text('双人游戏，无禁手。');
+            $('#reset').text('重新开始');
+		}
+    </script>
+    
+</body>
+
 </html>

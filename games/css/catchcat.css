@@ -1,8 +1,3 @@
-body {
-	text-align: center;
-	font-family: 微软雅黑;
-}
-
 #cat {
 	/* float和margin阻止#cat占据宽度和高度 */
 	float: right;
@@ -64,4 +59,10 @@ body {
 */
 .result {
 	color: red;
+}
+
+#rule {
+	max-width: 400px;
+	margin: 0 auto;
+	text-align: left;
 }

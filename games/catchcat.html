@@ -1,48 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
 
-		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
-		Remove this if you use the .htaccess -->
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<title id="title">Catch the Cat original</title>
-		<meta name="description" content="">
-		<meta name="author" content="Geng">
+    <title id="title">Catch Cat Original</title>
+    <meta name="author" content="Geng">
+    <meta name="description" content="Catch Two Cats">
 
-		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/catchcat.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/catchcat.js"></script>
+</head>
 
-		<link rel="stylesheet" type="text/css" href="css/catchcat.css" />
-		<script type="text/javascript" src="js/jquery.js"></script>
-		<script type="text/javascript" src="js/catchcat.js"></script>
-	</head>
+<body>
+    <div class="container">
+        <header>
+            <ul class="nav nav-tabs">
+                <li role="presentation"><a href="../index.html">HOME</a></li>
+                <li role="presentation"><a href="../cv.html">My CV</a></li>
+                <li role="presentation" class="active"><a href="index.html">GAME</a></li>
+            </ul>
+            <br>
+            <ol class="breadcrumb">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html">Game</a></li>
+                <li class="active">Catch Cat</li>
+            </ol>
+        </header>
 
-	<body>
-		<div>
-			<header>
-				<h1 id="gameName">Catch the Cat!</h1>
-			</header>
-
-			<div class="field" style="margin: auto">
-			</div>
-			<div><p class="result"></p></div>
-			<button id="reset">RESET</button>
-			<a href="index.html" id="back">All the games...</a>
-			<footer>
-				<p>
-					&copy; Copyright  by Geng
-				</p>
-			</footer>
-		</div>
-		<script type="text/javascript">
-			var lang = navigator.language;
+        <div class="text-center">
+            <h1 id="gameName">Catch the Cat!</h1>
+            <div class="field">
+            </div>
+            <div>
+                <p class="result"></p>
+            </div>
+            <button id="reset" class="btn btn-default">RESET</button>
+            <div id="rule">
+                <p>Rule:</p>
+                <ul>
+                    <li>Click on dots to block the cat.</li>
+                    <li>You lose when cat reach the edge.</li>
+                </ul>
+            </div>
+        </div>
+        <footer>
+            <p>
+                &copy; Copyright by Geng
+            </p>
+        </footer>
+    </div>
+    
+    <script type="text/javascript">
+        var lang = navigator.language;
 			if (lang.slice(0, 2) === "zh") {
 				$('#title').text("抓猫 - 普通版");
 				$('#gameName').text("抓住这只猫！");
 				$('#reset').text("重新开始");
-				$('#back').text("所有抓猫游戏...");
+                $('#rule').html("<p>规则：</p><ul><li>点击格子将猫围住。</li><li>猫跑到边缘则游戏结束。</li></ul>");
 			}
-		</script>
-	</body>
+    </script>
+</body>
+
 </html>

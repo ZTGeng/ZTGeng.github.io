@@ -2,7 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Geng CV</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -32,10 +33,14 @@
 </head>
 
 <body>
-    <header>
-        
-    </header>
     <div class="container">
+        <header>
+            <ul class="nav nav-tabs">
+                <li role="presentation"><a href="index.html">HOME</a></li>
+                <li role="presentation" class="active"><a href="#">My CV</a></li>
+                <li role="presentation"><a href="games/index.html">GAME</a></li>
+            </ul>
+        </header>
         <div id="info" class="row">
             <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4" style="min-width: 200px;">
                 <h1><img id="photo" src="images/photo.jpg" alt="My Photo"></h1>
@@ -293,11 +298,11 @@
                 <span class="label label-default">C# in Unity3D</span> Experienced in coding.
             </div>
         </div>
-    </div>
     
-    <footer>
-        <p>&copy; Copyright by Geng</p>
-    </footer>
+        <footer>
+            <p>&copy; Copyright by Geng</p>
+        </footer>
+    </div>
     
     <script>
         $(".collapse-btn").click(function() {

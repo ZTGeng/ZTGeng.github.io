@@ -1,15 +1,10 @@
-body {
-	text-align: center;
-	font-family: 微软雅黑;
+#round-num {
+    color: #337ab7;;
+    background-color: #fff;
 }
 
-button {
-	margin: 0 20px;
-	width: 100px;
-}
-
-span {
-	color: #F00;
+#round-box {
+    width: 150px;
 }
 
 #rules {
@@ -22,18 +17,19 @@ span {
 	margin: 0 auto;
 	padding: 10px 0;
 	width: 570px;
-	height: 230px;
-	background-image: url("../images/balance.gif");
+	height: 340px;
+	background-image: url("../images/balance.jpg");
 	background-repeat: no-repeat;
 	background-position: center;
 }
 #left_pan {
-	padding: 20px 20px;
+	padding: 0 20px;
 	height: 52px;
 	float: left;
 }
 #right_pan {
-	padding: 20px 20px;
+    margin-top: 10px;
+	padding: 0 20px;
 	height: 52px;
 	float: right;
 }
@@ -54,6 +50,9 @@ span {
 	height: 50px;
 	background-color: #FF0;
 }
-.coin p {
+.coin span {
 	color: #F00;
+    line-height: 50px;
+    font-size: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }

@@ -53,18 +53,18 @@ var main = function() {
 	};
 	
 	var nextRound = function() {
-		$('#round_en').text('ROUND ' + (round + 1));
-		$('#round_zh').text('第 ' + (round + 1) + ' 轮');
+		$('#round_en').html('ROUND <span class="badge" id="round-num">' + (round + 1) + '</span>');
+		$('#round_zh').html('第 <span class="badge" id="round-num">' + (round + 1) + '</span> 轮');
 		// enable 3 buttons
 		$('.choice').prop('disabled', false);
 		for (var i = 0; i < 4; i++) {
 			var num = leftNums[round][i];
 			$('#coin' + num).hide();
-			$('#left' + i).html('<p>' + num + '</p>').show();
+			$('#left' + i).html('<span>' + num + '</span>').show();
 			
 			num = rightNums[round][i];
 			$('#coin' + num).hide();
-			$('#right' + i).html('<p>' + num + '</p>').show();
+			$('#right' + i).html('<span>' + num + '</span>').show();
 		}
 	};
 	
@@ -83,8 +83,8 @@ var main = function() {
                 $('#result_en').text('All of the coins are equally heavy.');
                 $('#result_zh').text('所有的硬币重量相同。');
             } else {
-                $('#result_en').html('The Coin #<span id="result_number"></span> is <span id="result_heavier_en"></span> Than the Others!');
-                $('#result_zh').html('第 <span id="result_number"></span> 号硬币比其他硬币较<span id="result_heavier_zh"></span>！');
+                $('#result_en').html('The Coin <span id="result_number" class="label label-danger"></span> is <span id="result_heavier_en" class="label label-danger"></span> Than the Others!');
+                $('#result_zh').html('第 <span id="result_number" class="label label-danger"></span> 号硬币比其他硬币较<span id="result_heavier_zh" class="label label-danger"></span>！');
                 $('#result_number').text(result[0]);
                 $('#result_heavier_en').text(result[1]);
                 $('#result_heavier_zh').text(result[2]);
@@ -94,11 +94,11 @@ var main = function() {
 	};
 	
 	for (var i = 0; i < 4; i++) {
-		$('<div class="coin_place"><div class="coin" id="left' + i + '"><p></p></div></div>').appendTo($('#left_pan'));
-		$('<div class="coin_place"><div class="coin" id="right' + i + '"><p></p></div></div>').appendTo($('#right_pan'));
+		$('<div class="coin_place"><div class="coin" id="left' + i + '"><span></span></div></div>').appendTo($('#left_pan'));
+		$('<div class="coin_place"><div class="coin" id="right' + i + '"><span></span></div></div>').appendTo($('#right_pan'));
 	}
 	for (var i = 1; i <= 12; i++) {
-		$('<div class="coin_place"><div class="coin" id="coin' + i + '"><p>' + i + '</p></div></div>').appendTo($('#twelve_coins'));
+		$('<div class="coin_place"><div class="coin" id="coin' + i + '"><span>' + i + '</span></div></div>').appendTo($('#twelve_coins'));
 	}
 	$('#start').click(function() {
 		// disable self
