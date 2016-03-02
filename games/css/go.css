@@ -1,0 +1,47 @@
+﻿body {
+	font-family: Arial, 隶书, Helvetica, sans-serif;
+}
+
+
+#field {
+	margin: 0 auto;
+	max-width: 500px;
+	max-height: 500px;
+	background: url("../images/field19.PNG");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.col {
+	vertical-align: top;
+	display: inline-block;
+}
+
+.grid {
+	width: 20px;
+	height: 20px;
+	margin: 3px 2px;
+	/*border: 1px solid black;*/
+	border-radius: 100%;
+}
+
+.black {
+	background: rgba(0, 0, 0, 1);
+}
+
+.white {
+	background: rgba(255, 255, 255, 1);
+}
+
+.preBlack {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.preWhite {
+	background: rgba(255, 255, 255, 0.5);
+}
+
+.inactive {
+	opacity: 0.5;
+}
+

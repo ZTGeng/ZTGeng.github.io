@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Go</title>
+    <meta name="description" content="gomoku">
+    <meta name="author" content="Geng">
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/go.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/go.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <ul class="nav nav-tabs">
+                <li role="presentation"><a href="../index.html">HOME</a></li>
+                <li role="presentation"><a href="../cv.html">My CV</a></li>
+                <li role="presentation" class="active"><a href="index.html">GAME</a></li>
+            </ul>
+            <br>
+            <ol class="breadcrumb">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html">Game</a></li>
+                <li class="active">Go</li>
+            </ol>
+        </header>
+        
+        <div class="text-center">
+            <h1><span id="gameName">Go</span> <small>v0.10</small></h1>
+            <div id="field">
+
+            </div>
+            <div class="media">
+                <div id="bbox" class="col-sm-3 col-sm-offset-3">
+                    <div class="media-left media-middle">
+                        <img src="images/blackpiece.jpg">
+                    </div>
+                    <div class="media-body">
+                        <h3 id="blabel" class="media-heading">BLACK</h3>
+                        <h1><span id="bnum" class="label label-primary"></span></h1>
+                    </div>
+                </div>
+                    
+                <div id="wbox" class="col-sm-3">
+                    <div class="media-body">
+                        <h3 id="wlabel" class="media-heading">WHITE</h3>
+                        <h1><span id="wnum" class="label label-primary"></span></h1>
+                    </div>
+                    <div class="media-right media-middle">
+                        <img src="images/whitepiece.jpg">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="panel penal-default">
+                <button id="reset" class="btn btn-default">RESET</button>
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default active"  id="alternately">
+                        <input type="radio" name="color-lock" autocomplete="off" checked><span id="alter-span">Alternately</span>
+                    </label>
+                    <label class="btn btn-default" id="black-only">
+                        <input type="radio" name="color-lock" autocomplete="off"><span id="black-span">Black Only</span>
+                    </label>
+                    <label class="btn btn-default" id="white-only">
+                        <input type="radio" name="color-lock" autocomplete="off"><span id="white-span">White Only</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>
+                &copy; Copyright by Geng
+            </p>
+        </footer>
+    </div>
+    
+    <script type="text/javascript">
+        var lang = navigator.language;
+		if (lang.slice(0, 2) === "zh") {
+			$('#title').text("围棋");
+			$('#gameName').text("围棋");
+			$('#blabel').text('黑方');
+			$('#wlabel').text('白方');
+			$('#alter-span').text('交替落子');
+			$('#black-span').text('黑方布子');
+			$('#white-span').text('白方布子');
+            $('#reset').text('重新开始');
+		}
+    </script>
+    
+</body>
+
+</html>
