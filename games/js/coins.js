@@ -4,9 +4,9 @@
  */
 
 var dataList;
-var leftNums = [[1, 2, 3, 4], [2, 8, 9, 12], [1, 6, 7, 9]];
-var rightNums = [[5, 6, 7, 8], [3, 5, 7, 10], [5, 8, 11, 12]];
-var resMap = {
+var LEFTNUMS = [[1, 2, 3, 4], [2, 8, 9, 12], [1, 6, 7, 9]];
+var RIGHTNUMS = [[5, 6, 7, 8], [3, 5, 7, 10], [5, 8, 11, 12]];
+var RESMAP = {
     "lll": [5, "Lighter", "轻"],
     "llr": [7, "Heavier", "重"],
     "lls": [2, "Heavier", "重"],
@@ -35,11 +35,12 @@ var resMap = {
     "ssr": [11, "Heavier", "重"],
     "sss": [0, "", ""]
 };
+var leftNums, rightNums, resMap;
 
 var prepareData = function () {
     var client = new XMLHttpRequest();
     client.open('GET', 'coins.txt');
-    console.log("try get data");
+    // console.log("try get data");
     client.onreadystatechange = function () {
         if (client.responseText != '') {
             dataList = client.responseText.split("\n");
@@ -68,7 +69,7 @@ var main = function () {
     
     var resetData = function() {
         if (dataList) {
-            console.log("change data");
+            // console.log("change data");
             var str = dataList[Math.floor((Math.random() * dataList.length))];
             var list = str.split(" ");
             var index = 0;
@@ -110,6 +111,7 @@ var main = function () {
             }
             if (neg !== 2) {
                 console.log("Data error!!!");
+                
             }
         }
     };
@@ -132,7 +134,7 @@ var main = function () {
 
     var nextOrEnd = function () {
         if (round < 2) {
-            console.log("reset coins");
+            // console.log("reset coins");
             resetCoins();
             round++;
             nextRound();
@@ -144,6 +146,9 @@ var main = function () {
             if (result[0] === 0) {
                 $('#result_en').text('All of the coins are equally heavy.');
                 $('#result_zh').text('所有的硬币重量相同。');
+            } else if (result[0] === -1) {
+                $('#result_en').text('It seems you didn\'t click on the correct button(s). Please try again.');
+                $('#result_zh').text('您可能点击了错误的按钮。请重试。');
             } else {
                 $('#result_en').html('The Coin <span id="result_number" class="label label-danger"></span> is <span id="result_heavier_en" class="label label-danger"></span> Than the Others!');
                 $('#result_zh').html('第 <span id="result_number" class="label label-danger"></span> 号硬币比其他硬币较<span id="result_heavier_zh" class="label label-danger"></span>！');
@@ -156,6 +161,9 @@ var main = function () {
     };
     
     prepareData();
+    leftNums = LEFTNUMS.slice(0);
+    rightNums = RIGHTNUMS.slice(0);
+    resMap = $.extend({}, RESMAP);
 
     for (var i = 0; i < 4; i++) {
         $('<div class="coin_place"><div class="coin" id="left' + i + '"><span></span></div></div>').appendTo($('#left_pan'));
@@ -165,6 +173,7 @@ var main = function () {
         $('<div class="coin_place"><div class="coin" id="coin' + i + '"><span>' + i + '</span></div></div>').appendTo($('#twelve_coins'));
     }
     $('#start').click(function () {
+        resetData();
         // disable self
         $('#start').prop('disabled', true);
         nextRound();
@@ -175,7 +184,6 @@ var main = function () {
         // enable start
         $('#start').prop('disabled', false);
         resetCoins();
-        resetData();
         round = 0;
         choice = [];
         $('#result').hide();
