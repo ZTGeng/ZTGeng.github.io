@@ -38,16 +38,14 @@ var resMap = {
 
 var prepareData = function () {
     var client = new XMLHttpRequest();
-    client.open('GET', 'games/coins.txt');
+    client.open('GET', 'coins.txt');
     console.log("try get data");
     client.onreadystatechange = function () {
         if (client.responseText != '') {
             dataList = client.responseText.split("\n");
-        } else {
-            console.log("Didn't get!!");
         }
     };
-    // var
+    client.send();
 };
 
 /**
