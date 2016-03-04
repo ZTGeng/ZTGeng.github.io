@@ -38,7 +38,7 @@ var resMap = {
 
 var prepareData = function () {
     var client = new XMLHttpRequest();
-    client.open('GET', 'coins.txt');
+    client.open('GET', 'games/coins.txt');
     console.log("try get data");
     client.onreadystatechange = function () {
         if (client.responseText != '') {
