@@ -1,5 +1,5 @@
 /**
- * @version 0.2
+ * @version 0.3
  * @author Geng
  */
 
@@ -56,6 +56,17 @@ var main = function () {
 
     var round = 0;
     var choice = [];
+    var mask = [1,2,3,4,5,6,7,8,9,10,11,12];
+    
+    var shuffle = function(a) {
+        var i, j, temp;
+        for (i = a.length; i > 0; i--) {
+            j = Math.floor(Math.random() * i);
+            temp = a[i - 1];
+            a[i - 1] = a[j];
+            a[j] = temp;
+        }
+    }
     
     var resetCoins = function () {
         for (var i = 0; i < 4; i++) {
@@ -123,12 +134,12 @@ var main = function () {
         $('.choice').prop('disabled', false);
         for (var i = 0; i < 4; i++) {
             var num = leftNums[round][i];
-            $('#coin' + num).hide();
-            $('#left' + i).html('<span>' + num + '</span>').show();
+            $('#coin' + mask[num - 1]).hide();
+            $('#left' + i).html('<span>' + mask[num - 1] + '</span>').show();
 
             num = rightNums[round][i];
-            $('#coin' + num).hide();
-            $('#right' + i).html('<span>' + num + '</span>').show();
+            $('#coin' + mask[num - 1]).hide();
+            $('#right' + i).html('<span>' + mask[num - 1] + '</span>').show();
         }
     };
 
@@ -152,7 +163,7 @@ var main = function () {
             } else {
                 $('#result_en').html('The Coin <span id="result_number" class="label label-danger"></span> is <span id="result_heavier_en" class="label label-danger"></span> Than the Others!');
                 $('#result_zh').html('第 <span id="result_number" class="label label-danger"></span> 号硬币比其他硬币较<span id="result_heavier_zh" class="label label-danger"></span>！');
-                $('#result_number').text(result[0]);
+                $('#result_number').text(mask[result[0] - 1]);
                 $('#result_heavier_en').text(result[1]);
                 $('#result_heavier_zh').text(result[2]);
             }
@@ -184,6 +195,8 @@ var main = function () {
         // enable start
         $('#start').prop('disabled', false);
         resetCoins();
+        shuffle(mask);
+        // console.log(mask);
         round = 0;
         choice = [];
         $('#result').hide();
