@@ -128,8 +128,8 @@ var main = function () {
     };
 
     var nextRound = function () {
-        $('#round_en').html('ROUND <span class="badge" id="round-num">' + (round + 1) + '</span>');
-        $('#round_zh').html('第 <span class="badge" id="round-num">' + (round + 1) + '</span> 轮');
+        $('#round-en').html('ROUND <span class="badge" id="round-num">' + (round + 1) + '</span>');
+        $('#round-zh').html('第 <span class="badge" id="round-num">' + (round + 1) + '</span> 轮');
         // enable 3 buttons
         $('.choice').prop('disabled', false);
         for (var i = 0; i < 4; i++) {
@@ -155,17 +155,17 @@ var main = function () {
             var resString = choice[0] + choice[1] + choice[2];
             var result = resMap[resString];
             if (result[0] === 0) {
-                $('#result_en').text('All of the coins are equally heavy.');
-                $('#result_zh').text('所有的硬币重量相同。');
+                $('#result-en').text('All of the coins are equally heavy.');
+                $('#result-zh').text('所有的硬币重量相同。');
             } else if (result[0] === -1) {
-                $('#result_en').text('It seems you didn\'t click on the correct button(s). Please try again.');
-                $('#result_zh').text('您可能点击了错误的按钮。请重试。');
+                $('#result-en').text('It seems you didn\'t click on the correct button(s). Please try again.');
+                $('#result-zh').text('您可能点击了错误的按钮。请重试。');
             } else {
-                $('#result_en').html('The Coin <span id="result_number" class="label label-danger"></span> is <span id="result_heavier_en" class="label label-danger"></span> Than the Others!');
-                $('#result_zh').html('第 <span id="result_number" class="label label-danger"></span> 号硬币比其他硬币较<span id="result_heavier_zh" class="label label-danger"></span>！');
-                $('#result_number').text(mask[result[0] - 1]);
-                $('#result_heavier_en').text(result[1]);
-                $('#result_heavier_zh').text(result[2]);
+                $('#result-en').html('The Coin <span id="result-number" class="label label-danger"></span> is <span id="result-heavier-en" class="label label-danger"></span> Than the Others!');
+                $('#result-zh').html('第 <span id="result-number" class="label label-danger"></span> 号硬币比其他硬币较<span id="result-heavier-zh" class="label label-danger"></span>！');
+                $('#result-number').text(mask[result[0] - 1]);
+                $('#result-heavier-en').text(result[1]);
+                $('#result-heavier-zh').text(result[2]);
             }
             $('#result').show();
         }
@@ -177,11 +177,11 @@ var main = function () {
     resMap = $.extend({}, RESMAP);
 
     for (var i = 0; i < 4; i++) {
-        $('<div class="coin_place"><div class="coin" id="left' + i + '"><span></span></div></div>').appendTo($('#left_pan'));
-        $('<div class="coin_place"><div class="coin" id="right' + i + '"><span></span></div></div>').appendTo($('#right_pan'));
+        $('<div class="coin-place"><div class="coin" id="left' + i + '"><span></span></div></div>').appendTo($('#left-pan'));
+        $('<div class="coin-place"><div class="coin" id="right' + i + '"><span></span></div></div>').appendTo($('#right-pan'));
     }
     for (var i = 1; i <= 12; i++) {
-        $('<div class="coin_place"><div class="coin" id="coin' + i + '"><span>' + i + '</span></div></div>').appendTo($('#twelve_coins'));
+        $('<div class="coin-place"><div class="coin" id="coin' + i + '"><span>' + i + '</span></div></div>').appendTo($('#twelve-coins'));
     }
     $('#start').click(function () {
         resetData();
@@ -200,18 +200,18 @@ var main = function () {
         round = 0;
         choice = [];
         $('#result').hide();
-        $('#round_en').text('');
-        $('#round_zh').text('');
+        $('#round-en').text('');
+        $('#round-zh').text('');
     });
-    $('#left_heavier').click(function () {
+    $('#left-heavier').click(function () {
         choice[round] = 'l';
         nextOrEnd();
     });
-    $('#same_heavy').click(function () {
+    $('#same-heavy').click(function () {
         choice[round] = 's';
         nextOrEnd();
     });
-    $('#right_heavier').click(function () {
+    $('#right-heavier').click(function () {
         choice[round] = 'r';
         nextOrEnd();
     });

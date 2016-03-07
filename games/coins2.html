@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title id="title">Weight the Coins</title>
+    <meta name="description" content="">
+    <meta name="author" content="Geng">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/coins.css" />
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/coins2.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <ul class="nav nav-tabs">
+                <li role="presentation"><a href="../index.html">HOME</a></li>
+                <li role="presentation"><a href="../cv.html">My CV</a></li>
+                <li role="presentation" class="active"><a href="index.html">GAME</a></li>
+            </ul>
+            <br>
+            <ol class="breadcrumb">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html">Game</a></li>
+                <li class="active">Weight the Coins</li>
+            </ol>
+        </header>
+
+        <div class="text-center">
+            <h1 id="gameName">Weight the Coins</h1>
+        
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <button id="reset" class="btn btn-default">RESET</button>
+                    </div>
+                    <span id="tip1">Drag Coins to Pans. Click: </span>
+                    <button class="btn btn-primary" id="weight"> Weight </button>
+                    <button class="btn btn-primary" id="clear"> Clear </button>
+                    <span id="tip2">You can Weight 3 Times.</span>
+                    <div class="pull-right" id="round-box">
+                        <p id="round" class="lead"><span id="round-text" class="label label-primary">
+                            Round Left <span class="badge" id="round-num">3</span>
+                        </span></p>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="well text-left">
+                        <ul id="output-en" class="list-unstyled"></ul>
+                        <ul id="output-zh" class="list-unstyled"></ul>
+                    </div>
+                    <div class="col-sm-3 col-sm-offset-2">
+                        <div class="input-group">
+                            <span id="answer1" class="input-group-addon">The Coin </span>
+                            <select id="coin-num" class="form-control"></select>
+                            <span id="answer2" class="input-group-addon"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span id="answer3" class="input-group-addon"> is </span>
+                                <button id="heavy_light" type="button" class="btn btn-primary form-control heavier" aria-pressed="false" autocomplete="off"
+                                    data-heavier-text="Heavier" data-lighter-text="Lighter">
+                                    Heavier
+                                </button>
+                            <span id="answer4" class="input-group-addon"> than the Others!</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <button id="ok" class="btn btn-primary"> OK </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="field">
+                <div id="balance">
+                    <div id="left-pan"></div>
+                    <div id="right-pan"></div>
+                </div>
+                <div id="twelve-coins">
+
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>
+                &copy; Copyright by Geng
+            </p>
+        </footer>
+    </div>
+    <script type="text/javascript">
+        $("#heavy_light").click(function() {
+            $(this).toggleClass("heavier");
+            if ($(this).hasClass("heavier")) {
+                $(this).button("heavier");
+            } else {
+                $(this).button("lighter");
+            }
+        });
+        var lang = navigator.language;
+			if (lang.slice(0, 2) === "zh") {
+				$('#title').text("称硬币");
+				$('#gameName').text("称硬币");
+				$('#reset').text("重新开始");
+				$('#weight').text("称重");
+				$('#clear').text("重置");
+				$('#tip1').text("将硬币拖动到天平上。点击：");
+				$('#tip2').text("一共可以称重 3 次。");
+				$('#round-text').html('还可称重 <span class="badge" id="round-num">3</span> 次');
+				$('#answer1').text("第");
+				$('#answer2').text("号硬币");
+				$('#answer3').text("比其他硬币");
+				$('#answer4').text("");
+				$('#heavy_light').text(" 更重 ");
+				$('#heavy_light').data("heavier-text", "更重");
+				$('#heavy_light').data("lighter-text", "更轻");
+				$('#ok').text(" 确认 ");
+				$('#output-en').hide();
+			} else {
+				$('#output-zh').hide();
+            }
+    </script>
+</body>
+
+</html>

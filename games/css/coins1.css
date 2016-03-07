@@ -1,0 +1,58 @@
+#round-num {
+    color: #337ab7;;
+    background-color: #fff;
+}
+
+#round-box {
+    width: 150px;
+}
+
+#rules {
+	text-align: left;
+	margin: 0 auto;
+	width: 800px;
+}
+
+#balance {
+	margin: 0 auto;
+	padding: 10px 0;
+	width: 570px;
+	height: 340px;
+	background-image: url("../images/balance.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+#left_pan {
+	padding: 0 20px;
+	height: 52px;
+	float: left;
+}
+#right_pan {
+    margin-top: 10px;
+	padding: 0 20px;
+	height: 52px;
+	float: right;
+}
+
+#twelve_coins {
+	height: 52px;
+	padding: 10px 0;
+}
+.coin_place {
+	display: inline-block;
+	width: 52px;
+}
+.coin {
+	display: inline-block;
+	border-radius: 100%;
+	/*border: solid 1px black;*/
+	width: 50px;
+	height: 50px;
+	background-color: #FF0;
+}
+.coin span {
+	color: #F00;
+    line-height: 50px;
+    font-size: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

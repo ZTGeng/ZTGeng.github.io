@@ -17,41 +17,43 @@
 	margin: 0 auto;
 	padding: 10px 0;
 	width: 570px;
-	height: 340px;
-	background-image: url("../images/balance.jpg");
+	height: 350px;
+	background-image: url("../images/balance-middle.jpg");
 	background-repeat: no-repeat;
 	background-position: center;
 }
-#left_pan {
+#left-pan {
 	padding: 0 20px;
-	height: 52px;
+    width: 250px;
+	height:70px;
 	float: left;
 }
-#right_pan {
-    margin-top: 10px;
+#right-pan {
+    /*margin-top: 10px;*/
 	padding: 0 20px;
-	height: 52px;
+    width: 250px;
+	height: 70px;
 	float: right;
 }
 
-#twelve_coins {
+#twelve-coins {
 	height: 52px;
 	padding: 10px 0;
 }
-.coin_place {
+.coin-place {
 	display: inline-block;
 	width: 52px;
 }
 .coin {
 	display: inline-block;
 	border-radius: 100%;
-	/*border: solid 1px black;*/
+	border: solid 2px #F4A307;
 	width: 50px;
 	height: 50px;
-	background-color: #FF0;
+	background-color: #FABA0E;
 }
 .coin span {
-	color: #F00;
+	color: #FFF1BD;
     line-height: 50px;
     font-size: 30px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
