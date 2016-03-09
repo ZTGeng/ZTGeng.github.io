@@ -7,13 +7,46 @@ var PAUSE = false;
 var COLOR = ["black", "red", "orange", "blue"];
 var PIC = ["&spades;", "&hearts;", "&clubs;", "&diams;", "&#9733;", "&#9835;", "&#9787;", "&#9728;"];
 
-var game = function(width, height) {
-    if ((width + height) % 2 != 0) {
-        alert("Wrong set");
-        return;
+var game = function(num) {
+    // if (num % 2 != 0) {
+    //     alert("Wrong set");
+    //     return;
+    // }
+    var width, height, best, time;
+    switch (num) {
+        case 16:
+            width = 4;
+            height = 4;
+            time = 1000;
+            break;
+        case 32:
+            width = 8;
+            height = 4;
+            time = 1500;
+            break;
+        case 64:
+            width = 8;
+            height = 8;
+            time = 2000;
+            break;
+        default:
+            alert("Wrong set");
+            return;
+    }
+    try {
+        best = localStorage.getItem("best" + num);
+    } catch(err) {
+        console.log(err.message);
+    }
+    if (best) {
+        $('#best-en').text(best + " Unnecessary Opens");
+        $('#best-zh').text(best + " 次不匹配点击");
+    } else {
+        $('#best-en').text("No Record");
+        $('#best-zh').text("无记录");
     }
     var pic1 = [], pic2 = [];
-    for (var i = 0; i < width * height / 2; i++) {
+    for (var i = 0; i < num / 2; i++) {
         pic1.push(i);
         pic2.push(i);
     }
@@ -29,7 +62,8 @@ var game = function(width, height) {
             $('<div class="grid" pic="no"><p>&nbsp;</p></div>').appendTo(col);
         }
     }
-    var count = 0, n = 0;
+    var count = - Math.ceil(num / 4), n = 0;
+    $('#count').text(0);
     PAUSE = false;
     board.off().on('click', '.grid', function() {
         //if (PAUSE) { return; }
@@ -50,10 +84,12 @@ var game = function(width, height) {
             lastOpen = grid;
             return;
         }
-        count++;
-        $('#count').html(count);
         if (lastOpen.attr('pic') !== grid.attr('pic')) {
-            //wait 2 seconds
+            count++;
+            if (count > 0) {
+                $('#count').text(count);
+            }
+            //wait 1 - 2 seconds
             PAUSE = true;
             setTimeout(function(one, another) {
                 PAUSE = false;
@@ -61,10 +97,21 @@ var game = function(width, height) {
                 another.removeClass('open');
                 one.html('<p>&nbsp;</p>');
                 another.html('<p>&nbsp;</p>');
-            }, 2000, lastOpen, grid);
+            }, time, lastOpen, grid);
         } else {
-            //check winning
-            
+            //chexk win
+            if ($('.open').length === num) {
+                //update best record
+                if (!best || best > count) {
+                    $('#best-en').text(count + " Unnecessary Opens");
+                    $('#best-zh').text(count + " 次不匹配点击");
+                    try {
+                        localStorage.setItem("best" + num, count);
+                    } catch(err) {
+                        console.log(err.message);
+                    }
+                }
+            }         
         }
         lastOpen = null;
     });
@@ -91,10 +138,10 @@ function shuffle(array) {
 }
 
 var main = function() {
-    $('#b4x4').click(function() { game(4, 4); });
-    $('#b8x4').click(function() { game(8, 4); });
-    $('#b8x8').click(function() { game(8, 8); });
-    game(4, 4);
+    $('#b4x4').click(function() { game(16); });
+    $('#b8x4').click(function() { game(32); });
+    $('#b8x8').click(function() { game(64); });
+    game(16);
 };
 
 $(document).ready(main);
