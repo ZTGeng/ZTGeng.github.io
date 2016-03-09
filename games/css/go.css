@@ -2,6 +2,11 @@
 	font-family: Arial, 隶书, Helvetica, sans-serif;
 }
 
+#taken {
+    margin: 0 auto;
+    max-width: 480px;
+    text-align: left;
+}
 
 #field {
 	margin: 0 auto;
@@ -18,19 +23,38 @@
 }
 
 .grid {
-	width: 20px;
-	height: 20px;
-	margin: 3px 2px;
+	min-width: 22px;
+	height: 22px;
+	margin: 1px 1px;
 	/*border: 1px solid black;*/
 	border-radius: 100%;
+    color: azure;
+}
+
+.taken-grid {
+	width: 22px;
+	height: 22px;
+	border: 1px solid black;
+	border-radius: 100%;
+    color: azure;
 }
 
 .black {
 	background: rgba(0, 0, 0, 1);
+    text-align: center;
+}
+.black .seq {
+    color: white;
+    font-size: 12px;
 }
 
 .white {
 	background: rgba(255, 255, 255, 1);
+    text-align: center;
+}
+.white .seq {
+    color: black;
+    font-size: 12px;
 }
 
 .preBlack {

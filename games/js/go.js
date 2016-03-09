@@ -4,8 +4,9 @@
  */
 
 var isBlack = true;
-var blackNum = 0, whiteNum = 0;
+var blackNum = 0, whiteNum = 0, seq = 1;
 var lock = false;
+var taken = {};
 var ta = document.createElement('audio');
 ta.setAttribute('src', 'sounds/ta.wav');
 
@@ -64,10 +65,14 @@ var reset = function() {
     
     blackNum = 0;
     whiteNum = 0;
+    seq = 1;
+    taken = {};
+    $('#taken').html('');
 	$('.inactive').removeClass('inactive');
 	$('#wbox').addClass('inactive');
 	$('#bnum, #wnum').text("0");
 	
+    $('.seq').text("");
 	$('.black').removeClass('black');
 	$('.white').removeClass('white');
 	$('#field').off().on('mouseenter', '.grid', function() {
@@ -85,6 +90,7 @@ var reset = function() {
 var place = function() {
 	if ($(this).hasClass('black') || $(this).hasClass('white')) return;
 		
+	ta.play();
 	$(this).removeClass('preBlack preWhite');
 	if (isBlack) {
         $(this).addClass('black');
@@ -93,7 +99,16 @@ var place = function() {
         $(this).addClass('white');
         whiteNum++;
     }
-	ta.play();
+    var seqSpan = $(this).children('.seq');
+    if (seqSpan.text()) {
+        var prevSeq = parseInt(seqSpan.text());
+        var mArray = taken[prevSeq] || [];
+        mArray.push(prevSeq);
+        delete taken[prevSeq];
+        taken[seq] = mArray;
+        printTaken();
+    }
+    seqSpan.text(seq++);
 	
 	var id = $(this).attr('id');
 	var r = parseInt(id.slice(1, 3)), c = parseInt(id.slice(3, 5));
@@ -142,6 +157,30 @@ var place = function() {
     }
 };
 
+var printTaken = function() {
+    //sort taken
+    var keys = [];
+    for (var key in taken) {
+        if (taken.hasOwnProperty(key)) {
+            keys.push(key);
+        }
+    }
+    keys.sort(function(a, b) {
+        return taken[a][0] - taken[b][0];
+    });
+    
+    var str = '';
+    for (i in keys) {
+        var lastSeq = keys[i];
+        for (var i = 0; i < taken[lastSeq].length; i++) {
+            var prevSeq = taken[lastSeq][i];
+            str += '<div class="form-group taken-grid ' + (prevSeq % 2 === 0 ? 'white' : 'black') + '"><span class="seq">' + prevSeq + '</span></div>';
+        }
+        str += ' = <div class="form-group taken-grid ' + (lastSeq % 2 === 0 ? 'white' : 'black') + '"><span class="seq">' + lastSeq + '</span></div>; ';
+    }
+    $('#taken').html(str);
+};
+
 var countLiberty = function(root) {
     var n = 0;
     var checked = {};
@@ -174,10 +213,11 @@ var removeGroup = function(root, removeBlack) {
     for (var i = 0; i < groups[root].length; i++) {
         var num = groups[root][i];
         $("#a" + numToId(num)).removeClass('black white');
+        // $("#a" + numToId(num)).children('.seq').text("");
         group[num] = num;
         size[num] = 1;
     }
-    console.log(groups[root]);
+    // console.log(groups[root]);
     if (removeBlack) blackNum -= groups[root].length;
     else whiteNum -= groups[root].length;
     delete groups[root];
@@ -200,9 +240,10 @@ var main = function() {
 	for (var c = 0; c < 19; c++) {
 		col = $('<div class="col"></div>').appendTo($('#field'));
 		for (var r = 0; r < 19; r++) {
-			$('<div class="grid" id="a' + rcToId(r, c) + '"></div>').appendTo(col);
+			$('<div class="grid" id="a' + rcToId(r, c) + '"><span class="seq"></span></div>').appendTo(col);
 		}
 	}
+    $('.seq').hide();
 	
 	$('#reset').click(reset);
     $('#alternately').click(function() {
@@ -219,6 +260,18 @@ var main = function() {
         isBlack = false;
         $('#wbox').removeClass('inactive');
         $('#bbox').addClass('inactive');
+    });
+    $('#show-number').click(function() {
+        $(this).toggleClass("seq-on");
+        if ($(this).hasClass("seq-on")) {
+            $(this).button("on");
+            $('.seq').show();
+            $('#taken').show();
+        } else {
+            $(this).button("off");
+            $('.seq').hide();
+            $('#taken').hide();
+        }
     });
 	reset();
 };
