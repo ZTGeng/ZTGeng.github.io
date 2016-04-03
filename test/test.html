@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title id="webTitle">“汉语桥”世界大学生中文比赛</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">
+            2016 第十五届“汉语桥”世界大学生中文比赛<br>
+            <small><b>美国北加州地区预赛</b></small>
+        </h1>
+        
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation"><a href="#speech" aria-controls="speech" role="tab" data-toggle="tab">演讲比赛</a></li>
+            <li role="presentation" class="active"><a href="#knowledge" aria-controls="knowledge" role="tab" data-toggle="tab">知识竞赛</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane" id="speech">
+                <h3 class="text-center">演讲比赛参考题目</h3>
+                <h3><ol>
+                    <li>我眼中的中国<br>China in My View</li><br>
+                    <li>我喜欢的一首（中文）歌/一本（中文）书/一部（中国）电影<br>My favorite Chinese Song/book/movie</li><br>
+                    <li>寻梦中国<br>Fulfilling Dreams in China</li><br>
+                    <li>有趣的中国文化<br>Colorful Chinese Culture</li><br>
+                    <li>我学汉语的故事<br>My Chinese Learning Experience</li>
+                </ol></h3>
+            </div>
+            <div role="tabpanel" class="tab-pane active" id="knowledge">
+                <div style="height: 150px">
+                    <br>
+                    <p>请选择题目：</p>
+                    <div>
+                        <div id="id-btns" class="col-sm-10"></div>
+                        <div class="col-sm-2"><button id="reset-btn" class="btn btn-primary">解锁题目</button></div>
+                    </div>
+                </div>
+                <hr>
+                <div>
+                    <div class="col-sm-8 class="jumbotron"">
+                        <h3 id="question" class="text-info"></h3>
+                        <br>
+                        <div id="answer"></div>
+                    </div>
+                    <div class="col-sm-4">
+                        <img id="pic" src="" alt="" style="width: 240px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
