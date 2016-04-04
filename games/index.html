@@ -45,12 +45,12 @@
         </h1>
         
         <div class="row">
-            <h2 id="group1">Gomoku & Go</h2>
+            <h2 id="group1">Go & Chess</h2>
             <div class="col-md-3 col-sm-4 col-xs-6">
                 <a class="thumbnail" href="gomoku.html">
                     <img src="images/gomoku.png" class="game-pic" alt="gomoku pic">
                     <div class="caption">
-                        <h4 id="name1-1" class="text-center">Gomoku original</h4>
+                        <h4 id="name1-1" class="text-center">Gomoku</h4>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="gomoku-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Rule <span class="caret"></span>
@@ -66,13 +66,29 @@
                 <a class="thumbnail" href="go.html">
                     <img src="images/go.png" class="game-pic" alt="go pic">
                     <div class="caption">
-                        <h4 id="name1-2" class="text-center">Go original</h4>
+                        <h4 id="name1-2" class="text-center">Go</h4>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="go-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Rule <span class="caret"></span>
                             </button>
                             <div id="rule1-2" class="dropdown-menu" aria-labelledby="go-rule">
                                 <p>The board is 19x19. Need two players.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6">
+                <a class="thumbnail" href="cchess.html">
+                    <img src="images/cchess.png" class="game-pic" alt="chinese chess pic">
+                    <div class="caption">
+                        <h4 id="name1-3" class="text-center">Chinese Chess</h4>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="cchess-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Rule <span class="caret"></span>
+                            </button>
+                            <div id="rule1-3" class="dropdown-menu" aria-labelledby="cchess-rule">
+                                <p>Need two players. Red first.</p>
                             </div>
                         </div>
                     </div>
@@ -211,11 +227,13 @@
 			$('#webTitle').text("小游戏");
 			$('#title').text("朴素游戏");
 			$('#greeting').text("这里展示了设计师缺席的情况下做出的游戏是什么样子。");
-			$('#group1').text("五子棋与围棋");
-			$('#name1-1').text("五子棋基本版");
+			$('#group1').text("棋类");
+			$('#name1-1').text("五子棋");
 			$('#rule1-1').html("<p>15x15棋盘。双人游戏。黑方无禁手。</p>");
-			$('#name1-2').text("围棋基本版");
+			$('#name1-2').text("围棋");
 			$('#rule1-2').html("<p>19x19棋盘。双人游戏。</p>");
+			$('#name1-3').text("中国象棋");
+			$('#rule1-3').html("<p>双人游戏。红先黑后。</p>");
 			$('#group2').text("“抓猫”系列");
 			$('#name2-1').text("“抓猫”原版");
 			$('#rule2-1').html("<p>点击格子将猫围住。<br>猫跑到边缘则游戏结束。</p>");

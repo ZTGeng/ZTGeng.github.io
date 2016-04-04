@@ -33,6 +33,8 @@ var place = function() {
 	$(this).removeClass('preBlack preWhite');
 	if (isBlack) $(this).addClass('black');
 	else $(this).addClass('white');
+    ta.pause()
+    ta.currentTime = 0;
 	ta.play();
 	
 	var id = +($(this).attr('id').slice(1));

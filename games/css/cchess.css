@@ -1,0 +1,89 @@
+﻿body {
+	font-family: Arial, 隶书, Helvetica, sans-serif;
+}
+
+#field {
+	margin: 0 auto;
+	width: 470px;
+	height: 520px;
+    padding-top: 10px; 
+	background-image: url("../images/ccboard.png");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.field-row {
+	height: 50px;
+}
+
+.field-grid {
+	display: inline-block;
+	width: 44px;
+	height: 44px;
+	margin: 3px;
+	/*border: 1px solid black;*/
+	border-radius: 100%;
+    color: azure;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.field-grid.move-from {
+    width: 54px;
+	height: 54px;
+    margin: -2px;
+    background-size: cover;
+}
+
+.red[role="general"] {
+    background-image: url("../images/red-general.jpg");
+}
+.black[role="general"] {
+    background-image: url("../images/black-general.jpg");
+}
+
+.red[role="guard"] {
+    background-image: url("../images/red-guard.jpg");
+}
+.black[role="guard"] {
+    background-image: url("../images/black-guard.jpg");
+}
+
+.red[role="minister"] {
+    background-image: url("../images/red-minister.jpg");
+}
+.black[role="minister"] {
+    background-image: url("../images/black-minister.jpg");
+}
+
+.red[role="horse"] {
+    background-image: url("../images/red-horse.jpg");
+}
+.black[role="horse"] {
+    background-image: url("../images/black-horse.jpg");
+}
+
+.red[role="chariot"] {
+    background-image: url("../images/red-chariot.jpg");
+}
+.black[role="chariot"] {
+    background-image: url("../images/black-chariot.jpg");
+}
+
+.red[role="cannon"] {
+    background-image: url("../images/red-cannon.jpg");
+}
+.black[role="cannon"] {
+    background-image: url("../images/black-cannon.jpg");
+}
+
+.red[role="soldier"] {
+    background-image: url("../images/red-soldier.jpg");
+}
+.black[role="soldier"] {
+    background-image: url("../images/black-soldier.jpg");
+}
+
+.inactive {
+    opacity: 0.5;
+}
