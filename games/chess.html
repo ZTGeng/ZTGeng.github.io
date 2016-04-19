@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Chinese Chess</title>
+    <title>Chess</title>
     <meta name="description" content="gomoku">
     <meta name="author" content="Geng">
 
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/cchess.css">
+    <link rel="stylesheet" type="text/css" href="css/chess.css">
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/cchess.js"></script>
+    <script type="text/javascript" src="js/chess.js"></script>
 </head>
 
 <body>
@@ -29,23 +29,33 @@
             <ol class="breadcrumb">
                 <li><a href="../index.html">Home</a></li>
                 <li><a href="index.html">Game</a></li>
-                <li class="active">Chinese Chess</li>
+                <li class="active">Chess</li>
             </ol>
         </header>
         
         <div class="text-center">
-            <h1><span id="gameName">Chinese Chess</span> <small>v0.10</small></h1>
+            <h1><span id="gameName">Chess</span> <small>v0.10</small></h1>
             <div id="field">
 
             </div>
+            <br>
+            <div id="promotion" style="display: none;">
+                <label id="pro-label" for="promotion">Promotion: </label>
+                <div id="pro-btns" class="btn-group">
+                    <button class="btn btn-default btn-lg" id="pro-btn-1"></button>
+                    <button class="btn btn-default btn-lg" id="pro-btn-2"></button>
+                    <button class="btn btn-default btn-lg" id="pro-btn-3"></button>
+                    <button class="btn btn-default btn-lg" id="pro-btn-4"></button>
+                </div>
+            </div>
             <div class="media">
-                <div id="rbox" class="col-md-3 col-md-offset-3 col-sm-4 col-sm-offset-2 col-xs-5 col-xs-offset-1">
+                <div id="wbox" class="col-md-3 col-md-offset-3 col-sm-4 col-sm-offset-2 col-xs-5 col-xs-offset-1">
                     <div class="media-left media-middle">
-                        <img src="images/cchess/red.jpg">
+                        <img src="images/chess/white.jpg">
                     </div>
                     <div class="media-body">
-                        <h3 id="rlabel" class="media-heading"> RED </h3>
-                        <h1><span id="rwin" class="label label-danger">WIN</span></h1>
+                        <h3 id="wlabel" class="media-heading">WHITE</h3>
+                        <h1><span id="wwin" class="label label-danger">WIN</span></h1>
                     </div>
                 </div>
                     
@@ -55,7 +65,7 @@
                         <h1><span id="bwin" class="label label-danger">WIN</span></h1>
                     </div>
                     <div class="media-right media-middle">
-                        <img src="images/cchess/black.jpg">
+                        <img src="images/chess/black.jpg">
                     </div>
                 </div>
             </div>
@@ -76,11 +86,12 @@
     <script type="text/javascript">
         var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
-			$('#title').text("中国象棋");
-			$('#gameName').text("中国象棋");
+			$('#title').text("国际象棋");
+			$('#gameName').text("国际象棋");
+            $('#pro-label').text("升变");
 			$('#blabel').text('黑方');
-			$('#rlabel').text('红方');
-			$('#rwin').text('胜');
+			$('#wlabel').text('白方');
+			$('#wwin').text('胜');
 			$('#bwin').text('胜');
             $('#reset').text('重新开始');
             $('#resign').text("认输");

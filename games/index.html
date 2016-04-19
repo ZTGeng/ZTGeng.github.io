@@ -94,6 +94,22 @@
                     </div>
                 </a>
             </div>
+            <div class="col-md-3 col-sm-4 col-xs-6">
+                <a class="thumbnail" href="chess.html">
+                    <img src="images/chess.png" class="game-pic" alt="chess pic">
+                    <div class="caption">
+                        <h4 id="name1-4" class="text-center">Chess</h4>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="chess-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Rule <span class="caret"></span>
+                            </button>
+                            <div id="rule1-4" class="dropdown-menu" aria-labelledby="chess-rule">
+                                <p>Need two players. White first.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
         <hr>
         
@@ -234,6 +250,8 @@
 			$('#rule1-2').html("<p>19x19棋盘。双人游戏。</p>");
 			$('#name1-3').text("中国象棋");
 			$('#rule1-3').html("<p>双人游戏。红先黑后。</p>");
+			$('#name1-4').text("国际象棋");
+			$('#rule1-4').html("<p>双人游戏。白先黑后。</p>");
 			$('#group2').text("“抓猫”系列");
 			$('#name2-1').text("“抓猫”原版");
 			$('#rule2-1').html("<p>点击格子将猫围住。<br>猫跑到边缘则游戏结束。</p>");

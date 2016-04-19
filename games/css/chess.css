@@ -5,36 +5,57 @@
 #field {
 	margin: 0 auto;
 	width: 470px;
-	height: 520px;
-    padding-top: 10px; 
-	background-image: url("../images/cchess/ccboard.png");
+	height: 470px;
+    padding-top: 35px; 
+	background-image: url("../images/chess/cboard.jpg");
 	background-repeat: no-repeat;
 	background-position: center;
 }
 
-.field-row {
+/*.field-row {
 	height: 50px;
-}
+}*/
 
 .field-grid {
 	display: inline-block;
-	width: 44px;
-	height: 44px;
-	margin: 3px;
-	/*border: 1px solid black;*/
+	width: 42px;
+	height: 42px;
+	/*height: 44px;*/
+	margin: 4px;
 	border-radius: 100%;
+    /*color: azure;*/
+    /*background-repeat: no-repeat;
+    background-position: center;*/
+    font-size: 2pc;
+    vertical-align: top;
+    cursor: pointer;
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+}
+
+.black {
+    /*border: 1px solid azure;*/
+    background-color: black;
     color: azure;
-    background-repeat: no-repeat;
-    background-position: center;
+}
+.white {
+	border: 1px solid black;
+    background-color: azure;
 }
 
 .field-grid.move-from {
     width: 54px;
 	height: 54px;
     margin: -2px;
-    background-size: cover;
+    font-size: 2.5pc;
+    /*background-size: cover;*/
 }
 
+#pro-btns>button {
+    font-size: 2.5pc;
+}
+/*
 .red[role="general"] {
     background-image: url("../images/cchess/red-general.jpg");
 }
@@ -83,7 +104,7 @@
 .black[role="soldier"] {
     background-image: url("../images/cchess/black-soldier.jpg");
 }
-
+*/
 .inactive {
     opacity: 0.5;
 }
