@@ -90,8 +90,9 @@ var reset = function() {
 var place = function() {
 	if ($(this).hasClass('black') || $(this).hasClass('white')) return;
 		
-	ta.pause()
-    ta.currentTime = 0;
+	// ta.pause()
+    ta.load(); // work with IE
+    // ta.currentTime = 0;
     ta.play();
 	$(this).removeClass('preBlack preWhite');
 	if (isBlack) {

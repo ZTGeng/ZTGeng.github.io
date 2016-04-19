@@ -50,13 +50,9 @@ function onClickGrid() {
             moveFromGrid = undefined;
         } else if (canMove(moveFromGrid, $(this))) {
             if ($(this).attr('role')) {
-                eatSound.pause()
-                eatSound.currentTime = 0;
-                eatSound.play();
+                playEatSound();
             } else {
-                moveSound.pause()
-                moveSound.currentTime = 0;
-                moveSound.play();
+                playMoveSound();
             }
             move(moveFromGrid, $(this));
             moveFromGrid.removeClass('move-from');
@@ -201,6 +197,17 @@ function checkWin() {
         return true;
     }
     return false;
+};
+
+var playMoveSound = function () {
+    // moveSound.pause()
+    // moveSound.currentTime = 0;
+    moveSound.load();
+    moveSound.play();
+};
+var playEatSound = function () {
+    eatSound.load();
+    eatSound.play();
 };
 
 function main() {

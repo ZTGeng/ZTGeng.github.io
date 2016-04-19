@@ -76,13 +76,9 @@ function onClickGrid() {
             moveFromGrid = undefined;
         } else if (canMoveOrEat(moveFromGrid, $(this))) {
             if ($(this).attr('role')) {
-                eatSound.pause()
-                eatSound.currentTime = 0;
-                eatSound.play();
+                playEatSound();
             } else {
-                moveSound.pause()
-                moveSound.currentTime = 0;
-                moveSound.play();
+                playMoveSound();
             }
             move(moveFromGrid, $(this));
             togglePlayer();
@@ -97,13 +93,9 @@ function onClickGrid() {
                 var moveFrom_c = moveFromGrid.prop('id').slice(2, 3);
                 if (moveFrom_r === passant_r && Math.abs(parseInt(moveFrom_c) - parseInt(passant_c)) === 1) {
                     if ($(this).attr('role')) {
-                        eatSound.pause()
-                        eatSound.currentTime = 0;
-                        eatSound.play();
+                        playEatSound();
                     } else {
-                        moveSound.pause()
-                        moveSound.currentTime = 0;
-                        moveSound.play();
+                        playMoveSound();
                     }
                     passant.removeClass('white black');
                     passant.attr('role', null);
@@ -118,28 +110,20 @@ function onClickGrid() {
             if ($(this).prop('id') === "p" + c + "2") {
                 if (canCastle(moveFromGrid, $(this))) {
                     move(moveFromGrid, $(this));
-                    moveSound.pause()
-                    moveSound.currentTime = 0;
-                    moveSound.play();
+                    playMoveSound();
                     setTimeout(function() {
                         move($('#p' + c + '0'), $('#p' + c + '3'));
-                        moveSound.pause()
-                        moveSound.currentTime = 0;
-                        moveSound.play();
+                        playMoveSound();
                         togglePlayer();
                     }, 150);
                 }
             } else if ($(this).prop('id') === "p" + c + "6") {
                 if (canCastle(moveFromGrid, $(this))) {
                     move(moveFromGrid, $(this));
-                    moveSound.pause()
-                    moveSound.currentTime = 0;
-                    moveSound.play();
+                    playMoveSound();
                     setTimeout(function() {
                         move($('#p' + c + '7'), $('#p' + c + '5'));
-                        moveSound.pause()
-                        moveSound.currentTime = 0;
-                        moveSound.play();
+                        playMoveSound();
                         togglePlayer();
                     }, 150);
                 }
@@ -350,6 +334,17 @@ function checkWin() {
         return true;
     }
     return false;
+};
+
+var playMoveSound = function () {
+    // moveSound.pause()
+    // moveSound.currentTime = 0;
+    moveSound.load();
+    moveSound.play();
+};
+var playEatSound = function () {
+    eatSound.load();
+    eatSound.play();
 };
 
 function main() {
