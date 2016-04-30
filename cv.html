@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Geng CV</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <style>
         .right-offset {
             padding-left: 20px
@@ -28,6 +28,9 @@
         .photo {
             box-shadow: 3px 3px 2px #333;
             border-radius: 4px
+        }
+        .media {
+            margin-top: 0;
         }
     </style>
 </head>
@@ -280,7 +283,8 @@
                         </h4>
                         <p class="right-offset">
                             Graduate project. Developing an Android app to help visual impairers to get help through video calling on smartphones. 
-                            The login server uses Node.js and MongoDB. The video connection is built through an open-source frame called OpenWebRTC which also uses Node.js.<br>
+                            The login server uses Node.js and MongoDB. The video connection is built through an open-source frame called OpenWebRTC. 
+                            The app also use Google Cloud Messaging Service to send notifications to the users.<br>
                             The project includes development of the client on Android device, construction and integration of login server and video server, 
                             development of necessary features like navigation, and feedback collection from users.<br>
                             I'm the only person working on this on-going project.
@@ -431,47 +435,58 @@
             </div>
             <div id="skills-collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="skills-heading">
                 <div class="panel-body">
-                    <code class="bg-primary">Java</code> Solved 200+ algorithm problems in 
-                    <a href="https://leetcode.com/" target="_blank">Leetcode.com 
-                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></code></small>
-                    </a>. Contributed to the open source project 
+                    <code class="bg-primary">Java</code> Solved 200+ algorithm problems on Leetcode. Contributed to the open source project 
                     <a href="https://github.com/ZTGeng/accessmonitor/" target="_blank">OpenMRS 
-                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></code></small>
-                    </a> using Java with Spring and Hibernate frameworks. Made some 
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                    </a> using Java with <span class="bg-info">Spring</span> and <span class="bg-info">Hibernate</span> frameworks. Made some 
                     <a href="https://github.com/ZTGeng/PsychoCatsCode/" target="_blank">small Java games 
-                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></code></small>
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
                     </a>.
-                    <br>
+                    <br><br>
                     
                     <code class="bg-primary">Android</code> Developed a 
                     <a href="https://github.com/ZTGeng/SF-Street-Sweeping/" target="_blank">street sweeping alarm app   
-                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></code></small>
-                    </a> using Google Map Service. Currently working on a video calling app as my graduate project.
-                    <br>
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                    </a> using Google Map Service. Currently working on a 
+                    <a href="https://github.com/ZTGeng/GuideMeAndroid/" target="_blank">video calling app
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                    </a> as my graduate project.
+                    <br><br>
                     
-                    <code class="bg-primary">HTML</code> 
-                    <code class="bg-primary">JavaScript</code> 
-                    <code class="bg-primary">CSS</code> Made some 
+                    <code class="bg-primary">Front-End</code> Experienced in <span class="bg-info">JQuery</span>, 
+                    <span class="bg-info">Bootstrap</span> and <span class="bg-info">AngularJS</span>. Made some 
                     <a href="games/index.html" target="_blank">small JavaScript games
-                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></code></small>
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
                     </a> and 
                     <a href="test/test.html" target="_blank">a Chinese Test page
-                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></code></small>
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
                     </a>. Built webpages for 
                     <a href="http://smurf.sfsu.edu/~csif/" target="_blank">an education project 
-                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></code></small>
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
                     </a> and the 
                     <a href="http://www.sfsu.edu/~ci/" target="_blank">Confucius Institute  
-                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></code></small>
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
                     </a> in <abbr title="San Francisco State University" class="initialism">SFSU</abbr>.
-                    <br>
+                    <br><br>
+                    
+                    <code class="bg-primary">Node.js</code> Project experience including: a 
+                    <a href="https://github.com/ZTGeng/login-server/" target="_blank">login server
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                    </a> for an Android app, a 
+                    <a href="https://spaceapp-weather-app.herokuapp.com/" target="_blank">web application of weather forecast
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                    </a>, and a 
+                    <a href="https://github.com/mayabe/675-775/" target="_blank">web application of database accessing
+                        <small><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></small>
+                    </a>.
+                    <br><br>
                     
                     <code class="bg-primary">Python</code> 
                     <code class="bg-primary">Ruby on Rails</code> 
                     <code class="bg-primary">C</code> 
                     <code class="bg-primary">C++</code> 
-                    <code class="bg-primary">C# in Unity3D</code> Experienced in coding in course projects and daily problem solving.
-                    <br>
+                    <code class="bg-primary">C# in Unity3D</code> Experienced in coding in course projects or daily problem solving.
+                    <br><br>
                     
                     <code class="bg-primary">Linux</code> Daily using of Ubuntu.
                 </div>

@@ -1,3 +1,8 @@
+var rightSound = document.createElement('audio');
+rightSound.setAttribute('src', 'sound/right.wav');
+var wrongSound = document.createElement('audio');
+wrongSound.setAttribute('src', 'sound/wrong.wav');
+
 var questions = [
     "中国道家思想的创始人是春秋末年的_______，他的著作《道德经》对后来的中国人产生了非常深远的影响。",
     "明代著名医药学家李时珍编写的《_______》收集了1892种药物和11096个药方，是中国古代药物学和植物学巨著。",
@@ -188,7 +193,13 @@ function showQuestion() {
     }
 };
 function onSelect() {
-    $('#pic').prop('src', $(this).hasClass('correct') ? "image/right.jpg" : "image/wrong.jpg");
+    if ($(this).hasClass('correct')) {
+        $('#pic').prop('src', "image/right.jpg");
+        rightSound.play();
+    } else {
+        $('#pic').prop('src', "image/wrong.jpg");
+        wrongSound.play();
+    }
 };
 function onChoose() {
     if ($(this).hasClass('active')) return;
@@ -211,7 +222,13 @@ function onSubmit() {
             isCorrect = false;
         }
     });
-    $('#pic').prop('src', isCorrect ? "image/right.jpg" : "image/wrong.jpg");
+    if (isCorrect) {
+        $('#pic').prop('src', "image/right.jpg");
+        rightSound.play();
+    } else {
+        $('#pic').prop('src', "image/wrong.jpg");
+        wrongSound.play();
+    }
 };
 
 $(document).ready(main);
