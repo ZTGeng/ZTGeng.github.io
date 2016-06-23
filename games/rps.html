@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Rock Paper Scissors</title>
+    <meta name="description" content="gomoku">
+    <meta name="author" content="Geng">
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/rps.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/rps.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <ul class="nav nav-tabs">
+                <li role="presentation"><a href="../index.html">HOME</a></li>
+                <li role="presentation"><a href="../cv.html">My CV</a></li>
+                <li role="presentation" class="active"><a href="index.html">GAME</a></li>
+            </ul>
+            <br>
+            <ol class="breadcrumb">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html">Game</a></li>
+                <li class="active">Rock Paper Scissors</li>
+            </ol>
+        </header>
+        
+        <div class="text-center">
+            <h1><span id="gameName">Rock Paper Scissors <small>HUMAN vs COMPUTER</small></span></h1>
+            <div></div>
+            <div id="field">
+                <div class="text-left">
+                    <p id="rule1">The selection of the computer will be calculated as below:</p>
+                    <h4><span id="com-num"></span> % 3</h4>
+                    <h4>= <span id="com-result">?</span> <span id="rule2">(0 = Rock; 1 = Scissors; 2 = Paper)</span></h4>
+                </div>
+                <div id="result-text"></div>
+                <div id="show-pics" class="row">
+                    <div class="col-sm-6">
+                        <div class="show-pic">
+                            <img id="com-pic" src="" alt="">
+                        </div>
+                        <p id="com-tag">COMPUTER</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="show-pic">
+                            <img id="hum-pic" src="" alt="">
+                        </div>
+                        <p id="hum-tag">YOU</p>
+                    </div>
+                </div>
+                <div id="buttons">
+                    <button id="button-rock" class="btn btn-default btn-lg" disabled="disabled"><img class="button-img" src="images/rock-right.png"></button>
+                    <button id="button-scissors" class="btn btn-default btn-lg" disabled="disabled"><img class="button-img" src="images/scissors-right.png"></button>
+                    <button id="button-paper" class="btn btn-default btn-lg" disabled="disabled"><img class="button-img" src="images/paper-right.png"></button>
+                </div>
+                <!-- Modal fullscreen -->
+                <div class="modal modal-fullscreen" id="modal-fullscreen" tabindex="-1" aria-hidden="true">
+                    <div class="modal-body text-center" id="countdown-body">
+                        <h1 class="modal-text" id="countdown-text"></h1>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="panel penal-default">
+                <button id="reset" class="btn btn-default">PLAY</button>
+            </div>
+        </div>
+        
+        <hr>
+
+        <footer>
+            <p>
+                &copy; Copyright by Geng
+            </p>
+        </footer>
+    </div>
+    
+    <script type="text/javascript">
+        var lang = navigator.language;
+		if (lang.slice(0, 2) === "zh") {
+			$('#title').text("石头剪刀布");
+			$('#gameName').html("石头剪刀布 <small>人 vs 电脑</small>");
+			$('#rule1').text("电脑的选择由以下计算方法产生：");
+			$('#rule2').text("（0 = 石头；1 = 剪刀；2 = 布）");
+			$('#com-tag').text("电脑");
+			$('#hum-tag').text("你");
+            $('#reset').text('开始');
+		}
+    </script>
+    
+</body>
+
+</html>

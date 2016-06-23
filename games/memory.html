@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-     <meta charset="utf-8">
+
+<head>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Memory (Hard)</title>
@@ -13,11 +14,12 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/memory.js"></script>
-    </head>
-    <body>
-        <div class="container">
-            <header>
-                <ul class="nav nav-tabs">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <ul class="nav nav-tabs">
                 <li role="presentation"><a href="../index.html">HOME</a></li>
                 <li role="presentation"><a href="../cv.html">My CV</a></li>
                 <li role="presentation" class="active"><a href="index.html">GAME</a></li>
@@ -28,8 +30,8 @@
                 <li><a href="index.html">Game</a></li>
                 <li class="active">Memory</li>
             </ol>
-            </header>
-            <div class="text-center">
+        </header>
+        <div class="text-center">
             <h1 id="gameName">Memory Game (Hard) <small>v0.2</small></h1>
             <div id="rule-record">
                 <ol id="rule">
@@ -40,7 +42,7 @@
                 <p class="alert alert-info"><span id="record">Your Best: </span><span id="best-en">No Record</span><span id="best-zh">无记录</span></p>
             </div>
             <div id="board" class="lead">
-                
+
             </div>
             <div id="panel">
                 <h3>
@@ -53,15 +55,18 @@
                     <button id="b8x8" class="btn btn-primary">8 X 8</button>
                 </div>
             </div>
-            </div>
-            <footer>
-                <p>
-                    &copy; Copyright by Geng
-                </p>
-            </footer>
         </div>
-        
-        <script type="text/javascript">
+
+        <hr>
+
+        <footer>
+            <p>
+                &copy; Copyright by Geng
+            </p>
+        </footer>
+    </div>
+
+    <script type="text/javascript">
 			var lang = navigator.language;
 			if (lang.slice(0, 2) === "zh") {
 				$('#title').text("记忆游戏超难版");
@@ -76,5 +81,6 @@
                 $('#best-zh').hide();
             }
 		</script>
-    </body>
+</body>
+
 </html>
