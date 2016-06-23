@@ -60,8 +60,10 @@ function modalfade() {
 function select() {
     STATE = 1;
     console.log("Click a button!");
+    $('#buttons').children().addClass('btn-danger');
     $('#buttons').children().removeAttr('disabled');
     timeout = setTimeout(result, TIMEDELTA * 2);
+    $('#buttons').fadeIn(80).fadeOut(80).fadeIn(80).fadeOut(80).fadeIn(80);
     refresh_big_num();
     $('#com-num').text(big_num);
 }
@@ -69,6 +71,7 @@ function select() {
 function result() {
     STATE = 2;
     console.log("What you chose is " + selection);
+    $('#buttons').children().removeClass('btn-danger');
     var result_num = 0;
     for (var i = 0; i < DIGITS; i += 10) {
         result_num += parseInt(big_num.slice(i, i + 10));
