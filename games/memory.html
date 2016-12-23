@@ -19,11 +19,7 @@
 <body>
     <div class="container">
         <header>
-            <ul class="nav nav-tabs">
-                <li role="presentation"><a href="../index.html">HOME</a></li>
-                <li role="presentation"><a href="../cv.html">My CV</a></li>
-                <li role="presentation" class="active"><a href="index.html">GAME</a></li>
-            </ul>
+            <div id="header-nav"></div>
             <br>
             <ol class="breadcrumb">
                 <li><a href="../index.html">Home</a></li>
@@ -60,26 +56,26 @@
         <hr>
 
         <footer>
-            <p>
-                &copy; Copyright by Geng
-            </p>
+            <div id="footer-copyright"></div>
         </footer>
     </div>
 
     <script type="text/javascript">
-			var lang = navigator.language;
-			if (lang.slice(0, 2) === "zh") {
-				$('#title').text("记忆游戏超难版");
-				$('#gameName').html("记忆游戏超难版 <small>v0.2</small>");
-                $('#record').html('最好成绩：');
-                $('#best-en').hide();
-				$('#steps').html('不匹配点击：<span id="count">0</span>次');
-				$('#rule').html(
-                    '<li>需连续点开两个图案及颜色相同的格子。</li><li>点击半数格子前不会出现相同图案及颜色。</li><li>从点击数为格子数一半时开始，记录不匹配的点击数。</li>'
-                );
-			} else {
-                $('#best-zh').hide();
-            }
+        $('#header-nav').load("nav.html");
+        $('#footer-copyright').load("copyright.html");
+		var lang = navigator.language;
+		if (lang.slice(0, 2) === "zh") {
+			$('#title').text("记忆游戏超难版");
+			$('#gameName').html("记忆游戏超难版 <small>v0.2</small>");
+            $('#record').html('最好成绩：');
+            $('#best-en').hide();
+			$('#steps').html('不匹配点击：<span id="count">0</span>次');
+			$('#rule').html(
+                '<li>需连续点开两个图案及颜色相同的格子。</li><li>点击半数格子前不会出现相同图案及颜色。</li><li>从点击数为格子数一半时开始，记录不匹配的点击数。</li>'
+            );
+		} else {
+            $('#best-zh').hide();
+        }
 		</script>
 </body>
 

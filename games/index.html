@@ -29,11 +29,7 @@
 <body>
     <div class="container">
         <header>
-            <ul class="nav nav-tabs">
-                <li role="presentation"><a href="../index.html">HOME</a></li>
-                <li role="presentation"><a href="../cv.html">My CV</a></li>
-                <li role="presentation" class="active"><a href="#">GAME</a></li>
-            </ul>
+            <div id="header-nav"></div>
             <br>
             <ol class="breadcrumb">
                 <li><a href="../index.html">Home</a></li>
@@ -43,7 +39,7 @@
         <h1 id="title" class="row">Austerity Games<br>
             <small id="greeting">Here shows how games look like when visual designers are absent.</small>
         </h1>
-        
+
         <div class="row">
             <h2 id="group1">Go & Chess</h2>
             <div class="col-md-3 col-sm-4 col-xs-6">
@@ -112,7 +108,7 @@
             </div>
         </div>
         <hr>
-        
+
         <div class="row">
             <h2 id="group2">Catch Cat</h2>
             <div class="col-md-3 col-sm-4 col-xs-6">
@@ -171,7 +167,7 @@
             </div>
         </div>
         <hr>
-        
+
         <div class="row">
             <h2 id="group3">Puzzels</h2>
             <div class="col-md-3 col-sm-4 col-xs-6">
@@ -211,7 +207,7 @@
             </div>
         </div>
         <hr>
-        
+
         <div class="row">
             <h2 id="group4">Mini Games</h2>
             <div class="col-md-3 col-sm-4 col-xs-6">
@@ -252,12 +248,14 @@
         </div>
 
         <hr>
-        
+
         <footer>
-            <p>&copy; Copyright by Geng</p>
+            <div id="footer-copyright"></div>
         </footer>
     </div>
     <script type="text/javascript">
+        $('#header-nav').load("nav.html");
+        $('#footer-copyright').load("copyright.html");
 		var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
 			$('#webTitle').text("小游戏");

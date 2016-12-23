@@ -20,11 +20,7 @@
 <body>
     <div class="container">
         <header>
-            <ul class="nav nav-tabs">
-                <li role="presentation"><a href="../index.html">HOME</a></li>
-                <li role="presentation"><a href="../cv.html">My CV</a></li>
-                <li role="presentation" class="active"><a href="index.html">GAME</a></li>
-            </ul>
+            <div id="header-nav"></div>
             <br>
             <ol class="breadcrumb">
                 <li><a href="../index.html">Home</a></li>
@@ -32,7 +28,7 @@
                 <li class="active">Chinese Chess</li>
             </ol>
         </header>
-        
+
         <div class="text-center">
             <h1><span id="gameName">Chinese Chess</span> <small>v0.10</small></h1>
             <div id="field">
@@ -48,7 +44,7 @@
                         <h1><span id="rwin" class="label label-danger">WIN</span></h1>
                     </div>
                 </div>
-                    
+
                 <div id="bbox" class="col-md-3 col-sm-4 col-xs-5">
                     <div class="media-body">
                         <h3 id="blabel" class="media-heading">BLACK</h3>
@@ -65,17 +61,17 @@
                 <button id="resign" class="btn btn-default">RESIGN</button>
             </div>
         </div>
-        
+
         <hr>
 
         <footer>
-            <p>
-                &copy; Copyright by Geng
-            </p>
+            <div id="footer-copyright"></div>
         </footer>
     </div>
-    
+
     <script type="text/javascript">
+        $('#header-nav').load("nav.html");
+        $('#footer-copyright').load("copyright.html");
         var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
 			$('#title').text("中国象棋");
@@ -88,7 +84,7 @@
             $('#resign').text("认输");
 		}
     </script>
-    
+
 </body>
 
 </html>

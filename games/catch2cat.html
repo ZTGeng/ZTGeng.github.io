@@ -20,11 +20,7 @@
 <body>
     <div class="container">
         <header>
-            <ul class="nav nav-tabs">
-                <li role="presentation"><a href="../index.html">HOME</a></li>
-                <li role="presentation"><a href="../cv.html">My CV</a></li>
-                <li role="presentation" class="active"><a href="index.html">GAME</a></li>
-            </ul>
+            <div id="header-nav"></div>
             <br>
             <ol class="breadcrumb">
                 <li><a href="../index.html">Home</a></li>
@@ -54,20 +50,20 @@
         <hr>
 
         <footer>
-            <p>
-                &copy; Copyright by Geng
-            </p>
+            <div id="footer-copyright"></div>
         </footer>
     </div>
 
     <script type="text/javascript">
+        $('#header-nav').load("nav.html");
+        $('#footer-copyright').load("copyright.html");
         var lang = navigator.language;
-			if (lang.slice(0, 2) === "zh") {
-				$('#title').text("抓猫 - 双猫奇谭");
-				$('#gameName').text("抓住这只猫 之 双猫奇谭");
-				$('#reset').text("重新开始");
-				$('#rule').html("<p>规则：</p><ul><li>共有两只猫，每回合各走一步。</li><li>每回合可以点开两格。</li><li>猫不会走进相同的格子。</li></ul>");
-			}
+		if (lang.slice(0, 2) === "zh") {
+			$('#title').text("抓猫 - 双猫奇谭");
+			$('#gameName').text("抓住这只猫 之 双猫奇谭");
+			$('#reset').text("重新开始");
+			$('#rule').html("<p>规则：</p><ul><li>共有两只猫，每回合各走一步。</li><li>每回合可以点开两格。</li><li>猫不会走进相同的格子。</li></ul>");
+		}
     </script>
 </body>
 

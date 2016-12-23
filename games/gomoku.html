@@ -20,11 +20,7 @@
 <body>
     <div class="container">
         <header>
-            <ul class="nav nav-tabs">
-                <li role="presentation"><a href="../index.html">HOME</a></li>
-                <li role="presentation"><a href="../cv.html">My CV</a></li>
-                <li role="presentation" class="active"><a href="index.html">GAME</a></li>
-            </ul>
+            <div id="header-nav"></div>
             <br>
             <ol class="breadcrumb">
                 <li><a href="../index.html">Home</a></li>
@@ -32,7 +28,7 @@
                 <li class="active">Gomoku</li>
             </ol>
         </header>
-        
+
         <div class="text-center">
             <h1><span id="gameName">Gomoku</span> <small>v0.12<br>
             <span id="rule">Two players take turns. No bans.</span></small></h1>
@@ -51,17 +47,17 @@
                 <button id="reset" class="btn btn-default">RESET</button>
             </div>
         </div>
-        
+
         <hr>
 
         <footer>
-            <p>
-                &copy; Copyright by Geng
-            </p>
+            <div id="footer-copyright"></div>
         </footer>
     </div>
-    
+
     <script type="text/javascript">
+        $('#header-nav').load("nav.html");
+        $('#footer-copyright').load("copyright.html");
         var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
 			$('#title').text("五子棋");
@@ -72,7 +68,7 @@
             $('#reset').text('重新开始');
 		}
     </script>
-    
+
 </body>
 
 </html>

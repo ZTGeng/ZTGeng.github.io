@@ -21,11 +21,7 @@
 <body>
     <div class="container">
         <header>
-            <ul class="nav nav-tabs">
-                <li role="presentation"><a href="../index.html">HOME</a></li>
-                <li role="presentation"><a href="../cv.html">My CV</a></li>
-                <li role="presentation" class="active"><a href="index.html">GAME</a></li>
-            </ul>
+            <div id="header-nav"></div>
             <br>
             <ol class="breadcrumb">
                 <li><a href="../index.html">Home</a></li>
@@ -36,7 +32,7 @@
 
         <div class="text-center">
             <h1 id="gameName">Weight the Coins</h1>
-        
+
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="pull-left">
@@ -79,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div id="field">
                 <div id="balance">
                     <div id="left-pan"></div>
@@ -94,12 +90,12 @@
         <hr>
 
         <footer>
-            <p>
-                &copy; Copyright by Geng
-            </p>
+            <div id="footer-copyright"></div>
         </footer>
     </div>
     <script type="text/javascript">
+        $('#header-nav').load("nav.html");
+        $('#footer-copyright').load("copyright.html");
         $("#heavy_light").click(function() {
             $(this).toggleClass("heavier");
             if ($(this).hasClass("heavier")) {
@@ -109,27 +105,27 @@
             }
         });
         var lang = navigator.language;
-			if (lang.slice(0, 2) === "zh") {
-				$('#title').text("称硬币");
-				$('#gameName').text("称硬币");
-				$('#reset').text("重新开始");
-				$('#weight').text("称重");
-				$('#clear').text("重置");
-				$('#tip1').text("将硬币拖动到天平上。点击：");
-				$('#tip2').text("一共可以称重 3 次。");
-				$('#round-text').html('还可称重 <span class="badge" id="round-num">3</span> 次');
-				$('#answer1').text("第");
-				$('#answer2').text("号硬币");
-				$('#answer3').text("比其他硬币");
-				$('#answer4').text("");
-				$('#heavy_light').text(" 更重 ");
-				$('#heavy_light').data("heavier-text", "更重");
-				$('#heavy_light').data("lighter-text", "更轻");
-				$('#ok').text(" 确认 ");
-				$('#output-en').hide();
-			} else {
-				$('#output-zh').hide();
-            }
+		if (lang.slice(0, 2) === "zh") {
+			$('#title').text("称硬币");
+			$('#gameName').text("称硬币");
+			$('#reset').text("重新开始");
+			$('#weight').text("称重");
+			$('#clear').text("重置");
+			$('#tip1').text("将硬币拖动到天平上。点击：");
+			$('#tip2').text("一共可以称重 3 次。");
+			$('#round-text').html('还可称重 <span class="badge" id="round-num">3</span> 次');
+			$('#answer1').text("第");
+			$('#answer2').text("号硬币");
+			$('#answer3').text("比其他硬币");
+			$('#answer4').text("");
+			$('#heavy_light').text(" 更重 ");
+			$('#heavy_light').data("heavier-text", "更重");
+			$('#heavy_light').data("lighter-text", "更轻");
+			$('#ok').text(" 确认 ");
+			$('#output-en').hide();
+		} else {
+			$('#output-zh').hide();
+        }
     </script>
 </body>
 

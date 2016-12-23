@@ -20,11 +20,7 @@
 <body>
     <div class="container">
         <header>
-            <ul class="nav nav-tabs">
-                <li role="presentation"><a href="../index.html">HOME</a></li>
-                <li role="presentation"><a href="../cv.html">My CV</a></li>
-                <li role="presentation" class="active"><a href="index.html">GAME</a></li>
-            </ul>
+            <div id="header-nav"></div>
             <br>
             <ol class="breadcrumb">
                 <li><a href="../index.html">Home</a></li>
@@ -51,24 +47,24 @@
                 </ul>
             </div>
         </div>
-        
+
         <hr>
 
         <footer>
-            <p>
-                &copy; Copyright by Geng
-            </p>
+            <div id="footer-copyright"></div>
         </footer>
     </div>
 
     <script type="text/javascript">
+        $('#header-nav').load("nav.html");
+        $('#footer-copyright').load("copyright.html");
         var lang = navigator.language;
-			if (lang.slice(0, 2) === "zh") {
-				$('#title').text("抓猫 - 臭臭猫");
-				$('#gameName').text("抓住这只猫 之 臭臭猫");
-				$('#reset').text("重新开始");
-				$('#rule').html("<p>规则：</p><ul><li>部分格子埋着猫屎。踩中猫屎则输。</li><li>猫不会走进有猫屎的格子。</li><li>数字显示相邻格子中有多少猫屎。</li><li>使用右键标记和解除标记疑似猫屎。</li></ul>");
-			}
+		if (lang.slice(0, 2) === "zh") {
+			$('#title').text("抓猫 - 臭臭猫");
+			$('#gameName').text("抓住这只猫 之 臭臭猫");
+			$('#reset').text("重新开始");
+			$('#rule').html("<p>规则：</p><ul><li>部分格子埋着猫屎。踩中猫屎则输。</li><li>猫不会走进有猫屎的格子。</li><li>数字显示相邻格子中有多少猫屎。</li><li>使用右键标记和解除标记疑似猫屎。</li></ul>");
+		}
     </script>
 </body>
 

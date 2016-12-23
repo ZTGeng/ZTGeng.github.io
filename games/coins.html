@@ -20,11 +20,7 @@
 <body>
     <div class="container">
         <header>
-            <ul class="nav nav-tabs">
-                <li role="presentation"><a href="../index.html">HOME</a></li>
-                <li role="presentation"><a href="../cv.html">My CV</a></li>
-                <li role="presentation" class="active"><a href="index.html">GAME</a></li>
-            </ul>
+            <div id="header-nav"></div>
             <br>
             <ol class="breadcrumb">
                 <li><a href="../index.html">Home</a></li>
@@ -38,7 +34,7 @@
             <div id="rules">
                 <ol>
                     <li>
-                        Select in your heart: <strong>Which</strong> coin has different weight with the others? 
+                        Select in your heart: <strong>Which</strong> coin has different weight with the others?
                         Is it <strong>heavier</strong> or <strong>lighter</strong>?<br>
                         Do not change your selection during the game. Don't tell the computer your selection.
                     </li>
@@ -50,7 +46,7 @@
                     </li>
                 </ol>
             </div>
-        
+
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="pull-left">
@@ -70,7 +66,7 @@
                     </h4>
                 </div>
             </div>
-            
+
             <div>
                 <div id="balance">
                     <div id="left-pan"></div>
@@ -85,30 +81,30 @@
         <hr>
 
         <footer>
-            <p>
-                &copy; Copyright by Geng
-            </p>
+            <div id="footer-copyright"></div>
         </footer>
     </div>
     <script type="text/javascript">
+        $('#header-nav').load("nav.html");
+        $('#footer-copyright').load("copyright.html");
         var lang = navigator.language;
-			if (lang.slice(0, 2) === "zh") {
-				$('#title').text("称硬币");
-				$('#gameName').text("称硬币");
-				$('#start').text("开始游戏");
-				$('#reset').text("重新开始");
-				$('#left-heavier').text("左边较重");
-				$('#same-heavy').text("一样重");
-				$('#right-heavier').text("右边较重");
-				$('#round').html('<span id="round-zh" class="label label-primary"></span>');
-				$('#result').html('<span id="result-zh"></span>');
-                var str = '<ol><li>在心里默默选择：<strong>第几号</strong>硬币与其他硬币重量不同；';
-                str += '该硬币比其他硬币<strong>较轻</strong>还是<strong>较重</strong>。<br>';
-                str += '选好之后不得更换。不要将你的选择告诉计算机。</li>';
-                str == '<li>点击“开始游戏”，根据天平上的硬币编号，选择该情况下天平的正确偏转方向。<</li>';
-                str += '<li>三轮称重之后，计算机将猜出你开始时的选择。</li></ol>'
-				$('#rules').html(str);
-			}
+		if (lang.slice(0, 2) === "zh") {
+			$('#title').text("称硬币");
+			$('#gameName').text("称硬币");
+			$('#start').text("开始游戏");
+			$('#reset').text("重新开始");
+			$('#left-heavier').text("左边较重");
+			$('#same-heavy').text("一样重");
+			$('#right-heavier').text("右边较重");
+			$('#round').html('<span id="round-zh" class="label label-primary"></span>');
+			$('#result').html('<span id="result-zh"></span>');
+            var str = '<ol><li>在心里默默选择：<strong>第几号</strong>硬币与其他硬币重量不同；';
+            str += '该硬币比其他硬币<strong>较轻</strong>还是<strong>较重</strong>。<br>';
+            str += '选好之后不得更换。不要将你的选择告诉计算机。</li>';
+            str == '<li>点击“开始游戏”，根据天平上的硬币编号，选择该情况下天平的正确偏转方向。<</li>';
+            str += '<li>三轮称重之后，计算机将猜出你开始时的选择。</li></ol>'
+			$('#rules').html(str);
+		}
     </script>
 </body>
 
