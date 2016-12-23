@@ -20,7 +20,7 @@
 <body>
     <div class="container">
         <header>
-            <link rel="import" href="nav.html">
+            <div id="header-nav"></div>
             <br>
             <ol class="breadcrumb">
                 <li><a href="../index.html">Home</a></li>
@@ -56,6 +56,7 @@
     </div>
 
     <script type="text/javascript">
+        $('#header-nav').load("nav.html");
         var lang = navigator.language;
 			if (lang.slice(0, 2) === "zh") {
 				$('#title').text("抓猫 - 普通版");

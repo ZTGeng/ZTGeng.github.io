@@ -13,12 +13,15 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/equations.js"></script>
+    <script type="text/javascript">
+        $('#header-nav').load("nav.html");
+    </script>
 </head>
 
 <body>
     <div class="container">
         <header>
-            <link rel="import" href="nav.html">
+            <div id="header-nav"></div>
             <br>
             <ol class="breadcrumb">
                 <li><a href="../index.html">Home</a></li>
