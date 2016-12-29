@@ -111,7 +111,7 @@ var game = function(num) {
                         console.log(err.message);
                     }
                 }
-            }         
+            }
         }
         lastOpen = null;
     });

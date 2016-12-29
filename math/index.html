@@ -10,7 +10,7 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <style>
-        .game-pic {
+        .problem-pic {
             box-shadow: 3px 3px 2px #333;
             border-radius: 4px
         }
@@ -29,35 +29,34 @@
 <body>
     <div class="container">
         <header>
-            <ul class="nav nav-tabs">
-                <li role="presentation"><a href="../index.html">HOME</a></li>
-                <li role="presentation"><a href="../cv.html">My CV</a></li>
-                <li role="presentation"><a href="../games/index.html">GAME</a></li>
-                <li role="presentation" class="active"><a href="#">MATH</a></li>
-            </ul>
+            <div id="header-nav"></div>
             <br>
             <ol class="breadcrumb">
                 <li><a href="../index.html">Home</a></li>
                 <li class="active">Math</li>
             </ol>
         </header>
-        <h1 id="title" class="row">Math Magic<br>
-            <small id="greeting">I lost my brain when I played around with it.</small>
+        <h1 id="title" class="row">Usable Math<br>
+            <small id="greeting">Not like the others, a math question always has answer.</small>
         </h1>
 
         <div class="row">
             <h2 id="group1">Equations</h2>
             <div class="col-md-3 col-sm-4 col-xs-6">
-                <a class="thumbnail" href="gomoku.html">
-                    <img src="images/gomoku.png" class="game-pic" alt="gomoku pic">
+                <a class="thumbnail" href="equations4.html">
+                    <img src="images/equations4.png" class="problem-pic" alt="equations4 pic">
                     <div class="caption">
-                        <h4 id="name1-1" class="text-center">Gomoku</h4>
+                        <h4 id="name1-1" class="text-center">Simple 4-variable Linear System</h4>
                         <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="gomoku-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Rule <span class="caret"></span>
+                            <button class="btn btn-default dropdown-toggle" type="button" id="equations4-intro" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Introduction <span class="caret"></span>
                             </button>
-                            <div id="rule1-1" class="dropdown-menu" aria-labelledby="gomoku-rule">
-                                <p>The board is 15x15. Need two players. <br>No disallowed moves applied to Black.</p>
+                            <div id="intro1-1" class="dropdown-menu" aria-labelledby="equations4-intro">
+                                <p>
+                                    Each equation has two variables with all coefficients = 1.<br>
+                                    For n variables, n constants are needed.<br>
+                                    An equation is unusable if it can be defined by other equations.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -67,38 +66,21 @@
         <hr>
 
         <footer>
-            <p>&copy; Copyright by Geng</p>
+            <div id="footer-copyright"></div>
         </footer>
     </div>
     <script type="text/javascript">
+        $('#header-nav').load("nav.html");
+        $('#footer-copyright').load("copyright.html");
 		var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
 			$('#webTitle').text("数学题");
-			$('#title').text("朴素游戏");
-			$('#greeting').text("这里展示了设计师缺席的情况下做出的游戏是什么样子。");
+			$('#title').text("实用数学");
+			$('#greeting').text("所有数学问题都能找到答案，不像别的。");
 			$('#group1').text("方程");
-			$('#name1-1').text("五子棋");
-			$('#rule1-1').html("<p>15x15棋盘。双人游戏。黑方无禁手。</p>");
-			$('#name1-2').text("围棋");
-			$('#rule1-2').html("<p>19x19棋盘。双人游戏。</p>");
-			$('#name1-3').text("中国象棋");
-			$('#rule1-3').html("<p>双人游戏。红先黑后。</p>");
-			$('#name1-4').text("国际象棋");
-			$('#rule1-4').html("<p>双人游戏。白先黑后。</p>");
-			$('#group2').text("“抓猫”系列");
-			$('#name2-1').text("“抓猫”原版");
-			$('#rule2-1').html("<p>点击格子将猫围住。<br>猫跑到边缘则游戏结束。</p>");
-			$('#name2-2').text("“抓猫”扫雷版");
-			$('#rule2-2').html("<p>部分格子埋着猫屎。踩中猫屎则输。<br>猫不会走进有猫屎的格子。<br>数字显示相邻格子中有多少猫屎。<br>使用右键标记和解除标记疑似猫屎。</p>");
-			$('#name2-3').text("“抓猫”双猫版");
-			$('#rule2-3').html("<p>共有两只猫，每回合各走一步。<br>每回合可以点开两格。<br>猫不会走进相同的格子。</p>");
-			$('#group3').text("谜题");
-			$('#name3-1').text("称硬币");
-			$('#rule3-1').html("<p>从12枚硬币中指定一枚重量不同的。<br>正确回答三轮问题，计算机将猜出你开始时的选择。</p>");
-            $('#group4').text("益智游戏");
-			$('#name4-1').text("记忆游戏超难版");
-			$('#rule4-1').html("<p>需连续点开两个图案及颜色相同的格子。<br>点击半数格子前不会出现相同图案及颜色。</p>");
-			$('.dropdown-toggle').html('规则 <span class="caret"></span>');
+			$('#name1-1').text("简单四元一次方程组");
+			$('#intro1-1').html("<p>各方程含两个未知数，且系数均为1。<br>n元方程组需输入n个方程的常数项。<br>不能重复定义可由其他方程推导得出的方程。</p>");
+			$('.dropdown-toggle').html('说明 <span class="caret"></span>');
 		}
     </script>
 </body>

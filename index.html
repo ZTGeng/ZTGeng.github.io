@@ -29,7 +29,7 @@
         var width = canvas.width, height = canvas.height;
         var centerX = width / 2, centerY = height / 2;
         var circleR = 40;
-        
+
         function Circle(cx, cy, r, str, url) {
             this.x = cx;
             this.y = cy;
@@ -45,7 +45,7 @@
                 ctx.lineTo(centerX, centerY);
                 ctx.closePath();
                 ctx.stroke();
-                
+
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
                 ctx.closePath();
@@ -59,7 +59,7 @@
                 return (px - this.x) * (px - this.x) + (py - this.y) * (py - this.y) < this.r * this.r;
             };
         }
-        
+
         var drawName = function(x, y, r) {
             ctx.beginPath();
             ctx.arc(x, y, r, 0, Math.PI * 2);
@@ -71,15 +71,17 @@
             ctx.fillText("ZHITAO", x - r * 0.8, y, r * 2);
             ctx.fillText("GENG", x - r * 0.8, y + 20, r * 2);
         };
-        
+
         ctx.font = "20px Arial";
         var cv = new Circle(250, 200, circleR, "CV", "cv.html");
         circles.push(cv);
         var game = new Circle(150, 400, circleR, "Game", "games/index.html");
         circles.push(game);
+        var math = new Circle(500, 150, circleR, "Math", "math/index.html");
+        circles.push(math);
         var git = new Circle(600, 350, circleR, "Github", "https://github.com/ZTGeng/");
         circles.push(git);
-        
+
         var move = function() {
             ctx.clearRect(0, 0, width, height);
             for (var i = 0; i < circles.length; i++) {
@@ -96,7 +98,7 @@
             }
             drawName(centerX, centerY, circleR + 10);
         }
-        
+
         var turn = function() {
             for (var i = 0; i < circles.length; i++) {
                 circles[i].vx = Math.random() * 2 - 1;
@@ -104,10 +106,10 @@
             }
         };
         turn();
-        
+
         setInterval(move, 75);
         setInterval(turn, 3000);
-        
+
         canvas.addEventListener("mousemove", function(event) {
             for (var i = 0; i < circles.length; i++) {
                 var circle = circles[i];

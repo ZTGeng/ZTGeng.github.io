@@ -1,0 +1,13 @@
+body {
+	font-family: Arial, 隶书, Helvetica, sans-serif;
+}
+
+#rule {
+    max-width: 400px;
+	margin: 0 auto;
+	text-align: left;
+}
+
+.constant {
+    width: 50px;
+}

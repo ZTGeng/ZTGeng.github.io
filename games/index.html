@@ -193,10 +193,10 @@
                     <div class="caption">
                         <h4 id="name3-2" class="text-center">Coins Human</h4>
                         <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="coins-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="coins2-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Rule <span class="caret"></span>
                             </button>
-                            <div id="rule3-1" class="dropdown-menu" aria-labelledby="coins-rule">
+                            <div id="rule3-2" class="dropdown-menu" aria-labelledby="coins-rule">
                                 <p>12 coins. One of them weighs different with the others.<br>
                                 You can weigh any of them for 3 times then find that one.<br>
                                 You also need to determine whether it's heavier or lighter.</p>
@@ -278,11 +278,15 @@
 			$('#name2-3').text("“抓猫”双猫版");
 			$('#rule2-3').html("<p>共有两只猫，每回合各走一步。<br>每回合可以点开两格。<br>猫不会走进相同的格子。</p>");
 			$('#group3').text("谜题");
-			$('#name3-1').text("称硬币");
-			$('#rule3-1').html("<p>从12枚硬币中指定一枚重量不同的。<br>正确回答三轮问题，计算机将猜出你开始时的选择。</p>");
+			$('#name3-1').text("电脑称硬币");
+			$('#rule3-1').html("<p>从12枚硬币中指定一枚重量不同的。<br>根据天平上硬币编号，回答天平倾向。<br>三次之后计算机将猜出你指定的硬币。</p>");
+			$('#name3-2').text("玩家称硬币");
+			$('#rule3-2').html("<p>12枚硬币中有一枚重量不同。<br>拖硬币到天平上，点击称重显示结果。共有三次机会。<br>选择硬币编号和轻重后确认。</p>");
             $('#group4').text("益智游戏");
 			$('#name4-1').text("记忆游戏超难版");
 			$('#rule4-1').html("<p>需连续点开两个图案及颜色相同的格子。<br>点击半数格子前不会出现相同图案及颜色。</p>");
+			$('#name4-2').text("石头剪刀布");
+			$('#rule4-2').html("<p>公平版人与电脑的石头剪刀布。<br>电脑的选择会在游戏开始时给出，因此电脑无法作弊。</p>");
 			$('.dropdown-toggle').html('规则 <span class="caret"></span>');
 		}
     </script>

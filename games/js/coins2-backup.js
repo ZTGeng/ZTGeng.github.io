@@ -1,18 +1,12 @@
 /**
- * @version 0.2
+ * @version 0.1
  * @author Geng
  */
 
-// var coinNum; // 1 - 12
-// var isHeavier;
+var coinNum; // 1 - 12
+var isHeavier;
 var round = 0;
 var lean = 0;
-var possibleResults = [];
-var results = [
-    [1, true], [1, false], [2, true], [2, false], [3, true], [3, false], [4, true], [4, false],
-    [5, true], [5, false], [6, true], [6, false], [7, true], [7, false], [8, true], [8, false],
-    [9, true], [9, false], [10, true], [10, false], [11, true], [11, false], [12, true], [12, false]
-];
 
 var initDoms = function () {
     $('#left-pan').data("num", 0);
@@ -57,10 +51,6 @@ var initDoms = function () {
     for (var i = 1; i < 13; i++) {
         $('#coin-num').append($('<option>' + i + '</option>'));
     }
-    possibleResults = [];
-    for (var i = 0; i < 12; i++) {
-        possibleResults.push(results[i]);
-    }
 };
 
 var weight = function() {
@@ -68,55 +58,19 @@ var weight = function() {
     var rightNum = $('#right-pan').data("num");
     if (leftNum > rightNum) return -1;
     if (leftNum < rightNum) return 1;
-
-    var possibleResultsForLeftLean = [];
-    var possibleResultsForRightLean = [];
-    var possibleResultsForNoLean = [];
-
-    for (var i = 0; i < possibleResults.length; i++) {
-        var result = possibleResults[i];
-
-        switch ($('#coin' + result[0]).data("from")) {
-            case "base":
-                possibleResultsForNoLean.push(result);
-                break;
-            case "left":
-                if (result[1]) {
-                    possibleResultsForLeftLean.push(result);
-                } else {
-                    possibleResultsForRightLean.push(result);
-                }
-                break;
-            case "right":
-                if (result[1]) {
-                    possibleResultsForRightLean.push(result);
-                } else {
-                    possibleResultsForLeftLean.push(result);
-                }
-        }
+    switch ($('#coin' + coinNum).data("from")) {
+        case "base":
+            return 0;
+        case "left":
+            return isHeavier ? -1 : 1;
+        case "right":
+            return isHeavier ? 1 : -1;
     }
-
-    var maxSelect = 0;
-    var maxLength = possibleResultsForNoLean.length;
-    possibleResults = possibleResultsForNoLean;
-
-    if (possibleResultsForLeftLean.length > maxLength) {
-        maxLength = possibleResultsForLeftLean.length;
-        maxSelect = -1;
-        possibleResults = possibleResultsForLeftLean;
-    }
-    if (possibleResultsForRightLean.length > maxLength) {
-        maxLength = possibleResultsForRightLean.length;
-        maxSelect = 1;
-        possibleResults = possibleResultsForRightLean;
-    }
-
-    return maxSelect;
 };
 
 var leftLean = function() {
     $('#balance').css({ "background-image": 'url("images/balance-left.jpg")' });
-    var cOffset = (lean + 1) * 10; // 0: 10; -1: 0; 1: 20
+    var cOffset = (lean + 1) * 10; // 0: 10; -1: 0; 1: 20 
     $('.coin').filter(function() {
         return $(this).data("from") === "left";
     }).each(function() {
@@ -134,7 +88,7 @@ var leftLean = function() {
 
 var rightLean = function() {
     $('#balance').css({ "background-image": 'url("images/balance-right.jpg")' });
-    var cOffset = (1 - lean) * 10; // 0: 10; -1: 20; 1: 0
+    var cOffset = (1 - lean) * 10; // 0: 10; -1: 20; 1: 0 
     $('.coin').filter(function() {
         return $(this).data("from") === "left";
     }).each(function() {
@@ -152,7 +106,7 @@ var rightLean = function() {
 
 var noLean = function() {
     $('#balance').css({ "background-image": 'url("images/balance-middle.jpg")' });
-    var cOffset = lean * 10; // 0: 0; -1: -10; 1: 10
+    var cOffset = lean * 10; // 0: 0; -1: -10; 1: 10 
     $('.coin').filter(function() {
         return $(this).data("from") === "left";
     }).each(function() {
@@ -221,23 +175,15 @@ var outputWeight = function() {
     $('#output-zh').append($('<li>' + str_zh + '</li>'));
 };
 
-var outputResult = function (guessCoin, guessHeavier) {
-    var result = possibleResults[0];
-    if (guessCoin === result[0] && guessHeavier === result[1]) {
-        if (possibleResults.length === 1) {
-            $('#output-en').append($('<li><strong>You are Right!</strong></li>'));
-            $('#output-zh').append($('<li><strong>你猜对了！</strong></li>'));
-        } else {
-            $('#output-en').append($('<li><strong>You are Wrong!</strong> The Coin <strong>' + possibleResults[1][0] + '</strong> is <strong>' +
-                                    (possibleResults[1][1] ? 'Heavier' : 'Lighter') + '</strong> than the Others.</li>'));
-            $('#output-zh').append($('<li><strong>你猜错了！</strong>第 <strong>' + possibleResults[1][0] + '</strong> 号硬币比其他硬币<strong>' +
-                                    (possibleResults[1][1] ? '更重' : '更轻') + '</strong>。</li>'));
-        }
+var outputResult = function(win) {
+    if (win) {
+        $('#output-en').append($('<li><strong>You are Right!</strong></li>'));
+        $('#output-zh').append($('<li><strong>你猜对了！</strong></li>'));
     } else {
-        $('#output-en').append($('<li><strong>You are Wrong!</strong> The Coin <strong>' + result[0] + '</strong> is <strong>' +
-                                (result[1] ? 'Heavier' : 'Lighter') + '</strong> than the Others.</li>'));
-        $('#output-zh').append($('<li><strong>你猜错了！</strong>第 <strong>' + result[0] + '</strong> 号硬币比其他硬币<strong>' +
-                                (result[1] ? '更重' : '更轻') + '</strong>。</li>'));
+        $('#output-en').append($('<li><strong>You are Wrong!</strong> The Coin <strong>' + coinNum + '</strong> is <strong>' + 
+                                (isHeavier ? 'Heavier' : 'Lighter') + '</strong> than the Others.</li>'));
+        $('#output-zh').append($('<li><strong>你猜错了！</strong>第 <strong>' + coinNum + '</strong> 号硬币比其他硬币<strong>' + 
+                                (isHeavier ? '更重' : '更轻') + '</strong>。</li>'));
     }
 };
 
@@ -249,8 +195,8 @@ var main = function () {
     initDoms();
 
     $('#reset').click(function () {
-        // coinNum = Math.floor(Math.random() * 12) + 1;
-        // isHeavier = (Math.random() < 0.5);
+        coinNum = Math.floor(Math.random() * 12) + 1;
+        isHeavier = (Math.random() < 0.5);
         $('#weight').prop("disabled", false);
         $('#ok').prop("disabled", false);
         round = 0;
@@ -263,9 +209,9 @@ var main = function () {
         $('#clear').trigger('click');
         $('#result').hide();
     });
-
+    
     $('#weight').click(function() {
-        switch (weight()) {
+        switch (weight(coinNum, isHeavier)) {
             case 0:
                 noLean();
                 break;
@@ -283,7 +229,7 @@ var main = function () {
         }
         outputWeight();
     });
-
+    
     $('#clear').click(function() {
         $('.coin').data("from", "base");
         $('.coin').css({ top: 0, left: 0 });
@@ -291,11 +237,11 @@ var main = function () {
         $('#right-pan').data("num", 0);
         noLean();
     });
-
+    
     $('#ok').click(function() {
         var guessCoin = parseInt($('#coin-num').val());
         var guessHeavier = $("#heavy_light").hasClass('heavier');
-        outputResult(guessCoin, guessHeavier);
+        outputResult(guessCoin === coinNum && guessHeavier === isHeavier);
         $('#ok').prop("disabled", true);
         $('#weight').prop("disabled", true);
     });
