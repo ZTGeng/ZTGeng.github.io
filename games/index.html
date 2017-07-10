@@ -266,6 +266,22 @@
                         </div>
                     </div>
                 </a>
+            </div><div class="col-md-3 col-sm-4 col-xs-6">
+                <a class="thumbnail" href="liesweeper.html">
+                    <img src="images/lie-sweeper.png" class="game-pic" alt="mine sweeper liar pic">
+                    <div class="caption">
+                        <h4 id="name5-1" class="text-center">Mine Sweeper Liar</h4>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="liesweeper-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Rule <span class="caret"></span>
+                            </button>
+                            <div id="rule5-1" class="dropdown-menu" aria-labelledby="liesweeper-rule">
+                                <p>Some numbers may be wrong.<br>
+                                Right click to mark wrong numbers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
         <hr>
@@ -308,6 +324,11 @@
 			$('#rule4-1').html("<p>需连续点开两个图案及颜色相同的格子。<br>点击半数格子前不会出现相同图案及颜色。</p>");
 			$('#name4-2').text("石头剪刀布");
 			$('#rule4-2').html("<p>公平版人与电脑的石头剪刀布。<br>电脑的选择会在游戏开始时给出，因此电脑无法作弊。</p>");
+            $('#group5').text("扫雷");
+            $('#name5-1').text("扫雷原版");
+            $('#rule5-1').html("<p>数字表示周围8个格子中雷的个数。<br>右击可标记。</p>");
+            $('#name5-2').text("扫雷：数字会说谎");
+            $('#rule5-2').html("<p>部分数字是假的。<br>右击可标记假数字。</p>");
 			$('.dropdown-toggle').html('规则 <span class="caret"></span>');
 		}
     </script>
