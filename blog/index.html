@@ -1,0 +1,52 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title id="webTitle">Blog</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/blog.js"></script>
+    <style></style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div id="header-nav"></div>
+            <br>
+            <ol class="breadcrumb">
+                <li><a href="../index.html">Home</a></li>
+                <li class="active">Blog</li>
+            </ol>
+        </header>
+        <h1 id="title" class="row">My Blog<br>
+            <small id="greeting">I'm too lazy to use Markdown so I built my format.</small>
+        </h1>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-9" id="article"></div>
+            <div class="col-xs-12 col-md-3" id="list"></div>
+        </div>
+        <hr>
+
+        <footer>
+            <div id="footer-copyright"></div>
+        </footer>
+    </div>
+    <script type="text/javascript">
+        $('#header-nav').load("nav.html");
+        $('#footer-copyright').load("copyright.html");
+		var lang = navigator.language;
+		if (lang.slice(0, 2) === "zh") {
+			$('#webTitle').text("博客");
+			$('#title').text("我的博客");
+			$('#greeting').text("说起Markdown就心烦于是自定义了一个格式。");
+		}
+    </script>
+</body>
+
+</html>
