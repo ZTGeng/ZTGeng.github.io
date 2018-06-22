@@ -1,0 +1,17 @@
+{
+    "title": "This is a title",
+    "date": "2018-06-20",
+    "text": [
+        {
+            "content": "Hello <strong>world</strong>!"
+        },
+        {
+            "type": "number_list",
+            "content": ["apple", "banana", "", "orange"]
+        },
+        {
+            "type": "code",
+            "content": "$('#exampleModal').on('show.bs.modal', function (event) {\n  var button = $(event.relatedTarget) // Button that triggered the modal\n  var recipient = button.data('whatever') // Extract info from data-* attributes\n  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).\n  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.\n  var modal = $(this)\n  modal.find('.modal-title').text('New message to ' + recipient)\n  modal.find('.modal-body input').val(recipient)\n})"
+        }
+    ]
+}
