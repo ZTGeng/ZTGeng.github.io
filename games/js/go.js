@@ -57,12 +57,12 @@ var idToNum = function(id) {
 
 var reset = function() {
     resetGroup();
-    
+
 	isBlack = true;
     lock = false;
     $('.active').removeClass('active');
     $('#alternately').addClass('active');
-    
+
     blackNum = 0;
     whiteNum = 0;
     seq = 1;
@@ -71,25 +71,25 @@ var reset = function() {
 	$('.inactive').removeClass('inactive');
 	$('#wbox').addClass('inactive');
 	$('#bnum, #wnum').text("0");
-	
+
     $('.seq').text("");
 	$('.black').removeClass('black');
 	$('.white').removeClass('white');
 	$('#field').off().on('mouseenter', '.grid', function() {
 		if ($(this).hasClass('black') || $(this).hasClass('white')) return;
-		
+
 		if (isBlack) $(this).addClass('preBlack');
 		else $(this).addClass('preWhite');
 	}).on('mouseleave', '.grid', function() {
 		if ($(this).hasClass('black') || $(this).hasClass('white')) return;
-		
+
 		$(this).removeClass('preBlack preWhite');
 	}).on('click', '.grid', place);
 };
 
 var place = function() {
 	if ($(this).hasClass('black') || $(this).hasClass('white')) return;
-		
+
 	// ta.pause()
     ta.load(); // work with IE
     // ta.currentTime = 0;
@@ -112,11 +112,11 @@ var place = function() {
         printTaken();
     }
     seqSpan.text(seq++);
-	
+
 	var id = $(this).attr('id');
 	var r = parseInt(id.slice(1, 3)), c = parseInt(id.slice(3, 5));
 	var num = rcToNum(r, c);
-    
+
     var neighbors = [];
     if (r > 0) neighbors.push(rcToNum(r - 1, c));
     if (r < 18) neighbors.push(rcToNum(r + 1, c));
@@ -151,7 +151,7 @@ var place = function() {
     if (countLiberty(root(num)) === 0) {
         removeGroup(root(num), isBlack);
     }
-    
+
     $("#bnum").text(blackNum);
     $("#wnum").text(whiteNum);
     if (!lock) {
@@ -171,15 +171,15 @@ var printTaken = function() {
     keys.sort(function(a, b) {
         return taken[a][0] - taken[b][0];
     });
-    
+
     var str = '';
     for (i in keys) {
         var lastSeq = keys[i];
         for (var i = 0; i < taken[lastSeq].length; i++) {
             var prevSeq = taken[lastSeq][i];
-            str += '<div class="form-group taken-grid ' + (prevSeq % 2 === 0 ? 'white' : 'black') + '"><span class="seq">' + prevSeq + '</span></div>';
+            str += '<div class="taken-grid ' + (prevSeq % 2 === 0 ? 'white' : 'black') + '"><span class="seq">' + prevSeq + '</span></div>';
         }
-        str += ' = <div class="form-group taken-grid ' + (lastSeq % 2 === 0 ? 'white' : 'black') + '"><span class="seq">' + lastSeq + '</span></div>; ';
+        str += ' = <div class="taken-grid ' + (lastSeq % 2 === 0 ? 'white' : 'black') + '"><span class="seq">' + lastSeq + '</span></div>; ';
     }
     $('#taken').html(str);
 };
@@ -241,13 +241,13 @@ var isEnemy = function(element) {
 var main = function() {
 	var col;
 	for (var c = 0; c < 19; c++) {
-		col = $('<div class="col"></div>').appendTo($('#field'));
+		col = $('<div class="column"></div>').appendTo($('#field'));
 		for (var r = 0; r < 19; r++) {
 			$('<div class="grid" id="a' + rcToId(r, c) + '"><span class="seq"></span></div>').appendTo(col);
 		}
 	}
     $('.seq').hide();
-	
+
 	$('#reset').click(reset);
     $('#alternately').click(function() {
         lock = false;

@@ -34,85 +34,83 @@
                 </ol>
             </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-default"  id="two-v-button">
-                            <input type="radio" name="color-lock" autocomplete="off"><span id="two-v-span">Two Variables</span>
+            <div>
+                <div>
+                        <label class="btn btn-secondary"  id="two-v-button">
+                            <input type="radio" name="color-lock" autocomplete="off"> <span id="two-v-span">Two Variables</span>
                         </label>
-                        <label class="btn btn-default" id="three-v-button">
-                            <input type="radio" name="color-lock" autocomplete="off"><span id="three-v-span">Three Variable</span>
+                        <label class="btn btn-secondary" id="three-v-button">
+                            <input type="radio" name="color-lock" autocomplete="off"> <span id="three-v-span">Three Variable</span>
                         </label>
-                        <label class="btn btn-default active" id="four-v-button">
-                            <input type="radio" name="color-lock" autocomplete="off" checked><span id="four-v-span">Four Variables</span>
+                        <label class="btn btn-secondary" id="four-v-button">
+                            <input type="radio" name="color-lock" autocomplete="off" checked> <span id="four-v-span">Four Variables</span>
                         </label>
-                    </div>
                 </div>
 
-                <div class="panel-body" id="equation-list">
-                    <form class="two-v-equations row" id="equation-a-b">
-                        <div class="equation text-primary" id="equation-a-add-b">
-                            <label for="constant-a-add-b" class="col-sm-2 col-sm-offset-2 control-label text-right">a + b =</label>
-                            <input type="number" class="col-sm-2" id="constant-a-add-b">
+                <div id="equation-list">
+                    <form class="two-v-equations row justify-content-md-center" id="equation-a-b">
+                        <div class="equation text-primary col row" id="equation-a-add-b">
+                            <label for="constant-a-add-b" class="col control-label text-right">a + b =</label>
+                            <input type="number" class="col" id="constant-a-add-b">
                         </div>
-                        <div class="equation text-primary" id="equation-a-sub-b">
-                            <label for="constant-a-sub-b" class="col-sm-2 control-label text-right">a - b =</label>
-                            <input type="number" class="col-sm-2" id="constant-a-sub-b">
-                        </div>
-                    </form>
-                    <form class="three-v-equations row" id="equation-a-c">
-                        <div class="equation text-primary" id="equation-a-add-c">
-                            <label for="constant-a-add-c" class="col-sm-2 col-sm-offset-2 control-label text-right">a + c =</label>
-                            <input type="number" class="col-sm-2" id="constant-a-add-c">
-                        </div>
-                        <div class="equation text-primary" id="equation-a-sub-c">
-                            <label for="constant-a-sub-c" class="col-sm-2 control-label text-right">a - c =</label>
-                            <input type="number" class="col-sm-2" id="constant-a-sub-c">
+                        <div class="equation text-primary col row" id="equation-a-sub-b">
+                            <label for="constant-a-sub-b" class="col control-label text-right">a - b =</label>
+                            <input type="number" class="col" id="constant-a-sub-b">
                         </div>
                     </form>
-                    <form class="four-v-equations row" id="equation-a-d">
-                        <div class="equation text-primary" id="equation-a-add-d">
-                            <label for="constant-a-add-d" class="col-sm-2 col-sm-offset-2 control-label text-right">a + d =</label>
-                            <input type="number" class="col-sm-2" id="constant-a-add-d">
+                    <form class="three-v-equations row justify-content-md-center" id="equation-a-c">
+                        <div class="equation text-primary col row" id="equation-a-add-c">
+                            <label for="constant-a-add-c" class="col control-label text-right">a + c =</label>
+                            <input type="number" class="col" id="constant-a-add-c">
                         </div>
-                        <div class="equation text-primary" id="equation-a-sub-d">
-                            <label for="constant-a-sub-d" class="col-sm-2 control-label text-right">a - d =</label>
-                            <input type="number" class="col-sm-2" id="constant-a-sub-d">
-                        </div>
-                    </form>
-                    <form class="three-v-equations row" id="equation-b-c">
-                        <div class="equation text-primary" id="equation-b-add-c">
-                            <label for="constant-b-add-c" class="col-sm-2 col-sm-offset-2 control-label text-right">b + c =</label>
-                            <input type="number" class="col-sm-2" id="constant-b-add-c">
-                        </div>
-                        <div class="equation text-primary" id="equation-b-sub-c">
-                            <label for="constant-b-sub-b" class="col-sm-2 control-label text-right">b - c =</label>
-                            <input type="number" class="col-sm-2" id="constant-b-sub-c">
+                        <div class="equation text-primary col row" id="equation-a-sub-c">
+                            <label for="constant-a-sub-c" class="col control-label text-right">a - c =</label>
+                            <input type="number" class="col" id="constant-a-sub-c">
                         </div>
                     </form>
-                    <form class="four-v-equations row" id="equation-b-d">
-                        <div class="equation text-primary" id="equation-b-add-d">
-                            <label for="constant-b-add-d" class="col-sm-2 col-sm-offset-2 control-label text-right">b + d =</label>
-                            <input type="number" class="col-sm-2" id="constant-b-add-d">
+                    <form class="four-v-equations row justify-content-md-center" id="equation-a-d">
+                        <div class="equation text-primary col row" id="equation-a-add-d">
+                            <label for="constant-a-add-d" class="col control-label text-right">a + d =</label>
+                            <input type="number" class="col" id="constant-a-add-d">
                         </div>
-                        <div class="equation text-primary" id="equation-b-sub-d">
-                            <label for="constant-b-sub-d" class="col-sm-2 control-label text-right">b - d =</label>
-                            <input type="number" class="col-sm-2" id="constant-b-sub-d">
+                        <div class="equation text-primary col row" id="equation-a-sub-d">
+                            <label for="constant-a-sub-d" class="col control-label text-right">a - d =</label>
+                            <input type="number" class="col" id="constant-a-sub-d">
                         </div>
                     </form>
-                    <form class="four-v-equations row" id="equation-c-d">
-                        <div class="equation text-primary" id="equation-c-add-d">
-                            <label for="constant-c-add-d" class="col-sm-2 col-sm-offset-2 control-label text-right">c + d =</label>
-                            <input type="number" class="col-sm-2" id="constant-c-add-d">
+                    <form class="three-v-equations row justify-content-md-center" id="equation-b-c">
+                        <div class="equation text-primary col row" id="equation-b-add-c">
+                            <label for="constant-b-add-c" class="col control-label text-right">b + c =</label>
+                            <input type="number" class="col" id="constant-b-add-c">
                         </div>
-                        <div class="equation text-primary" id="equation-c-sub-d">
-                            <label for="constant-c-sub-d" class="col-sm-2 control-label text-right">c - d =</label>
-                            <input type="number" class="col-sm-2" id="constant-c-sub-d">
+                        <div class="equation text-primary col row" id="equation-b-sub-c">
+                            <label for="constant-b-sub-b" class="col control-label text-right">b - c =</label>
+                            <input type="number" class="col" id="constant-b-sub-c">
+                        </div>
+                    </form>
+                    <form class="four-v-equations row justify-content-md-center" id="equation-b-d">
+                        <div class="equation text-primary col row" id="equation-b-add-d">
+                            <label for="constant-b-add-d" class="col control-label text-right">b + d =</label>
+                            <input type="number" class="col" id="constant-b-add-d">
+                        </div>
+                        <div class="equation text-primary col row" id="equation-b-sub-d">
+                            <label for="constant-b-sub-d" class="col control-label text-right">b - d =</label>
+                            <input type="number" class="col" id="constant-b-sub-d">
+                        </div>
+                    </form>
+                    <form class="four-v-equations row justify-content-md-center" id="equation-c-d">
+                        <div class="equation text-primary col row" id="equation-c-add-d">
+                            <label for="constant-c-add-d" class="col control-label text-right">c + d =</label>
+                            <input type="number" class="col" id="constant-c-add-d">
+                        </div>
+                        <div class="equation text-primary col row" id="equation-c-sub-d">
+                            <label for="constant-c-sub-d" class="col control-label text-right">c - d =</label>
+                            <input type="number" class="col" id="constant-c-sub-d">
                         </div>
                     </form>
                 </div>
 
-                <div class="panel-footer">
+                <div>
                     <div class="row text-left">
                         <div class="col-xs-6 col-md-3">a = <span class="result" id="result-a"></span></div>
                         <div class="col-xs-6 col-md-3">b = <span class="result" id="result-b"></span></div>

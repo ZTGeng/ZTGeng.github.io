@@ -12,24 +12,24 @@ var reset = function() {
 	$('.inactive').removeClass('inactive');
 	$('.player').last().addClass('inactive');
 	$('#bwin, #wwin').text("");
-	
+
 	$('.black').removeClass('black');
 	$('.white').removeClass('white');
 	$('.field').off().on('mouseenter', '.grid', function() {
 		if ($(this).hasClass('black') || $(this).hasClass('white')) return;
-		
+
 		if (isBlack) $(this).addClass('preBlack');
 		else $(this).addClass('preWhite');
 	}).on('mouseleave', '.grid', function() {
 		if ($(this).hasClass('black') || $(this).hasClass('white')) return;
-		
+
 		$(this).removeClass('preBlack preWhite');
 	}).on('click', '.grid', place);
 };
 
 var place = function() {
 	if ($(this).hasClass('black') || $(this).hasClass('white')) return;
-		
+
 	$(this).removeClass('preBlack preWhite');
 	if (isBlack) $(this).addClass('black');
 	else $(this).addClass('white');
@@ -37,7 +37,7 @@ var place = function() {
     // ta.currentTime = 0;
 	ta.load();
 	ta.play();
-	
+
 	var id = +($(this).attr('id').slice(1));
 	var r = Math.floor(id/100), c = id%100;
 	var c1 = count1(r, c);
@@ -64,7 +64,7 @@ var place = function() {
 		end();
 		return;
 	}
-	
+
 	$('.player').toggleClass('inactive');
 	isBlack = !isBlack;
 };
@@ -207,12 +207,12 @@ var isSame = function(element) {
 var main = function() {
 	var col;
 	for (var c = 0; c < 15; c++) {
-		col = $('<div class="col"></div>').appendTo($('.field'));
+		col = $('<div class="column"></div>').appendTo($('.field'));
 		for (var r = 0; r < 15; r++) {
 			$('<div class="grid" id="a' + (r*100+c) + '"></div>').appendTo(col);
 		}
 	}
-	
+
 	$('#reset').click(reset);
 	reset();
 };
