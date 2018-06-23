@@ -44,11 +44,17 @@
                 <h3>
                     <span id="steps" class="label label-info">Unnecessary Opens: <span id="count">0</span></span>
                 </h3>
-                <label for="buttons">New Game: </label>
-                <div id="buttons" class="btn-group" role="group">
-                    <button id="b4x4" class="btn btn-primary">4 X 4</button>
-                    <button id="b8x4" class="btn btn-primary">8 X 4</button>
-                    <button id="b8x8" class="btn btn-primary">8 X 8</button>
+                <label for="buttons" class="mr-2">New Game: </label>
+                <div id="buttons" class="btn-group btn-group-toggle" role="group" data-toggle="buttons">
+                    <label class="btn btn-primary active" id="b4x4">
+                        <input type="radio" name="options" autocomplete="off" checked>4 X 4
+                    </label>
+                    <label class="btn btn-primary" id="b8x4">
+                        <input type="radio" name="options" autocomplete="off">8 X 4
+                    </label>
+                    <label class="btn btn-primary" id="b8x8">
+                        <input type="radio" name="options" autocomplete="off">8 X 8
+                    </label>
                 </div>
             </div>
         </div>

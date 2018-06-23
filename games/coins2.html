@@ -30,44 +30,48 @@
             </ol>
         </header>
 
-        <div class="text-center">
+        <div>
             <h1 id="gameName">Weight the Coins</h1>
+            <ul>
+                <li><span id="tip1">Drag Coins to Pans. Then click Weight.</span></li>
+                <li><span id="tip2">You can Weight 3 Times.</span></li>
+            </ul>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="pull-left">
-                        <button id="reset" class="btn btn-secondary">RESET</button>
+            <div class="text-center">
+                <div class="d-flex">
+                    <div class="btn-group mr-2">
+                        <button id="reset" class="btn btn-primary">RESET</button>
                     </div>
-                    <span id="tip1">Drag Coins to Pans. Click: </span>
-                    <button class="btn btn-primary" id="weight"> Weight </button>
-                    <button class="btn btn-primary" id="clear"> Clear </button>
-                    <span id="tip2">You can Weight 3 Times.</span>
-                    <div class="pull-right" id="round-box">
-                        <p id="round" class="lead"><span id="round-text" class="label label-primary">
-                            Round Left <span class="badge" id="round-num">3</span>
-                        </span></p>
+                    <div class="btn-group mr-auto">
+                        <button class="btn btn-primary" id="weight"> Weight </button>
+                        <button class="btn btn-primary" id="clear"> Clear </button>
+                    </div>
+                    <div class="btn-group" id="round-box">
+                        <button class="btn btn-primary" id="round" disabled>
+                            <span id="round-text" class="label label-primary">Round Left <span class="badge" id="round-num">3</span></span>
+                        </button>
                     </div>
                 </div>
-                <div class="panel-body">
-                    <div class="well text-left">
-                        <ul id="output-en" class="list-unstyled"></ul>
-                        <ul id="output-zh" class="list-unstyled"></ul>
-                    </div>
-                    <div class="col-sm-3 col-sm-offset-2">
-                        <div class="input-group">
-                            <span id="answer1" class="input-group-addon">The Coin </span>
-                            <select id="coin-num" class="form-control"></select>
+                <div class="well text-left">
+                    <ul id="output-en" class="list-unstyled"></ul>
+                    <ul id="output-zh" class="list-unstyled"></ul>
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="col-sm-3">
+                        <div class="input-group align-items-center">
+                            <span id="answer1" class="input-group-addon mr-2">Your guess: The Coin </span>
+                            <select id="coin-num" class="form-control mr-2"></select>
                             <span id="answer2" class="input-group-addon"></span>
                         </div>
                     </div>
                     <div class="col-sm-4">
-                        <div class="input-group">
-                            <span id="answer3" class="input-group-addon"> is </span>
-                                <button id="heavy_light" type="button" class="btn btn-primary form-control heavier" aria-pressed="false" autocomplete="off"
-                                    data-heavier-text="Heavier" data-lighter-text="Lighter">
-                                    Heavier
-                                </button>
-                            <span id="answer4" class="input-group-addon"> than the Others!</span>
+                        <div class="input-group align-items-center">
+                            <span id="answer3" class="input-group-addon mr-2"> is </span>
+                            <button id="heavy_light" type="button" class="btn btn-primary form-control heavier mr-2" aria-pressed="false" autocomplete="off"
+                                data-heavier-text="Heavier" data-lighter-text="Lighter">
+                                <span class="mr-2" id="heavy_light_text">Heavier</span><span>&#8645;</span>
+                            </button>
+                            <span id="answer4" class="input-group-addon"> than the others!</span>
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -76,7 +80,7 @@
                 </div>
             </div>
 
-            <div id="field">
+            <div class="text-center" id="field">
                 <div id="balance">
                     <div id="left-pan"></div>
                     <div id="right-pan"></div>
@@ -96,14 +100,6 @@
     <script type="text/javascript">
         $('#header-nav').load("nav.html");
         $('#footer-copyright').load("copyright.html");
-        $("#heavy_light").click(function() {
-            $(this).toggleClass("heavier");
-            if ($(this).hasClass("heavier")) {
-                $(this).button("heavier");
-            } else {
-                $(this).button("lighter");
-            }
-        });
         var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
 			$('#title').text("称硬币");
@@ -111,14 +107,14 @@
 			$('#reset').text("重新开始");
 			$('#weight').text("称重");
 			$('#clear').text("重置");
-			$('#tip1').text("将硬币拖动到天平上。点击：");
+			$('#tip1').text("将硬币拖动到天平上。点击称重。");
 			$('#tip2').text("一共可以称重 3 次。");
 			$('#round-text').html('还可称重 <span class="badge" id="round-num">3</span> 次');
-			$('#answer1').text("第");
+			$('#answer1').text("请回答：第");
 			$('#answer2').text("号硬币");
 			$('#answer3').text("比其他硬币");
 			$('#answer4').text("");
-			$('#heavy_light').text(" 更重 ");
+			$('#heavy_light_text').text(" 更重 ");
 			$('#heavy_light').data("heavier-text", "更重");
 			$('#heavy_light').data("lighter-text", "更轻");
 			$('#ok').text(" 确认 ");

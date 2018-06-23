@@ -5,7 +5,7 @@
 
 var PAUSE = false;
 var COLOR = ["black", "red", "orange", "blue"];
-var PIC = ["&spades;", "&hearts;", "&clubs;", "&diams;", "&#9733;", "&#9835;", "&#9787;", "&#9728;"];
+var PIC = ["&spades;", "&hearts;", "&clubs;", "&diams;", "&#9733;", "&#9835;", "&#9787;", "&#10047;"];
 
 var game = function(num) {
     // if (num % 2 != 0) {
@@ -57,7 +57,7 @@ var game = function(num) {
     var board = $('#board');
     board.empty();
     for (var i = 0; i < width; i++) {
-        var col = $('<div class="col"></div>').appendTo(board);
+        var col = $('<div class="column"></div>').appendTo(board);
         for (var j = 0; j < height; j++) {
             $('<div class="grid" pic="no"><p>&nbsp;</p></div>').appendTo(col);
         }

@@ -248,6 +248,8 @@ var main = function () {
 
     initDoms();
 
+    var heavyLightButton = $('#heavy_light');
+
     $('#reset').click(function () {
         // coinNum = Math.floor(Math.random() * 12) + 1;
         // isHeavier = (Math.random() < 0.5);
@@ -256,8 +258,8 @@ var main = function () {
         round = 0;
         $('#round-num').text(3 - round);
         $('#coin-num').val(1);
-        $('#heavy_light').addClass('heavier');
-        $('#heavy_light').button('heavier');
+        heavyLightButton.addClass('heavier');
+        $('#heavy_light_text').text(heavyLightButton.data("heavier-text"));
         $('#output-en').html('');
         $('#output-zh').html('');
         $('#clear').trigger('click');
@@ -294,10 +296,20 @@ var main = function () {
 
     $('#ok').click(function() {
         var guessCoin = parseInt($('#coin-num').val());
-        var guessHeavier = $("#heavy_light").hasClass('heavier');
+        var guessHeavier = heavyLightButton.hasClass('heavier');
         outputResult(guessCoin, guessHeavier);
         $('#ok').prop("disabled", true);
         $('#weight').prop("disabled", true);
+    });
+
+    heavyLightButton.click(function () {
+        if (heavyLightButton.hasClass('heavier')) {
+            heavyLightButton.removeClass('heavier');
+            $('#heavy_light_text').text(heavyLightButton.data("lighter-text"));
+        } else {
+            heavyLightButton.addClass('heavier');
+            $('#heavy_light_text').text(heavyLightButton.data("heavier-text"));
+        }
     });
 
     $('#reset').trigger('click');
