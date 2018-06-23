@@ -10,10 +10,6 @@
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
     <style>
-        .game-pic {
-            box-shadow: 3px 3px 2px #333;
-            border-radius: 4px
-        }
         .dropdown-menu > p {
             display: block;
             padding: 3px 20px;
@@ -32,21 +28,22 @@
             <div id="header-nav"></div>
             <br>
             <ol class="breadcrumb">
-                <li><a href="../index.html">Home</a></li>
-                <li class="active">Game</li>
+                <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+                <li class="breadcrumb-item active">Game</li>
             </ol>
         </header>
-        <h1 id="title" class="row">Austerity Games<br>
+        <h1 id="title">Austerity Games<br>
             <small id="greeting">Here shows how games look like when visual designers are absent.</small>
         </h1>
+        <br>
 
+        <h2 id="group1">Go &amp; Chess</h2>
         <div class="row">
-            <h2 id="group1">Go & Chess</h2>
             <div class="col-md-3 col-sm-4 col-xs-6">
-                <a class="thumbnail" href="gomoku.html">
-                    <img src="images/gomoku.png" class="game-pic" alt="gomoku pic">
-                    <div class="caption">
-                        <h4 id="name1-1" class="text-center">Gomoku</h4>
+                <a class="figure" href="gomoku.html">
+                    <img src="images/gomoku.png" class="figure-img shadow rounded" alt="gomoku pic">
+                    <div class="figure-caption">
+                        <h4 id="name1-1">Gomoku</h4>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="gomoku-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Rule <span class="caret"></span>
@@ -59,10 +56,10 @@
                 </a>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6">
-                <a class="thumbnail" href="go.html">
-                    <img src="images/go.png" class="game-pic" alt="go pic">
-                    <div class="caption">
-                        <h4 id="name1-2" class="text-center">Go</h4>
+                <a class="figure" href="go.html">
+                    <img src="images/go.png" class="figure-img shadow rounded" alt="go pic">
+                    <div class="figure-caption">
+                        <h4 id="name1-2">Go</h4>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="go-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Rule <span class="caret"></span>
@@ -75,10 +72,10 @@
                 </a>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6">
-                <a class="thumbnail" href="cchess.html">
-                    <img src="images/cchess.png" class="game-pic" alt="chinese chess pic">
-                    <div class="caption">
-                        <h4 id="name1-3" class="text-center">Chinese Chess</h4>
+                <a class="figure" href="cchess.html">
+                    <img src="images/cchess.png" class="figure-img shadow rounded" alt="chinese chess pic">
+                    <div class="figure-caption">
+                        <h4 id="name1-3">Chinese Chess</h4>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="cchess-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Rule <span class="caret"></span>
@@ -91,10 +88,10 @@
                 </a>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6">
-                <a class="thumbnail" href="chess.html">
-                    <img src="images/chess.png" class="game-pic" alt="chess pic">
-                    <div class="caption">
-                        <h4 id="name1-4" class="text-center">Chess</h4>
+                <a class="figure" href="chess.html">
+                    <img src="images/chess.png" class="figure-img shadow rounded" alt="chess pic">
+                    <div class="figure-caption">
+                        <h4 id="name1-4">Chess</h4>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="chess-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Rule <span class="caret"></span>
@@ -109,13 +106,13 @@
         </div>
         <hr>
 
+        <h2 id="group2">Catch Cat</h2>
         <div class="row">
-            <h2 id="group2">Catch Cat</h2>
             <div class="col-md-3 col-sm-4 col-xs-6">
-                <a class="thumbnail" href="catchcat.html">
-                    <img src="images/cat-original.png" class="game-pic" alt="catch cat pic">
-                    <div class="caption">
-                        <h4 id="name2-1" class="text-center">Catch Cat Original</h4>
+                <a class="figure" href="catchcat.html">
+                    <img src="images/cat-original.png" class="figure-img shadow rounded" alt="catch cat pic">
+                    <div class="figure-caption">
+                        <h4 id="name2-1">Catch Cat Original</h4>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="catchcat-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Rule <span class="caret"></span>
@@ -129,10 +126,10 @@
                 </a>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6">
-                <a class="thumbnail" href="catchcatpoo.html">
-                    <img src="images/cat-poo.png" class="game-pic" alt="catch smelly cat pic">
-                    <div class="caption">
-                        <h4 id="name2-2" class="text-center">Catch Smelly Cat</h4>
+                <a class="figure" href="catchcatpoo.html">
+                    <img src="images/cat-poo.png" class="figure-img shadow rounded" alt="catch smelly cat pic">
+                    <div class="figure-caption">
+                        <h4 id="name2-2">Catch Smelly Cat</h4>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="catchcatpoo-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Rule <span class="caret"></span>
@@ -148,10 +145,10 @@
                 </a>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6">
-                <a class="thumbnail" href="catch2cat.html">
-                    <img src="images/cat-two.png" class="game-pic" alt="catch two cat pic">
-                    <div class="caption">
-                        <h4 id="name2-3" class="text-center">Catch Two Cats</h4>
+                <a class="figure" href="catch2cat.html">
+                    <img src="images/cat-two.png" class="figure-img shadow rounded" alt="catch two cat pic">
+                    <div class="figure-caption">
+                        <h4 id="name2-3">Catch Two Cats</h4>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="catch2cat-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Rule <span class="caret"></span>
@@ -168,13 +165,13 @@
         </div>
         <hr>
 
+        <h2 id="group3">Puzzels</h2>
         <div class="row">
-            <h2 id="group3">Puzzels</h2>
             <div class="col-md-3 col-sm-4 col-xs-6">
-                <a class="thumbnail" href="coins.html">
-                    <img src="images/coins.png" class="game-pic" alt="coins pic">
-                    <div class="caption">
-                        <h4 id="name3-1" class="text-center">Coins Computer</h4>
+                <a class="figure" href="coins.html">
+                    <img src="images/coins.png" class="figure-img shadow rounded" alt="coins pic">
+                    <div class="figure-caption">
+                        <h4 id="name3-1">Coins Computer</h4>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="coins-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Rule <span class="caret"></span>
@@ -188,10 +185,10 @@
                 </a>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6">
-                <a class="thumbnail" href="coins2.html">
-                    <img src="images/coins2.png" class="game-pic" alt="coins pic">
-                    <div class="caption">
-                        <h4 id="name3-2" class="text-center">Coins Human</h4>
+                <a class="figure" href="coins2.html">
+                    <img src="images/coins2.png" class="figure-img shadow rounded" alt="coins pic">
+                    <div class="figure-caption">
+                        <h4 id="name3-2">Coins Human</h4>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="coins2-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Rule <span class="caret"></span>
@@ -208,13 +205,13 @@
         </div>
         <hr>
 
+        <h2 id="group4">Mini Games</h2>
         <div class="row">
-            <h2 id="group4">Mini Games</h2>
             <div class="col-md-3 col-sm-4 col-xs-6">
-                <a class="thumbnail" href="memory.html">
-                    <img src="images/memory.png" class="game-pic" alt="memory pic">
-                    <div class="caption">
-                        <h4 id="name4-1" class="text-center">Memory Game (Hard)</h4>
+                <a class="figure" href="memory.html">
+                    <img src="images/memory.png" class="figure-img shadow rounded" alt="memory pic">
+                    <div class="figure-caption">
+                        <h4 id="name4-1">Memory Game (Hard)</h4>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="memory-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Rule <span class="caret"></span>
@@ -228,10 +225,10 @@
                 </a>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6">
-                <a class="thumbnail" href="rps.html">
-                    <img src="images/rps.png" class="game-pic" alt="rock paper scissors pic">
-                    <div class="caption">
-                        <h4 id="name4-2" class="text-center">Rock Paper Scissors</h4>
+                <a class="figure" href="rps.html">
+                    <img src="images/rps.png" class="figure-img shadow rounded" alt="rock paper scissors pic">
+                    <div class="figure-caption">
+                        <h4 id="name4-2">Rock Paper Scissors</h4>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="rps-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Rule <span class="caret"></span>
@@ -248,13 +245,13 @@
         </div>
         <hr>
 
+        <h2 id="group5">Mine Sweeper</h2>
         <div class="row">
-            <h2 id="group5">Mine Sweeper</h2>
             <div class="col-md-3 col-sm-4 col-xs-6">
-                <a class="thumbnail" href="minesweeper.html">
-                    <img src="images/mine-sweeper.png" class="game-pic" alt="mine sweeper pic">
-                    <div class="caption">
-                        <h4 id="name5-1" class="text-center">Mine Sweeper Original</h4>
+                <a class="figure" href="minesweeper.html">
+                    <img src="images/mine-sweeper.png" class="figure-img shadow rounded" alt="mine sweeper pic">
+                    <div class="figure-caption">
+                        <h4 id="name5-1">Mine Sweeper Original</h4>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="minesweeper-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Rule <span class="caret"></span>
@@ -267,10 +264,10 @@
                     </div>
                 </a>
             </div><div class="col-md-3 col-sm-4 col-xs-6">
-                <a class="thumbnail" href="liesweeper.html">
-                    <img src="images/lie-sweeper.png" class="game-pic" alt="mine sweeper liar pic">
-                    <div class="caption">
-                        <h4 id="name5-1" class="text-center">Mine Sweeper Liar</h4>
+                <a class="figure" href="liesweeper.html">
+                    <img src="images/lie-sweeper.png" class="figure-img shadow rounded" alt="mine sweeper liar pic">
+                    <div class="figure-caption">
+                        <h4 id="name5-1">Mine Sweeper Liar</h4>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="liesweeper-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Rule <span class="caret"></span>
