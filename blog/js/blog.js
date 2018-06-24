@@ -63,32 +63,37 @@ var jsonToHtml = function(article) {
     paragraphs.forEach(paragraph => {
         var str = "";
         switch (paragraph.type) {
+            case "head":
+                str = `<h3>${paragraph.data}</h3>`
+                break;
             case "code":
-                str = `<pre><code>${paragraph.content}</code></pre>`
+                str = `<pre><code>${paragraph.data}</code></pre>`
                 break;
             case "image":
-                str = `<img src=${paragraph.link}>`
+                str = `<img src=${paragraph.data}>`
                 break;
             case "number_list":
                 str = "<ol>";
-                paragraph.content.forEach(item => {
+                paragraph.data.forEach(item => {
                     str = str.concat(`<li>${item}</li>`);
                 });
                 str = str.concat("</ol>");
                 break;
             case "bullet_list":
                 str = "<ul>";
-                paragraph.content.forEach(item => {
+                paragraph.data.forEach(item => {
                     str = str.concat(`<li>${item}</li>`);
                 });
                 str = str.concat("</ul>");
                 break;
-
+            case "quote":
+                str = `<blockquote class="blockquote"><p>${paragraph.data}</p></blockquote>`;
+                break;
             default:
-                str = `<p>${paragraph.content}</p>`
+                str = `<p>${paragraph.data}</p>`
                 break;
         }
-        htmlContent = htmlContent.concat(str).concat("</p>");
+        htmlContent = htmlContent.concat(str);
     });
 
     return htmlContent;
@@ -98,7 +103,7 @@ var showArticle = function(html) {
     $('#article').html(html)
 }
 
-var main = function () {
+var main = function() {
     $('#prev').click(function() {
         if (!articleList || articleList.length == 0 || showArticleFrom == 0) {
             return;

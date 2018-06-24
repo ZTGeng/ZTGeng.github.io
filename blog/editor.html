@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title id="web_title">Blog Editor</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/editor.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div id="header-nav"></div>
+            <br>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="index.html">Blog</a></li>
+                <li class="breadcrumb-item active">Edit</li>
+            </ol>
+        </header>
+
+        <div class="form-group">
+            <input id="title-input" type="text" class="form-control mb-2" placeholder="Title">
+            <div class="btn-toolbar text-monospace mb-2" role="toolbar">
+                <div class="btn-group mr-2" role="group">
+                    <button class="btn btn-outline-dark">B</button>
+                    <button class="btn btn-outline-dark">i</button>
+                    <button class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Head</button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Head 1</a>
+                        <a class="dropdown-item" href="#">Head 2</a>
+                        <a class="dropdown-item" href="#">Head 3</a>
+                        <a class="dropdown-item" href="#">Head 4</a>
+                        <a class="dropdown-item" href="#">Head 5</a>
+                        <a class="dropdown-item" href="#">Head 6</a>
+                    </div>
+                </div>
+                <div class="btn-group mr-2" role="group">
+                    <button class="btn btn-outline-dark">"</button>
+                    <button class="btn btn-outline-dark">&lt;&gt;</button>
+                    <button class="btn btn-outline-dark">I</button>
+                    <button class="btn btn-outline-dark">L</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button class="btn btn-outline-dark">ul</button>
+                    <button class="btn btn-outline-dark">ol</button>
+                </div>
+            </div>
+            <textarea id="text-input" class="form-control mb-2" id="raw-text" rows="10"></textarea>
+            <div class="d-flex justify-content-end">
+                <button id="to-json" class="btn btn-dark">To Json</button>
+            </div>
+        </div>
+        <hr>
+
+        <footer>
+            <div id="footer-copyright"></div>
+        </footer>
+    </div>
+    <script type="text/javascript">
+        $('#header-nav').load("nav.html");
+        $('#footer-copyright').load("copyright.html");
+		var lang = navigator.language;
+		if (lang.slice(0, 2) === "zh") {
+			$('#web_title').text("写博客");
+		}
+    </script>
+</body>
+
+</html>
