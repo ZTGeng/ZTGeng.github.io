@@ -5,6 +5,7 @@
 
 var ARTICLES_PATH = "articles/";
 var IMAGES_PATH = "images/";
+var ARTICLE_EXT = ".json";
 var LIST_FILENAME = "list.json";
 var SHOW_ARTICLE_NUM = 7;
 
@@ -22,17 +23,8 @@ var getList = function() {
 
 var showList = function (from, to) {
     $('#list').empty();
-    for (let i = from; i < to; i++) {
-        let article = $(`<a href="#" class="list-group-item list-group-item-action"><h6 class="mb-0">${articleList[i].title}<br><small>${articleList[i].date}</small></h6></a>`);
-        article.data("filename", articleList[i].filename);
-        article.click(function () {
-            if (article.hasClass("current")) {
-                return;
-            }
-            getArticle(article.data("filename"));
-            $('.current').removeClass("current disabled");
-            article.addClass("current disabled");
-        });
+    for (var i = from; i < to; i++) {
+        let article = $(`<a href="${"?p=".concat(articleList[i].filename)}" class="list-group-item list-group-item-action"><h6 class="mb-0">${articleList[i].title}<br><small>${articleList[i].date}</small></h6></a>`);
         $('#list').append(article)
     }
     if (from > 0) {
@@ -48,7 +40,7 @@ var showList = function (from, to) {
 }
 
 var getArticle = function(filename) {
-    $.getJSON(ARTICLES_PATH + filename).done(parseAndShowArticle);
+    $.getJSON(ARTICLES_PATH.concat(filename).concat(ARTICLE_EXT)).done(parseAndShowArticle);
 }
 
 var parseAndShowArticle = function(data) {
@@ -129,7 +121,7 @@ var main = function() {
         var params = decodeURIComponent(searchString.slice(1)).split('&');
         params.forEach(param => {
             if (param.slice(0, 2) === "p=") {
-                getArticle(param.slice(2).concat(".json"));
+                getArticle(param.slice(2));
                 return;
             }
         });
