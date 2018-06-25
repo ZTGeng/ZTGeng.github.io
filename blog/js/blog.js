@@ -3,8 +3,9 @@
  * @author Geng
  */
 
-var PATH = "articles/";
-var LIST_NAME = "list.json";
+var ARTICLES_PATH = "articles/";
+var IMAGES_PATH = "images/";
+var LIST_FILENAME = "list.json";
 var SHOW_ARTICLE_NUM = 7;
 
 var showArticleFrom = 0;
@@ -12,7 +13,7 @@ var showArticleTo = 0;
 var articleList;
 
 var getList = function() {
-    $.getJSON(LIST_NAME).done(function(data) {
+    $.getJSON(LIST_FILENAME).done(function(data) {
         articleList = data.list;
         showArticleTo = Math.min(SHOW_ARTICLE_NUM, articleList.length);
         showList(0, showArticleTo);
@@ -47,7 +48,7 @@ var showList = function (from, to) {
 }
 
 var getArticle = function(filename) {
-    $.getJSON(PATH + filename).done(parseAndShowArticle);
+    $.getJSON(ARTICLES_PATH + filename).done(parseAndShowArticle);
 }
 
 var parseAndShowArticle = function(data) {
@@ -57,7 +58,8 @@ var parseAndShowArticle = function(data) {
 }
 
 var jsonToHtml = function(article) {
-    var htmlContent = `<h2 id="article_title">${article.title}</h2><p id="artical_date">${article.date}</p><br>`;
+    var htmlContent =
+        `<h2 id="article_title">${article.title}</h2><p id="artical_date">${article.date}</p><br>`;
 
     var paragraphs = article.text;
     paragraphs.forEach(paragraph => {
@@ -70,7 +72,7 @@ var jsonToHtml = function(article) {
                 str = `<pre><code>${paragraph.data}</code></pre>`
                 break;
             case "image":
-                str = `<img src=${paragraph.data}>`
+                str = `<img src="${IMAGES_PATH + paragraph.data}" class="img-fluid">`
                 break;
             case "number_list":
                 str = "<ol>";
@@ -120,7 +122,7 @@ var main = function() {
         showArticleFrom = Math.max(showArticleTo - SHOW_ARTICLE_NUM, 0);
         showList(showArticleFrom, showArticleTo);
     });
-    // getArticle("2018.json");
+    // getArticle("test.json");
     getList();
 };
 

@@ -17,7 +17,7 @@ var parseHead = function (head) {
 }
 
 var parseCode = function (code) {
-    return JSON.parse(`{"type": "code", "data": "${code.replace(/\n/g, "\\n").replace(/\</g, "&lt;").replace(/\>/g, "&gt;")}"}`);
+    return JSON.parse(`{"type": "code", "data": "${code.replace(/\n/g, "\\n")}"}`);
 }
 
 var parseImage = function (url) {
@@ -41,7 +41,14 @@ var parsePlain = function (text) {
 }
 
 var parseText = function () {
-    var text = $('#text-input').val();
+    var text = $('#text-input').val()
+        .replace(/\&/g, "&amp;")
+        .replace(/\\/g, "&#92;")
+        .replace(/\</g, "&lt;")
+        .replace(/\>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/\'/g, "&apos;")
+        .concat('\n');
     var paragraphs = [];
 
     var from = 0;
@@ -60,13 +67,9 @@ var parseText = function () {
             from = to;
         } else if (text.slice(from, from + 4) === "```\n") {
             from += 4;
-            to = text.indexOf("```\n", from);
+            to = text.indexOf("\n```\n", from);
             if (to === -1) {
-                if (text.slice(-3) === "```") {
-                    to = text.length - 3;
-                } else {
-                    continue;
-                }
+                continue;
             }
             paragraphs.push(parseCode(text.slice(from, to)));
 
