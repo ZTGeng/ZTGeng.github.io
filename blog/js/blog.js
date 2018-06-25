@@ -124,6 +124,16 @@ var main = function() {
     });
     // getArticle("test.json");
     getList();
+    var searchString = window.location.search;
+    if (searchString.length !== 0) {
+        var params = decodeURIComponent(searchString.slice(1)).split('&');
+        params.forEach(param => {
+            if (param.slice(0, 2) === "p=") {
+                getArticle(param.slice(2).concat(".json"));
+                return;
+            }
+        });
+    }
 };
 
 $(document).ready(main);
