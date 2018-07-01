@@ -30,17 +30,9 @@
             <input id="title-input" type="text" class="form-control mb-2" placeholder="Title">
             <div class="btn-toolbar text-monospace mb-2" role="toolbar">
                 <div class="btn-group mr-2" role="group">
-                    <button class="btn btn-outline-dark">B</button>
-                    <button class="btn btn-outline-dark">i</button>
-                    <button class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Head</button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Head 1</a>
-                        <a class="dropdown-item" href="#">Head 2</a>
-                        <a class="dropdown-item" href="#">Head 3</a>
-                        <a class="dropdown-item" href="#">Head 4</a>
-                        <a class="dropdown-item" href="#">Head 5</a>
-                        <a class="dropdown-item" href="#">Head 6</a>
-                    </div>
+                    <button class="btn btn-outline-dark"><strong>B</strong></button>
+                    <button class="btn btn-outline-dark"><em>i</em></button>
+                    <button class="btn btn-outline-dark">Head</button>
                 </div>
                 <div class="btn-group mr-2" role="group">
                     <button class="btn btn-outline-dark">"</button>
@@ -48,16 +40,38 @@
                     <button class="btn btn-outline-dark">I</button>
                     <button class="btn btn-outline-dark">L</button>
                 </div>
-                <div class="btn-group" role="group">
+                <div class="btn-group mr-auto" role="group">
                     <button class="btn btn-outline-dark">ul</button>
                     <button class="btn btn-outline-dark">ol</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button class="btn btn-outline-dark">&lt;-</button>
                 </div>
             </div>
             <textarea id="text-input" class="form-control mb-2" id="raw-text" rows="10"></textarea>
             <div class="d-flex justify-content-end">
-                <button id="to-json" class="btn btn-dark">To Json</button>
+                <button id="toJson" class="btn btn-dark" data-toggle="modal" data-target="#jsonModal">To JSON</button>
             </div>
         </div>
+        <div class="modal fade" id="jsonModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalTitle">Copy and save to a file</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <span id="modalBody" style="white-space: pre-wrap"></span>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalClose">Close</button>
+                  <button type="button" class="btn btn-dark" id="modalCopy">Copy to Clipboard</button>
+                </div>
+              </div>
+            </div>
+          </div>
         <hr>
 
         <footer>
@@ -70,6 +84,10 @@
 		var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
 			$('#web_title').text("写博客");
+			$('#toJson').text("转JSON");
+			$('#modalTitle').text("复制并存为文件");
+			$('#modalClose').text("关闭");
+			$('#modalCopy').text("复制到剪贴板");
 		}
     </script>
 </body>

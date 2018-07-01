@@ -61,7 +61,7 @@ var jsonToHtml = function(article) {
                 str = `<h3>${paragraph.data}</h3>`
                 break;
             case "code":
-                str = `<pre><code>${paragraph.data}</code></pre>`
+                str = `<pre class="bg-light p-2"><code>${paragraph.data}</code></pre>`
                 break;
             case "image":
                 str = `<img src="${IMAGES_PATH + paragraph.data}" class="img-fluid">`
@@ -81,10 +81,13 @@ var jsonToHtml = function(article) {
                 str = str.concat("</ul>");
                 break;
             case "quote":
-                str = `<blockquote class="blockquote"><p>${paragraph.data}</p></blockquote>`;
+                str = `<p class="text-justify ml-4 p-2 bg-secondary text-white">${paragraph.data.replace(/\n/g, "<br>")}</p>`;
+                break;
+            case "line":
+                str = "<hr>";
                 break;
             default:
-                str = `<p>${paragraph.data}</p>`
+                str = `<p class="text-justify">${paragraph.data.replace(/\n/g, "<br>")}</p>`
                 break;
         }
         htmlContent = htmlContent.concat(str);
