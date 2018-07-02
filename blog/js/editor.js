@@ -5,7 +5,7 @@
 
 var getDate = function () {
     let date = new Date();
-    return `${date.getFullYear()}-${twoDigits(date.getMonth())}-${twoDigits(date.getDate())} ${twoDigits(date.getHours())}:${twoDigits(date.getMinutes())}:${twoDigits(date.getSeconds())}`
+    return `${date.getFullYear()}-${twoDigits(date.getMonth())}-${twoDigits(date.getDate() + 1)} ${twoDigits(date.getHours())}:${twoDigits(date.getMinutes())}:${twoDigits(date.getSeconds())}`
 }
 
 var twoDigits = function (num) {

@@ -44,9 +44,7 @@ var getArticle = function(filename) {
 }
 
 var parseAndShowArticle = function(data) {
-    // console.log(data);
-
-    showArticle(jsonToHtml(data));
+    $('#article').html(jsonToHtml(data));
 }
 
 var jsonToHtml = function(article) {
@@ -58,7 +56,7 @@ var jsonToHtml = function(article) {
         var str = "";
         switch (paragraph.type) {
             case "head":
-                str = `<h3>${paragraph.data}</h3>`
+                str = `<h4>${parsePlainText(paragraph.data)}</h4>`
                 break;
             case "code":
                 str = `<pre class="bg-light p-2"><code>${paragraph.data}</code></pre>`
@@ -69,25 +67,25 @@ var jsonToHtml = function(article) {
             case "number_list":
                 str = "<ol>";
                 paragraph.data.forEach(item => {
-                    str = str.concat(`<li>${item}</li>`);
+                    str = str.concat(`<li>${parsePlainText(item)}</li>`);
                 });
                 str = str.concat("</ol>");
                 break;
             case "bullet_list":
                 str = "<ul>";
                 paragraph.data.forEach(item => {
-                    str = str.concat(`<li>${item}</li>`);
+                    str = str.concat(`<li>${parsePlainText(item)}</li>`);
                 });
                 str = str.concat("</ul>");
                 break;
             case "quote":
-                str = `<p class="text-justify ml-4 p-2 bg-secondary text-white">${paragraph.data.replace(/\n/g, "<br>")}</p>`;
+                str = `<p class="text-justify ml-4 p-2 bg-secondary text-white">${parsePlainText(paragraph.data)}</p>`;
                 break;
             case "line":
                 str = "<hr>";
                 break;
             default:
-                str = `<p class="text-justify">${paragraph.data.replace(/\n/g, "<br>")}</p>`
+                str = `<p class="text-justify">${parsePlainText(paragraph.data)}</p>`
                 break;
         }
         htmlContent = htmlContent.concat(str);
@@ -96,8 +94,16 @@ var jsonToHtml = function(article) {
     return htmlContent;
 }
 
-var showArticle = function(html) {
-    $('#article').html(html)
+var parsePlainText = function (text) {
+    return text
+        .replace(/\*\*[^\n]*?\*\*/g, match => `<strong>${match.slice(2, -2)}</strong>`)
+        .replace(/\#\#[^\n]*?\#\#/g, match => `<em>${match.slice(2, -2)}</em>`)
+        .replace(/\`\`[^\n]*?\`\`/g, match => `<code>${match.slice(2, -2)}</code>`)
+        .replace(/\[\[url\|[^\n]*?\]\]/g, match => {
+            var [link, words] = match.slice(6, -2).split('|', 2);
+            return `<a href="${link}">${words}</a>`;
+        })
+        .replace(/\n/g, "<br>");
 }
 
 var main = function() {
