@@ -101,7 +101,7 @@ var parsePlainText = function (text) {
         .replace(/\`\`[^\n]*?\`\`/g, match => `<code>${match.slice(2, -2)}</code>`)
         .replace(/\[\[url\|[^\n]*?\]\]/g, match => {
             var [link, words] = match.slice(6, -2).split('|', 2);
-            return `<a href="${link}">${words}</a>`;
+            return `<a href="${link}" target="_blank">${words}</a>`;
         })
         .replace(/\n/g, "<br>");
 }
