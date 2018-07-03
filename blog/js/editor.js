@@ -49,14 +49,14 @@ var parsePlain = function (text) {
 }
 
 var parseText = function () {
-    var text = $('#text-input').val()
+    var text = `\n${$('#textInput').val()}\n\n`
         .replace(/\&/g, "&amp;")
         .replace(/\\/g, "&#92;")
         .replace(/\</g, "&lt;")
         .replace(/\>/g, "&gt;")
         .replace(/\"/g, "&quot;")
         .replace(/\'/g, "&apos;")
-        .concat("\n\n");
+        .replace(/\n\-\-\-\-*\s*\n/g, "\n---\n");
     var paragraphs = [];
 
     var from = 0;
@@ -64,16 +64,12 @@ var parseText = function () {
     while (from < text.length) {
         if (text.charAt(from) === '\n' || text.charAt(from) === ' ') {
             from++;
-        } else if (text.slice(from, from + 4) === '----') {
-            to = from + 4;
-            while (text.charAt(to) === '-') {
-                to ++;
-            }
+        } else if (text.slice(from, from + 4) === '---\n') {
             paragraphs.push(parseLine());
 
-            from  = to;
+            from  = from + 4;
         } else if (text.slice(from, from + 4) === "### ") {
-            from += 4; 
+            from += 4;
             to = text.indexOf('\n', from);
             if (to === -1) {
                 to = text.length;
@@ -90,8 +86,8 @@ var parseText = function () {
             paragraphs.push(parseCode(text.slice(from, to)));
 
             from = to + 5;
-        } else if (text.slice(from, from + 7) === "[[img]]") {
-            from += 7;
+        } else if (text.slice(from, from + 4) === "IMG|") {
+            from += 4;
             to = text.indexOf('\n', from);
             if (to === -1) {
                 to = text.length;
@@ -170,10 +166,7 @@ var parseText = function () {
                     break;
                 }
                 var fourChar = text.slice(to, to + 4);
-                if (fourChar === "### " || fourChar === "```\n" || fourChar === "----") {
-                    break;
-                }
-                if (text.slice(to, to + 7) === "[[img]]") {
+                if (fourChar === "### " || fourChar === "```\n" || fourChar === "---\n" || fourChar === "IMG|") {
                     break;
                 }
             }
@@ -191,7 +184,7 @@ var showOnModal = function (data) {
 }
 
 var showJson = function () {
-    var json = JSON.parse(`{"title": "${$('#title-input').val()}", "date": "${getDate()}"}`);
+    var json = JSON.parse(`{"title": "${$('#titleInput').val()}", "date": "${getDate()}"}`);
     json.text = parseText();
     console.log(JSON.stringify(json));
     showOnModal(JSON.stringify(json, null, 2));

@@ -7,7 +7,7 @@
           "data": "本周技术文章分享"
         },
         {
-          "data": "本周的Android Weekly包含一篇文章[[url|https://medium.com/@fabionegri/remember-remember-to-target-api-26-on-november-7ce4fdde2c08|Remember, remember… to target API 26 on November!]]提醒你在11月之前要将app的target API提升到26以上，否则将无法在Play Store上传安装包。"
+          "data": "本周的Android Weekly包含一篇文章[[https://medium.com/@fabionegri/remember-remember-to-target-api-26-on-november-7ce4fdde2c08|Remember, remember… to target API 26 on November!]]提醒你在11月之前要将app的target API提升到26以上，否则将无法在Play Store上传安装包。"
         },
         {
           "data": "文章贴心地列出了从23以上每级提升的注意事项。我摘录了一些："
@@ -37,7 +37,7 @@
         {
           "type": "bullet_list",
           "data": [
-            "可以使用[[url|https://developer.android.com/guide/topics/ui/shortcuts|App Shortcut]]。"
+            "可以使用[[https://developer.android.com/guide/topics/ui/shortcuts|App Shortcut]]。"
           ]
         },
         {

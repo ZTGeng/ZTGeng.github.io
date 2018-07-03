@@ -10,6 +10,7 @@
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/editor.js"></script>
+    <script type="text/javascript" src="js/buttons.js"></script>
     <style>
     </style>
 </head>
@@ -27,28 +28,29 @@
         </header>
 
         <div class="form-group">
-            <input id="title-input" type="text" class="form-control mb-2" placeholder="Title">
+            <input id="titleInput" type="text" class="form-control mb-2" placeholder="Title">
             <div class="btn-toolbar text-monospace mb-2" role="toolbar">
                 <div class="btn-group mr-2" role="group">
-                    <button class="btn btn-outline-dark"><strong>B</strong></button>
-                    <button class="btn btn-outline-dark"><em>i</em></button>
-                    <button class="btn btn-outline-dark">Head</button>
+                    <button id="editBtnB" class="btn btn-outline-dark"><img src="../octicons/svg/bold.svg"></button>
+                    <button id="editBtnI" class="btn btn-outline-dark"><img src="../octicons/svg/italic.svg"></button>
+                    <button id="editBtnHead" class="btn btn-outline-dark"><img src="../octicons/svg/book.svg"></button>
                 </div>
                 <div class="btn-group mr-2" role="group">
-                    <button class="btn btn-outline-dark">"</button>
-                    <button class="btn btn-outline-dark">&lt;&gt;</button>
-                    <button class="btn btn-outline-dark">I</button>
-                    <button class="btn btn-outline-dark">L</button>
+                    <button id="editBtnQuote" class="btn btn-outline-dark"><img src="../octicons/svg/quote.svg"></button>
+                    <button id="editBtnCode" class="btn btn-outline-dark"><img src="../octicons/svg/code.svg"></button>
+                    <button id="editBtnImage" class="btn btn-outline-dark"><img src="../octicons/svg/file-media.svg"></button>
+                    <button id="editBtnLink" class="btn btn-outline-dark"><img src="../octicons/svg/link.svg"></button>
+                    <button id="editBtnHr" class="btn btn-outline-dark"><img src="../octicons/svg/horizontal-rule.svg"></button>
                 </div>
                 <div class="btn-group mr-auto" role="group">
-                    <button class="btn btn-outline-dark">ul</button>
-                    <button class="btn btn-outline-dark">ol</button>
+                    <button id="editBtnBList" class="btn btn-outline-dark"><img src="../octicons/svg/list-unordered.svg"></button>
+                    <button id="editBtnNList" class="btn btn-outline-dark"><img src="../octicons/svg/list-ordered.svg"></button>
                 </div>
                 <div class="btn-group" role="group">
-                    <button class="btn btn-outline-dark">&#8592;</button>
+                    <button id="editBtnBack" class="btn btn-outline-dark"><img src="../octicons/svg/arrow-left.svg"></button>
                 </div>
             </div>
-            <textarea id="text-input" class="form-control mb-2" id="raw-text" rows="10"></textarea>
+            <textarea id="textInput" class="form-control mb-2" id="raw-text" rows="10"></textarea>
             <div class="d-flex justify-content-end">
                 <button id="toJson" class="btn btn-dark" data-toggle="modal" data-target="#jsonModal">To JSON</button>
             </div>

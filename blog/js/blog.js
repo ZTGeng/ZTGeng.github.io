@@ -62,7 +62,8 @@ var jsonToHtml = function(article) {
                 str = `<pre class="bg-light p-2"><code>${paragraph.data}</code></pre>`
                 break;
             case "image":
-                str = `<img src="${IMAGES_PATH + paragraph.data}" class="img-fluid">`
+                var isUrl = paragraph.data.slice(0, 7) === "http://" || paragraph.data.slice(0, 8) === "https://";
+                str = `<img src="${isUrl ? paragraph.data : IMAGES_PATH + paragraph.data}" class="img-fluid">`
                 break;
             case "number_list":
                 str = "<ol>";
@@ -97,10 +98,10 @@ var jsonToHtml = function(article) {
 var parsePlainText = function (text) {
     return text
         .replace(/\*\*[^\n]*?\*\*/g, match => `<strong>${match.slice(2, -2)}</strong>`)
-        .replace(/\#\#[^\n]*?\#\#/g, match => `<em>${match.slice(2, -2)}</em>`)
+        .replace(/\/\/[^\n]*?\/\//g, match => `<em>${match.slice(2, -2)}</em>`)
         .replace(/\`\`[^\n]*?\`\`/g, match => `<code>${match.slice(2, -2)}</code>`)
-        .replace(/\[\[url\|[^\n]*?\]\]/g, match => {
-            var [link, words] = match.slice(6, -2).split('|', 2);
+        .replace(/\[\[[^\n]*?\]\]/g, match => {
+            var [link, words] = match.slice(2, -2).split('|', 2);
             return `<a href="${link}" target="_blank">${words}</a>`;
         })
         .replace(/\n/g, "<br>");
