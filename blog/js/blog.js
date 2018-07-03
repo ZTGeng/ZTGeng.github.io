@@ -137,7 +137,6 @@ var main = function() {
                 getArticle(param.slice(2));
             } else if (param.slice(0, 5) === "from=") {
                 var from = parseInt(param.slice(5));
-                console.log(from);
                 if (from) {
                     showArticleFrom = from;
                 }
