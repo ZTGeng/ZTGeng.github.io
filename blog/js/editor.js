@@ -179,15 +179,20 @@ var parseText = function () {
     return paragraphs;
 }
 
-var showOnModal = function (data) {
-    $('#modalBody').text(data);
-}
-
 var showJson = function () {
     var json = JSON.parse(`{"title": "${$('#titleInput').val()}", "date": "${getDate()}"}`);
     json.text = parseText();
-    console.log(JSON.stringify(json));
-    showOnModal(JSON.stringify(json, null, 2));
+    // console.log(JSON.stringify(json));
+    var jsonText = JSON.stringify(json, null, 2);
+    $('#modalBody').text(jsonText);
+    $('#modalCopy').off().click(function () {
+        var temp = $('<textarea>');
+        temp.appendTo($('#jsonModal'));
+        temp.val(jsonText);
+        temp.select();
+        document.execCommand("copy");
+        temp.remove();
+    });
 }
 
 var main = function() {
