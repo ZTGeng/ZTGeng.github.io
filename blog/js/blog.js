@@ -16,15 +16,19 @@ var articleList;
 var getList = function() {
     $.getJSON(LIST_FILENAME).done(function(data) {
         articleList = data.list;
-        showArticleTo = Math.min(SHOW_ARTICLE_NUM, articleList.length);
-        showList(0, showArticleTo);
+        showArticleTo = Math.min(showArticleFrom + SHOW_ARTICLE_NUM, articleList.length);
+        showList(showArticleFrom, showArticleTo);
     });
 }
 
 var showList = function (from, to) {
     $('#list').empty();
     for (var i = from; i < to; i++) {
-        let article = $(`<a href="${"?p=".concat(articleList[i].filename)}" class="list-group-item list-group-item-action"><h6 class="mb-0">${articleList[i].title}<br><small>${articleList[i].date}</small></h6></a>`);
+        let url = `?p=${articleList[i].filename}`;
+        if (from !== 0) {
+            url = url.concat(`&from=${from}`);
+        }
+        let article = $(`<a href="${url}" class="list-group-item list-group-item-action"><h6 class="mb-0">${articleList[i].title}<br><small>${articleList[i].date}</small></h6></a>`);
         $('#list').append(article)
     }
     if (from > 0) {
@@ -109,7 +113,7 @@ var parsePlainText = function (text) {
 
 var main = function() {
     $('#prev').click(function() {
-        if (!articleList || articleList.length == 0 || showArticleFrom == 0) {
+        if (!articleList || articleList.length === 0 || showArticleFrom === 0) {
             return;
         }
         showArticleFrom = Math.max(showArticleFrom - SHOW_ARTICLE_NUM, 0);
@@ -117,25 +121,30 @@ var main = function() {
         showList(showArticleFrom, showArticleTo);
     });
     $('#next').click(function() {
-        if (!articleList || articleList.length == 0 || showArticleTo == articleList.length) {
+        if (!articleList || articleList.length === 0 || showArticleTo === articleList.length) {
             return;
         }
-        showArticleTo = Math.min(showArticleTo + SHOW_ARTICLE_NUM, articleList.length);
-        showArticleFrom = Math.max(showArticleTo - SHOW_ARTICLE_NUM, 0);
+        showArticleFrom = showArticleTo;
+        showArticleTo = Math.min(showArticleFrom + SHOW_ARTICLE_NUM, articleList.length);
         showList(showArticleFrom, showArticleTo);
     });
     // getArticle("test.json");
-    getList();
     var searchString = window.location.search;
     if (searchString.length !== 0) {
         var params = decodeURIComponent(searchString.slice(1)).split('&');
         params.forEach(param => {
             if (param.slice(0, 2) === "p=") {
                 getArticle(param.slice(2));
-                return;
+            } else if (param.slice(0, 5) === "from=") {
+                var from = parseInt(param.slice(5));
+                console.log(from);
+                if (from) {
+                    showArticleFrom = from;
+                }
             }
         });
     }
+    getList();
 };
 
 $(document).ready(main);
