@@ -4,7 +4,7 @@
     "text": [
       {
         "type": "head",
-        "data": "本周技术文章分享"
+        "data": "本周技术文章点评分享"
       },
       {
         "data": "本周的Android Weekly上读到一篇文章[[https://engineering.udacity.com/react-native-a-retrospective-from-the-mobile-engineering-team-at-udacity-89975d6a8102|React Native: A retrospective from the mobile-engineering team at Udacity]]，以第一人称视角介绍了Udacity的mobile团队在开发中引入和移除了React Native的经验。"
@@ -42,7 +42,7 @@
       },
       {
         "type": "code",
-        "data": "var onBtnCodeClick = function () {\n    var text = textInput.val();\n    var start = textInput[0].selectionStart;\n    var end = textInput[0].selectionEnd;\n\n    if ((start === 0 || text.charAt(start - 1) === &apos;&#92;n&apos;) &amp;&amp; (end === text.length || text.charAt(end) === &apos;&#92;n&apos;)) {\n        // Block code\n        var selectText = start === end ? &quot;for (int i = 0; i &lt; 100; i++) {&#92;n    System.out.println(i);&#92;n}&quot; : text.slice(start, end);\n        cachedText = text;\n        textInput.val(text.slice(0, start).concat(`&#92;n&#92;`&#92;`&#92;`&#92;n${selectText}&#92;n&#92;`&#92;`&#92;`&#92;n`).concat(text.slice(end, text.length)));\n    } else {\n        // Inline code\n        var selectText = start === end ? &quot;inline code&quot; : text.slice(start, end);\n        if (selectText.indexOf(&apos;&#92;n&apos;) === -1) {\n            cachedText = text;\n            textInput.val(text.slice(0, start).concat(`&#92;`&#92;`${selectText}&#92;`&#92;``).concat(text.slice(end, text.length)));\n        }\n    }\n}"
+        "data": "var onBtnCodeClick = function () {\n    var text = textInput.val();\/\/ textInput是一个JQuery对象\n    var start = textInput[0].selectionStart;\n    var end = textInput[0].selectionEnd;\n\n    if ((start === 0 || text.charAt(start - 1) === &apos;&#92;n&apos;) &amp;&amp; (end === text.length || text.charAt(end) === &apos;&#92;n&apos;)) {\n        // Block code\n        var selectText = start === end ? &quot;for (int i = 0; i &lt; 100; i++) {&#92;n    System.out.println(i);&#92;n}&quot; : text.slice(start, end);\n        cachedText = text;\n        textInput.val(text.slice(0, start).concat(`&#92;n&#92;`&#92;`&#92;`&#92;n${selectText}&#92;n&#92;`&#92;`&#92;`&#92;n`).concat(text.slice(end, text.length)));\n    } else {\n        // Inline code\n        var selectText = start === end ? &quot;inline code&quot; : text.slice(start, end);\n        if (selectText.indexOf(&apos;&#92;n&apos;) === -1) {\n            cachedText = text;\n            textInput.val(text.slice(0, start).concat(`&#92;`&#92;`${selectText}&#92;`&#92;``).concat(text.slice(end, text.length)));\n        }\n    }\n}"
       },
       {
         "data": "``selectionStart``有浏览器兼容问题。考虑到事实上目前唯一的用户只用Chrome，最多偶尔用一下Safari和Edge，所以问题不大。"
