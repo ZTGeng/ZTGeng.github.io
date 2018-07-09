@@ -63,7 +63,7 @@ var jsonToHtml = function(article) {
                 str = `<h4>${parsePlainText(paragraph.data)}</h4>`
                 break;
             case "code":
-                str = `<pre class="bg-light p-2"><code>${paragraph.data}</code></pre>`
+                str = `<pre class="bg-light p-2" style="white-space: pre-wrap"><code>${paragraph.data}</code></pre>`
                 break;
             case "image":
                 var isUrl = paragraph.data.slice(0, 7) === "http://" || paragraph.data.slice(0, 8) === "https://";
