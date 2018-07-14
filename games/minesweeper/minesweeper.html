@@ -10,10 +10,10 @@
     <meta name="author" content="Geng">
     <meta name="description" content="Mine Sweeper">
 
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/minesweeper.css">
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/minesweeper.js"></script>
 </head>
 
@@ -23,8 +23,8 @@
             <div id="header-nav"></div>
             <br>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="index.html">Game</a></li>
+                <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="../index.html">Game</a></li>
                 <li class="breadcrumb-item active">Mine Sweeper</li>
             </ol>
         </header>
@@ -64,8 +64,8 @@
         </footer>
     </div>
     <script type="text/javascript">
-        $('#header-nav').load("nav.html");
-        $('#footer-copyright').load("copyright.html");
+        $('#header-nav').load("../nav.html");
+        $('#footer-copyright').load("../copyright.html");
         var lang = navigator.language;
         if (lang.slice(0, 2) === "zh") {
             $('#title').text("扫雷原版");

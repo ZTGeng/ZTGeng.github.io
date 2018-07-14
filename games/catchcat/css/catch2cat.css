@@ -1,0 +1,68 @@
+#cat {
+	/* float和margin阻止#cat占据宽度和高度 */
+	float: right;
+	margin-bottom: -30px;
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+	background: url("../images/cat1-30px.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.field {
+	border-radius: 5px;
+	margin: 0 auto;
+}
+
+.evenrow {
+	display: block;
+	padding-left: 15px;
+	margin-top: -4px;
+}
+.oddrow {
+	display: block;
+	padding-right: 15px;
+	margin-top: -4px;
+}
+
+.grid {
+	cursor: pointer;
+	display: inline-block;
+	border-radius: 100%;
+	/*border: solid 1px black;*/
+	width: 30px;
+	height: 30px;
+	background-color: #DDDDDD;
+	vertical-align: top;
+}
+
+.opened {
+	background-color: orange;
+}
+
+.occupied {
+	background: url("../images/cat1-30px.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.end {
+	background: url("../images/cat2-30px.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+/*
+.out {
+	background: blue;
+}
+*/
+.result {
+	color: red;
+}
+
+#rule {
+	max-width: 400px;
+	margin: 0 auto;
+	text-align: left;
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title id="title">Catch Smelly Cat</title>
+    <meta name="author" content="Geng">
+    <meta name="description" content="Catch Smelly Cats">
+
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/catchcatpoo.css">
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/catchcatpoo.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div id="header-nav"></div>
+            <br>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="../index.html">Game</a></li>
+                <li class="breadcrumb-item active">Catch Smelly Cat</li>
+            </ol>
+        </header>
+
+        <div class="text-center">
+            <h1 id="gameName">Catch the Cat: Smelly Cat</h1>
+            <div class="field" style="margin: auto">
+            </div>
+            <div>
+                <p class="result"></p>
+            </div>
+            <button id="reset" class="btn btn-secondary">RESET</button>
+            <div id="rule">
+                <p>Rules:</p>
+                <ul>
+                    <li>Some of the dots contain cat poop. Don't click them.</li>
+                    <li>Cat avoids poop dots.</li>
+                    <li>Number on dot shows how many dots around it contain poop.</li>
+                    <li>Right click to mark or unmark a dot.</li>
+                </ul>
+            </div>
+        </div>
+
+        <hr>
+
+        <footer>
+            <div id="footer-copyright"></div>
+        </footer>
+    </div>
+
+    <script type="text/javascript">
+        $('#header-nav').load("../nav.html");
+        $('#footer-copyright').load("../copyright.html");
+        var lang = navigator.language;
+		if (lang.slice(0, 2) === "zh") {
+			$('#title').text("抓猫 - 臭臭猫");
+			$('#gameName').text("抓住这只猫 之 臭臭猫");
+			$('#reset').text("重新开始");
+			$('#rule').html("<p>规则：</p><ul><li>部分格子埋着猫屎。踩中猫屎则输。</li><li>猫不会走进有猫屎的格子。</li><li>数字显示相邻格子中有多少猫屎。</li><li>使用右键标记和解除标记疑似猫屎。</li></ul>");
+		}
+    </script>
+</body>
+
+</html>
