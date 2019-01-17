@@ -102,7 +102,7 @@ var jsonToHtml = function(article) {
 var parsePlainText = function (text) {
     return text
         .replace(/\*\*[^\n]*?\*\*/g, match => `<strong>${match.slice(2, -2)}</strong>`)
-        .replace(/\/\/[^\n]*?\/\//g, match => `<em>${match.slice(2, -2)}</em>`)
+        .replace(/\*[^\n]*?\*/g, match => `<em>${match.slice(1, -1)}</em>`)
         .replace(/\`\`[^\n]*?\`\`/g, match => `<code>${match.slice(2, -2)}</code>`)
         .replace(/\[\[[^\n]*?\]\]/g, match => {
             var [link, words] = match.slice(2, -2).split('|', 2);

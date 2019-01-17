@@ -23,7 +23,7 @@ var onBtnIClick = function () {
 
     var selectText = start === end ? "italic text" : text.slice(start, end);
     cachedText = text;
-    textInput.val(text.slice(0, start).concat(`//${selectText}//`).concat(text.slice(end, text.length)));
+    textInput.val(text.slice(0, start).concat(`*${selectText}*`).concat(text.slice(end, text.length)));
 }
 
 var onBtnHeadClick = function () {
