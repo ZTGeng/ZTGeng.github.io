@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
     <script type="text/javascript" src="js/editor.js"></script>
     <script type="text/javascript" src="js/buttons.js"></script>
     <style>
@@ -52,14 +53,15 @@
             </div>
             <textarea id="textInput" class="form-control mb-2" rows="10"></textarea>
             <div class="d-flex justify-content-end">
-                <button id="toJson" class="btn btn-dark" data-toggle="modal" data-target="#jsonModal">To JSON</button>
+                <button id="preview" class="btn btn-dark" data-toggle="modal" data-target="#previewModal">Preview</button>
+                <button id="save" class="btn btn-dark ml-2">Save As...</button>
             </div>
         </div>
-        <div class="modal fade" id="jsonModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="modalTitle">Copy and save to a file</h5>
+                  <h5 class="modal-title" id="modalTitle">Copy JSON to clipboard or save to a file</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -69,7 +71,8 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalClose">Close</button>
-                  <button type="button" class="btn btn-dark" id="modalCopy">Copy to Clipboard</button>
+                  <button type="button" class="btn btn-dark" id="modalCopy">Copy JSON</button>
+                  <button type="button" class="btn btn-dark" id="modalSave">Save As...</button>
                 </div>
               </div>
             </div>
@@ -86,10 +89,12 @@
 		var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
 			$('#web_title').text("写博客");
-			$('#toJson').text("转JSON");
-			$('#modalTitle').text("复制并存为文件");
+            $('#preview').text("预览");
+            $('#save').text("保存为...");
+			$('#modalTitle').text("复制JSON到剪贴板或保存为文件");
 			$('#modalClose').text("关闭");
-			$('#modalCopy').text("复制到剪贴板");
+            $('#modalCopy').text("复制JSON");
+            $('#modalSave').text("保存为...");
 		}
     </script>
 </body>

@@ -1,5 +1,5 @@
 /**
- * @version 0.10
+ * @version 0.20
  * @author Geng
  */
 
@@ -10,6 +10,10 @@ var getDate = function () {
 
 var twoDigits = function (num) {
     return `${(num < 10 ? '0' : '') + num}`;
+}
+
+var parseFilename = function (date) {
+    return `a${date.substring(2, 4)}${date.substring(5, 7)}${date.substring(8, 10)}${date.substring(11, 13)}${date.substring(14, 16)}`;
 }
 
 var parseHead = function (head) {
@@ -189,24 +193,45 @@ var parseText = function () {
     return paragraphs;
 }
 
-var showJson = function () {
-    var json = JSON.parse(`{"title": "${$('#titleInput').val()}", "date": "${getDate()}"}`);
+var inputToJson = function () {
+    var date = getDate();
+    var json = JSON.parse(`{"title": "${$('#titleInput').val()}","date":"${date}","filename":"${parseFilename(date)}"}`);
     json.text = parseText();
-    // console.log(JSON.stringify(json));
-    var jsonText = JSON.stringify(json, null, 2);
-    $('#modalBody').text(jsonText);
+    return json;
+}
+
+var updateModal = function () {
+    var json = inputToJson();
+    $('#modalBody').html(jsonToHtml(json, false));
     $('#modalCopy').off().click(function () {
         var temp = $('<textarea>');
-        temp.appendTo($('#jsonModal'));
-        temp.val(jsonText);
+        temp.appendTo($('#previewModal'));
+        temp.val(JSON.stringify(json, null, 2));
         temp.select();
         document.execCommand("copy");
         temp.remove();
     });
+    $('#modalSave').off().click(function () {
+        saveToFile(json);
+    });
+}
+
+var saveToFile = function (json) {
+    var temp = $('<a></a>');
+    temp.attr({
+        download: json.filename.concat(ARTICLE_EXT),
+        href: "data:text/plain," + JSON.stringify(json, null, 2)
+    });
+    temp.appendTo($('body'));
+    temp[0].click();
+    temp.remove();
 }
 
 var main = function() {
-    $('#toJson').click(showJson);
+    $('#preview').click(updateModal);
+    $('#save').click(function () {
+        saveToFile(inputToJson());
+    });
 };
 
 $(document).ready(main);
