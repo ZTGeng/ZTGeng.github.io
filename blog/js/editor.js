@@ -17,7 +17,17 @@ var parseHead = function (head) {
 }
 
 var parseCode = function (code) {
-    return JSON.parse(`{"type": "code", "data": "${code.replace(/\n/g, "\\n")}"}`);
+    var lines = code.split("\n");
+    var trimHead = lines[0].length;
+    lines.forEach(line => {
+        if (line.trim().length != 0) {
+            var spaceHead = line.search(/\S|$/);
+            trimHead = Math.min(trimHead, spaceHead);
+        }
+    });
+    var re = new RegExp("^\\s{" + trimHead + "}|\\s+$", "g");
+    var codeTrimmed = lines.map(line => line.replace(re, "")).join("\\n");
+    return JSON.parse(`{"type": "code", "data": "${codeTrimmed}"}`);
 }
 
 var parseImage = function (url) {
