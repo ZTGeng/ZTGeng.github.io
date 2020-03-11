@@ -1,5 +1,5 @@
 var emsp = ' ';
-var direction = function(rDelta, cDelta) {
+var getDirection = function(rDelta, cDelta) {
     var rDeltaAbs = rDelta < 0 ? -rDelta : rDelta;
     var cDeltaAbs = cDelta < 0 ? -cDelta : cDelta;
     if (rDeltaAbs >= 2 * cDeltaAbs) {
@@ -8,6 +8,10 @@ var direction = function(rDelta, cDelta) {
     if (cDeltaAbs >= 2 * rDeltaAbs) {
         return cDelta < 0 ? "N" : "S";
     }
+    if (rDelta < 0) {
+        return cDelta < 0 ? "NW" : "SW";
+    }
+    return cDelta < 0 ? "NE" : "SE";
 };
 var app = new Vue({
     el: "#app",
@@ -17,8 +21,8 @@ var app = new Vue({
         canvasOverlay: new Array(20).fill(0).map(() => new Array(23).fill(emsp)),
         canvasUsed: new Array(20).fill(0).map(() => new Array(23).fill(false)),
         isMouseDown: false,
-        startR: 0,
-        startC: 0
+        rStart: 0,
+        cStart: 0
     },
     computed: {
         textTrimmed: function() { return this.textInput.replace(/[\r\n]/g, ''); },
@@ -40,14 +44,14 @@ var app = new Vue({
         mouseDown: function(r, c) {
             if (this.isMouseDown || this.canvasUsed[r][c]) { return; }
             this.isMouseDown = true;
-            this.startR = r;
-            this.startC = c;
+            this.rStart = r;
+            this.cStart = c;
             console.log("mouse down. r: " + r + ", c: " + c);
         },
         mouseEnter: function(r, c) {
             if (!this.isMouseDown) { return; }
-            var deltaR = r - startR;
-            var deltaC = c - startC;
+            var direction = getDirection(r - rStart, c - cStart);
+            
 
             console.log("mouse enter. r: " + r + ", c: " + c);
         },
