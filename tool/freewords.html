@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>自由排版</title>
+    <meta name="description" content="Words Free Arrangement">
+    <meta name="author" content="Geng">
+
+    <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+        crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        .unselectable {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div id="header-nav"></div>
+            <br>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="index.html">Tool</a></li>
+                <li class="breadcrumb-item active">Free Arrangement</li>
+            </ol>
+        </header>
+        <h1 id="title">自由排版 <small>微博文字排列工具</small></h1>
+        <div class="container" id="app">
+            <div class="row">
+                <textarea class="col-12" id="text-input" v-model="textInput" rows="4" placeholder="输入文字（换行符将被忽略）"></textarea>
+            </div>
+            <div class="row mt-1">
+                <button type="button" class="col-auto mr-auto btn btn-outline-dark" v-on:click="textInput = ''">全部删除</button>
+                <p class="col-auto" id="text-length">字数：{{ textTrimmed.length }}</p>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col" id="left-area">
+                    <div class="mb-2">
+                        <button type="button" class="btn btn-outline-dark">清除</button>
+                        <button type="button" class="btn btn-outline-dark">后退</button>
+                    </div>
+                    <table class="table table-bordered text-center unselectable" id="canvas" style="cursor: default">
+                        <tr class="" v-for="row, r in canvas">
+                            <td class="p-1" v-for="col, c in row" v-on:mousedown="mouseDown(r, c)" v-on:mouseenter="mouseEnter(r, c)" v-on:mouseup="mouseUp(r, c)">
+                                <span class="text-secondary position-absolute">{{ canvasOverlay[r][c] }}</span>
+                                <span class="text-dark">{{ canvas[r][c] }}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col" id="right-area">
+                    <div class="mb-2">
+                        <button type="button" class="btn btn-outline-dark" v-on:click="updateOutput()">拷贝到剪贴板</button>
+                    </div>
+                    <div class="border p-2" v-html="textOutput.replace(/\n/g, '<br>')"></div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <footer>
+            <div id="footer-copyright"></div>
+        </footer>
+    </div>
+
+</body>
+<script type="text/javascript" src="js/freewords.js"></script>
+</html>

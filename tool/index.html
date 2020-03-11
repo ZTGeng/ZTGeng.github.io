@@ -1,0 +1,83 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title id="webTitle">Tool</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
+    <style>
+        .dropdown-menu > p {
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            font-weight: 400;
+            line-height: 1.42857143;
+            color: #333;
+            white-space: nowrap
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div id="header-nav"></div>
+            <br>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+                <li class="breadcrumb-item active">Tool</li>
+            </ol>
+        </header>
+        <h1 id="title">Amused Tool<br>
+            <small class="text-muted" id="greeting"></small>
+        </h1>
+        <br>
+
+        <h2 id="group1">Text</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                <a class="figure" href="freewords.html">
+                    <img src="images/freewords.png" class="figure-img shadow rounded" alt="free words pic">
+                    <div class="figure-caption">
+                        <h6 id="name1-1">Free Arrangement</h6>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="freewords-intro" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Introduction <span class="caret"></span>
+                            </button>
+                            <div id="intro1-1" class="dropdown-menu" aria-labelledby="freewords-intro">
+                                <p>
+                                    Arrange words in a layout.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <hr>
+
+        <footer>
+            <div id="footer-copyright"></div>
+        </footer>
+    </div>
+    <script type="text/javascript">
+        $('#header-nav').load("nav.html");
+        $('#footer-copyright').load("copyright.html");
+		var lang = navigator.language;
+		if (lang.slice(0, 2) === "zh") {
+			$('#webTitle').text("工具");
+			$('#title').text("娱乐工具");
+			$('#greeting').text("");
+			$('#group1').text("文字");
+			$('#name1-1').text("自由排版");
+			$('#intro1-1').html("<p>将一段文字自由排布于一定范围内。<br>输入文字，然后在布局范围内划出直线或斜线。文字依线排列，直至全部用完。</p>");
+			$('.dropdown-toggle').html('说明 <span class="caret"></span>');
+		}
+    </script>
+</body>
+
+</html>
