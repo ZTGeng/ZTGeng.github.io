@@ -1,25 +1,16 @@
 var emsp = ' ';
-var getDirection = function(rDelta, cDelta) {
-    var rDeltaAbs = rDelta < 0 ? -rDelta : rDelta;
-    var cDeltaAbs = cDelta < 0 ? -cDelta : cDelta;
-    if (rDeltaAbs >= 2 * cDeltaAbs) {
-        return rDelta < 0 ? "W" : "E";
-    }
-    if (cDeltaAbs >= 2 * rDeltaAbs) {
-        return cDelta < 0 ? "N" : "S";
-    }
-    if (rDelta < 0) {
-        return cDelta < 0 ? "NW" : "SW";
-    }
-    return cDelta < 0 ? "NE" : "SE";
-};
+var ROW_NUM = 20;
+var COL_NUM = 23;
+
 var app = new Vue({
     el: "#app",
     data: {
         textInput: "",
-        canvas: new Array(20).fill(0).map(() => new Array(23).fill(emsp)),
-        canvasOverlay: new Array(20).fill(0).map(() => new Array(23).fill(emsp)),
-        canvasUsed: new Array(20).fill(0).map(() => new Array(23).fill(false)),
+        canvas: new Array(ROW_NUM).fill(0).map(() => new Array(COL_NUM).fill(emsp)),
+        canvasOverlay: new Array(ROW_NUM).fill(0).map(() => new Array(COL_NUM).fill(emsp)),
+        canvasUsed: new Array(ROW_NUM).fill(0).map(() => new Array(COL_NUM).fill(false)),
+        textIndex: 0,
+
         isMouseDown: false,
         rStart: 0,
         cStart: 0
@@ -50,15 +41,71 @@ var app = new Vue({
         },
         mouseEnter: function(r, c) {
             if (!this.isMouseDown) { return; }
-            var direction = getDirection(r - rStart, c - cStart);
-            
+
+            this.clearOverlay();
+            var length, rIncrement, cIncrement;
+            [length, rIncrement, cIncrement] = this.getPath(r, c);
+            this.updateOverlay(length, rIncrement, cIncrement);
 
             console.log("mouse enter. r: " + r + ", c: " + c);
         },
         mouseUp: function(r, c) {
             if (!this.isMouseDown) { return; }
             this.isMouseDown = false;
+
+            this.clearOverlay();
+            var length, rIncrement, cIncrement;
+            [length, rIncrement, cIncrement] = this.getPath(r, c);
+            this.updateCanvas(length, rIncrement, cIncrement);
+
             console.log("mouse up. r: " + r + ", c: " + c);
+        },
+        getPath: function(r, c) {
+            var length;
+            var rDelta = r - this.rStart;
+            var cDelta = c - this.cStart;
+            var rIncrement = rDelta < 0 ? -1 : 1;
+            var cIncrement = cDelta < 0 ? -1 : 1;
+            var rDeltaAbs = rDelta < 0 ? -rDelta : rDelta;
+            var cDeltaAbs = cDelta < 0 ? -cDelta : cDelta;
+
+            if (rDeltaAbs >= 2 * cDeltaAbs) {
+                cIncrement = 0;
+                length = rDeltaAbs + 1;
+            } else if (cDeltaAbs > 2 * rDeltaAbs) {
+                rIncrement = 0;
+                length = cDeltaAbs + 1;
+            } else if (rDeltaAbs > cDeltaAbs) {
+                length = rDeltaAbs + 1;
+            } else {
+                length = cDeltaAbs + 1;
+            }
+            return [length, rIncrement, cIncrement];
+        },
+        clearOverlay: function () {
+            this.canvasOverlay = new Array(ROW_NUM).fill(0).map(() => new Array(COL_NUM).fill(emsp));
+        },
+        updateOverlay: function(length, rIncrement, cIncrement) {
+            var sentence = this.textTrimmed.substring(this.textIndex, this.textIndex + length);
+            length = length > sentence.length ? sentence.length : length;
+            for (var i = 0, ri = this.rStart, ci = this.cStart; i < length; i++, ri += rIncrement, ci += cIncrement) {
+                if (ri < 0 || ci < 0 || ri >= ROW_NUM || ci >= COL_NUM || this.canvasUsed[ri][ci]) {
+                    break;
+                }
+                Vue.set(this.canvasOverlay[ri], ci, sentence.charAt(i));
+            }
+        },
+        updateCanvas: function (length, rIncrement, cIncrement) {
+            var sentence = this.textTrimmed.substring(this.textIndex, this.textIndex + length);
+            length = length > sentence.length ? sentence.length : length;
+            for (var i = 0, ri = this.rStart, ci = this.cStart; i < length; i++, ri += rIncrement, ci += cIncrement) {
+                if (ri < 0 || ci < 0 || ri >= ROW_NUM || ci >= COL_NUM || this.canvasUsed[ri][ci]) {
+                    break;
+                }
+                Vue.set(this.canvas[ri], ci, sentence.charAt(i));
+                Vue.set(this.canvasUsed[ri], ci, true);
+                this.textIndex += 1;
+            }
         }
     }
 });
