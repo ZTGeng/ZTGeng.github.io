@@ -32,7 +32,7 @@ var app = new Vue({
                 }
                 output += "\n";
             }
-            return output.trim();
+            return output.trimEnd();
         }
     },
     methods: {
