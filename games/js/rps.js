@@ -5,9 +5,9 @@
 
 var STATE = 0;
 var selection = 0;
-var DIGITS = 50;
+var DIGITS = 40;
 // var QUESTIONS = "??????????????????????????????????????????????????";
-var QUESTIONS = "__________________________________________________";
+var QUESTIONS = "________________________________________";
 var big_num;
 var TIMEDELTA = 1000;
 var timeout;
@@ -38,8 +38,7 @@ function refresh_big_num() {
     big_num = (Math.floor(Math.random() * 100) % 9 + 1).toString() +
               Math.random().toFixed(15).slice(2) + 
               Math.random().toFixed(15).slice(2) + 
-              Math.random().toFixed(15).slice(2) + 
-              Math.random().toFixed(4).slice(2);
+              Math.random().toFixed(9).slice(2);
 }
 
 function modalshow(str) {
@@ -73,8 +72,8 @@ function result() {
     console.log("What you chose is " + selection);
     $('#buttons').children().removeClass('btn-danger');
     var result_num = 0;
-    for (var i = 0; i < DIGITS; i += 10) {
-        result_num += parseInt(big_num.slice(i, i + 10));
+    for (var i = 0; i < DIGITS; i++) {
+        result_num += parseInt(big_num.charAt(i));
     }
     result_num %= 3;
     $('#com-result').text(result_num.toString());
