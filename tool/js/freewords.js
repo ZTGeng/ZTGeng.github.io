@@ -91,36 +91,75 @@ var app = new Vue({
             this.canvas = new Array(ROW_NUM).fill(0).map(() => new Array(COL_NUM).fill(emsp));
             this.canvasUsed = new Array(ROW_NUM).fill(0).map(() => new Array(COL_NUM).fill(false));
             this.textIndex = 0;
+            this.pathStack = [];
             this.clipboardErrorMessage = "";
         },
         updateOverlay: function(length, rIncrement, cIncrement) {
-            var sentence = this.textTrimmed.substring(this.textIndex, this.textIndex + length);
-            length = length > sentence.length ? sentence.length : length;
+            var textIndex = this.textIndex;
             for (var i = 0, ri = this.rStart, ci = this.cStart; i < length; i++, ri += rIncrement, ci += cIncrement) {
-                if (ri < 0 || ci < 0 || ri >= this.canvas.length || ci >= this.canvas[0].length || this.canvasUsed[ri][ci]) {
+                if (textIndex >= this.textTrimmed.length
+                    || ri < 0 || ci < 0 || ri >= this.canvas.length || ci >= this.canvas[0].length
+                    || this.canvasUsed[ri][ci]) {
                     break;
                 }
-                Vue.set(this.canvasOverlay[ri], ci, sentence.charAt(i));
+                if (this.textTrimmed.charCodeAt(textIndex) < 128) {
+                    if (rIncrement === 0 && textIndex + 1 < this.textTrimmed.length && this.textTrimmed.charCodeAt(textIndex + 1) < 128) {
+                        if (cIncrement < 0) {
+                            Vue.set(this.canvasOverlay[ri], ci, this.getChar(textIndex + 1) + this.getChar(textIndex));
+                        } else {
+                            Vue.set(this.canvasOverlay[ri], ci, this.getChar(textIndex) + this.getChar(textIndex + 1));
+                        }
+                        textIndex += 2;
+                    } else {
+                        Vue.set(this.canvasOverlay[ri], ci, this.getChar(textIndex) + " ");
+                        textIndex += 1;
+                    }
+                } else {
+                    Vue.set(this.canvasOverlay[ri], ci, this.getChar(textIndex));
+                    textIndex += 1
+                }
             }
         },
         updateCanvas: function (length, rIncrement, cIncrement) {
-            var sentence = this.textTrimmed.substring(this.textIndex, this.textIndex + length);
-            length = length > sentence.length ? sentence.length : length;
+            var originalIndex = this.textIndex;
             var needExpand = false;
             for (var i = 0, ri = this.rStart, ci = this.cStart; i < length; i++, ri += rIncrement, ci += cIncrement) {
-                if (ri < 0 || ci < 0 || ri >= this.canvas.length || ci >= this.canvas[0].length || this.canvasUsed[ri][ci]) {
+                if (this.textIndex >= this.textTrimmed.length
+                    || ri < 0 || ci < 0 || ri >= this.canvas.length || ci >= this.canvas[0].length
+                    || this.canvasUsed[ri][ci]) {
                     length = i;
                     break;
                 }
-                Vue.set(this.canvas[ri], ci, sentence.charAt(i));
+                if (this.textTrimmed.charCodeAt(this.textIndex) < 128) {
+                    if (rIncrement === 0 && this.textIndex + 1 < this.textTrimmed.length && this.textTrimmed.charCodeAt(this.textIndex + 1) < 128) {
+                        if (cIncrement < 0) {
+                            Vue.set(this.canvas[ri], ci, this.getChar(this.textIndex + 1) + this.getChar(this.textIndex));
+                        } else {
+                            Vue.set(this.canvas[ri], ci, this.getChar(this.textIndex) + this.getChar(this.textIndex + 1));
+                        }
+                        this.textIndex += 2;
+                    } else {
+                        Vue.set(this.canvas[ri], ci, this.getChar(this.textIndex) + " ");
+                        this.textIndex += 1;
+                    }
+                } else {
+                    Vue.set(this.canvas[ri], ci, this.getChar(this.textIndex));
+                        this.textIndex += 1;
+                }
                 Vue.set(this.canvasUsed[ri], ci, true);
-                this.textIndex += 1;
                 if (this.canvas.length - ri < 5) {
                     needExpand = true;
                 }
             }
             if (length > 0) {
-                this.pathStack.push({ length: length, rStart: this.rStart, cStart: this.cStart, rIncrement: rIncrement, cIncrement: cIncrement });
+                this.pathStack.push({
+                    spaceLength: length,
+                    textLength: this.textIndex - originalIndex,
+                    rStart: this.rStart,
+                    cStart: this.cStart,
+                    rIncrement: rIncrement,
+                    cIncrement: cIncrement
+                });
             }
             if (needExpand) {
                 this.expandCanvas();
@@ -135,14 +174,14 @@ var app = new Vue({
         undoLast: function() {
             if (this.pathStack.length == 0) { return; }
             var lastPath = this.pathStack.pop();
-            for (var i = 0, ri = lastPath.rStart, ci = lastPath.cStart; i < lastPath.length; i++, ri += lastPath.rIncrement, ci += lastPath.cIncrement) {
+            for (var i = 0, ri = lastPath.rStart, ci = lastPath.cStart; i < lastPath.spaceLength; i++, ri += lastPath.rIncrement, ci += lastPath.cIncrement) {
                 if (ri < 0 || ci < 0 || ri >= this.canvas.length || ci >= this.canvas[0].length) {
                     break;
                 }
                 Vue.set(this.canvas[ri], ci, emsp);
                 Vue.set(this.canvasUsed[ri], ci, false);
-                this.textIndex -= 1;
             }
+            this.textIndex -= lastPath.textLength;
         },
         copyToClipboard: function() {
             const textarea = document.createElement("textarea");
@@ -153,6 +192,9 @@ var app = new Vue({
                 this.clipboardErrorMessage = "浏览器不支持。请手动复制。"
             }
             document.body.removeChild(textarea);
+        },
+        getChar: function(i) {
+            return this.textTrimmed.charAt(i);
         }
     }
 });
