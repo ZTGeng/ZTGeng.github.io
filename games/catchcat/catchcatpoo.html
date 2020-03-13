@@ -56,8 +56,8 @@
     </div>
 
     <script type="text/javascript">
-        $('#header-nav').load("../nav.html");
-        $('#footer-copyright').load("../copyright.html");
+        $('#header-nav').load("/nav.html", () => { $("#nav-game").addClass("active"); });
+        $('#footer-copyright').load("/copyright.html");
         var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
 			$('#title').text("抓猫 - 臭臭猫");

@@ -64,8 +64,8 @@
         </footer>
     </div>
     <script type="text/javascript">
-        $('#header-nav').load("../nav.html");
-        $('#footer-copyright').load("../copyright.html");
+        $('#header-nav').load("/nav.html", () => { $("#nav-game").addClass("active"); });
+        $('#footer-copyright').load("/copyright.html");
         var lang = navigator.language;
         if (lang.slice(0, 2) === "zh") {
             $('#title').text("扫雷原版");
@@ -73,7 +73,6 @@
             $('#reset').text("重新开始");
             $('#mine-label').text("雷");
             $('#time-label').text("时间");
-            $('#rule').html("小心！部分数字可能是假的。<br>右击可标记假数字。<br>15 X 15以上的游戏可有多于一条命。");
         }
     </script>
 </body>

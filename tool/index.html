@@ -50,7 +50,7 @@
                             </button>
                             <div id="intro1-1" class="dropdown-menu" aria-labelledby="freewords-intro">
                                 <p>
-                                    Arrange words in a layout.
+                                    Draw lines to arrange words.
                                 </p>
                             </div>
                         </div>
@@ -65,16 +65,16 @@
         </footer>
     </div>
     <script type="text/javascript">
-        $('#header-nav').load("nav.html");
-        $('#footer-copyright').load("copyright.html");
+        $('#header-nav').load("/nav.html", () => { $("#nav-tool").addClass("active"); });
+        $('#footer-copyright').load("/copyright.html");
 		var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
 			$('#webTitle').text("工具");
 			$('#title').text("娱乐工具");
 			$('#greeting').text("");
 			$('#group1').text("文字");
-			$('#name1-1').text("自由排版");
-			$('#intro1-1').html("<p>将一段文字自由排布于一定范围内。<br>输入文字，然后在布局范围内划出直线或斜线。文字依线排列，直至全部用完。</p>");
+			$('#name1-1').text("划线排版");
+			$('#intro1-1').html("<p>输入文字，在布局框内划出直线或斜线。文字依线排列。</p>");
 			$('.dropdown-toggle').html('说明 <span class="caret"></span>');
 		}
     </script>

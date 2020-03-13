@@ -67,8 +67,8 @@
         </footer>
     </div>
     <script type="text/javascript">
-        $('#header-nav').load("nav.html");
-        $('#footer-copyright').load("copyright.html");
+        $('#header-nav').load("/nav.html", () => { $("#nav-math").addClass("active"); });
+        $('#footer-copyright').load("/copyright.html");
 		var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
 			$('#webTitle').text("数学题");
