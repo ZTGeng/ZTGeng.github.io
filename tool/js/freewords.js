@@ -136,7 +136,6 @@ var app = new Vue({
         mouseEnter: function(r, c) {
             if (!this.isMouseDown) { return; }
 
-            // this.clearOverlay();
             var path = this.getPath(this.rStart, this.cStart, r, c);
             if (this.tempSentence && this.tempSentence.path.toString() !== path.toString()) {
                 this.undoSentence(this.tempSentence);
@@ -184,7 +183,6 @@ var app = new Vue({
             var rStart, cStart, length, rStep, cStep;
             [rStart, cStart, length, rStep, cStep] = path;
             var originalIndex = this.textIndex;
-            // var needExpand = false;
             for (var i = 0, ri = rStart, ci = cStart; i < length; i++, ri += rStep, ci += cStep) {
                 if (this.textIndex >= this.textTrimmed.length
                     || ri < 0 || ci < 0 || ri >= this.canvas.length || ci >= this.canvas[0].length
@@ -247,7 +245,6 @@ var app = new Vue({
         expandCanvas: function() {
             this.canvas = this.canvas.concat(new Array(ROW_EXPAND).fill(0).map(() => new Array(COL_NUM).fill(emsp)));
             this.canvasUsed = this.canvasUsed.concat(new Array(ROW_EXPAND).fill(0).map(() => new Array(COL_NUM).fill(false)));
-            // this.canvasOverlay = this.canvasOverlay.concat(new Array(ROW_EXPAND).fill(0).map(() => new Array(COL_NUM).fill(emsp)));
             this.canvasEmoji = this.canvasEmoji.concat(new Array(ROW_EXPAND).fill(0).map(() => new Array(COL_NUM).fill("")));
             ROW_NUM += ROW_EXPAND;
         },
@@ -304,8 +301,8 @@ var app = new Vue({
             this.textInput = this.textInput.substring(0, cursorStart) + emojiText + this.textInput.substring(cursorEnd, this.textInput.length);
             this.$nextTick(() => {
                 textArea.focus();
-                this.$refs.textarea.selectionStart = cursorStart + emojiText.length;
-                this.$refs.textarea.selectionEnd = cursorStart + emojiText.length;
+                textArea.selectionStart = cursorStart + emojiText.length;
+                textArea.selectionEnd = cursorStart + emojiText.length;
             });
         }
     }
