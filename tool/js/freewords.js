@@ -292,7 +292,7 @@ var app = new Vue({
                     }
                 }
             }
-            return this.textTrimmed.charAt(i);
+            return String.fromCodePoint(this.textTrimmed.codePointAt(i));
         },
         getEmoji: function(emojiText) {
             return this.emojis.flat().find(emoji => emoji.text === emojiText);
