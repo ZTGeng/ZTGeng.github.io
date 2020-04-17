@@ -14,6 +14,18 @@
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
         crossorigin="anonymous">
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <style>
         .unselectable {
@@ -54,13 +66,30 @@
             <li>英文字符和数字可能会破坏其右边的排版，建议避免在同一行右侧出现其他文字。</li>
             <li>暂不支持手机操作。</li>
             <li>微博转发和评论会强制合并为一行，因而无法使用。只能用于原创微博。</li>
+            <li>【NEW】增加了基础表情支持。表情宽度略大于汉字，在同一行使用多个表情可能会破坏其右边的排版。</li>
         </ul>
         <div class="container" id="app">
             <div class="row">
-                <textarea class="col-12" id="text-input" v-model="textInput" rows="4" placeholder="输入文字（换行符将被忽略）"></textarea>
+                <textarea class="col-12" ref="textarea" v-model="textInput" rows="4" placeholder="输入文字（换行符将被忽略）"></textarea>
             </div>
             <div class="row mt-1">
-                <button type="button" class="col-auto mr-auto btn btn-outline-dark" v-on:click="textInput = ''">全部删除</button>
+                <button type="button" class="col-auto mr-1 btn btn-outline-dark" v-on:click="textInput = ''">全部删除</button>
+                <div class="dropdown mr-auto">
+                    <button type="button" class="btn btn-outline-dark dropdown-toggle" id="emoji-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        表情
+                    </button>
+                    <div class="dropdown-menu pl-2 pr-2" aria-labelledby="emoji-button">
+                        <table class="table unselectable mb-0" id="emoji-table">
+                            <tbody class="table-bordered text-center">
+                                <tr v-for="row, r in emojis">
+                                    <td class="p-1" v-for="col, c in row" v-on:click="insertEmoji(emojis[r][c].text)">
+                                        <img style="width: 20px" v-bind:src="emojis[r][c].image">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 <p class="col-auto" id="text-length">字数：{{ textTrimmed.length }}</p>
             </div>
             <br>
@@ -78,9 +107,19 @@
                         </thead>
                         <tbody class="table-bordered text-center">
                             <tr class="" v-for="row, r in canvas">
-                                <td class="p-1" v-for="col, c in row" v-on:mousedown.left="mouseDown(r, c)" v-on:mouseenter.left="mouseEnter(r, c)" v-on:mouseup.left="mouseUp(r, c)">
-                                    <span class="text-secondary position-absolute">{{ canvasOverlay[r][c] }}</span>
-                                    <span class="text-dark">{{ canvas[r][c] }}</span>
+                                <td
+                                    class="p-1" 
+                                    style="background-size: 75%; background-repeat: no-repeat; background-position: center;"
+                                    v-for="col, c in row" 
+                                    v-bind:style="{ 'background-image': canvasEmoji[r][c] }"
+                                    v-on:mousedown.left="mouseDown(r, c)" 
+                                    v-on:mouseenter.left="mouseEnter(r, c)" 
+                                    v-on:mouseup.left="mouseUp(r, c)">
+                                    <span 
+                                        v-if="!canvasEmoji[r][c]" 
+                                        v-bind:class="{ 'text-dark': canvasUsed[r][c], 'text-secondary': !canvasUsed[r][c] }">
+                                        {{ canvas[r][c] }}
+                                    </span>
                                 </td>
                             </tr>
                         </tbody>
