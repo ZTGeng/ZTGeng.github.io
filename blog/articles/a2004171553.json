@@ -64,4 +64,17 @@
       "data": "var textArea = this.$refs.textarea;\nvar cursorStart = textArea.selectionStart;\nvar cursorEnd = textArea.selectionEnd;\nthis.textInput = this.textInput.substring(0, cursorStart) + emojiText + this.textInput.substring(cursorEnd, this.textInput.length);\ntextArea.focus();\ntextArea.selectionStart = cursorStart + emojiText.length;\ntextArea.selectionEnd = cursorStart + emojiText.length;"
     },
     {
-      "data": "后三行调整光标位置的指令需要放在一个Callback里，等数据更新完成之后再执行。网上有人是设了一个``setTimeout()``，10毫秒之后调整光标，简单粗暴，实测也行得通。但其实Vue提供了一个叫[[https://cn.vuejs.org/v2/api/index.html
+      "data": "后三行调整光标位置的指令需要放在一个Callback里，等数据更新完成之后再执行。网上有人是设了一个``setTimeout()``，10毫秒之后调整光标，简单粗暴，实测也行得通。但其实Vue提供了一个叫[[https://cn.vuejs.org/v2/api/index.html#Vue-nextTick|``$nextTick()``]]的方法，用法是这样："
+    },
+    {
+      "type": "code",
+      "data": "var textArea = this.$refs.textarea;\nvar cursorStart = textArea.selectionStart;\nvar cursorEnd = textArea.selectionEnd;\nthis.textInput = this.textInput.substring(0, cursorStart) + emojiText + this.textInput.substring(cursorEnd, this.textInput.length);\nthis.$nextTick(() =&gt; {\n    textArea.focus();\n    textArea.selectionStart = cursorStart + emojiText.length;\n    textArea.selectionEnd = cursorStart + emojiText.length;\n});"
+    },
+    {
+      "data": "而Vue获取鼠标事件的方法是在tag上绑定``v-on:mousedown.left=&quot;...&quot;``这样。"
+    },
+    {
+      "data": "之后的更新会尝试在IE和Edge上修复。此外还考虑支持手机端操作。手机端无法监听鼠标按下、拖动、松开等事件了，而是要处理触摸屏相关的事件，而且好像Android和iOS还不一样。UI方面要大改。愁，没时间又懒，慢慢来吧。"
+    }
+  ]
+}
