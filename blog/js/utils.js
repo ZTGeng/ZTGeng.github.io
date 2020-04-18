@@ -4,11 +4,12 @@
  */
 
 var ARTICLE_EXT = ".json";
+var IMAGES_PATH = "images/";
 
 var jsonToHtml = function(article, showdate = true) {
   var htmlContent = "";
   if (article.title) {
-    htmlContent = htmlContent.concat(`<h2 id="article_title">${article.title}</h2>`);
+    htmlContent = htmlContent.concat(`<h2 id="article_title">${article.title.replace(/\[\[HASH\]\]/g, "#")}</h2>`);
   }
   if (showdate && article.date) {
     htmlContent = htmlContent.concat(`<p id="artical_date">${article.date}</p>`);
@@ -29,11 +30,11 @@ var jsonToHtml = function(article, showdate = true) {
               str = `<h4>${parsePlainText(paragraph.data)}</h4>`
               break;
           case "code":
-              str = `<pre class="bg-light p-2" style="white-space: pre-wrap"><code>${paragraph.data}</code></pre>`
+              str = `<pre class="bg-light p-2" style="white-space: pre-wrap"><code>${paragraph.data.replace(/\[\[HASH\]\]/g, "#")}</code></pre>`
               break;
           case "image":
               var isUrl = paragraph.data.slice(0, 7) === "http://" || paragraph.data.slice(0, 8) === "https://";
-              str = `<img src="${isUrl ? paragraph.data : IMAGES_PATH + paragraph.data}" class="img-fluid">`
+              str = `<img src="${isUrl ? paragraph.data.replace(/\[\[HASH\]\]/g, "#") : IMAGES_PATH + paragraph.data.replace(/\[\[HASH\]\]/g, "#")}" class="img-fluid">`
               break;
           case "number_list":
               str = "<ol>";
@@ -70,6 +71,7 @@ var parsePlainText = function (text) {
       .replace(/\*\*[^\n]*?\*\*/g, match => `<strong>${match.slice(2, -2)}</strong>`)
       .replace(/\*[^\n]*?\*/g, match => `<em>${match.slice(1, -1)}</em>`)
       .replace(/\`\`[^\n]*?\`\`/g, match => `<code>${match.slice(2, -2)}</code>`)
+      .replace(/\[\[HASH\]\]/g, "#")
       .replace(/\[\[[^\n]*?\]\]/g, match => {
           var [link, words] = match.slice(2, -2).split('|', 2);
           return `<a href="${link}" target="_blank">${words}</a>`;

@@ -4,7 +4,6 @@
  */
 
 var ARTICLES_PATH = "articles/";
-var IMAGES_PATH = "images/";
 var LIST_FILENAME = "list.json";
 var SHOW_ARTICLE_NUM = 7;
 

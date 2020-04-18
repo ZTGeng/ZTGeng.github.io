@@ -17,7 +17,7 @@ var parseFilename = function (date) {
 }
 
 var parseHead = function (head) {
-    return JSON.parse(`{"type": "head", "data": "${head}"}`);
+    return JSON.parse(`{"type": "head", "data": "${head.replace(/#/g, "[[HASH]]")}"}`);
 }
 
 var parseCode = function (code) {
@@ -31,11 +31,11 @@ var parseCode = function (code) {
     });
     var re = new RegExp("^\\s{" + trimHead + "}|\\s+$", "g");
     var codeTrimmed = lines.map(line => line.replace(re, "")).join("\\n");
-    return JSON.parse(`{"type": "code", "data": "${codeTrimmed}"}`);
+    return JSON.parse(`{"type": "code", "data": "${codeTrimmed.replace(/#/g, "[[HASH]]")}"}`);
 }
 
 var parseImage = function (url) {
-    return JSON.parse(`{"type": "image", "data": "${url}"}`);
+    return JSON.parse(`{"type": "image", "data": "${url.replace(/#/g, "[[HASH]]")}"}`);
 }
 
 var parseList = function (list, isNumbered) {
@@ -47,11 +47,11 @@ var parseList = function (list, isNumbered) {
         listStr = listStr.slice(0, -1);
     }
     listStr = listStr.concat("]");
-    return JSON.parse(`{"type": "${isNumbered ? "number_list" : "bullet_list"}", "data": ${listStr}}`);
+    return JSON.parse(`{"type": "${isNumbered ? "number_list" : "bullet_list"}", "data": ${listStr.replace(/#/g, "[[HASH]]")}}`);
 }
 
 var parseQuote = function (text) {
-    return JSON.parse(`{"type": "quote", "data": "${text.replace(/\n/g, "\\n")}"}`);
+    return JSON.parse(`{"type": "quote", "data": "${text.replace(/\n/g, "\\n").replace(/#/g, "[[HASH]]")}"}`);
 }
 
 var parseLine = function () {
@@ -59,7 +59,7 @@ var parseLine = function () {
 }
 
 var parsePlain = function (text) {
-    return JSON.parse(`{"data": "${text.replace(/\n/g, "\\n")}"}`);
+    return JSON.parse(`{"data": "${text.replace(/\n/g, "\\n").replace(/#/g, "[[HASH]]")}"}`);
 }
 
 var parseText = function () {
@@ -195,7 +195,7 @@ var parseText = function () {
 
 var inputToJson = function () {
     var date = getDate();
-    var json = JSON.parse(`{"title": "${$('#titleInput').val()}","date":"${date}","filename":"${parseFilename(date)}"}`);
+    var json = JSON.parse(`{"title": "${$('#titleInput').val().replace(/#/g, "[[HASH]]")}","date":"${date}","filename":"${parseFilename(date)}"}`);
     json.text = parseText();
     return json;
 }
