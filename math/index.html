@@ -32,7 +32,8 @@
                 <li class="breadcrumb-item active">Math</li>
             </ol>
         </header>
-        <h1 id="title">Usable Math<br>
+        <h1>
+            <span id="title">Usable Math</span><br>
             <small class="text-muted" id="greeting">Not like the others, a math question always has answer.</small>
         </h1>
         <br>
@@ -62,6 +63,46 @@
         </div>
         <hr>
 
+        <h2 id="group2">Coin Puzzel</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                <a class="figure" href="coins/coins.html">
+                    <img src="images/coins.png" class="figure-img shadow rounded" alt="coins pic">
+                    <div class="figure-caption">
+                        <h6 id="name2-1">Coins Computer</h6>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="coins-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Rule <span class="caret"></span>
+                            </button>
+                            <div id="rule2-1" class="dropdown-menu" aria-labelledby="coins-rule">
+                                <p>You choose one of 12 coins. It weighs different with the others.<br>
+                                The computer will ask you 3 questions then guess your choice.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                <a class="figure" href="coins/coins2.html">
+                    <img src="images/coins2.png" class="figure-img shadow rounded" alt="coins pic">
+                    <div class="figure-caption">
+                        <h6 id="name2-2">Coins Human</h6>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="coins2-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Rule <span class="caret"></span>
+                            </button>
+                            <div id="rule2-2" class="dropdown-menu" aria-labelledby="coins-rule">
+                                <p>12 coins. One of them weighs different with the others.<br>
+                                You can weigh any of them for 3 times then find that one.<br>
+                                You also need to determine whether it's heavier or lighter.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <hr>
+
         <footer>
             <div id="footer-copyright"></div>
         </footer>
@@ -73,10 +114,15 @@
 		if (lang.slice(0, 2) === "zh") {
 			$('#webTitle').text("数学题");
 			$('#title').text("实用数学");
-			$('#greeting').text("所有数学问题都能找到答案，不像别的。");
+			$('#greeting').text("数学问题与其他不同，总是有正确答案。");
 			$('#group1').text("方程");
 			$('#name1-1').text("简单四元一次方程组");
-			$('#intro1-1').html("<p>各方程含两个未知数，且系数均为1。<br>n元方程组需输入n个方程的常数项。<br>不能重复定义可由其他方程推导得出的方程。</p>");
+            $('#intro1-1').html("<p>各方程含两个未知数，且系数均为1。<br>n元方程组需输入n个方程的常数项。<br>不能重复定义可由其他方程推导得出的方程。</p>");
+            $('#group2').text("硬币谜题");
+			$('#name2-1').text("电脑称硬币");
+			$('#rule2-1').html("<p>从12枚硬币中指定一枚重量不同的。<br>根据天平上硬币编号，回答天平倾向。<br>三次之后计算机将猜出你指定的硬币。</p>");
+			$('#name2-2').text("玩家称硬币");
+			$('#rule2-2').html("<p>12枚硬币中有一枚重量不同。<br>拖硬币到天平上，点击称重显示结果。共有三次机会。<br>选择硬币编号和轻重后确认。</p>");
 			$('.dropdown-toggle').html('说明 <span class="caret"></span>');
 		}
     </script>
