@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>简体转繁体</title>
+    <meta name="description" content="Words Free Arrangement">
+    <meta name="author" content="Geng">
+
+    <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+        crossorigin="anonymous">
+    <!-- <script
+        src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div id="header-nav">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/index.html">HOME</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/cv.html">My CV</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/games/index.html">GAME</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/math/index.html">MATH</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link active" href="/tool/index.html">TOOL</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/blog/index.html">BLOG</a></li>
+                </ul>
+            </div>
+            <br>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="index.html">Tool</a></li>
+                <li class="breadcrumb-item active">Zh Simplified to Traditional</li>
+            </ol>
+        </header>
+        <h1 id="title">简体转繁体 <small>结合语境的中文简繁体转换工具</small></h1>
+        <ul class="small text-secondary">
+            <li></li>
+        </ul>
+        <div class="container" id="app">
+            <div class="row">
+                <div class="col" id="left-area">
+                    <div class="mb-2">
+                        <button type="button" class="btn btn-outline-dark" v-on:click="clearText()">清除</button>
+                    </div>
+                    <textarea class="w-100" ref="inputbox" v-model="textInput" rows="10" placeholder="输入简体字"></textarea>
+                </div>
+                <div class="col-xl col-lg-6 col-md-12" id="right-area">
+                    <div class="mb-2">
+                        <button type="button" class="btn btn-primary" v-on:click="convert()">转换</button>
+                        <button type="button" class="btn btn-outline-dark" v-on:click="copyToClipboard()">拷贝到剪贴板</button>
+                        <span class="ml-2 text-danger">{{ clipboardErrorMessage }}</span>
+                    </div>
+                    <div class="border p-2" ref="outputbox">
+                        <template v-for="item in outputItems">
+                            <span v-if="item.type === 'plain'">{{ item.text }}</span>
+                            <br v-else-if="item.type === 'br'">
+                            <a v-else-if="item.type === 'clickable'"
+                                href="#" onclick="return false"
+                                v-bind:ref="'i' + item.index "
+                                v-on:click="onCharClick(item.index, item.options)">{{ item.char }}</a>
+                        </template>
+                    </div>
+                    <div class="position-absolute pt-2 pb-2 bg-white border" ref="modal" v-bind:style="{  top: modalTop + 'px', left: modalLeft + 'px' }" v-if="showModal">
+                        <a href="#" class="dropdown-item" onclick="return false"
+                            v-on:click="onOptionClick(option.char)"
+                            v-for="option in modalOptions">{{ option.char }}: {{ option.text }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <footer>
+            <div id="footer-copyright"><p> &copy; Copyright by Geng </p></div>
+        </footer>
+    </div>
+
+</body>
+<script type="text/javascript" src="js/zhmap.js"></script>
+<script type="text/javascript" src="js/zhs2t.js"></script>
+</html>
