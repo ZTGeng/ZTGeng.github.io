@@ -9,8 +9,9 @@ var app = new Vue({
         modalOptions: [],
         modalTop: 0,
         modalLeft: 0,
-        
-        clipboardErrorMessage: "",
+
+        showRareChar: false,
+        showClipboardError: false,
         timeout: null
     },
     computed: {
@@ -71,11 +72,9 @@ var app = new Vue({
                     if (index + 1 < this.textInput.length) {
                         next = String.fromCodePoint(this.textInput.codePointAt(index + 1));
                     }
-                    if (next && twoCharWords[char + next]) {
-                        // fixed 2-charactor words
-                        char += next;
-                        currentItem.text += char;
-                    } else if (multiOptions[char]) {
+                    let multiOptionsObject = multiOptions[char];
+                    // when skipping multi options, will treat as normal
+                    if (multiOptionsObject && (this.showRareChar || !multiOptionsObject.skip(prev, next))) {
                         // multi options
                         if (currentItem.text.length > 0) {
                             itemList.push(currentItem);
@@ -88,8 +87,8 @@ var app = new Vue({
                         itemList.push({
                             index: itemList.length,
                             type: "clickable",
-                            char: multiOptions[char].default(prev, next, prevprev, nextnext),
-                            options: multiOptions[char].options
+                            char: multiOptionsObject.default(prev, next, prevprev, nextnext),
+                            options: multiOptionsObject.options
                         });
 
                         currentItem = {
@@ -120,7 +119,7 @@ var app = new Vue({
             this.modalOptions = [];
             this.modalTop = 0;
             this.modalLeft = 0;
-            this.clipboardErrorMessage = "";
+            this.showClipboardError = false;
         },
         copyToClipboard: function() {
             const textarea = document.createElement("textarea");
@@ -128,7 +127,7 @@ var app = new Vue({
             document.body.appendChild(textarea);
             textarea.select()
             if (!document.execCommand("copy")) {
-                this.clipboardErrorMessage = "浏览器不支持。请手动复制。"
+                this.showClipboardError = true;
             }
             document.body.removeChild(textarea);
         },
@@ -137,7 +136,6 @@ var app = new Vue({
             app.$refs.inputbox.style.height = app.$refs.inputbox.scrollHeight + 'px';
         },
         onCharClick: function(index, options) {
-            // console.log(index + ", " + char);
             this.modalOptions = options;
             this.currentItemIndex = index;
             var tag = this.$refs["i" + index][0];
@@ -148,12 +146,14 @@ var app = new Vue({
             });
         },
         onOptionClick: function(char) {
-            // console.log("option: " + option.char + ", " + option.text + ", current index: " + this.currentItemIndex);
             this.outputItems[this.currentItemIndex].char = char;
             this.currentItemIndex = -1;
             this.modalOptions = [];
             this.modalTop = 0;
             this.modalLeft = 0;
+        },
+        hideModal: function() {
+            this.currentItemIndex = -1;
         }
     }
 });

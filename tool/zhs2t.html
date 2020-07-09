@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>简体转繁体</title>
+    <title>舍简从繁</title>
     <meta name="description" content="Words Free Arrangement">
     <meta name="author" content="Geng">
 
@@ -14,18 +14,6 @@
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
         crossorigin="anonymous">
-    <!-- <script
-        src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script
-        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script
-        src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 </head>
 
@@ -49,9 +37,13 @@
                 <li class="breadcrumb-item active">Zh Simplified to Traditional</li>
             </ol>
         </header>
-        <h1 id="title">简体转繁体 <small>结合语境的中文简繁体转换工具</small></h1>
+        <h1 id="title">舍简从繁 <small>结合语境的中文简体转繁体工具</small></h1>
         <ul class="small text-secondary">
-            <li></li>
+            <li>此工具可以标出常见的对应多个繁体字的简体字，并由使用者自行选字。此工具提供的选字提示和默认选字仅供参考，不可做为依据。</li>
+            <li>此工具侧重收录目前港澳台地区实际使用的汉字，而并未囊括古代汉语中的各类异体字，因而适用于实际工作中简体文案转繁体，不适合用于古汉语研究等用途。</li>
+            <li>此工具参考了台湾《教育部重编国语辞典修订本》、香港《繁简互转易错字辨析手册》（庄泽义，赵志峰）、<a href="https://www.zdic.net/" target="_blank">汉典</a>及众多网络文献，在此一并致谢。</li>
+            <li>疏漏与错误在所难免，欢迎<a href="https://github.com/ZTGeng/ZTGeng.github.io/issues/2" target="_blank">在此贴下回贴提交</a>，或在新浪微博留言给
+                <a href="https://weibo.com/neuromancer?is_all=1" target="_blank">@小耿_旧金山</a>。</li>
         </ul>
         <div class="container" id="app">
             <div class="row">
@@ -61,26 +53,35 @@
                     </div>
                     <textarea class="w-100" ref="inputbox" v-model="textInput" rows="10" placeholder="输入简体字"></textarea>
                 </div>
-                <div class="col-xl col-lg-6 col-md-12" id="right-area">
-                    <div class="mb-2">
-                        <button type="button" class="btn btn-primary" v-on:click="convert()">转换</button>
-                        <button type="button" class="btn btn-outline-dark" v-on:click="copyToClipboard()">拷贝到剪贴板</button>
-                        <span class="ml-2 text-danger">{{ clipboardErrorMessage }}</span>
+                <div class="col-xl col-lg-6 col-md-12" id="right-area" v-on:click="hideModal">
+                    <div class="mb-2 form-inline">
+                        <button type="button" class="btn btn-primary" v-on:click="convert">转换</button>
+                        <div class="custom-switch ml-2 mr-2">
+                            <input type="checkbox" class="custom-control-input align-middle" id="rareCharSwitch" v-model="showRareChar">
+                            <label class="custom-control-label align-middle" for="rareCharSwitch">
+                                <abbr title="为罕见的转换关系提供选项" class="initialism text-decoration-none">罕见字义</abbr>
+                            </label>
+                        </div>
+                        <button type="button" class="btn btn-outline-dark" v-on:click="copyToClipboard()" v-bind:disabled="showClipboardError">
+                            {{ showClipboardError ? "浏览器不支持剪贴，请手动复制" : "拷贝到剪贴板" }}
+                        </button>
                     </div>
                     <div class="border p-2" ref="outputbox">
                         <template v-for="item in outputItems">
                             <span v-if="item.type === 'plain'">{{ item.text }}</span>
                             <br v-else-if="item.type === 'br'">
                             <a v-else-if="item.type === 'clickable'"
-                                href="#" onclick="return false"
+                                href="#" onclick="event.stopPropagation(); return false"
                                 v-bind:ref="'i' + item.index "
                                 v-on:click="onCharClick(item.index, item.options)">{{ item.char }}</a>
                         </template>
                     </div>
-                    <div class="position-absolute pt-2 pb-2 bg-white border" ref="modal" v-bind:style="{  top: modalTop + 'px', left: modalLeft + 'px' }" v-if="showModal">
-                        <a href="#" class="dropdown-item" onclick="return false"
+                    <div class="position-absolute pt-2 pb-2 bg-white border"
+                        ref="modal" v-bind:style="{ top: modalTop + 'px', left: modalLeft + 'px' }"
+                        v-if="showModal">
+                        <a href="#" class="dropdown-item" onclick="event.stopPropagation(); return false"
                             v-on:click="onOptionClick(option.char)"
-                            v-for="option in modalOptions">{{ option.char }}: {{ option.text }}</a>
+                            v-for="option in modalOptions">{{ option.char }} <small>{{ option.text }}</small></a>
                     </div>
                 </div>
             </div>
