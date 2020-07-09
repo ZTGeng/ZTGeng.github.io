@@ -58,6 +58,24 @@
                     </div>
                 </a>
             </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                <a class="figure" href="zhs2t.html">
+                    <img src="images/zhs2t.png" class="figure-img shadow rounded" alt="Chinese simplified to traditional">
+                    <div class="figure-caption">
+                        <h6 id="name1-2">Chinese Simplified to Traditional</h6>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="zhs2t-intro" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Introduction <span class="caret"></span>
+                            </button>
+                            <div id="intro1-2" class="dropdown-menu" aria-labelledby="zhs2t-intro">
+                                <p>
+                                    Transfer Chinese simplified characters to traditional characters
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
         <hr>
 
@@ -75,7 +93,9 @@
 			$('#greeting').text("");
 			$('#group1').text("文字");
 			$('#name1-1').text("划线排版");
-			$('#intro1-1').html("<p>输入文字，在布局框内划出直线或斜线。文字依线排列。</p>");
+            $('#intro1-1').html("<p>输入文字，在布局框内划出直线或斜线。文字依线排列。</p>");
+            $('#name1-2').text("舍简从繁");
+			$('#intro1-2').html("<p>简体转繁体工具。为一对多的简化字提供转换选项。</p>");
 			$('.dropdown-toggle').html('说明 <span class="caret"></span>');
 		}
     </script>
