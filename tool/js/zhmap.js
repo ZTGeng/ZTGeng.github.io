@@ -531,7 +531,7 @@ var multiOptions = {
     "只": {
         skip: function(prev, next) { return false; },
         default: function(prev, next, prevprev, nextnext) {
-            if ("手身字言眼影".indexOf(next) >= 0 || "一二三四五六七八九十百千万萬两兩几幾1234567890".indexOf(prev) >= 0)return "隻";
+            if ("手身字言眼影".indexOf(next) >= 0 || "一二三四五六七八九十百千万萬两兩几幾1234567890".indexOf(prev) >= 0) return "隻";
             return "只";
         },
         options: [
