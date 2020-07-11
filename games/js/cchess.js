@@ -204,7 +204,6 @@ function canCheck() {
     var isChecking = false;
     myPieces.each(function() {
         let role = $(this).attr('role');
-        console.log($(this));
         let rp = parseInt($(this).prop('id').slice(1, 2));
         let cp = parseInt($(this).prop('id').slice(2, 3));
         if (canMoveInternal(role, rp, cp, reg, ceg)) {
