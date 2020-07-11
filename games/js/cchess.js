@@ -40,6 +40,8 @@ function reset() {
     $('#bbox').addClass('inactive');
     $('#rwin').hide();
     $('#bwin').hide();
+    $('#rcheck').hide();
+    $('#bcheck').hide();
 };
 
 function onClickGrid() {
@@ -58,9 +60,22 @@ function onClickGrid() {
             moveFromGrid.removeClass('move-from');
             moveFromGrid = undefined;
             if (checkWin()) return;
+
+            if (canCheck()) {
+                redMove ? $('#rcheck').show() : $('#bcheck').show();
+            } else {
+                redMove ? $('#rcheck').hide() : $('#bcheck').hide();
+            }
+
             $('#rbox').toggleClass('inactive');
             $('#bbox').toggleClass('inactive');
             redMove = !redMove;
+
+            if (canCheck()) {
+                redMove ? $('#rcheck').show() : $('#bcheck').show();
+            } else {
+                redMove ? $('#rcheck').hide() : $('#bcheck').hide();
+            }
         }
     } else {
         if (($(this).hasClass('red') && redMove) || 
@@ -81,26 +96,6 @@ function canMove(from, to) {
     var c1 = parseInt(from.prop('id').slice(2, 3));
     var r2 = parseInt(to.prop('id').slice(1, 2));
     var c2 = parseInt(to.prop('id').slice(2, 3));
-    var piecesVertical = function(_r1, _r2, _c) {
-        if (_r1 > _r2) return piecesVertical(_r2, _r1, _c);
-        var count = 0;
-        for (var r = _r1 + 1; r < _r2; r++) {
-            if ($('#p' + r + '' + _c).attr('role')) {
-                count++;
-            }
-        }
-        return count;
-    };
-    var piecesHorizontal = function(_c1, _c2, _r) {
-        if (_c1 > _c2) return piecesHorizontal(_c2, _c1, _r);
-        var count = 0;
-        for (var c = _c1 + 1; c < _c2; c++) {
-            if ($('#p' + _r + '' + c).attr('role')) {
-                count++;
-            }
-        }
-        return count;
-    };
     
     // Generals can't meet
     var redGeneral = $('.red[role="general"]');
@@ -117,12 +112,37 @@ function canMove(from, to) {
         }
     } else {
         if (crg === cbg && crg === c1) {
-            if (piecesVertical(rbg, rrg, cbg) <= 1) return false;
+            if (piecesVertical(rbg, rrg, cbg) <= 1 && c1 !== c2) return false;
         }
     }
     
+    return canMoveInternal(from.attr('role'), r1, c1, r2, c2);
+};
+
+function piecesVertical(_r1, _r2, _c) {
+    if (_r1 > _r2) return piecesVertical(_r2, _r1, _c);
+    var count = 0;
+    for (var r = _r1 + 1; r < _r2; r++) {
+        if ($('#p' + r + '' + _c).attr('role')) {
+            count++;
+        }
+    }
+    return count;
+};
+function piecesHorizontal(_c1, _c2, _r) {
+    if (_c1 > _c2) return piecesHorizontal(_c2, _c1, _r);
+    var count = 0;
+    for (var c = _c1 + 1; c < _c2; c++) {
+        if ($('#p' + _r + '' + c).attr('role')) {
+            count++;
+        }
+    }
+    return count;
+};
+
+function canMoveInternal(role, r1, c1, r2, c2) {
     // Pieces moving rules
-    switch (from.attr('role')) {
+    switch (role) {
         case roles[0]: //general
             return (r1 === r2 &&
                     Math.abs(c1 - c2) === 1 &&
@@ -153,22 +173,14 @@ function canMove(from, to) {
                    (c1 === c2 &&
                     !piecesVertical(r1, r2, c1));
         case roles[5]: //cannon
-            return (!$('#p' + r2 + '' + c2).attr('role') &&
-                    ((r1 === r2 &&
-                     !piecesHorizontal(c1, c2, r1)) ||
-                    (c1 === c2 &&
-                     !piecesVertical(r1, r2, c1)))) ||
-                   ($('#p' + r2 + '' + c2).attr('role') &&
-                    ((r1 === r2 &&
-                     piecesHorizontal(c1, c2, r1) === 1) ||
-                    (c1 === c2 &&
-                     piecesVertical(r1, r2, c1) === 1)));
+            return $('#p' + r2 + '' + c2).attr('role')
+                    ? (r1 === r2 && piecesHorizontal(c1, c2, r1) === 1) ||
+                        (c1 === c2 && piecesVertical(r1, r2, c1) === 1)
+                    : (r1 === r2 && piecesHorizontal(c1, c2, r1) === 0) ||
+                        (c1 === c2 && piecesVertical(r1, r2, c1) === 0);
         case roles[6]: //soldier
-            return (c1 === c2 &&
-                    r1 + (redMove ? -1 : 1) === r2) ||
-                   (r1 === r2 &&
-                    (redMove ? r2 <= 4 : r2 >= 5) &&
-                    Math.abs(c1 - c2) === 1);
+            return (c1 === c2 && r1 + (redMove ? -1 : 1) === r2) ||
+                   (r1 === r2 && (redMove ? r2 <= 4 : r2 >= 5) && Math.abs(c1 - c2) === 1);
     }
 };
 
@@ -183,16 +195,41 @@ function move(from, to) {
     to.attr('role', role);
 };
 
+function canCheck() {
+    var myPieces = redMove ? $('.red') : $('.black');
+    var enemyGeneral = redMove ? $('.black[role="general"]') : $('.red[role="general"]');
+    var reg = parseInt(enemyGeneral.prop('id').slice(1, 2));
+    var ceg = parseInt(enemyGeneral.prop('id').slice(2, 3));
+
+    var isChecking = false;
+    myPieces.each(function() {
+        let role = $(this).attr('role');
+        console.log($(this));
+        let rp = parseInt($(this).prop('id').slice(1, 2));
+        let cp = parseInt($(this).prop('id').slice(2, 3));
+        if (canMoveInternal(role, rp, cp, reg, ceg)) {
+            isChecking = true;
+            return false;
+        }
+    });
+
+    return isChecking;
+};
+
 function checkWin() {
     if ($('.black[role="general"]').length === 0) {
         gameOver = true;
         $('#rwin').show();
+        $('#rcheck').hide();
+        $('#bcheck').hide();
         $('.inactive').removeClass('inactive');
         return true;
     }
     if ($('.red[role="general"]').length === 0) {
         gameOver = true;
         $('#bwin').show();
+        $('#rcheck').hide();
+        $('#bcheck').hide();
         $('.inactive').removeClass('inactive');
         return true;
     }

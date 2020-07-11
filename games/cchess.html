@@ -40,6 +40,7 @@
                     <div class="media-body">
                         <h3 id="rlabel" class="media-heading"> RED </h3>
                         <h1><span id="rwin" class="label label-danger">WIN</span></h1>
+                        <h4><span id="rcheck" class="label label-danger">Check</span></h4>
                     </div>
                 </div>
 
@@ -47,6 +48,7 @@
                     <div class="media-body">
                         <h3 id="blabel" class="media-heading">BLACK</h3>
                         <h1><span id="bwin" class="label label-danger">WIN</span></h1>
+                        <h4><span id="bcheck" class="label label-danger">Check</span></h4>
                     </div>
                     <img src="images/cchess/black.jpg" class="ml-2">
                 </div>
@@ -75,7 +77,9 @@
 			$('#blabel').text('黑方');
 			$('#rlabel').text('红方');
 			$('#rwin').text('胜');
-			$('#bwin').text('胜');
+            $('#bwin').text('胜');
+            $('#rcheck').text('将军');
+			$('#bcheck').text('将军');
             $('#reset').text('重新开始');
             $('#resign').text("认输");
 		}
