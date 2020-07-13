@@ -1,0 +1,25 @@
+{
+    "key": 115,
+    "texts": [
+        "<p>空气很是清新，沿路走下山坡令人精神鼓舞。你看到烬头村周围的低地上铺展着庄稼地，在庄稼之中还有些牲畜，但看不到马匹。接下来的旅途你要徒步而行吗？</p>",
+        "<p>再走远一些，道路迂回越过山脊，开始下坡。这里有几间散乱的棚屋，有人在居住的迹象。它们之间的距离相当远。</p>",
+        "<p>在你端详这些棚屋的时候，一扇门打开了，出来一个上了年纪的男人。他身穿一件破烂脏污的外套，但多了一块布；他把这块布扯过头顶，像头巾一样裹起头部。他正这样做的时候看见了你，愣住了。</p>",
+        "[guide-start]",
+        "<p>进行一次“幸运”检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "幸运检定", "action": "action_check", "param": { "key": "Luck", "isSkill" : false, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_c25_select_option", "param": 2 },
+        { "action": "action_set_highlight", "param": { "key": "Luck", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "Luck", "level": "none" } }
+    ]
+}

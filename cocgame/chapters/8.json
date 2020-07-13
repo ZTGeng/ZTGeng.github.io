@@ -1,0 +1,16 @@
+{
+    "key": 8,
+    "texts": [
+        "<p>司机叼着烟，看着你把箱子拖到长途汽车的后面去。行李架装在车顶上，十分不便。你握紧了沉重的箱子。</p>",
+        "[guide-start]",
+        "<p>（你的“体型”数值对分支产生了影响。）</p>",
+        "[guide-end]",
+        "<img src='images/bus.jpg'>"
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "!flag_siz_greater_than_40" },
+        { "key": 1, "text": "继续", "show": "flag_siz_greater_than_40" }
+    ],
+    "onload": [{ "action": "action_set_highlight", "param": { "key": "SIZ", "level": "value" } }],
+    "onleave": [{ "action": "action_set_highlight", "param": { "key": "SIZ", "level": "none" } }]
+}

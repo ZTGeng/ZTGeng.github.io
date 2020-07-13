@@ -1,0 +1,16 @@
+{
+    "key": 198,
+    "texts": [
+        "<p>你感到，而不是看到，星辰从你头上的天顶坠落。你虽然被绑在燃烧的铁链上，却能号令群星。</p>",
+        "[guide-start]",
+        "<p>你每消耗1点魔法值，就有10%的概率成功。比如你消耗了6点魔法值，你要进行一次成功率60%的检定。检定结果为96～100必然失败。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "施放“号令天之火”", "action": "action_use_magic", "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ]
+}

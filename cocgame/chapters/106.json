@@ -1,0 +1,15 @@
+{
+    "key": 106,
+    "texts": [
+        "<p>有一间工坊是关着门的。当你漫步走近这里时，工匠们会从应答如流变得紧张不安——几乎是强迫的。真有趣。</p>",
+        "[guide-start]",
+        "<p>你可以在你的「心理学」技能左边的小方框里打勾。</p>",
+        "[guide-end]"
+    ],
+    "options": [
+        { "key": 0, "text": "继续" }
+    ],
+    "onload": [
+        { "action": "action_check_in_skill_box", "param": "psychology" }
+    ]
+}

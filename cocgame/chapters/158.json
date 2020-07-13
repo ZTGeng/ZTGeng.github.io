@@ -1,0 +1,44 @@
+{
+    "key": 158,
+    "texts": [
+        "<p>你像箭一样地冲进小巷，突然转弯，拐到完全不同的方向。你身后脚步声响个不停。烬头村狭窄凌乱的小巷头一次为你提供了方便。你尝试迂回奔向南边的东盘山路。</p>",
+        "[guide-start]",
+        "<p>进行一次「潜行」检定。如果你成功了，你可以在「潜行」技能左边的小方框里打勾。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        {
+            "text": "潜行检定",
+            "action": "action_check",
+            "param": {
+                "key": "stealth",
+                "isSkill": true,
+                "level": "value",
+                "onPass": [{ "action": "action_check_in_skill_box", "param": "stealth" }]
+            },
+            "show": ["flag_check_unfinished", "!flag_punish_dice"]
+        },
+        {
+            "text": "潜行检定-惩罚骰x1",
+            "action": "action_check",
+            "param": {
+                "key": "stealth",
+                "isSkill": true,
+                "level": "value",
+                "bonus": -1,
+                "onPass": [{ "action": "action_check_in_skill_box", "param": "stealth" }]
+            },
+            "show": ["flag_check_unfinished", "flag_punish_dice"]
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "stealth", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "stealth", "level": "none" } }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "key": 31,
+    "texts": [
+        "<p>梅开始说起她在烬头村的生活。“我妹妹每次来信都会问我有没有过够这种日子。她住在纽约。然后她就开始讲自己晚上走回家时有多么害怕！我也该问问你。”</p>",
+        "<p>你说到你希望在阿卡姆开始新生活。梅好像没有听进去你的话。</p>",
+        "<p>“这里的确是小地方没错，但也就是说我们有真正的群体性。所有人的脸都是熟脸，所有人都一起工作。",
+        "我们不排斥任何人，当然，要刨掉那些自己选择离开群体的人。我现在已经不好再住到别的地方了。”</p>",
+        "[guide-start]",
+        "<p>进行一次「魅惑」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "魅惑检定", "action": "action_check", "param": { "key": "charm", "isSkill" : true, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "charm", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "charm", "level": "none" } }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "key": 118,
+    "texts": [
+        "<p>你搜寻书架，试图挪开三卷本的《沃波尔简明安第斯人语法》。它纹丝不动，进一步检查之下，你发现这三本书其实是黏在一起，贴在了墙上。这是不是什么隐蔽地加固书架的办法呢？</p>",
+        "<p>你听到大厅里响起了脚步声，本能地离开了这个奇特的发现。</p>",
+        "[guide-start]",
+        "<p>你可以在自己「侦查」技能左边的小方框里打勾。</p>",
+        "[guide-end]"
+    ],
+    "options": [
+        { "key": 0, "text": "继续" }
+    ],
+    "onload": [
+        { "action": "action_check_in_skill_box", "param": "spot" },
+        { "action": "action_set_flag_true", "param": "flag_searched_book_shelf" }
+    ]
+}

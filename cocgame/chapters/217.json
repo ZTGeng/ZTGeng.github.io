@@ -1,0 +1,16 @@
+{
+    "key": 217,
+    "texts": [
+        "<p>突然有一张面孔逼近你，沾满血渍，还在熊熊燃烧。有人用利爪挠抓着你，撕扯着你的皮肉，他恐惧的眼中有火焰在跳动。你向后退缩——</p>",
+        "[guide-start]",
+        "<p>失去1D3点理智值。失去1D2点耐久值。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "投掷1D3点理智", "action": "action_adjust_attribute", "param": { "key": "San", "delta": "-1d3" }, "show": "!flag_san_reduced" },
+        { "text": "投掷1D2点耐久", "action": "action_adjust_attribute", "param": { "key": "HP", "delta": "-1d2" }, "show": "!flag_hp_reduced" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": ["flag_hp_reduced", "flag_san_reduced"] }
+    ]
+}

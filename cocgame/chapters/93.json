@@ -1,0 +1,16 @@
+{
+    "key": 93,
+    "texts": [
+        "<p>绝望赐予你力量，你猛力拉扯着你觉得铁链上最薄弱的环节。它断了！你丢下铁链，跌跌撞撞地走过一具红布覆盖的尸体，离开围观的村民。你咳嗽不止，头发和眉毛在冒烟。</p>",
+        "[guide-start]",
+        "<p>你因为火焰受到1D6点耐久值伤害。如果你的耐久值因此归零，你就会失去意识，被烈焰烧死！</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "投掷1D6点耐久", "action": "action_adjust_attribute", "param": { "key": "HP", "delta": "-1d6" }, "show": "!flag_hp_reduced" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": ["flag_hp_reduced", "flag_hp_zero"] },
+        { "key": 1, "text": "继续", "show": ["flag_hp_reduced", "!flag_hp_zero"] }
+    ]
+}

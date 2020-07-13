@@ -1,0 +1,19 @@
+{
+    "key": 109,
+    "texts": [
+        "<p>你用滑步躲开了年轻人的抓捕。火焰顺着他们的肩膀流淌，引燃了他们的头发。你的面前笼罩着烟雾，腿上在燃烧。你必须立刻离开灯塔。</p>",
+        "[guide-start]",
+        "<p>你因为火焰受到1D6点耐久值伤害。如果你的耐久值因此归零，你就会失去意识，被烈焰烧死！</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "投掷1D6点耐久", "action": "action_adjust_attribute", "param": { "key": "HP", "delta": "-1d6" }, "show": "!flag_hp_reduced" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": ["flag_hp_reduced", "flag_hp_zero"] },
+        { "key": 1, "text": "继续", "show": ["flag_hp_reduced", "!flag_hp_zero"] }
+    ],
+    "onload": [
+        { "action": "action_check_in_skill_box", "param": "dodge" }
+    ]
+}

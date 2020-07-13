@@ -1,0 +1,36 @@
+{
+    "key": 89,
+    "texts": [
+        "<p>你仔细搜索莱德贝特的抽屉。抽屉里只有一张结婚照还算有点意思。梅的丈夫瘦长结实，脸型方正。虽然他们的姿势很正式，但你还是能看出他们之间的爱意。",
+        "你突然对自己的闯入感到后悔。而且梅任何时候都有可能回来。</p>",
+        "[guide-start]",
+        "<p>如果你希望孤注一掷，重新投掷「侦查」检定。如果你不想冒险继续，选择“离开”。</p>",
+        "<p>（译注：如果你刚才的「侦查」检定掷出大失败，不能孤注一掷。）</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        {
+            "text": "侦查检定-孤注一掷",
+            "action": "action_check",
+            "param": { "key": "spot", "isSkill" : true, "level": "value" },
+            "show": ["flag_check_unfinished", "!flag_last_check_fumble", "!flag_punish_dice"]
+        },
+        {
+            "text": "侦查检定-孤注一掷-惩罚骰x1",
+            "action": "action_check",
+            "param": { "key": "spot", "isSkill" : true, "level": "value", "bonus": -1 },
+            "show": ["flag_check_unfinished", "!flag_last_check_fumble", "flag_punish_dice"]
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" },
+        { "key": 2, "text": "离开", "show": "flag_check_unfinished" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "spot", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "spot", "level": "none" } }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "key": 55,
+    "texts": [
+        "<p>你弓身向上扑，寻找支撑点，手指在墙壁上乱抓。还没有一秒种的工夫，你再次下坠，结结实实地摔到了岩石地面上——</p>",
+        "[guide-start]",
+        "<p>你撞上地面时受到 2D6 点伤害。如果这次伤害的数值大于等于你最大耐久值的一半，你就受到了重伤。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "投掷2D6点耐久", "action": "action_adjust_attribute", "param": { "key": "HP", "delta": "-2d6" }, "show": "!flag_hp_reduced" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_major_wound" },
+        { "key": 1, "text": "继续", "show": "!flag_major_wound" }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "key": 226,
+    "texts": [
+        "<p>你说道，你要到圣玛丽医院去担任实习医生。这是所顶尖的医院，会接触到各种各样的病人和病例；这使你不仅激动，还有一点点不安。不过，就像你的一位老教授说过的那样，“只有实践才能让人成为专家。”</p>",
+        "<p>“医生，哈？人们总是需要这些家伙。”</p>",
+        "<p>你莫非在西拉斯的声音中听出了不信任的语气？或者只是你多虑了？</p>",
+        "[guide-start]",
+        "<p>你的「信用评级」技能是30%。</p>",
+        "<p>你的本职技能是：「急救」，「外语（拉丁文）」，「医学」，「心理学」，「科学（生物学）」，「科学（药学）」。</p>",
+        "<p>你还可以选择除了「克苏鲁神话」以外的其他任意两项技能作为个人专长。将以下数值分配到各项本职技能当中：70%，60%，60%，50%，50%，50%，40%，40%。</p>",
+        "<p>分配时忽略调查员角色卡上已写出的初始值。</p>",
+        "[guide-end]"
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "disabled": "flag_skills1_unfinished" }
+    ],
+    "onload": [
+        { "action": "action_set_occupation", "param": "医生" },
+        { "action": "action_set_credit", "param": 30 },
+        { "action": "action_set_occupation_skills", "param": { "skills": ["aid", "latin", "medicine", "psychology", "biology", "pharmacy"], "universal": 2 } },
+        { "action": "action_set_flag_true", "param": "flag_skills_editable" }
+    ]
+}

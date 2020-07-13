@@ -1,0 +1,31 @@
+{
+    "key": 263,
+    "texts": [
+        "<p>两个面有愠色的年轻男人走下了长途车。一个人从头到脚打量了你一遍，才转头离去。司机也下了车，瞟了你一眼，穿过马路进了烟草店。",
+        "等他回来的时候，他正用泛黄的手指搓着烟卷。他卷完了最后一下，一边伸手寻找火柴盒，一边仔细地观察你。",
+        "他身材瘦削，约莫五十多岁，身上穿的衬衫有公共汽车公司的徽标，沾着不少污渍。但他的眼神仍然锐利地从深陷的眼眶里透出来。</p>",
+        "<div class='row'>",
+        "<div class='col-4'><img src='images/ticket.jpg' class='img-fluid'></div>",
+        "<div class='col-8'><p>“去哪儿？”</p>",
+        "<p>你把你去奥西皮(Ossipee) 的票拿给他看。从那里你可以前往罗切斯特、朴次茅斯，再沿海岸线到达纽伯里波特，最后抵达阿卡姆。",
+        "你也许买得起至少一部分旅程的火车票，否则这将是很多段长途汽车旅程的第一站。</p></div>",
+        "</div>",
+        "<p>“嗯——哼。”司机擦着火柴，点燃了他的香烟。他吸了一口，烟头开始闪光。然后他又吐了一口烟，用手指了指车尾。</p>",
+        "<p>“行李架在上边。”</p>",
+        "[guide-start]",
+        "<p>看看你的调查员角色卡。卡的顶部有八项属性的空位：力量(STR)、体质(CON)、意志(POW)、敏捷(DEX)、外貌(APP)、体形(SIZ)、智力(INT)和教育(EDU)。</p>",
+        "<p>将以下数值分配给各项属性，写在旁边的大方格里：40、50、50、50、60、60、70、80。如果你想了解这些属性的更多信息，请阅读快速开始规则第6页（规则书第30～32 页）。</p>",
+        "[guide-end]",
+        "<p>（译注：奥西皮、罗切斯特、朴次茅斯，美国新罕布什尔州城镇。纽伯里波特，美国马萨诸塞州城镇。）</p>"
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "disabled": "flag_characteristics_unfinished" }
+    ],
+    "onload": [
+        { "action": "action_set_flag_true", "param": "flag_characteristics_editable" }
+    ],
+    "onleave": [
+        { "action": "action_set_flag_false", "param": "flag_characteristics_editable" },
+        { "action": "action_set_dog_and_lang_own", "param": "" }
+    ]
+}

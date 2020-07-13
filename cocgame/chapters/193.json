@@ -1,0 +1,14 @@
+{
+    "key": 193,
+    "texts": [
+        "<div class='row'><div class='col-8'>",
+        "<p>你的膝盖一软，身体瘫倒在路边几步远的地上。鲜血充满了你的口腔。你翻身的时候，视线正撞到熊的脸，模糊而重叠。它露出利齿，向你扑来——</p>",
+        "<p>你失去了意识，被熊撕碎了。可能性并没有站在你这一边。</p>",
+        "[guide-start]",
+        "<p>为何不重新尝试这次冒险呢？</p>",
+        "[guide-end]",
+        "<h2>【剧终】</h2>",
+        "</div><div class='col-4'><img src='images/bear.jpg' class='img-fluid'></div></div>"
+    ],
+    "options": []
+}

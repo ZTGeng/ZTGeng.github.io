@@ -1,0 +1,23 @@
+{
+    "key": 249,
+    "texts": [
+        "<p>你没有按通常的方式讲述自己的专业，而是兜了个圈子，只说自己帮助警察解决过各种各样的问题。一想到你得到了布莱克伍德侦探事务所的职位，你的心跳就会稍稍加速。",
+        "你已经受够了婚姻不忠和银行职员受贿之类的调查；听上去布莱克伍德事务所恰好可以提供机会，让你积累起和真正的坏人斗争的经验。</p>",
+        "<p>西拉斯眯起了眼睛，但什么话也没说。</p>",
+        "[guide-start]",
+        "<p>你的「信用评级」技能是20%。</p>",
+        "<p>你的本职技能是：「艺术/手艺（摄影）」，「乔装」，「法律」，「图书馆使用」，「心理学」，「侦查」，还有「魅惑」、「话术」、「恐吓」、「说服」四项中其中一项。</p>",
+        "<p>你还可以选择除了「克苏鲁神话」以外的其他任意一项技能作为个人专长。将以下数值分配到各项本职技能当中：70%，60%，60%，50%，50%，50%，40%，40%。</p>",
+        "<p>分配时忽略调查员角色卡上已写出的初始值。</p>",
+        "[guide-end]"
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "disabled": "flag_skills1_unfinished" }
+    ],
+    "onload": [
+        { "action": "action_set_occupation", "param": "私家侦探" },
+        { "action": "action_set_credit", "param": 20 },
+        { "action": "action_set_occupation_skills", "param": { "skills": ["photography", "disguise", "law", "library", "psychology", "spot"], "interpersonal": true, "universal": 1 } },
+        { "action": "action_set_flag_true", "param": "flag_skills_editable" }
+    ]
+}

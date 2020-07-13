@@ -1,0 +1,36 @@
+{
+    "key": 83,
+    "texts": [
+        "<p>尽管梅很热情，可你还是不能相信她。你大大方方地又折回了她的房子。难道还有其他地方能去吗？</p>",
+        "<p>房间里仍然空无一人。你敲敲卧室门，等了一会儿。里面没有动静。你小心地推开了门。</p>",
+        "<p>莱德贝特自己的卧室和你干净的客房形成了鲜明的对比。地板上到处都堆着脏衣服，乱烘烘的被褥上散落着课本和廉价小说。你还看到床沿下面丢着一个陈旧破烂的洋娃娃。</p>",
+        "[guide-start]",
+        "<p>进行一次「侦查」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        {
+            "text": "侦查检定",
+            "action": "action_check",
+            "param": { "key": "spot", "isSkill": true, "level": "value" },
+            "show": ["flag_check_unfinished", "!flag_punish_dice"]
+        },
+        {
+            "text": "侦查检定-惩罚骰x1",
+            "action": "action_check",
+            "param": { "key": "spot", "isSkill": true, "level": "value", "bonus": -1 },
+            "show": ["flag_check_unfinished", "flag_punish_dice"]
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_c120_select_option", "param": 0 },
+        { "action": "action_set_highlight", "param": { "key": "spot", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "spot", "level": "none" } }
+    ]
+}

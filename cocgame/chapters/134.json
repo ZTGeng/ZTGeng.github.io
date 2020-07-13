@@ -1,0 +1,23 @@
+{
+    "key": 134,
+    "texts": [
+        "<p>长途车突突地响着，在乡间缓慢挪动。车里的气氛令人窒息，每当车转弯的时候，你的肚子里就一阵翻腾。",
+        "不过司机身边的窗户是开着的，你换了几个座，找到了一个可以让微风吹到脸上的位置。没多久你就放松下来，开始享受旅程，观察着长途车经过的富有古趣的小小村落。",
+        "在一个村庄，一位体格粗壮的女人上了车，对你礼貌地点点头。到了下一个村庄，她就下车了。</p>",
+        "<p>道路升高了一些，穿越一片又一片的玉米地和果园。树叶正在变色，把树木装点成鲜红、金黄，灿烂缤纷，富有生机。当你快要打起瞌睡的时候，司机开始快速通过一个急弯。</p>",
+        "[guide-start]",
+        "<p>现在你必须要进行一次敏捷检定。投掷1D100。这表示投掷两颗十面骰子，一颗骰子结果为十位，另一颗为个位。</p>",
+        "<p>如果你投出来的结果等于或小于你的“敏捷”，你的检定就成功了。如果结果大于你的“敏捷”，你的检定就失败了。</p>",
+        "<p>（译注：如果你掷出00+0，这次掷骰的结果要读成100。）</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "敏捷检定", "action": "action_check", "param": { "key": "DEX", "isSkill" : false, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [{ "action": "action_set_highlight", "param": { "key": "DEX", "level": "value" } }],
+    "onleave": [{ "action": "action_set_highlight", "param": { "key": "DEX", "level": "none" } }]
+}

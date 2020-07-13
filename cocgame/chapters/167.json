@@ -1,0 +1,66 @@
+{
+    "key": 167,
+    "texts": [
+        "<div class='row'><div class='col-8'>",
+        "<p>就在你离道路还有差不多十步的时候，熊在你身后几寸远的地方咆哮一声，爪子撕破了你的夹克。</p>",
+        "[guide-start]",
+        "<p>熊会用双爪攻击，每一爪都是一次单独的攻击。它每次都有35%的概率击中你，造成3D6点伤害。",
+        "若任一次攻击对你造成的伤害大于等于你最大耐久值的一半，你就受到了重伤。</p>",
+        "[guide-end]",
+        "</div><div class='col-4'><img src='images/bear.jpg' class='img-fluid'></div></div>"
+    ],
+    "interactions": [
+        {
+            "text": "爪击x1",
+            "action": "action_general_roll_check",
+            "param": {
+                "target": 35,
+                "onPass": {
+                    "text": "熊的左爪击中了你。",
+                    "actions": [
+                        { "action": "action_adjust_attribute", "param": { "key": "HP", "delta": "-3d6" } },
+                        { "action": "action_set_flag_true", "param": "flag_attack_1_finished" }
+                    ]
+                },
+                "onFail": {
+                    "text": "熊的左爪没有击中。",
+                    "actions": [
+                        { "action": "action_set_flag_true", "param": "flag_attack_1_finished" }
+                    ]
+                }
+            },
+            "show": "!flag_attack_1_finished"
+        },
+        {
+            "text": "爪击x1",
+            "action": "action_general_roll_check",
+            "param": {
+                "target": 35,
+                "onPass": {
+                    "text": "熊的右爪击中了你。",
+                    "actions": [
+                        { "action": "action_adjust_attribute", "param": { "key": "HP", "delta": "-3d6" } },
+                        { "action": "action_set_flag_true", "param": "flag_attack_2_finished" }
+                    ]
+                },
+                "onFail": {
+                    "text": "熊的右爪没有击中。",
+                    "actions": [
+                        { "action": "action_set_flag_true", "param": "flag_attack_2_finished" }
+                    ]
+                }
+            },
+            "show": "!flag_attack_2_finished"
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": ["flag_attack_1_finished", "flag_attack_2_finished", "flag_major_wound"] },
+        { "key": 1, "text": "继续", "show": ["flag_attack_1_finished", "flag_attack_2_finished", "!flag_major_wound"] }
+    ],
+    "onload": [
+        { "action": "action_add_temp_flag", "param": ["flag_attack_1_finished", "flag_attack_2_finished"] }
+    ],
+    "onleave": [
+        { "action": "action_remove_temp_flag", "param": ["flag_attack_1_finished", "flag_attack_2_finished"] }
+    ]
+}

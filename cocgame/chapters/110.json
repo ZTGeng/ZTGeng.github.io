@@ -1,0 +1,25 @@
+{
+    "key": 110,
+    "texts": [
+        "<div class='row'><div class='col-8'>",
+        "<p>你鬼鬼祟祟地靠近熊，想要在树后保持隐蔽。</p>",
+        "[guide-start]",
+        "<p>进行一次极难难度的「潜行」检定（你需要投出结果小于等于你「潜行」技能值的五分之一）。</p>",
+        "[guide-end]",
+        "</div><div class='col-4'><img src='images/bear.jpg' class='img-fluid'></div></div>"
+    ],
+    "interactions": [
+        { "text": "潜行检定-极难", "action": "action_check", "param": { "key": "stealth", "isSkill" : true, "level": "fifth" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": ["flag_check_failed", "!flag_check_fumble"] },
+        { "key": 2, "text": "继续", "show": "flag_check_fumble" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "stealth", "level": "fifth" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "stealth", "level": "none" } }
+    ]
+}

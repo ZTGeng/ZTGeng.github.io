@@ -1,0 +1,18 @@
+{
+    "key": 209,
+    "texts": [
+        "<p>群星活了过来。它们从天上看见了你，身处熊熊大火的中心。它们也看见了由灯塔延伸出的烬头村，窄小的高地直面夜空。它们也听见村民开始吟诵你刚刚吟诵过的咒语。</p>",
+        "[guide-start]",
+        "<p>失去1D3点理智值。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "投掷1D3点理智", "action": "action_adjust_attribute", "param": { "key": "San", "delta": "-1d3" }, "show": "!flag_san_reduced" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": ["flag_san_reduced", "flag_san_zero"] },
+        { "key": 1, "text": "号令群星返回原位", "show": ["flag_san_reduced", "!flag_san_zero"] },
+        { "key": 2, "text": "号令群星放你解脱", "show": ["flag_san_reduced", "!flag_san_zero"] },
+        { "key": 3, "text": "号令群星烧尽村民", "show": ["flag_san_reduced", "!flag_san_zero"] }
+    ]
+}

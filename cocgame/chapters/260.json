@@ -1,0 +1,26 @@
+{
+    "key": 260,
+    "texts": [
+        "<p>你抬起腿下了床，和梅说话。梅吃惊跳了起来。</p>",
+        "<p>她磕磕绊绊地说：“我……我觉得你可能会冷，我想我需要生个火……”</p>",
+        "<p>她在背后用手抹掉了什么东西。</p>",
+        "<p>你盯着她身后看，但壁炉里什么也看不到。</p>",
+        "<p>“我不该吵醒你。对不起。”她着急要走。</p>",
+        "[guide-start]",
+        "<p>你可以进行一次「恐吓」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "恐吓检定", "action": "action_check", "param": { "key": "intimidate", "isSkill" : true, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "intimidate", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "intimidate", "level": "none" } }
+    ]
+}

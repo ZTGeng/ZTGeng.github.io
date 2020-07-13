@@ -1,0 +1,10 @@
+{
+    "key": 73,
+    "texts": [
+        "<p>你一下撞到地面上。肺里的空气直冲出你的喉咙，鲜血渗出你的头顶。</p>"
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_hp_zero" },
+        { "key": 1, "text": "继续", "show": "!flag_hp_zero" }
+    ]
+}

@@ -1,0 +1,42 @@
+{
+    "key": 36,
+    "texts": [
+        "<p>泥土随着你的踩踏下陷，断崖的边缘崩落了。你开始下坠，感觉自己的脏腑都在倾斜。</p>",
+        "[guide-start]",
+        "<p>进行一次「攀爬」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        {
+            "text": "攀爬检定",
+            "action": "action_check",
+            "param": {
+                "key": "climb",
+                "isSkill": true,
+                "level": "value"
+            },
+            "show": ["flag_check_unfinished", "!flag_punish_dice"]
+        },
+        {
+            "text": "攀爬检定-惩罚骰x1",
+            "action": "action_check",
+            "param": {
+                "key": "climb",
+                "isSkill": true,
+                "level": "value",
+                "bonus": -1
+            },
+            "show": ["flag_check_unfinished", "flag_punish_dice"]
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "climb", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "climb", "level": "none" } }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "key": 28,
+    "texts": [
+        "<p>你带上钱、水还有几块三明治，还礼貌地给梅·莱德贝特留了一张字条，解释情况并许诺你会尽快回来取行李。天空飘浮着斑驳的云朵，但并没有马上要下雨的迹象。</p>",
+        "<p>在几个村民的注视下，你走下南边的道路，顺着它转到东边。那黑色的金属建筑物突兀地挺立在山崖上。你走过烬头村外低矮的棚屋时，不禁打了个寒战。</p>",
+        "<p>你受够了烬头村鄙陋闭塞的街道，在开阔的环境和成就感中恢复了精力。但是一小时以后，空旷的道路带来的新鲜感渐渐消失了。你刚刚进入第一片树林，就听到北面传来一阵轻快而怪异的呼啸。</p>",
+        "[guide-start]",
+        "<p>进行一次「博物学」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "博物学检定", "action": "action_check", "param": { "key": "nature", "isSkill" : true, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "nature", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "nature", "level": "none" } }
+    ]
+}

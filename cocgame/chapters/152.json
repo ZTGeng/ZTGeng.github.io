@@ -1,0 +1,44 @@
+{
+    "key": 152,
+    "texts": [
+        "<p>落日低垂，你向东离开村庄，前往树林中寻求庇护。灯塔戳破地平线，轮廓雄伟壮观。你用最快地速度赶路，直到头上出现了树荫，你才走到路边，稍事休息。</p>",
+        "<p>差不多两小时以后太阳落山了。黑暗的森林也许很吓人，但成功逃离烬头村让你下定决心。你头也不回地走在黑夜中。</p>",
+        "<p>不久之后，你听到了哒哒的马蹄声，向你飞快地接近。马一共有两匹。你激动不已——但它们是从你身后过来的。</p>",
+        "[guide-start]",
+        "<p>进行一次「潜行」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        {
+            "text": "潜行检定",
+            "action": "action_check",
+            "param": {
+                "key": "stealth",
+                "isSkill": true,
+                "level": "value"
+            },
+            "show": ["flag_check_unfinished", "!flag_punish_dice"]
+        },
+        {
+            "text": "潜行检定-惩罚骰x1",
+            "action": "action_check",
+            "param": {
+                "key": "stealth",
+                "isSkill": true,
+                "level": "value",
+                "bonus": -1
+            },
+            "show": ["flag_check_unfinished", "flag_punish_dice"]
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "stealth", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "stealth", "level": "none" } }
+    ]
+}

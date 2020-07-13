@@ -1,0 +1,19 @@
+{
+    "key": 25,
+    "texts": [
+        "<img src='images/map.png'><br>",
+        "[guide-start]",
+        "<p>你已经能大概摸清自己在烬头村的位置了。你想继续深入调查吗？你可以从以下几个选项中再选择一项。不要重复之前的选择。",
+        "如果下面的选项你已经试过四个（或者在那之前，如果你打算推进时间），选择“继续”。</p>",
+        "[guide-end]"
+    ],
+    "options": [
+        { "key": 0, "text": "去本地杂货店询问交通方式", "disabled": { "match": "match_c25_option_disabled", "param": 0 } },
+        { "key": 1, "text": "找到村会堂", "disabled": { "match": "match_c25_option_disabled", "param": 1 } },
+        { "key": 2, "text": "沿着道路下坡，查看东盘山路", "disabled": { "match": "match_c25_option_disabled", "param": 2 } },
+        { "key": 3, "text": "调查巨大的金属建筑物", "disabled": { "match": "match_c25_option_disabled", "param": 3 } },
+        { "key": 4, "text": "探索教堂", "disabled": { "match": "match_c25_option_disabled", "param": 4 } },
+        { "key": 5, "text": "寻找拥有交通工具的当地居民", "disabled": { "match": "match_c25_option_disabled", "param": 5 } },
+        { "key": 6, "text": "继续" }
+    ]
+}

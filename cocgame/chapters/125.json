@@ -1,0 +1,43 @@
+{
+    "key": 125,
+    "texts": [
+        "<p>你在梅·莱德贝特家的另一头看到一根晾衣绳，上面有些松垮垮皱巴巴的衣服。能用的衣服并不算多，但你把自己的衣服塞起来充当临时的帽子，走路也改成弓腰驼背地拖着脚走。</p>",
+        "<p>你跛着脚走到村子南边的出口，一路上再没有人打量你。那些守卫还守在原地，审视着出入的人。但他们看上去已经开始厌烦了。</p>",
+        "[guide-start]",
+        "<p>进行一次困难难度的「乔装」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        {
+            "text": "乔装检定-困难",
+            "action": "action_check",
+            "param": {
+                "key": "disguise",
+                "isSkill": true,
+                "level": "half"
+            },
+            "show": ["flag_check_unfinished", "!flag_punish_dice"]
+        },
+        {
+            "text": "乔装检定-困难-惩罚骰x1",
+            "action": "action_check",
+            "param": {
+                "key": "disguise",
+                "isSkill": true,
+                "level": "half",
+                "bonus": -1
+            },
+            "show": ["flag_check_unfinished", "flag_punish_dice"]
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "disguise", "level": "half" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "disguise", "level": "none" } }
+    ]
+}

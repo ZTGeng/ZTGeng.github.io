@@ -1,0 +1,25 @@
+{
+    "key": 246,
+    "texts": [
+        "<p>在你的梦中，树木在挪动位置，它们的根须从地上拔起，拖着步子走到别处，又自己固定下来。这看上去完全正常，甚至算是友善。它们开始发光，是黄绿色的光，还有火舌在舔食——</p>",
+        "<p>火？</p>",
+        "<p>树木开始尖叫。</p>",
+        "<p>闪烁的火舌蜿蜒爬上树，朝你扑来。你的腰带成了拴在火葬堆上的累赘。你拼命撕扯着腰带，咳嗽着，浓烟充斥着你的咽喉，令你窒息——</p>",
+        "[guide-start]",
+        "<p>进行一次“理智”检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "理智检定", "action": "action_check", "param": { "key": "San", "isSkill" : false, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "San", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "San", "level": "none" } }
+    ]
+}

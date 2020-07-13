@@ -1,0 +1,24 @@
+{
+    "key": 208,
+    "texts": [
+        "<p>这带着回响的嗥叫再次响起，这次有什么离你更近的东西在呼应着嗥叫。看起来现在是个逃离地面的好机会。</p>",
+        "<p>你找到一棵有明显立足点的树，选了大概两人高的一个坚实枝杈。你慢慢挪动上去，可你的衣服并不适合爬树。</p>",
+        "[guide-start]",
+        "<p>进行一次「攀爬」检定。只有当你掷出大失败（结果为96或更高），才会有不同的分支。</p>",
+        "<p>（译注：如果你的「攀爬」技能值大于等于50，则结果为100时才为大失败。）</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "攀爬检定", "action": "action_check", "param": { "key": "climb", "isSkill" : true, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": ["!flag_check_unfinished", "flag_check_fumble"] },
+        { "key": 1, "text": "继续", "show": ["!flag_check_unfinished", "!flag_check_fumble"] }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "climb", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "climb", "level": "none" } }
+    ]
+}

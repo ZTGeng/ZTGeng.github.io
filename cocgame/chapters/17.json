@@ -1,0 +1,25 @@
+{
+    "key": 17,
+    "texts": [
+        "<p>你走过房间，地板在你脚下吱嘎作响。你感觉到脚下略微有些弹力。这个房间可能是给村里的孩子们做体操房用的。</p>",
+        "<p>看起来，村里的大人们使用一块布告板，孩子们用另一块布告板。大人用的板子看上去很破旧，满是手写的字体，内容则是日用品的广告，还有一张泛黄的电报价目表。板上没有和节日相关的东西。</p>",
+        "<p>孩子们的布告板上则写着托儿所的每周时间安排，还有一些明显由孩子们自己画出来的图画。这些画虽然五颜六色，但内容却支离破碎。你尽力分辨，也只能分辨他们在描绘焰火，或者是《创世纪》中约瑟的故事。",
+        "有一张画少了一枚图钉，倒吊在板上。上面画着一只巨鸟正在攻击烬头村。不过也有可能只是小画家还没有掌握透视的精妙之处。</p>",
+        "[guide-start]",
+        "<p>进行一次「侦查」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "侦查检定", "action": "action_check", "param": { "key": "spot", "isSkill" : true, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "spot", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "spot", "level": "none" } }
+    ]
+}

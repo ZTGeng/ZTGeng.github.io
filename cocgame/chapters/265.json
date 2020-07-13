@@ -1,0 +1,23 @@
+{
+    "key": 265,
+    "texts": [
+        "<p>你解释说，你正要加入著名的密斯卡托尼克大学成为研究员。虽然这只是个初级职位，主要任务是教课和辅导，但这所学校久负盛名。谁又知道此后会发生什么呢？",
+        "参与座谈会、客座演讲甚至加入遍布世界的探险行动？</p>",
+        "<p>“哼。”西拉斯缩了缩鼻子。“我小时候就把书读够了。但我觉得对喜欢学习的人来说，还不错。”</p>",
+        "[guide-start]",
+        "<p>你的「信用评级」技能是30%。</p>",
+        "<p>你的本职技能是：「图书馆使用」，「外语」（选择一种），「母语」，「心理学」。</p>",
+        "<p>你还可以选择除了「克苏鲁神话」以外的其他任意四项技能作为个人专长。将以下数值分配到各项本职技能当中：70%，60%，60%，50%，50%，50%，40%，40%。</p>",
+        "<p>分配时忽略调查员角色卡上已写出的初始值。</p>",
+        "[guide-end]"
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "disabled": "flag_skills1_unfinished" }
+    ],
+    "onload": [
+        { "action": "action_set_occupation", "param": "教授" },
+        { "action": "action_set_credit", "param": 30 },
+        { "action": "action_set_occupation_skills", "param": { "skills": ["library", "lang_own", "psychology"], "language": true, "universal": 4 } },
+        { "action": "action_set_flag_true", "param": "flag_skills_editable" }
+    ]
+}

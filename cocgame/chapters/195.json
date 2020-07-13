@@ -1,0 +1,25 @@
+{
+    "key": 195,
+    "texts": [
+        "<p>另一个黑影手持某种钝器向你砸来。你一把将它推开，跳起身来寻找更适合防御的位置。</p>",
+        "<p>液体冒出的声音吸引了你的注意力。阿博加斯特用手捂着脖子。血从手指缝里、从他的嘴里淌下来。攻击他的人再次挥刀刺去。沾着血渍的刀刃切破了阿博加斯特紧紧按住颈部的手腕。",
+        "现在你能看见攻击者的脸，他低着头，脸上涂着焦油一类的东西，眼中燃烧着仇恨。阿博加斯特挡开攻击者，蹒跚转身，更多的血液顺着他的手臂奔流而出。意志力支撑着这个不成人形的老头。他站直身体，抬起一只手。</p>",
+        "[guide-start]",
+        "<p>进行一次“理智”检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "理智检定", "action": "action_check", "param": { "key": "San", "isSkill" : false, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "San", "level": "value" } },
+        { "action": "action_check_in_skill_box", "param": "dodge" }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "San", "level": "none" } }
+    ]
+}

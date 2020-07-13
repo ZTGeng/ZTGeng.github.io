@@ -1,0 +1,65 @@
+{
+    "key": 165,
+    "texts": [
+        "<div class='row'><div class='col-4'><img src='images/book.jpg' class='img-fluid'></div><div class='col-8'>",
+        "<p>光线照射到房间里，你可以辨认书名了。壁龛里的书和图书室的书有很大区别：这里的书要旧得多，很多都是手写的，更有不少用奇特的文字写成，你根本不认识。",
+        "仅仅浏览这些奇异的书卷，就足够你在这里花去一星期的时间。</p>",
+        "[guide-start]",
+        "<p>进行一次「图书馆使用」检定。如果你失败了，可以孤注一掷，重新尝试掷骰。</p>",
+        "<p>（译注：如果你首次检定掷出大失败，不能孤注一掷。）</p>",
+        "[guide-end]",
+        "</div></div>"
+    ],
+    "interactions": [
+        {
+            "text": "图书馆使用检定",
+            "action": "action_check",
+            "param": {
+                "key": "library",
+                "isSkill": true,
+                "level": "value",
+                "onFail": [{ "action": "action_set_flag_true", "param": "flag_show_push_roll" }],
+                "onFumble": []
+            },
+            "show": ["flag_check_unfinished", "!flag_punish_dice"]
+        },
+        {
+            "text": "图书馆使用检定-惩罚骰x1",
+            "action": "action_check",
+            "param": {
+                "key": "library",
+                "isSkill": true,
+                "level": "value",
+                "bonus": -1,
+                "onFail": [{ "action": "action_set_flag_true", "param": "flag_show_push_roll" }],
+                "onFumble": []
+            },
+            "show": ["flag_check_unfinished", "flag_punish_dice"]
+        },
+        {
+            "text": "图书馆使用检定-孤注一掷",
+            "action": "action_check",
+            "param": { "key": "library", "isSkill": true, "level": "value" },
+            "show": ["flag_show_push_roll", "!flag_punish_dice"]
+        },
+        {
+            "text": "图书馆使用检定-孤注一掷-惩罚骰x1",
+            "action": "action_check",
+            "param": { "key": "library", "isSkill": true, "level": "value", "bonus": -1 },
+            "show": ["flag_show_push_roll", "flag_punish_dice"]
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": ["flag_check_failed", "!flag_show_push_roll"] },
+        { "key": 2, "text": "继续", "show": ["flag_check_failed", "flag_show_push_roll"] }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "library", "level": "value" } },
+        { "action": "action_add_temp_flag", "param": ["flag_show_push_roll"] }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "library", "level": "none" } },
+        { "action": "action_remove_temp_flag", "param": ["flag_show_push_roll"] }
+    ]
+}

@@ -1,0 +1,66 @@
+{
+    "key": 138,
+    "texts": [
+        "<p>过了一会儿，梅回到厨房开始洗涮。要想和露丝说话，你需要让梅离开一会儿。你一边帮她刷盘子，一边考虑计策。没多久，你就想到了一个主意，问起了西拉斯和他村子里的朋友。</p>",
+        "<p>梅眯起眼睛说：“他认识村那头的特洛伊，我不好说他们是朋友；他俩更像是一对欢喜老冤家。但他昨天晚上可能是在特洛伊家过的夜。”</p>",
+        "<p>你问梅可不可以见见特洛伊，问问他西拉斯有没有提到过返回的计划。梅听着半信半疑，问道：“现在就去？”</p>",
+        "[guide-start]",
+        "<p>现在，不要查看自己的角色卡，决定自己如何让梅信服：是让梅感情用事？还是解释说再耽搁下去自己的事业就会受到影响？或者是让她草率遵从你的决定？",
+        "请根据自己的选择，分别进行「魅惑」、「说服」或者「话术」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        {
+            "text": "魅惑检定",
+            "action": "action_check",
+            "param": {
+                "key": "charm",
+                "isSkill": true,
+                "level": "value",
+                "onPass": [
+                    { "action": "action_set_highlight", "param": { "key": "charm", "level": "value" } }
+                ],
+                "onFail": [{ "action": "action_set_highlight", "param": { "key": "charm", "level": "value" } }]
+            },
+            "show": "flag_check_unfinished"
+        },
+        {
+            "text": "说服检定",
+            "action": "action_check",
+            "param": {
+                "key": "persuade",
+                "isSkill": true,
+                "level": "value",
+                "onPass": [
+                    { "action": "action_set_highlight", "param": { "key": "persuade", "level": "value" } }
+                ],
+                "onFail": [{ "action": "action_set_highlight", "param": { "key": "persuade", "level": "value" } }]
+            },
+            "show": "flag_check_unfinished"
+        },
+        {
+            "text": "话术检定",
+            "action": "action_check",
+            "param": {
+                "key": "talk",
+                "isSkill": true,
+                "level": "value",
+                "onPass": [
+                    { "action": "action_set_highlight", "param": { "key": "talk", "level": "value" } }
+                ],
+                "onFail": [{ "action": "action_set_highlight", "param": { "key": "talk", "level": "value" } }]
+            },
+            "show": "flag_check_unfinished"
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "charm", "level": "none" } },
+        { "action": "action_set_highlight", "param": { "key": "persuade", "level": "none" } },
+        { "action": "action_set_highlight", "param": { "key": "talk", "level": "none" } },
+        { "action": "action_check_in_skill_box", "param": "current" }
+    ]
+}

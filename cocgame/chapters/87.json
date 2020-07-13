@@ -1,0 +1,22 @@
+{
+    "key": 87,
+    "texts": [
+        "<p>你转过一块庄稼地，发现这男人已经消失了。山脊延伸到西面的远方，边缘最外面连接着一片危险的断崖。你跟丢了他。</p>",
+        "[guide-start]",
+        "<p>你可以进行一次困难「侦查」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "侦查检定-困难", "action": "action_check", "param": { "key": "spot", "isSkill" : true, "level": "half" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "spot", "level": "half" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "spot", "level": "none" } }
+    ]
+}

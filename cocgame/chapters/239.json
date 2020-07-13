@@ -1,0 +1,23 @@
+{
+    "key": 239,
+    "texts": [
+        "<p>你说道，你的职业是记者，靠着在本地报纸上投送的几篇自由稿件获得了《阿卡姆公报》的稳定职位。远离了无趣味的社会专栏和异想天开的故事，绝对是令人欣慰的事！",
+        "你晓得，《公报》从密斯卡托尼克大学研究员们的最新成果，到本地酒囊饭袋们做出的龌龊丑行，几乎无所不包。不管怎样，这都将是值得你为之全身心投入的工作。</p>",
+        "<p>“写文的？给报纸？”西拉斯显得很困惑，就好像他认为那些故事都是自己凭空出现的一样。</p>",
+        "[guide-start]",
+        "<p>你的「信用评级」技能是20%。</p>",
+        "<p>你的本职技能是：「艺术/手艺（摄影）」，「历史」，「图书馆使用」，「母语」，「心理学」，还有「魅惑」、「话术」、「恐吓」、「说服」四项中其中一项。</p>",
+        "<p>你还可以选择除了「克苏鲁神话」以外的其他任意两项技能作为个人专长。将以下数值分配到各项本职技能当中：70%，60%，60%，50%，50%，50%，40%，40%。</p>",
+        "<p>分配时忽略调查员角色卡上已写出的初始值。</p>",
+        "[guide-end]"
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "disabled": "flag_skills1_unfinished" }
+    ],
+    "onload": [
+        { "action": "action_set_occupation", "param": "记者" },
+        { "action": "action_set_credit", "param": 20 },
+        { "action": "action_set_occupation_skills", "param": { "skills": ["photography", "history", "library", "lang_own", "psychology"], "interpersonal": true, "universal": 2 } },
+        { "action": "action_set_flag_true", "param": "flag_skills_editable" }
+    ]
+}

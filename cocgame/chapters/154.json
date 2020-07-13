@@ -1,0 +1,20 @@
+{
+    "key": 154,
+    "texts": [
+        "<div class='row'>",
+        "<div class='col-8'>",
+        "<p>你梦见了壁炉里的炉火；跳动的火舌之中，闪烁着明亮耀眼的色彩。",
+        "最开始火苗很小很小，几乎要用显微镜才看得见，但它越烧越大，越烧越大，最后变成了瞬息万变的炼狱火海，它溢出壁炉，顺着地板延烧，爬上了你的床单……</p>",
+        "<p>你在惊吓之中醒了过来。阳光透过窗帘照进屋里。你起床检查壁炉，眨眨眼驱赶睡意。壁炉是冷的。</p>",
+        "</div><div class='col-4'><img src='images/fire2.jpg' class='img-fluid'></div></div>",
+        "[guide-start]",
+        "<p>你之前如果受过伤害，睡过这一晚之后可以回复1点耐久值。</p>",
+        "[guide-end]"
+    ],
+    "options": [
+        { "key": 0, "text": "继续" }
+    ],
+    "onload": [
+        { "action": "action_adjust_attribute", "param": { "key": "HP", "delta": 1 } }
+    ]
+}

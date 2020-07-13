@@ -1,0 +1,25 @@
+{
+    "key": 150,
+    "texts": [
+        "<p>你脱离道路开始追逐这人，感受着野草抓着你的脚。他沿着山脊飞奔，试图躲进一块巨石后面；这巨石正支撑着悬崖之上那座金属建筑物。</p>",
+        "[guide-start]",
+        "<p>要逮住这个男人，你必须进行一次对抗检定，用你的“敏捷”对抗他的“敏捷”。这个男人的“敏捷”是38。他掷出小于等于19点为困难成功，小于等于7点为极难成功。",
+        "先进行这个男人的“敏捷”检定，再做你的“敏捷”检定。</p>",
+        "<p>比较你们两人的成功等级。极难成功胜过困难成功，困难成功胜过常规（普通）成功，常规成功胜过失败。如果成功等级相同，技能值高的人胜出。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "对方敏捷检定", "action": "action_opposed_roll", "param": { "phase": 1, "name": "敏捷", "value": 38 }, "disabled": "flag_opposed_roll_phase2", "show": "flag_check_unfinished" },
+        { "text": "我方敏捷检定", "action": "action_opposed_roll", "param": { "phase": 2, "key": "DEX" }, "disabled": "!flag_opposed_roll_phase2", "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "DEX", "level": "all" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "DEX", "level": "none" } }
+    ]
+}

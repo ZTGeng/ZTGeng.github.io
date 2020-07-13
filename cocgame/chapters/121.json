@@ -1,0 +1,22 @@
+{
+    "key": 121,
+    "texts": [
+        "<p>你接近这身影一步，它就后退一步。一步，两步。它溜进了两座房子之间的小巷。</p>",
+        "[guide-start]",
+        "<p>要抓住你的目标，你必须进行一次「追踪」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "追踪检定", "action": "action_check", "param": { "key": "track", "isSkill" : true, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "track", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "track", "level": "none" } }
+    ]
+}

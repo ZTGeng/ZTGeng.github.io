@@ -1,0 +1,24 @@
+{
+    "key": 264,
+    "texts": [
+        "<p>诡异的嗥叫越来越近。你的前面、后面，都有这种声音。一声嗥叫必然有阴冷的齐声回应，低沉而饥饿。它们的声调奇异而绝望。</p>",
+        "<p>你现在在以最快的速度赶路。你听到自己的呼吸声越来越急促。这片地区的树不够老，支撑不住你的重量。可能你需要跑起来。但你在被迫停步之前，又能跑多久呢——</p>",
+        "<p>一群矮小黑暗的动物从树上溜下来，挡住了前面的路。每个黑影都竖着长长的尖耳朵。它们的双眼在月色下发着荧荧的光。</p>",
+        "[guide-start]",
+        "<p>进行一次“理智”检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "理智检定", "action": "action_check", "param": { "key": "San", "isSkill" : false, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "San", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "San", "level": "none" } }
+    ]
+}

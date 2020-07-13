@@ -1,0 +1,37 @@
+{
+    "key": 117,
+    "texts": [
+        "<p>中央大街上的队伍缓慢而肃穆，除了你骨软筋麻，还在抓着你的人手中挣扎。</p>",
+        "<p>当你看见三具披着红布的人体被扛在前面的时候，你打了个寒战。灯塔靠得越来越近，越来越高大，令人畏惧的轮廓如同乌黑的三角形直刺星空。",
+        "披红布的人体开始发出低沉的嗡嗡声——你的头脑中不由自主地浮现出“送丧人”这个词。他们手中的火把冒着烟，呛得你直咳嗽。你能感受到脸上的热量。</p>",
+        "<p>当你被押到灯塔前的空旷地时，三个舞者分开人群走出来：都是年轻女孩，手中挥着燃烧的火球，划出壮观的弧线，在夜空中形成数道圆圈。",
+        "她们依次接近你，用涂黑的手指触碰你的前额。每人在你的左脸颊、右脸颊和前额各亲吻一次，然后在你耳边低语。你的鼻孔里充满了煤油的气味。</p>",
+        "[guide-start]",
+        "<p>进行一次“外貌”检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        {
+            "text": "外貌检定",
+            "action": "action_check",
+            "param": { "key": "APP", "isSkill" : false, "level": "value" },
+            "show": ["flag_check_unfinished", "!flag_punish_dice"]
+        },
+        {
+            "text": "外貌检定-惩罚骰x1",
+            "action": "action_check",
+            "param": { "key": "APP", "isSkill" : false, "level": "value", "bonus": -1 },
+            "show": ["flag_check_unfinished", "flag_punish_dice"]
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "APP", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "APP", "level": "none" } }
+    ]
+}

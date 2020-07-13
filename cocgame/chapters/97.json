@@ -1,0 +1,32 @@
+{
+    "key": 97,
+    "texts": [
+        "<p>根须绊住了你的脚踝，你重重地扑倒在地。你痛苦地喘息，手臂针刺一般地疼痛。一条枯枝刺破了你的前臂，削出一道约莫三寸长的口子，鲜血滴到草上。</p>",
+        "<p>你在树丛中发现了道路。也许你应该坚持沿道路走，而不是前往未知的地域。</p>",
+        "[guide-start]",
+        "<p>失去1D3点耐久值。你可以用普通六面骰来投掷：只需要将结果除以二，小数进位。这算是挺严重的伤，但幸运的是它并不足以让你失去意识。</p>",
+        "<p>你可以尝试一次「急救」检定。如果你成功了，回复1点耐久值并在「急救」技能左边的小方框里打勾。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "投掷1D3点耐久", "action": "action_adjust_attribute", "param": { "key": "HP", "delta": "-1d3" }, "show": "!flag_hp_reduced" },
+        {
+            "text": "急救检定",
+            "action": "action_check",
+            "param": {
+                "key": "aid",
+                "isSkill" : true,
+                "level": "value",
+                "onPass": [
+                    { "action": "action_adjust_attribute", "param": { "key": "HP", "delta": 1 } },
+                    { "action": "action_check_in_skill_box", "param": "aid" }
+                ]
+            },
+            "disabled": "!flag_hp_reduced",
+            "show": "flag_check_unfinished"
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "!flag_check_unfinished" }
+    ]
+}

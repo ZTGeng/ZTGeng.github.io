@@ -1,0 +1,16 @@
+{
+    "key": 222,
+    "texts": [
+        "<p>你爬到半截，手从长满青苔的树枝上滑脱，跌落在地。肺里的空气直冲出你的喉咙。</p>",
+        "[guide-start]",
+        "<p>受到1点伤害。</p>",
+        "[guide-end]"
+    ],
+    "options": [
+        { "key": 0, "text": "失去意识", "show": "flag_hp_zero" },
+        { "key": 1, "text": "一边留意脆弱的树枝一边继续攀爬", "show": "!flag_hp_zero" }
+    ],
+    "onload": [
+        { "action": "action_adjust_attribute", "param": { "key": "HP", "delta": -1 } }
+    ]
+}

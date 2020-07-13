@@ -1,0 +1,23 @@
+{
+    "key": 188,
+    "texts": [
+        "<p>一个黑影突然从黑暗中穿出。它伸出手臂抱住阿博加斯特的咽喉，把他向后拽出了壁凹。他抓住那手臂，双脚向虚空踢去。你看见长刀在月色下闪烁的寒光。</p>",
+        "[guide-start]",
+        "<p>进行一次「闪避」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "闪避检定", "action": "action_check", "param": { "key": "dodge", "isSkill" : true, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "dodge", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "dodge", "level": "none" } },
+        { "action": "action_set_flag_true", "param": "flag_involved_fighting" }
+    ]
+}

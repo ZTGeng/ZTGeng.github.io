@@ -1,0 +1,29 @@
+{
+    "key": 57,
+    "texts": [
+        "<p>你沿着中央大街走着，这是三条大街居中的一条，朝着那奇怪的金属建筑物笔直而去。当你走出周围建筑物的阴影时，展现在你面前的是从北方一直延伸到东南方的壮丽全景。",
+        "深秋的最后一抹色彩将山丘的轮廓染成睡意朦胧的金色。</p>",
+        "<p>相比之下，这座建筑物则是用熟铁铸成，外面烤成漆黑。它上边是一个巨大的弧形平台，大致和你的头顶一般高。再上边的撑架蛇行汇聚到中心点。",
+        "它们似乎在很久以前有某种雕刻，但现在已经扭曲熔化，早就无法辨识。</p>",
+        "<p>一位老绅士走过，用一双红肿的老眼看着你。“你来参加节日的吗？”他问道。“这就是灯塔。明天晚上他们点亮它的时候，你在二十里外都能看得见。”",
+        "他愉悦地点了点头，然后拄着手杖继续走他的路。</p>",
+        "<p>你还发现建筑物的附近堆着许多成捆成捆的木头。也许这次节日会是一次有趣的消遣，但你真的应该尽快赶往阿卡姆了。</p>",
+        "[guide-start]",
+        "<p>进行一次「侦查」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "侦查检定", "action": "action_check", "param": { "key": "spot", "isSkill" : true, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_c25_select_option", "param": 3 },
+        { "action": "action_set_highlight", "param": { "key": "spot", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "spot", "level": "none" } }
+    ]
+}

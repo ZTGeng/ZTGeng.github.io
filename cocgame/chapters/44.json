@@ -1,0 +1,33 @@
+{
+    "key": 44,
+    "texts": [
+        "<p>你已经精疲力竭，你的肉体本应无从撼动黑铁打造的锁链。但你感觉到它们松动了一点点。这铁链的其中一节有弱点。</p>",
+        "[guide-start]",
+        "<p>进行一次困难“力量”检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        {
+            "text": "力量检定-困难",
+            "action": "action_check",
+            "param": { "key": "STR", "isSkill" : false, "level": "half" },
+            "show": ["flag_check_unfinished", "!flag_punish_dice"]
+        },
+        {
+            "text": "力量检定-困难-惩罚骰x1",
+            "action": "action_check",
+            "param": { "key": "STR", "isSkill" : false, "level": "half", "bonus": -1 },
+            "show": ["flag_check_unfinished", "flag_punish_dice"]
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "STR", "level": "half" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "STR", "level": "none" } }
+    ]
+}

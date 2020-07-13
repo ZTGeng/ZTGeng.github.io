@@ -1,0 +1,34 @@
+{
+    "key": 201,
+    "texts": [
+        "<div class='row'><div class='col-8'>",
+        "<p>熊退后几步，漆黑的眼珠直瞪着你。它从喉咙深处发出低沉的咕哝声，转头蹒跚返回了树林。</p>",
+        "[guide-start]",
+        "<p>不管怎样，你已经在和熊的搏斗当中活了下来。你可以在你的「格斗( 斗殴)」技能左边的小方框里打勾。如果熊击伤了你，你还可以尝试进行一次「急救」检定，若成功可以回复1点耐久值。</p>",
+        "[guide-end]",
+        "</div><div class='col-4'><img src='images/bear.jpg' class='img-fluid'></div></div>"
+    ],
+    "interactions": [
+        {
+            "text": "急救检定",
+            "action": "action_check",
+            "param": {
+                "key": "aid",
+                "isSkill" : true,
+                "level": "value",
+                "onPass": [
+                    { "action": "action_adjust_attribute", "param": { "key": "HP", "delta": 1 } },
+                    { "action": "action_check_in_skill_box", "param": "aid" }
+                ]
+            },
+            "disabled": "!flag_hp_reduced",
+            "show": "flag_check_unfinished"
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "!flag_check_unfinished" }
+    ],
+    "onload": [
+        { "action": "action_check_in_skill_box", "param": "fighting" }
+    ]
+}

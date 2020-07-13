@@ -1,0 +1,38 @@
+{
+    "key": 250,
+    "texts": [
+        "<p>你走近红布覆盖的人体，唯恐他们会一下子坐起来抓住你。人体有三具。每具人体的脚趾都系着一个标签：</p>",
+        "<p>本杰明·克拉默，1927.1.19</p>",
+        "<p>亚伯拉罕·霍林斯沃思，1927.4.22</p>",
+        "<p>玛利安·菲普斯，1927.8.6</p>",
+        "<p>你掀开苫布的一角。苫布下面毫无疑问是人体，枯瘦如柴，用绷带紧紧包裹。你正在看的是三具尸体。做过防腐的尸体。</p>",
+        "[guide-start]",
+        "<p>进行一次“理智”检定。如果你失败了，失去1D2点理智值。</p>",
+        "[guide-end]",
+        "<p>你沿路返回莱德贝特的房子，手里抓着的提灯不住地颤抖。当梅注意到你的不安时，她什么也没说。你疲惫至极。</p>"
+    ],
+    "interactions": [
+        {
+            "text": "理智检定",
+            "action": "action_check",
+            "param": {
+                "key": "San",
+                "isSkill" : false,
+                "level": "value",
+                "onFail": [
+                    { "action": "action_adjust_attribute", "param": { "key": "San", "delta": "-1d2" } }
+                ]
+            },
+            "show": "flag_check_unfinished"
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "!flag_check_unfinished" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "San", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "San", "level": "none" } }
+    ]
+}

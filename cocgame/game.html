@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>向火独行 - CoC单人模组</title>
+  <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <div class="container" id="app">
+    <div class="row">
+      <div class="col-8">
+        <header>
+          <h1>向火独行 <small>CoC单人模组</small></h1>
+          <hr>
+        </header>
+        <div v-html="content"></div>
+        <br>
+        <div v-if="chapter.interactions">
+            <div class="alert alert-secondary">
+                <div class="btn-group" style="display: inline">
+                    <button
+                        v-for="interaction in chapter.interactions"
+                        v-on:click="on_action(interaction.action, interaction.param)"
+                        v-show="shouldShow(interaction.show)"
+                        v-bind:disabled="shouldDisable(interaction.disabled)"
+                        class="btn btn-secondary">
+                        {{ interaction.text }}
+                    </button>
+                </div>
+                <div v-html="interactionOutput"></div>
+            </div>
+            <br>
+        </div>
+        <div v-if="chapter.options" class="list-group">
+          <button
+              v-for="option in chapter.options"
+              v-on:click="loadChapter(option.key)"
+              v-show="shouldShow(option.show)"
+              v-bind:disabled="shouldDisable(option.disabled)"
+              v-bind:class="{ 'list-group-item-success': option.highlight }"
+              class="list-group-item list-group-item-action text-left">
+              {{ option.text }}
+            </button>
+        </div>
+      </div>
+      <div class="col-4">
+        <br>
+        <character-form v-bind:character="character" v-bind:flags="flags" v-on:action="on_action"></character-form>
+      </div>
+    </div>
+    <br>
+    <hr>
+    <footer>
+      Copyright
+    </footer>
+  </div>
+</body>
+<script src="script.js"></script>
+<script src="chapter-map.js"></script>
+</html>

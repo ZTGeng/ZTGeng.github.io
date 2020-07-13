@@ -1,0 +1,11 @@
+{
+    "key": 122,
+    "texts": [
+        "<div class='row'><div class='col-8'>",
+        "<p>你听说过熊并没有攻击性，但你现在孤身一人，别人要走几里路才能来救你，为什么要冒险呢？你轻声慢步地挪走了。熊对你完全没表现出兴趣。</p>",
+        "</div><div class='col-4'><img src='images/bear.jpg' class='img-fluid'></div></div>"
+    ],
+    "options": [
+        { "key": 0, "text": "继续" }
+    ]
+}

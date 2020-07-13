@@ -1,0 +1,40 @@
+{
+    "key": 141,
+    "texts": [
+        "<p>这黑影跑得很快，步伐几乎是悄无声息。但你的直觉让你对它紧追不舍。它溜进一片满是尘土的院子，猛然转向拐进了铁栅栏。你步步逼近，它急忙冲进角落里。</p>",
+        "<p>一阵微风吹过，提醒你这里离悬崖边已经很近了。在你奋力追逐时，提灯上闪烁的光芒照亮了悬崖长着草的边缘。你放慢了步伐，留意脚下，以防意外踏入下方的虚空。",
+        "注视者和你拉开了一点距离，但它没有冲回街巷的迷宫，而是走向了悬崖。你继续逼近。</p>",
+        "<p>漆黑的身影摆了摆头，又一次盯着你。你感觉到短暂的不安，因为它的脸好像有哪里不对劲。</p>",
+        "<p>然后它从悬崖边上跳了下去。</p>",
+        "<p>你的下巴都要被惊掉了。你来到悬崖边，提灯在风中摇晃。昏暗的光照着你身下的崖壁。你是不是把别人吓得跳崖了？你的直觉告诉你不是。但你也没法解释刚才到底发生了什么。</p>",
+        "[guide-start]",
+        "<p>进行一次“理智”检定。如果你失败了，失去1D2点理智值。你可以使用普通六面骰来投掷：1、2、3表示失去1点理智值，4、5、6表示失去2点理智值。</p>",
+        "[guide-end]",
+        "<p>你沿路返回莱德贝特的房子，手里抓着的提灯不住地颤抖。当梅注意到你的不安时，她什么也没说。你疲惫至极。</p>"
+    ],
+    "interactions": [
+        {
+            "text": "理智检定",
+            "action": "action_check",
+            "param": {
+                "key": "San",
+                "isSkill" : false,
+                "level": "value",
+                "onFail": [
+                    { "action": "action_adjust_attribute", "param": { "key": "San", "delta": "-1d2" } }
+                ]
+            },
+            "show": "flag_check_unfinished"
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "!flag_check_unfinished" }
+    ],
+    "onload": [
+        { "action": "action_check_in_skill_box", "param": "track" },
+        { "action": "action_set_highlight", "param": { "key": "San", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "San", "level": "none" } }
+    ]
+}

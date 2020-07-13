@@ -1,0 +1,17 @@
+{
+    "key": 120,
+    "texts": [
+        "<p>你对烬头村感到越来越不安，今天尤为惶恐。</p>",
+        "[guide-start]",
+        "<p>一旦下面的选项你已经试过三个，选择“继续”。</p>",
+        "[guide-end]"
+    ],
+    "options": [
+        { "key": 0, "text": "搜索梅·莱德贝特的卧室", "disabled": { "match": "match_c120_option_disabled", "param": 0 } },
+        { "key": 1, "text": "独自前往村会堂", "disabled": { "match": "match_c120_option_disabled", "param": 1 } },
+        { "key": 2, "text": "仔细勘查工匠的工坊", "disabled": { "match": "match_c120_option_disabled", "param": 2 } },
+        { "key": 3, "text": "窥探灯塔前的活动", "disabled": { "match": "match_c120_option_disabled", "param": 3 } },
+        { "key": 4, "text": "沿东盘山路下山，溜之大吉", "disabled": { "match": "match_c120_option_disabled", "param": 4 } },
+        { "key": 5, "text": "继续" }
+    ]
+}

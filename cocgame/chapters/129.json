@@ -1,0 +1,11 @@
+{
+    "key": 129,
+    "texts": [
+        "<div class='row'><div class='col-8'>",
+        "<p>好像有什么东西让熊受了惊。它背朝着你，甩着屁股，蹒跚走进了森林。你等了五分钟，这头熊仍没回来。但对熊这种奇妙的动物，仅仅观察这么一小会儿也是值得的。</p>",
+        "</div><div class='col-4'><img src='images/bear.jpg' class='img-fluid'></div></div>"
+    ],
+    "options": [
+        { "key": 0, "text": "继续" }
+    ]
+}

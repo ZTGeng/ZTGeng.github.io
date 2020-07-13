@@ -1,0 +1,25 @@
+{
+    "key": 90,
+    "texts": [
+        "<p>你清清嗓子，开始吟诵你在奇怪书本上找到的仪式，尽力将怪异的音节念得正确。你的脸上翻腾着热浪，明白火焰越来越逼近，但你放下自己的恐慌，集中精力完成吟唱。</p>",
+        "<p>当你说出这些奇怪的字眼时，你发现村民的歌唱改变了，他们也在吟诵咒语。你的手心和太阳穴发出一阵阵奇异的刺痛。</p>",
+        "[guide-start]",
+        "<p>你正在施放法术。你在本法术中最多可以消耗10点魔法值。如果你的魔法值不足10点，可以在耗尽魔法值之后继续消耗耐久值——但你不能消耗到使耐久值归零。决定消耗的点数以后，选择“继续”。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "1", "action": "action_use_mp", "param": 1, "show": ["!flag_mp_used", { "match": "match_mp_enough", "param": 1 }] },
+        { "text": "2", "action": "action_use_mp", "param": 2, "show": ["!flag_mp_used", { "match": "match_mp_enough", "param": 2 }] },
+        { "text": "3", "action": "action_use_mp", "param": 3, "show": ["!flag_mp_used", { "match": "match_mp_enough", "param": 3 }] },
+        { "text": "4", "action": "action_use_mp", "param": 4, "show": ["!flag_mp_used", { "match": "match_mp_enough", "param": 4 }] },
+        { "text": "5", "action": "action_use_mp", "param": 5, "show": ["!flag_mp_used", { "match": "match_mp_enough", "param": 5 }] },
+        { "text": "6", "action": "action_use_mp", "param": 6, "show": ["!flag_mp_used", { "match": "match_mp_enough", "param": 6 }] },
+        { "text": "7", "action": "action_use_mp", "param": 7, "show": ["!flag_mp_used", { "match": "match_mp_enough", "param": 7 }] },
+        { "text": "8", "action": "action_use_mp", "param": 8, "show": ["!flag_mp_used", { "match": "match_mp_enough", "param": 8 }] },
+        { "text": "9", "action": "action_use_mp", "param": 9, "show": ["!flag_mp_used", { "match": "match_mp_enough", "param": 9 }] },
+        { "text": "10", "action": "action_use_mp", "param": 10, "show": ["!flag_mp_used", { "match": "match_mp_enough", "param": 10 }] }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_mp_used" }
+    ]
+}

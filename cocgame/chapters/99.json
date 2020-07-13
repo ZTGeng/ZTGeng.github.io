@@ -1,0 +1,22 @@
+{
+    "key": 99,
+    "texts": [
+        "<p>下午的时间在流逝。你还没彻底完成研读，文特斯就看看窗外，站起身来。他清了清嗓子。</p>",
+        "[guide-start]",
+        "<p>进行一次「信用评级」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "信用评级检定", "action": "action_check", "param": { "key": "credit", "isSkill" : true, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "credit", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "credit", "level": "none" } }
+    ]
+}

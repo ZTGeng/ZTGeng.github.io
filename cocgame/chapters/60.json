@@ -1,0 +1,24 @@
+{
+    "key": 60,
+    "texts": [
+        "<p>平缓的坡度使人误入歧途，等于你抵达山顶的时候，额头都湿透了。你停了一会儿喘口气，又向东面望去。前方的山谷是郁郁葱葱的树林，不过你可以瞧见一条狭窄的水流。",
+        "但仍旧没有村庄的迹象。地平线上似乎有什么东西——也许是座尖塔？但肯定又要走八九个小时才能到达。</p>",
+        "<p>你回头看向烬头村。山顶的村庄漆黑一片，只有落日的余晖映衬出它的大概轮廓。</p>",
+        "[guide-start]",
+        "<p>你可以进行一次「考古学」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "考古学检定", "action": "action_check", "param": { "key": "archaeology", "isSkill" : true, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "archaeology", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "archaeology", "level": "none" } }
+    ]
+}

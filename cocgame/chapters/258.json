@@ -1,0 +1,16 @@
+{
+    "key": 258,
+    "texts": [
+        "<p>腰带松脱了，你跌入熊熊烈焰之中。地面瞬间撞上了你。</p>",
+        "[guide-start]",
+        "<p>失去1D2点理智值和1D3点耐久值。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "投掷1D2点理智", "action": "action_adjust_attribute", "param": { "key": "San", "delta": "-1d2" }, "show": "!flag_san_reduced" },
+        { "text": "投掷1D3点耐久", "action": "action_adjust_attribute", "param": { "key": "HP", "delta": "-1d3" }, "show": "!flag_hp_reduced" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": ["flag_hp_reduced", "flag_san_reduced"] }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "key": 179,
+    "texts": [
+        "<div class='row'><div class='col-8'>",
+        "<p>温热的鲜血从你的后背汩汩流出。你一阵头晕目眩。</p>",
+        "[guide-start]",
+        "<p>进行一次“体质”检定。</p>",
+        "[guide-end]",
+        "</div><div class='col-4'><img src='images/bear.jpg' class='img-fluid'></div></div>"
+    ],
+    "interactions": [
+        { "text": "体质检定", "action": "action_check", "param": { "key": "CON", "isSkill" : false, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "CON", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "CON", "level": "none" } }
+    ]
+}

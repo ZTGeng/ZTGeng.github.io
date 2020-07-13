@@ -1,0 +1,16 @@
+{
+    "key": 203,
+    "texts": [
+        "<p>有什么东西砸中了你的太阳穴，打得你晕头转向。你听到阿博加斯特的呼喊，看到刀刃的寒光：一刀、两刀、三刀，刀锋染上了殷红的鲜血。",
+        "又有什么东西击中了你，在你倒下的时候，火焰从地上燃起，将夜空照得通亮。火光照出了三个黑影……</p>",
+        "[guide-start]",
+        "<p>受到1D6点伤害。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "投掷1D6点耐久", "action": "action_adjust_attribute", "param": { "key": "HP", "delta": "-1d6" }, "show": "!flag_hp_reduced" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_hp_reduced" }
+    ]
+}

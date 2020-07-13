@@ -1,0 +1,14 @@
+{
+    "key": 7,
+    "texts": [
+        "<p>当你来到南边通往下山处的道路时，你看见四个村民手持农具和棍棒挡住了去路。你改变方向前往西盘山路。当你在另一边村口也看见了几乎同样的光景时，你的心凉透了。你被困住了。</p>"
+    ],
+    "options": [
+        { "key": 0, "text": "尝试靠口才通过把守村口的人群" },
+        { "key": 1, "text": "尝试化装通过" },
+        { "key": 2, "text": "尝试沿着梯子爬下悬崖", "show": "flag_found_cliff_ladder", "highlight": true }
+    ],
+    "onload": [
+        { "action": "action_c120_select_option", "param": 4 }
+    ]
+}

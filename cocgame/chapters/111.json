@@ -1,0 +1,23 @@
+{
+    "key": 111,
+    "texts": [
+        "<p>他笑道：“我很高兴留您在这里再看半个小时左右。如果没有借书卡，不要带走这里的书。”</p>",
+        "<p>你感谢文特斯的信任，继续读了一会儿。在光线逐渐昏暗时，你在闭塞的房间里开始打呵欠。现在也许该换本书读了。</p>",
+        "[guide-start]",
+        "<p>进行一次「侦查」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "侦查检定", "action": "action_check", "param": { "key": "spot", "isSkill" : true, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "spot", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "spot", "level": "none" } }
+    ]
+}

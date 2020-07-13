@@ -1,0 +1,42 @@
+{
+    "key": 232,
+    "texts": [
+        "<p>你检查了这间工坊。它的结构完整无缺，但多年的日晒雨淋让木材变得脆弱；你只要猛然冲击就可能把它打破。但你必须手脚利落，如果重复尝试引人注意，就得不偿失了。</p>",
+        "[guide-start]",
+        "<p>进行一次“力量”检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        {
+            "text": "力量检定",
+            "action": "action_check",
+            "param": {
+                "key": "STR",
+                "isSkill": false,
+                "level": "value"
+            },
+            "show": ["flag_check_unfinished", "!flag_punish_dice"]
+        },
+        {
+            "text": "力量检定-惩罚骰x1",
+            "action": "action_check",
+            "param": {
+                "key": "STR",
+                "isSkill": false,
+                "level": "value",
+                "bonus": -1
+            },
+            "show": ["flag_check_unfinished", "flag_punish_dice"]
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "STR", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "STR", "level": "none" } }
+    ]
+}

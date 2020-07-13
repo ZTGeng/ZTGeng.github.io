@@ -1,0 +1,43 @@
+{
+    "key": 119,
+    "texts": [
+        "<p>南边的一群似乎比西边的一群好对付一些。你大步走上前去，说灯塔那边需要他们。他们看上去十分怀疑。你提出由你替他们把守道路，伸手要去拿干草叉。</p>",
+        "<p>第一个人说：“不，你和我们一起走。”他皱起了猿猴一般的眉毛。</p>",
+        "[guide-start]",
+        "<p>进行一次极难难度的「话术」检定，你需要投出结果小于等于你「话术」技能值的五分之一（技能右下角小方格里的数值）。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        {
+            "text": "话术检定-极难",
+            "action": "action_check",
+            "param": {
+                "key": "talk",
+                "isSkill": true,
+                "level": "fifth"
+            },
+            "show": ["flag_check_unfinished", "!flag_punish_dice"]
+        },
+        {
+            "text": "话术检定-极难-惩罚骰x1",
+            "action": "action_check",
+            "param": {
+                "key": "talk",
+                "isSkill": true,
+                "level": "fifth",
+                "bonus": -1
+            },
+            "show": ["flag_check_unfinished", "flag_punish_dice"]
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "talk", "level": "fifth" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "talk", "level": "none" } }
+    ]
+}

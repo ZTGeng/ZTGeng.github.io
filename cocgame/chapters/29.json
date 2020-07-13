@@ -1,0 +1,48 @@
+{
+    "key": 29,
+    "texts": [
+        "<p>村子北边十分繁忙，你在那里大概隐蔽不了多久。你向教堂的方向前进，然后沿着房子背面向村东头前进。你右边出现了一段断崖。有一部分地面非常狭窄，你必须扶住屋墙作支撑。</p>",
+        "[guide-start]",
+        "<p>你可以选择放弃这条路。如果要前进，比较你的“体型”和“敏捷”。如果你的“体型”较高，进行一次“敏捷”检定。</p>",
+        "<p>（译注：如果你的“体型”和“敏捷”相等，请检定。）</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        {
+            "text": "敏捷检定",
+            "action": "action_check",
+            "param": {
+                "key": "DEX",
+                "isSkill": false,
+                "level": "value"
+            },
+            "show": ["flag_check_unfinished", "!flag_dex_greater_than_siz", "!flag_punish_dice"]
+        },
+        {
+            "text": "敏捷检定-惩罚骰x1",
+            "action": "action_check",
+            "param": {
+                "key": "DEX",
+                "isSkill": false,
+                "level": "value",
+                "bonus": -1
+            },
+            "show": ["flag_check_unfinished", "!flag_dex_greater_than_siz", "flag_punish_dice"]
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "放弃", "show": "flag_check_unfinished" },
+        { "key": 1, "text": "前进", "show": ["flag_check_unfinished", "flag_dex_greater_than_siz"] },
+        { "key": 2, "text": "前进", "show": ["flag_check_passed", "!flag_dex_greater_than_siz"] },
+        { "key": 3, "text": "前进", "show": ["flag_check_failed", "!flag_dex_greater_than_siz"] }
+    ],
+    "onload": [
+        { "action": "action_c120_select_option", "param": 3 },
+        { "action": "action_set_highlight", "param": { "key": "DEX", "level": "value" } },
+        { "action": "action_set_highlight", "param": { "key": "SIZ", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "DEX", "level": "none" } },
+        { "action": "action_set_highlight", "param": { "key": "SIZ", "level": "none" } }
+    ]
+}

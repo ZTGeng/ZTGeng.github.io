@@ -1,0 +1,47 @@
+{
+    "key": 65,
+    "texts": [
+        "<p>火舌舔上你的双腿。你的眼中充满泪水。你被烟幕笼罩了;也许是你的想象，但你认为你感觉到铁链有一点点松动。你用尽全力挣扎，全然不顾铁链在你的手腕上拴得有多么牢固。</p>",
+        "[guide-start]",
+        "<p>你因为火焰受到1D6点耐久值伤害。如果你的耐久值因此归零，你就会失去意识，被烈焰烧死！否则，进行一次“力量”检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "投掷1D6点耐久", "action": "action_adjust_attribute", "param": { "key": "HP", "delta": "-1d6" }, "show": "!flag_hp_reduced" },
+        {
+            "text": "力量检定",
+            "action": "action_check",
+            "param": {
+                "key": "STR",
+                "isSkill" : false,
+                "level": "value",
+                "onPass": [{ "action": "action_set_highlight", "param": { "key": "STR", "level": "value" } }],
+                "onFail": [{ "action": "action_set_highlight", "param": { "key": "STR", "level": "value" } }]
+            },
+            "show": ["flag_check_unfinished", "!flag_hp_zero", "!flag_punish_dice"],
+            "disabled": "!flag_hp_reduced"
+        },
+        {
+            "text": "力量检定-惩罚骰x1",
+            "action": "action_check",
+            "param": {
+                "key": "STR",
+                "isSkill" : false,
+                "level": "value",
+                "bonus": -1,
+                "onPass": [{ "action": "action_set_highlight", "param": { "key": "STR", "level": "value" } }],
+                "onFail": [{ "action": "action_set_highlight", "param": { "key": "STR", "level": "value" } }]
+            },
+            "show": ["flag_check_unfinished", "!flag_hp_zero", "flag_punish_dice"],
+            "disabled": "!flag_hp_reduced"
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": ["flag_hp_reduced", "flag_hp_zero"] },
+        { "key": 1, "text": "继续", "show": ["flag_hp_reduced", "!flag_hp_zero", "flag_check_passed"] },
+        { "key": 2, "text": "继续", "show": ["flag_hp_reduced", "!flag_hp_zero", "flag_check_failed"] }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "STR", "level": "none" } }
+    ]
+}

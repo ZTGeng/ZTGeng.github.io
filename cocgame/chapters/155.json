@@ -1,0 +1,27 @@
+{
+    "key": 155,
+    "texts": [
+        "<div class='row'><div class='col-8'>",
+        "<p>你慌忙在树丛间攀爬，强行抑制恐惧感，想要回到道路上。</p>",
+        "[guide-start]",
+        "<p>想要从熊掌下逃脱，你必须用你的“敏捷”和熊的“敏捷”进行一次对抗检定。熊的“敏捷”是58。它掷出小于等于29点为困难成功，小于等于11点为极难成功。",
+        "先进行熊的“敏捷”检定，再做你的“敏捷”检定。</p>",
+        "<p>比较你们两方的成功等级。极难成功胜过困难成功，困难成功胜过常规（普通）成功，常规成功胜过失败。如果成功等级相同，技能值高的一方胜出。</p>",
+        "[guide-end]",
+        "</div><div class='col-4'><img src='images/bear.jpg' class='img-fluid'></div></div>"
+    ],
+    "interactions": [
+        { "text": "对方敏捷检定", "action": "action_opposed_roll", "param": { "phase": 1, "name": "敏捷", "value": 58 }, "disabled": "flag_opposed_roll_phase2", "show": "flag_check_unfinished" },
+        { "text": "我方敏捷检定", "action": "action_opposed_roll", "param": { "phase": 2, "key": "DEX" }, "disabled": "!flag_opposed_roll_phase2", "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "DEX", "level": "all" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "DEX", "level": "none" } }
+    ]
+}

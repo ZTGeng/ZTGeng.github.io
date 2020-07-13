@@ -1,0 +1,19 @@
+{
+    "key": 143,
+    "texts": [
+        "<div class='row'><div class='col-8'>",
+        "<p>这头熊把爪子放上树干，爬上了树，动作敏捷得惊人。它在树杈上稳住身形，开始从枝叶上扯下黑色的果子——大概是李子？——塞进嘴里。</p>",
+        "<p>你看了大概十分钟，这头熊似乎吃腻了，从树上落回地面。它朝空地四周望望，打了个呵欠，甩开屁股迈进了森林当中。</p>",
+        "[guide-start]",
+        "<p>观察熊是次特殊的经历。你可以在你的「博物学」技能上永久增加 2 点。</p>",
+        "[guide-end]",
+        "</div><div class='col-4'><img src='images/bear.jpg' class='img-fluid'></div></div>"
+    ],
+    "options": [
+        { "key": 0, "text": "继续" }
+    ],
+    "onload": [
+        { "action": "action_check_in_skill_box", "param": "stealth" },
+        { "action": "action_adjust_skill", "param": { "key": "nature", "delta": 2 } }
+    ]
+}

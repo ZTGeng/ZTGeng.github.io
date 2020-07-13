@@ -1,0 +1,16 @@
+{
+    "key": 252,
+    "texts": [
+        "<p>这里有些东西不太对劲。即使你的手摸到、解开了腰带扣，你头脑中的一点理性还记得这火焰的样子并不自然。而且树不会自己挪动。</p>",
+        "<p>腰带已经松脱，你从高空坠落。你能看到下面的影子吗？它们从黑暗中出现——</p>",
+        "[guide-start]",
+        "<p>失去1D3点耐久值。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "投掷1D3点耐久", "action": "action_adjust_attribute", "param": { "key": "HP", "delta": "-1d3" }, "show": "!flag_hp_reduced" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_hp_reduced" }
+    ]
+}

@@ -34,7 +34,7 @@ var jsonToHtml = function(article, showdate = true) {
               break;
           case "image":
               var isUrl = paragraph.data.slice(0, 7) === "http://" || paragraph.data.slice(0, 8) === "https://";
-              str = `<img src="${isUrl ? paragraph.data.replace(/\[\[HASH\]\]/g, "#") : IMAGES_PATH + paragraph.data.replace(/\[\[HASH\]\]/g, "#")}" class="img-fluid">`
+              str = `<img src="${isUrl ? paragraph.data.replace(/\[\[HASH\]\]/g, "#") : IMAGES_PATH + paragraph.data.replace(/\[\[HASH\]\]/g, "#")}" class="img-fluid mb-3">`
               break;
           case "number_list":
               str = "<ol>";

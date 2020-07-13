@@ -1,0 +1,43 @@
+{
+    "key": 176,
+    "texts": [
+        "<p>尽管你转来转去寻找薄弱点，但你也知道这个计划过于痴心妄想。不到两天之前你还在长途车上赴任新职，现在你却呆在破教堂里还打算毁了它。</p>",
+        "<p>你在一段塌了一部分的房顶下发现了一根已经弯曲的木柱子。你抓起一段坏掉的铁棍。</p>",
+        "[guide-start]",
+        "<p>进行一次困难“力量”检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        {
+            "text": "力量检定-困难",
+            "action": "action_check",
+            "param": {
+                "key": "STR",
+                "isSkill": false,
+                "level": "half"
+            },
+            "show": ["flag_check_unfinished", "!flag_punish_dice"]
+        },
+        {
+            "text": "力量检定-惩罚骰x1",
+            "action": "action_check",
+            "param": {
+                "key": "STR",
+                "isSkill": false,
+                "level": "half",
+                "bonus": -1
+            },
+            "show": ["flag_check_unfinished", "flag_punish_dice"]
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "STR", "level": "half" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "STR", "level": "none" } }
+    ]
+}

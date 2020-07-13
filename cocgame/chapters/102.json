@@ -1,0 +1,23 @@
+{
+    "key": 102,
+    "texts": [
+        "<p>你说道，自己刚刚在亲戚的远方朋友强烈推荐下，得到了“阿卡姆珍本舆图行”的助理职位。</p>",
+        "<p>收到录用通知函的时候的那份兴奋，只要想一想那些必须来店一游的文物，你就能回忆起来三分。你心里一阵痒痒；你恨不得马上就开始工作。</p>",
+        "<p>“书，哈？”西拉斯没有再继续对话。你感觉他不像是喜欢读书的人。</p>",
+        "[guide-start]",
+        "<p>你的「信用评级」技能是20%。</p>",
+        "<p>你的本职技能是：「估价」，「艺术/手艺」（选择一个专业领域），「历史」，「图书馆使用」，「外语」（选择一种），「侦查」，还有「魅惑」、「话术」、「恐吓」、「说服」四项中其中一项。</p>",
+        "<p>你还可以选择除了「克苏鲁神话」以外的其他任意一项技能作为个人专长。将以下数值分配到各项本职技能当中：70%，60%，60%，50%，50%，50%，40%，40%。</p>",
+        "<p>分配时忽略调查员角色卡上已写出的初始值。</p>",
+        "[guide-end]"
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "disabled": "flag_skills1_unfinished" }
+    ],
+    "onload": [
+        { "action": "action_set_occupation", "param": "文物学家" },
+        { "action": "action_set_credit", "param": 20 },
+        { "action": "action_set_occupation_skills", "param": { "skills": ["appraise", "history", "library", "spot"], "interpersonal": true, "language": true, "art": true, "universal": 1 } },
+        { "action": "action_set_flag_true", "param": "flag_skills_editable" }
+    ]
+}

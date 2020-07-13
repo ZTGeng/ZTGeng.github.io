@@ -1,0 +1,35 @@
+{
+    "key": 53,
+    "texts": [
+        "<p>当火舌跳动着，沿着薪柴向你靠近时，你紧闭双眼，一下下拽着链子。它又松动了一点点，然后——啪嚓!铁链的一角掉了下去。即使火焰正在烧焦你的脚踝，你仍然在捆链里蠕动，挣松束缚。</p>",
+        "<p>高台上的人盯着你的动作。然后他从人群中喊出两个年轻人，用手直指向你。</p>",
+        "<p>你刚刚抖落铁链，从铁架上获得自由，两个年轻人就登上了炽热的平台。火焰蔓延上他们的裤子。当他们的披风开始起火时，他们一猛子扎入火中，向你扑来。</p>",
+        "[guide-start]",
+        "<p>进行一次困难“闪避”检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        {
+            "text": "闪避检定-困难",
+            "action": "action_check",
+            "param": { "key": "dodge", "isSkill" : true, "level": "half" },
+            "show": ["flag_check_unfinished", "!flag_punish_dice"]
+        },
+        {
+            "text": "闪避检定-困难-惩罚骰x1",
+            "action": "action_check",
+            "param": { "key": "dodge", "isSkill" : true, "level": "half", "bonus": -1 },
+            "show": ["flag_check_unfinished", "flag_punish_dice"]
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "dodge", "level": "half" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "dodge", "level": "none" } }
+    ]
+}

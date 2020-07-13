@@ -1,0 +1,43 @@
+{
+    "key": 207,
+    "texts": [
+        "<p>你非常想拿走这本书，但它太大了根本无法裹藏。你把它推回架子里，将书架滑回原位。</p>",
+        "<p>马上你就听到会堂大门传来钥匙划动的声音。你冲向打开的窗户。</p>",
+        "[guide-start]",
+        "<p>进行一次“敏捷”检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        {
+            "text": "敏捷检定",
+            "action": "action_check",
+            "param": {
+                "key": "DEX",
+                "isSkill": false,
+                "level": "value"
+            },
+            "show": ["flag_check_unfinished", "!flag_punish_dice"]
+        },
+        {
+            "text": "敏捷检定-惩罚骰x1",
+            "action": "action_check",
+            "param": {
+                "key": "DEX",
+                "isSkill": false,
+                "level": "value",
+                "bonus": -1
+            },
+            "show": ["flag_check_unfinished", "flag_punish_dice"]
+        }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "DEX", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "DEX", "level": "none" } }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "key": 79,
+    "texts": [
+        "<p>你回到道路上，继续向东走。至少，你希望自己仍然在向东走。道路的转弯使人难以辨认方向，而且天色也渐渐暗下来，云彩遮住了星光。",
+        "看起来天黑之前你无法抵达下个村庄了，而且你的腿脚也已经疲劳。空气已经带上了凉意。</p>",
+        "[guide-start]",
+        "<p>进行一次困难难度的「聆听」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "聆听检定-困难", "action": "action_check", "param": { "key": "listen", "isSkill" : true, "level": "half" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "listen", "level": "half" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "listen", "level": "none" } }
+    ]
+}

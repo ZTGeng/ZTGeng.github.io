@@ -1,0 +1,25 @@
+{
+    "key": 178,
+    "texts": [
+        "<p>你循着昨晚的脚印找过去。在你拖着行李，沿路穿行在北面的悬崖上时，几个村民看着你，向你投去礼貌而好奇的目光。",
+        "不久你认为你找到了那个地方。你伸出悬崖张望，心脏在胸膛里扑腾扑腾地跳。</p>",
+        "<p>什么都没有。</p>",
+        "<p>借着阳光帮助，你看见悬崖并没有你想象的那样深不见底；它底下是差不多20 码深的岩盘。但人若一跤跌下去，肯定会摔个半死。但你没见到尸体，也看不见血迹。</p>",
+        "[guide-start]",
+        "<p>进行一次「侦查」检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "侦查检定", "action": "action_check", "param": { "key": "spot", "isSkill" : true, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "去找长途车", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "spot", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "spot", "level": "none" } }
+    ]
+}

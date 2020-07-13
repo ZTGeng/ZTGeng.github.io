@@ -1,0 +1,12 @@
+{
+    "key": 40,
+    "texts": [
+        "<p>火焰蜿蜒爬过薪柴，一边延烧一边升腾。烟雾开始弥漫，村民的身影已经难于辨认。你身边的三具人体也被点燃，红色的火焰里带着黑烟。浓烟钻进了你的肺，你开始咳嗽，努力压抑涌上心头的强烈恐惧。</p>"
+    ],
+    "options": [
+        { "key": 0, "text": "尝试阿博加斯特的咒语", "show": "flag_learned_magic_aboganster", "highlight": true },
+        { "key": 1, "text": "尝试“召唤天之火”", "show": "flag_learned_magic_summon", "highlight": true },
+        { "key": 2, "text": "尝试“号令天之火”", "show": "flag_learned_magic_order", "highlight": true },
+        { "key": 3, "text": "挣扎" }
+    ]
+}

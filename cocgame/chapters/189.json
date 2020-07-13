@@ -1,0 +1,24 @@
+{
+    "key": 189,
+    "texts": [
+        "<p>你向柱子上弯曲得最厉害的部位猛然砸去。你听到断裂的声音，于是收回武器，又砸了一次。柱子被击垮，喀嚓一声断裂了。",
+        "你的头顶开始发出雷鸣一般的巨响。你因喜悦而呆住了一瞬间，但追逐你的人不约而同地瞪大眼睛，恐惧地仰视。</p>",
+        "<p>很快，天花板就坠落下来。</p>",
+        "[guide-start]",
+        "<p>进行一次“幸运”检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "幸运检定", "action": "action_check", "param": { "key": "Luck", "isSkill": false, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "Luck", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "Luck", "level": "none" } }
+    ]
+}

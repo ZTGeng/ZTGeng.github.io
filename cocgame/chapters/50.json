@@ -1,0 +1,12 @@
+{
+    "key": 50,
+    "texts": [
+        "<div class='row'><div class='col-8'>",
+        "<p>当你回忆阿博加斯特的咒语时，火焰在逐渐逼近。脚下的热量在累积，你难以整理思绪。你不断地咳嗽，几乎说不出一句完整的话，但你并没有停止诵读。最终你读到了最重要的一节，即便你的衣服已经烧着，你仍连呼三遍：</p>",
+        "<p>Ph’nglui mglw’nafh Cthugha Fomalhaut n’ghaghaa naf ’l thagn! Iä! Cthugha!</p>",
+        "</div><div class='col-4'><img src='images/fire1.jpg' class='img-fluid'></div></div>"
+    ],
+    "options": [
+        { "key": 0, "text": "继续" }
+    ]
+}

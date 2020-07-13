@@ -1,0 +1,15 @@
+{
+    "key": 35,
+    "texts": [
+        "<p>那是郊狼的嗥叫，在这个地区很常见。狼嗥听上去很吓人，尤其是晚上的时候，但郊狼懂得躲避人类。你可以毫无惧色地前进。</p>",
+        "[guide-start]",
+        "<p>你可以在「博物学」技能左边的小方框里打勾。</p>",
+        "[guide-end]"
+    ],
+    "options": [
+        { "key": 0, "text": "继续" }
+    ],
+    "onload": [
+        { "action": "action_check_in_skill_box", "param": "nature" }
+    ]
+}

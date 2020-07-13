@@ -1,0 +1,23 @@
+{
+    "key": 85,
+    "texts": [
+        "<p>你开始沿小径行走，进展还不错。有几棵爬满青苔的树桩标示着路线，你怀疑这条小径的路线是精心选取的。可是大概十分钟以后，树枝越靠越近，辨认道路向前走变得越来越困难。",
+        "正当你认为你能看见前方道路出口的时候，你脚底踩了个空。</p>",
+        "[guide-start]",
+        "<p>进行一次“幸运”检定。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "幸运检定", "action": "action_check", "param": { "key": "Luck", "isSkill" : false, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "Luck", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "Luck", "level": "none" } }
+    ]
+}

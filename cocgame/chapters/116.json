@@ -1,0 +1,24 @@
+{
+    "key": 116,
+    "texts": [
+        "<div class='row'><div class='col-8'>",
+        "<p>你屏息凝神看着这头熊。它停下来环视空地。</p>",
+        "[guide-start]",
+        "<p>进行一次“幸运”检定。</p>",
+        "[guide-end]",
+        "</div><div class='col-4'><img src='images/bear.jpg' class='img-fluid'></div></div>"
+    ],
+    "interactions": [
+        { "text": "幸运检定", "action": "action_check", "param": { "key": "Luck", "isSkill" : false, "level": "value" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "Luck", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "Luck", "level": "none" } }
+    ]
+}

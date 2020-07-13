@@ -1,0 +1,13 @@
+{
+    "key": 149,
+    "texts": [
+        "<div class='row'><div class='col-8'>",
+        "<p>你在靠近熊的时候失去了平衡，被一棵小树绊倒了。小树树干折断，发出了步枪开火一般的劈裂声。熊扭过头来，用漆黑的眼珠锁定了你。</p>",
+        "<p>它以惊人的速度向你疾驰而来。这巨兽猛冲起来相当吓人。</p>",
+        "</div><div class='col-4'><img src='images/bear.jpg' class='img-fluid'></div></div>"
+    ],
+    "options": [
+        { "key": 0, "text": "逃开熊" },
+        { "key": 1, "text": "坚守不动" }
+    ]
+}

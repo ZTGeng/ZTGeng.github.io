@@ -1,0 +1,30 @@
+{
+    "key": 144,
+    "texts": [
+        "<p>长途车咯吱咯吱地继续行驶，西拉斯又一言不发了。你身后的天色逐渐变暗，随着日落西山，云彩也被染上了一层粉红色。终于，你看到了受人欢迎的景象：坡顶上坐落着一个小村庄。",
+        "这里和你在照片上见过的奥西皮并不一样。但你也许可以说服西拉斯停一下车，让你伸展伸展腿脚。</p>",
+        "<p>过了几分钟，发动机突然急促地停止，打断了你的沉思。西拉斯皱起眉头，拉了一下变速杆。长途车踉踉跄跄地继续上坡。西拉斯用你察觉不到的声音骂了一句，咬紧牙关，和轮子开始死磕。",
+        "你们似乎在一点一点地往上挪动，终于抵达了第一座房子，一座粗糙红石头砌成的低矮住宅。西拉斯费力地把车停在路边的一块小空地上。他爬下自己的座位，走到发动机舱那里。</p>",
+        "[guide-start]",
+        "<p>你必须选择使用「汽车驾驶」或「心理学」进行一次检定。如果你选用「汽车驾驶」，你投出的结果需要小于等于技能值。",
+        "如果你选用「心理学」你需要一次困难成功。这个检定的结果需要小于等于技能值的一半（右上角小方格里的数值）。你只能选择一项技能来检定一次。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "汽车驾驶检定", "action": "action_check", "param": { "key": "drive", "isSkill" : true, "level": "value" }, "show": "flag_check_unfinished" },
+        { "text": "心理学检定-困难", "action": "action_check", "param": { "key": "psychology", "isSkill" : true, "level": "half" }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": ["flag_check_passed", { "match": "match_check_key", "param": "drive" }] },
+        { "key": 1, "text": "继续", "show": ["flag_check_passed", { "match": "match_check_key", "param": "psychology" }] },
+        { "key": 2, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_set_highlight", "param": { "key": "drive", "level": "value" } },
+        { "action": "action_set_highlight", "param": { "key": "psychology", "level": "half" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "drive", "level": "none" } },
+        { "action": "action_set_highlight", "param": { "key": "psychology", "level": "none" } }
+    ]
+}

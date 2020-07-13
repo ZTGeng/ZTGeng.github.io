@@ -1,0 +1,27 @@
+{
+    "key": 34,
+    "texts": [
+        "<p>你穿过街道，走向教堂。当你向左张望时，视线正好落到巨大的金属建筑物上。它的位置令你有点在意。你转身回去重新端详。",
+        "没错！烬头村的中央大街笔直地朝那建筑物而去。太精确了，怎么看也不像是巧合。</p>",
+        "<p>你继续前进，来到教堂的阴影下。这建筑物的状态相当凄惨。尖塔的顶已经没了，残破的木板上粗糙不平的裂痕标志着它早已不见踪影，正下方的地板也已经塌陷。",
+        "貌似尖顶在掉下去的时候，也把主楼的房顶给砸坏了。只有后半边是完整无缺的。曾经涂覆在教堂墙上的白漆，现在也泛黄剥落了。</p>",
+        "<p>在后半边探索似乎足够安全。古旧的长椅排列在内墙两侧，几乎完全被霉斑覆盖。窗户也破得差不多了。你猜测这教堂大概已经废弃二十年了。但这里还有些其他有趣的东西。</p>",
+        "[guide-start]",
+        "<p>进行一次「骑术」检定。你可以获得一颗奖励骰；额外投一颗十位骰，分别计算结果后取最低值。</p>",
+        "[guide-end]"
+    ],
+    "interactions": [
+        { "text": "骑术检定-奖励骰x1", "action": "action_check", "param": { "key": "ride", "isSkill" : true, "level": "value", "bonus": 1 }, "show": "flag_check_unfinished" }
+    ],
+    "options": [
+        { "key": 0, "text": "继续", "show": "flag_check_passed" },
+        { "key": 1, "text": "继续", "show": "flag_check_failed" }
+    ],
+    "onload": [
+        { "action": "action_c25_select_option", "param": 4 },
+        { "action": "action_set_highlight", "param": { "key": "ride", "level": "value" } }
+    ],
+    "onleave": [
+        { "action": "action_set_highlight", "param": { "key": "ride", "level": "none" } }
+    ]
+}
