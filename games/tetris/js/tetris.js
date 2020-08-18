@@ -178,6 +178,7 @@ var newBlock = function() {
     if (!isShapeOpen(block.r, block.c, block.shape)) {
         //game over
         // console.log("GAME OVER");
+        $(document).off("keydown");
         clearInterval(timer);
         $(".block").addClass("dead-block").removeClass("block");
         if (score > hiScore) {
@@ -313,7 +314,36 @@ var resetTimer = function() {
     }, SPEEDS[speed]);
 }
 
+var keydownEvent = (event) => {
+    if (!isMovable) return false;
+    isMovable = false;
+    switch (event.which) {
+        case 32: //space
+            
+            break;
+        case 37: //left
+            // console.log("left")
+            tryMoveBlock(0, -1);
+            break;
+        case 38: //up
+            tryRotateBlock();
+            break;
+        case 39: //right
+            // console.log("right")
+            tryMoveBlock(0, 1);
+            break;
+        case 40: //down
+            tryMoveBlock(1, 0);
+            break;
+        default:
+            break;
+    }
+    isMovable = true;
+    return false;
+}
+
 var game = function() {
+    $(document).keydown(keydownEvent);
     //set next block, put new block
     nextBlock = Math.floor(Math.random() * 7);
     newBlock();
@@ -337,6 +367,8 @@ var reset = function() {
     $("#speed").text(speed);
     $("#remove").text(removeNum);
     $("#blocks").text(blockNum);
+
+    $(document).off("keydown");
 }
 
 var main = function() {
@@ -359,33 +391,6 @@ var main = function() {
     $("#start").on('click', () => {
         reset();
         game();
-    });
-
-    $(document).keydown((event) => {
-        if (!isMovable) return;
-        isMovable = false;
-        switch (event.which) {
-            case 32: //space
-                
-                break;
-            case 37: //left
-                // console.log("left")
-                tryMoveBlock(0, -1);
-                break;
-            case 38: //up
-                tryRotateBlock();
-                break;
-            case 39: //right
-                // console.log("right")
-                tryMoveBlock(0, 1);
-                break;
-            case 40: //down
-                tryMoveBlock(1, 0);
-                break;
-            default:
-                break;
-        }
-        isMovable = true;
     });
 }
 
