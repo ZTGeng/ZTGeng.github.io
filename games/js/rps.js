@@ -5,9 +5,9 @@
 
 var STATE = 0;
 var selection = 0;
-var DIGITS = 40;
+var DIGITS = 10;
 // var QUESTIONS = "??????????????????????????????????????????????????";
-var QUESTIONS = "________________________________________";
+var QUESTIONS = "__________";
 var big_num;
 var TIMEDELTA = 1000;
 var timeout;
@@ -36,8 +36,8 @@ function countdown(callback) {
 
 function refresh_big_num() {
     big_num = (Math.floor(Math.random() * 100) % 9 + 1).toString() +
-              Math.random().toFixed(15).slice(2) + 
-              Math.random().toFixed(15).slice(2) + 
+            //   Math.random().toFixed(15).slice(2) + 
+            //   Math.random().toFixed(15).slice(2) + 
               Math.random().toFixed(9).slice(2);
 }
 
