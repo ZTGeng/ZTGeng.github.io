@@ -224,7 +224,8 @@
                         </div>
                     </div>
                 </a>
-            </div><div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
                 <a class="figure" href="minesweeper/liesweeper.html">
                     <img src="images/lie-sweeper.png" class="figure-img shadow rounded" alt="mine sweeper liar pic">
                     <div class="figure-caption">
@@ -236,6 +237,27 @@
                             <div id="rule4-1" class="dropdown-menu" aria-labelledby="liesweeper-rule">
                                 <p>Some numbers may be wrong.<br>
                                 Right click to mark wrong numbers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <hr>
+
+        <h2 id="group5">Tetris</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                <a class="figure" href="tetris/tetris.html">
+                    <img src="images/tetris.png" class="figure-img shadow rounded" alt="tetris pic">
+                    <div class="figure-caption">
+                        <h6 id="name5-1">Tetris Classic</h6>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="tetris-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Rule <span class="caret"></span>
+                            </button>
+                            <div id="rule5-1" class="dropdown-menu" aria-labelledby="tetris-rule">
+                                <p>Classic Tetris game.</p>
                             </div>
                         </div>
                     </div>
@@ -282,6 +304,9 @@
             $('#rule4-1').html("<p>数字表示周围8个格子中雷的个数。<br>右击可标记。</p>");
             $('#name4-2').text("扫雷：数字会说谎");
             $('#rule4-2').html("<p>部分数字是假的。<br>右击可标记假数字。</p>");
+            $('#group5').text("俄罗斯方块");
+            $('#name5-1').text("俄罗斯方块原版");
+            $('#rule5-1').html("<p>经典俄罗斯方块游戏。</p>");
 			$('.dropdown-toggle').html('规则 <span class="caret"></span>');
 		}
     </script>

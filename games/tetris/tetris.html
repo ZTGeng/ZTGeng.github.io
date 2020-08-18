@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title id="title">Tetris</title>
+    <meta name="author" content="Geng">
+    <meta name="description" content="Classic Tetris">
+
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/tetris.css">
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/tetris.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div id="header-nav"></div>
+            <br>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="../index.html">Game</a></li>
+                <li class="breadcrumb-item active">Tetris</li>
+            </ol>
+        </header>
+
+        <div class="alert alert-dark">
+            <h2 id="gameName">Tetris Classic</h2>
+            <p id="operations">Move: ←, →, ↓; rotate: ↑</p>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col col-4 col-lg-3 border border-primary p-0">
+                <div id="field"></div>
+            </div>
+            <div id="panel" class="col col-3 ml-2">
+                <div class="border border-info p-3">
+                    <h3>NEXT</h3>
+                    <div id="next" class="w-50 mx-auto"></div>
+                </div>
+                <button id="start" class="btn btn-primary my-5">Start</button>
+                <br>
+                <h5><span id="hi-score-text">HI-SCORE:</span> <span id="hi-score">0</span></h5>
+                <br>
+                <h5><span id="score-text">SCORE:</span> <span id="score">0</span></h5>
+                <br>
+                <h5><span id="speed-text">SPEED:</span> <span id="speed">0</span></h5>
+                <br>
+                <h5><span id="remove-text">REMOVE:</span> <span id="remove">0</span></h5>
+                <br>
+                <h5><span id="blocks-text">BLOCKS:</span> <span id="blocks">0</span></h5>
+            </div>
+        </div>
+
+        <hr>
+
+        <footer>
+            <div id="footer-copyright"></div>
+        </footer>
+    </div>
+
+    <script type="text/javascript">
+        $('#header-nav').load("/nav.html", () => { $("#nav-game").addClass("active"); });
+        $('#footer-copyright').load("/copyright.html");
+        var lang = navigator.language;
+        if (lang.slice(0, 2) === "zh") {
+            $('#title').text("俄罗斯方块");
+            $('#gameName').text("俄罗斯方块原版");
+            $('#operations').text("移动：←，→，↓；旋转：↑");
+            $('#hi-score-text').text("记录：");
+            $('#score-text').text("分数：");
+            $('#speed-text').text("速度：");
+            $('#remove-text').text("消除：");
+            $('#blocks-text').text("方块：");
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+.red {
+    background-color: red;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.purple {
+    background-color: blueviolet;
+}
+
+.yellow {
+    background-color: gold;
+}
+
+.green {
+    background-color: limegreen;
+}
+
+.aqua {
+    background-color: deepskyblue;
+}
+
+.grid {
+    padding-bottom: 10%;
+}
+
+.grid_next {
+    padding-bottom: 25%;
+}
