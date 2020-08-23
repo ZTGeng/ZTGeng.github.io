@@ -1,5 +1,5 @@
 /**
- * @version 0.1
+ * @version 0.2
  * @author Geng
  */
 
@@ -9,7 +9,7 @@ var COL_NUM = 10;
 var INIT_R = 0;
 var INIT_C = 3;
 
-var SPEEDS = [1200, 800, 600, 500, 400, 300, 200, 100]; //milliseconds
+var SPEEDS = [1200, 800, 600, 500, 400, 300, 250, 200, 150, 120]; //milliseconds
 var SPEED_THRESHOLD = 30; //lines
 var ANIMATE_DURATION = 40; //milliseconds
 var NEW_BLOCK_SCORE = 10;
@@ -200,7 +200,7 @@ var canRemoveRow = function(r) {
     return true;
 }
 
-var removeRow = function(r, i, callback) {
+var removeRow = function(r, callback) {
     removeNum++;
     $("#remove").text(removeNum);
     score += REMOVE_LINE_SCORE;
@@ -211,11 +211,13 @@ var removeRow = function(r, i, callback) {
         $("#speed").text(speed);
         resetTimer();
     }
-    var cleanGrid = (c) => {
+    var c = 0;
+    var cleanGrid = () => {
         if (c < COL_NUM) {
             // console.log("clean " + r + ", " + c);
             $('#g' + r + '_' + c).removeClass(BG_COLORS).removeClass("dead-block");
-            setTimeout(cleanGrid, ANIMATE_DURATION, c + 1);
+            c++;
+            setTimeout(cleanGrid, ANIMATE_DURATION);
         } else {
             var ri = r;
             var stop = false;
@@ -230,10 +232,10 @@ var removeRow = function(r, i, callback) {
             if (!stop) {
                 $("#row0").children().removeClass(BG_COLORS).removeClass("dead-block");
             }
-            callback(i + 1);
+            callback();
         }
     };
-    cleanGrid(0);
+    cleanGrid();
 }
 
 var tryMoveBlock = function(deltaR, deltaC) {
@@ -248,6 +250,7 @@ var tryMoveBlock = function(deltaR, deltaC) {
     isMovable = true;
 }
 
+/** return: true if dropped; false if not */
 var tryDropBlock = function() {
     isMovable = false;
 
@@ -257,41 +260,49 @@ var tryDropBlock = function() {
         cleanBlock();
         block.r++;
         drawBlock();
-    } else {
-        isPaused = true;
-        // console.log("tryDrop false");
-        block.isAlive = false;
-        $(".block").addClass("dead-block").removeClass("block");
-        score += NEW_BLOCK_SCORE;
-        $("#score").text(score);
+        isMovable = true;
+        return true;
+    }
 
-        //remove check
-        var rowsToRemove = [];
-        for (var r = -1, i = 0; i < block.shape.length; i++) {
-            var ri = block.r + block.shape[i][0];
-            if (ri === r) continue;
-            r = ri;
-            if (canRemoveRow(r)) {
-                rowsToRemove.push(r);
+    isPaused = true;
+    // console.log("tryDrop false");
+    block.isAlive = false;
+    $(".block").addClass("dead-block").removeClass("block");
+    score += NEW_BLOCK_SCORE;
+    $("#score").text(score);
+
+    //remove check
+    var rowsToRemove = [];
+    for (var r = -1, i = 0; i < block.shape.length; i++) {
+        var ri = block.r + block.shape[i][0];
+        if (ri === r) continue;
+        r = ri;
+        if (canRemoveRow(r)) {
+            rowsToRemove.push(r);
+        }
+    }
+    if (rowsToRemove.length === 0) {
+        newBlock();
+        isPaused = false;
+    } else {
+        var i = 0;
+        var removeNext = () => {
+            if (i < rowsToRemove.length) {
+                removeRow(rowsToRemove[i++], removeNext);
+            } else {
+                newBlock();
+                isPaused = false;
             }
-        }
-        if (rowsToRemove.length === 0) {
-            newBlock();
-            isPaused = false;
-        } else {
-            var removeNext = (i) => {
-                if (i < rowsToRemove.length) {
-                    removeRow(rowsToRemove[i], i, removeNext);
-                } else {
-                    newBlock();
-                    isPaused = false;
-                }
-            };
-            removeRow(rowsToRemove[0], 0, removeNext);
-        }
+        };
+        removeNext();
     }
 
     isMovable = true;
+    return false;
+}
+
+var bottomDropBlock = function() {
+    while (tryDropBlock());
 }
 
 var tryRotateBlock = function() {
@@ -319,7 +330,7 @@ var keydownEvent = (event) => {
     isMovable = false;
     switch (event.which) {
         case 32: //space
-            
+            bottomDropBlock();
             break;
         case 37: //left
             // console.log("left")
@@ -362,7 +373,7 @@ var reset = function() {
     speed = 0;
     removeNum = 0;
     blockNum = 0;
-    
+
     $("#score").text(score);
     $("#speed").text(speed);
     $("#remove").text(removeNum);
