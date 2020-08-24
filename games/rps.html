@@ -33,10 +33,48 @@
             <h1><span id="gameName">Rock Paper Scissors <small>HUMAN vs COMPUTER</small></span></h1>
             <div></div>
             <div id="field">
-                <div class="text-left">
-                    <p id="rule1">The selection of the computer will be calculated as below:</p>
-                    <h4><span id="com-num" class="text-monospace"></span> % 3</h4>
-                    <h4>= <span id="com-result">?</span> <span id="rule2">(0 = Rock; 1 = Scissors; 2 = Paper)</span></h4>
+                <div>
+                    <p id="rule1" class="text-left">The selection of the computer will be calculated as below:</p>
+                    <div class="row">
+                        <div class="col-2 p-0"><input class="w-100" id="random-1" type="text" placeholder="random1" readonly></div>
+                        <div class="col-1 p-0 h4">&nbsp;&plus;&nbsp;</div>
+                        <div class="col-2 p-0"><input class="w-100" id="random-2" type="text" placeholder="random2" readonly></div>
+                        <div class="col-1 p-0 h4">&nbsp;&equals;&nbsp;</div>
+                        <div class="col-2 border-bottom h4" id="sum-3"></div>
+                        <div class="col-1 p-0 text-left"><sup class="h6">2</sup><span class="h4 col text-center">&nbsp;&equals;&nbsp;</span></div>
+                        <div class="col-3 border-bottom h4" id="square-4"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 offset-9 h4">&downarrow;&nbsp;<span id="reverse-text">reverse</span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-1 border-bottom h4" id="mod-8"></div>
+                        <div class="col-2 p-0">
+                            <sub id="mod-text">mod 3</sub>
+                            <div class="h4" style="margin-top: -0.5rem">&nbsp;&leftarrow;&nbsp;</div>
+                        </div>
+                        <div class="col-1 border-bottom h4" id="odd-7"></div>
+                        <div class="col-2 p-0">
+                            <sub id="odd-digits-text">odd digits</sub>
+                            <div class="h4" style="margin-top: -0.5rem">&nbsp;&leftarrow;&nbsp;</div>
+                        </div>
+                        <div class="col-2 border-bottom h4" id="sqrt-6"></div>
+                        <div class="col-1 p-0">
+                            <sub id="sqrt-text">sqrt</sub>
+                            <div class="h4" style="margin-top: -0.5rem">&nbsp;&leftarrow;&nbsp;</div>
+                        </div>
+                        <div class="col-3 border-bottom h4" id="reverse-5"></div>
+                    </div>
+                    <div class="row" id="com-results">
+                        <div id="com-result-0" class="col-2 h4 text-left">&equals;&nbsp;0&nbsp;&downarrow;</div>
+                        <div id="com-result-1" class="col-2 h4 text-left">&equals;&nbsp;1&nbsp;&downarrow;</div>
+                        <div id="com-result-2" class="col-2 h4 text-left">&equals;&nbsp;2&nbsp;&downarrow;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 p-1"><img id="com-img-0" class="com-img img-fluid border rounded" src="images/rock-right.png"></div>
+                        <div class="col-2 p-1"><img id="com-img-1" class="com-img img-fluid border rounded" src="images/scissors-right.png"></div>
+                        <div class="col-2 p-1"><img id="com-img-2" class="com-img img-fluid border rounded" src="images/paper-right.png"></div>
+                    </div>
                 </div>
                 <div id="result-text"></div>
                 <div id="show-pics" class="row">
@@ -53,11 +91,22 @@
                         <p id="hum-tag">YOU</p>
                     </div>
                 </div>
-                <div id="buttons">
-                    <button id="button-rock" class="btn btn-secondary btn-lg" disabled="disabled"><img class="button-img" src="images/rock-right.png"></button>
-                    <button id="button-scissors" class="btn btn-secondary btn-lg" disabled="disabled"><img class="button-img" src="images/scissors-right.png"></button>
-                    <button id="button-paper" class="btn btn-secondary btn-lg" disabled="disabled"><img class="button-img" src="images/paper-right.png"></button>
+                <div class="row">
+                    <div class="col-1 offset-2 h-100 my-auto">
+                        <button id="reset" class="btn btn-primary">PLAY</button>
+                    </div>
+                    <div class="col-3  h-100 my-auto">
+                        <h4 class="text-danger" id="prompt">CLICK&gt;&gt;&gt;</h4>
+                    </div>
+                    <div class="col-6">
+                        <div class="row" id="buttons">
+                            <button id="button-rock" class="btn btn-secondary col m-1 p-0" disabled="disabled"><img class="img-fluid border rounded" src="images/rock-right.png"></button>
+                            <button id="button-scissors" class="btn btn-secondary col m-1 p-0" disabled="disabled"><img class="img-fluid border rounded" src="images/scissors-right.png"></button>
+                            <button id="button-paper" class="btn btn-secondary col m-1 p-0" disabled="disabled"><img class="img-fluid border rounded" src="images/paper-right.png"></button>
+                        </div>
+                    </div>
                 </div>
+                
                 <!-- Modal fullscreen -->
                 <div class="modal modal-fullscreen" id="modal-fullscreen" tabindex="-1" aria-hidden="true">
                     <div class="modal-body text-center" id="countdown-body">
@@ -66,9 +115,6 @@
                 </div>
             </div>
             <br>
-            <div class="panel penal-default">
-                <button id="reset" class="btn btn-secondary">PLAY</button>
-            </div>
         </div>
 
         <hr>
@@ -90,6 +136,12 @@
 			$('#com-tag').text("电脑");
 			$('#hum-tag').text("你");
             $('#reset').text('开始');
+            $('#random-1').attr('placeholder', '随机数1');
+            $('#random-2').attr('placeholder', '随机数2');
+            $('#mod-text').text('除以3取余数');
+            $('#odd-digits-text').text('奇数位');
+            $('#sqrt-text').text('开方');
+            $('#reverse-text').text('反转');
 		}
     </script>
 

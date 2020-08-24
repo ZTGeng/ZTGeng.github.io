@@ -10,19 +10,6 @@
     border-radius: 5%;
 }
 
-.button-img {
-    width: 100px;
-    height: 100px;
-}
-
-#com-num {
-    background-color: black;
-    color: white;
-}
-#com-result {
-    font-size: 2em;
-}
-
 #countdown-body {
     min-height: 100%;
     min-height: 100vh;
