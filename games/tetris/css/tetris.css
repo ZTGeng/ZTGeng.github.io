@@ -1,3 +1,7 @@
+.filled {
+    background-color: darkgrey;
+}
+
 .red {
     background-color: red;
 }
@@ -24,6 +28,10 @@
 
 .aqua {
     background-color: deepskyblue;
+}
+
+.open {
+    opacity: 0.5;
 }
 
 .grid {

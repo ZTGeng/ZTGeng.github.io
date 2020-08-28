@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title id="title">Tetris</title>
+    <title id="title">Tetris Reverse</title>
     <meta name="author" content="Geng">
     <meta name="description" content="Classic Tetris">
 
@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="css/tetris.css">
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="js/tetris.js"></script>
+    <script type="text/javascript" src="js/tetrisreverse.js"></script>
 </head>
 
 <body>
@@ -25,13 +25,13 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
                 <li class="breadcrumb-item"><a href="../index.html">Game</a></li>
-                <li class="breadcrumb-item active">Tetris</li>
+                <li class="breadcrumb-item active">Tetris Reverse</li>
             </ol>
         </header>
 
         <div class="alert alert-dark">
-            <h2 id="gameName">Tetris Classic</h2>
-            <p id="operations">Move: ←, →, ↓; rotate: ↑; drop: space</p>
+            <h2 id="gameName">Tetris Reverse</h2>
+            <p id="operations">Move: ←, →; rotate: ↑; cut: space</p>
         </div>
         <div class="row justify-content-md-center">
             <div class="col col-4 col-lg-3 border border-primary p-0">
@@ -68,9 +68,9 @@
         $('#footer-copyright').load("/copyright.html");
         var lang = navigator.language;
         if (lang.slice(0, 2) === "zh") {
-            $('#title').text("俄罗斯方块");
-            $('#gameName').text("俄罗斯方块原版");
-            $('#operations').text("移动：←，→，↓；旋转：↑；掉落：空格");
+            $('#title').text("俄罗斯方块倒玩版");
+            $('#gameName').text("俄罗斯方块倒玩版");
+            $('#operations').text("移动：←，→；旋转：↑；消除：空格");
             $('#hi-score-text').text("记录：");
             $('#score-text').text("分数：");
             $('#speed-text').text("速度：");

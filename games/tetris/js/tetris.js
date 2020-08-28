@@ -153,9 +153,7 @@ var drawBlock = function() {
 
 var cleanBlock = function() {
     // console.log("clear " + block.r + ", " + block.c);
-    for (var i = 0; i < block.shape.length; i++) {
-        $(".block").removeClass(BG_COLORS[block.color]).removeClass("block");
-    }
+    $(".block").removeClass(BG_COLORS[block.color]).removeClass("block");
 }
 
 var newBlock = function() {
@@ -292,12 +290,12 @@ var tryDropBlock = function() {
             } else {
                 newBlock();
                 isPaused = false;
+                isMovable = true;
             }
         };
         removeNext();
     }
 
-    isMovable = true;
     return false;
 }
 
@@ -349,7 +347,7 @@ var keydownEvent = (event) => {
         default:
             break;
     }
-    isMovable = true;
+    // isMovable = true;
     return false;
 }
 

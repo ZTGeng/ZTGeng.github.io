@@ -30,10 +30,6 @@ function countdown(callback) {
     }, TIMEDELTA * 3);
 }
 
-function refresh_big_num() {
-    big_num = (Math.floor(Math.random() * 100) % 9 + 1).toString() + Math.random().toFixed(DIGITS - 1).slice(2);
-}
-
 function modalshow(str) {
     $('#countdown-text').text(str);
     $('#modal-fullscreen').css({

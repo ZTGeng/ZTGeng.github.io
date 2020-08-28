@@ -263,6 +263,23 @@
                     </div>
                 </a>
             </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                <a class="figure" href="tetris/tetrisreverse.html">
+                    <img src="images/tetris-reverse.png" class="figure-img shadow rounded" alt="tetris reverse pic">
+                    <div class="figure-caption">
+                        <h6 id="name5-2">Tetris Reverse</h6>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="tetris-reverse-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Rule <span class="caret"></span>
+                            </button>
+                            <div id="rule5-2" class="dropdown-menu" aria-labelledby="tetris-reverse-rule">
+                                <p>Cut blocks from bottom.<br>
+                                Bottom blocks rise up slowly. When they touch the top, game over.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
         <hr>
 
@@ -307,6 +324,8 @@
             $('#group5').text("俄罗斯方块");
             $('#name5-1').text("俄罗斯方块原版");
             $('#rule5-1').html("<p>经典俄罗斯方块游戏。</p>");
+            $('#name5-2').text("俄罗斯方块倒玩版");
+            $('#rule5-2').html("<p>从下方砖墙中切下规定形状的砖块。<br>砖墙会缓慢上升。当上升到顶时游戏结束。</p>");
 			$('.dropdown-toggle').html('规则 <span class="caret"></span>');
 		}
     </script>
