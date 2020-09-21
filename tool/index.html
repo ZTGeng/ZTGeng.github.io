@@ -79,6 +79,29 @@
         </div>
         <hr>
 
+        <h2 id="group2">Widget</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                <a class="figure" href="novelfilter.html">
+                    <img src="images/novelfilter.png" class="figure-img shadow rounded" alt="novel filter pic">
+                    <div class="figure-caption">
+                        <h6 id="name2-1">Novel Filter</h6>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="novelfilter-intro" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Introduction <span class="caret"></span>
+                            </button>
+                            <div id="intro2-1" class="dropdown-menu" aria-labelledby="novelfilter-intro">
+                                <p>
+                                    A demo of filter widget
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <hr>
+
         <footer>
             <div id="footer-copyright"></div>
         </footer>
@@ -96,7 +119,9 @@
             $('#intro1-1').html("<p>输入文字，在布局框内划出直线或斜线。文字依线排列。</p>");
             $('#name1-2').text("舍简从繁");
 			$('#intro1-2').html("<p>简体转繁体工具。为一对多的简化字提供转换选项。</p>");
-			$('.dropdown-toggle').html('说明 <span class="caret"></span>');
+            $('#name2-1').text("异世界轻小说筛选器");
+            $('#intro2-1').html("<p>筛选组件展示。</p>");
+            $('.dropdown-toggle').html('说明 <span class="caret"></span>');
 		}
     </script>
 </body>

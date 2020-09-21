@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>异世界轻小说筛选器</title>
+    <meta name="description" content="">
+    <meta name="author" content="Geng">
+
+    <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+        crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div id="header-nav">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/index.html">HOME</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/cv.html">My CV</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/games/index.html">GAME</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/math/index.html">MATH</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link active" href="/tool/index.html">TOOL</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/blog/index.html">BLOG</a></li>
+                </ul>
+            </div>
+            <br>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="index.html">Tool</a></li>
+                <li class="breadcrumb-item active">异世界轻小说筛选器</li>
+            </ol>
+        </header>
+        <h1 id="title">异世界轻小说筛选器 <small>标签与过滤系统展示</small></h1>
+        <ul class="small text-secondary">
+            <li>此组件是基于自定义标签的筛选工具。可整合于预加载了Vue和Bootstrap的网页上。</li>
+            <li>【术语定义】Item：被筛选元素。Filter：筛选规则，每一行为一个filter。Tag：标签，用于筛选。</li>
+            <li>每一条filter会根据其被选中的tag，筛选出带有该tag的item。如果一个filter有多个tag被选中，item只需带有其中任意一个或多个即可。最终结果为满足所有filter规则的item。</li>
+            <li>item与filter均应定义为json，其格式可参考<code>novelfilterdata.js</code>中的数据样例。
+                二者以列表的数据类型通过修改<code>novelfilter.js</code>中的<code>getItems()</code>与<code>getFilters()</code>方法来加载。
+            </li>
+        </ul>
+        <div class="container" id="app">
+            <div class="row d-inline">
+                <filter-row v-for="filter in filters" :filter="filter"></filter-row>
+            </div>
+            <hr>
+            <div class="row d-flex">
+                <item-cell v-for="item in itemsFiltered" :item="item"></item-cell>
+            </div>
+        </div>
+
+        <hr>
+
+        <footer>
+            <div id="footer-copyright"><p> &copy; Copyright by Geng </p></div>
+        </footer>
+    </div>
+
+</body> 
+<script type="text/javascript" src="js/novelfilterdata.js"></script>
+<script type="text/javascript" src="js/novelfilter.js"></script>
+</html>
