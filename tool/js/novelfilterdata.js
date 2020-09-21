@@ -122,7 +122,7 @@ var demoData = {
         },
         {
             name: "D Genesis 迷宫出现三年后",
-            imgUrl: "http://tiebapic.baidu.com/forum/w%3D580/sign=3ced192b15087bf47dec57e1c2d2575e/a9febea1cd11728b6668aa42dffcc3cec2fd2c02.jpg",
+            imgUrl: "https://images-na.ssl-images-amazon.com/images/I/51WDpVFDGDL._SX350_BO1,204,203,200_.jpg",
             url: "https://www.esjzone.cc/detail/1563635750.html",
             tags: ["小说", "单男主", "现实世界异化"]
         },
@@ -146,7 +146,7 @@ var demoData = {
         },
         {
             name: "在地下城寻求邂逅是否搞错了什么",
-            imgUrl: "https://bkimg.cdn.bcebos.com/pic/f31fbe096b63f624468400e28944ebf81b4ca371",
+            imgUrl: "https://m.media-amazon.com/images/I/51awckI5cUL._SY346_.jpg",
             url: "https://baike.baidu.com/item/%E5%9C%A8%E5%9C%B0%E4%B8%8B%E5%9F%8E%E5%AF%BB%E6%B1%82%E9%82%82%E9%80%85%E6%98%AF%E5%90%A6%E6%90%9E%E9%94%99%E4%BA%86%E4%BB%80%E4%B9%88/13008106",
             tags: ["小说", "漫画", "动画", "单男主", "异世界原住民", "逆袭"]
         },
