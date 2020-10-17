@@ -107,8 +107,10 @@
     };
     var nextBlock = 0;
 
+    var isGaming = false;
     var isPaused = false;
     var isMovable = false;
+    var isMuted = false;
 
     var music = {
         bgm: document.createElement('audio'),
@@ -119,6 +121,25 @@
     music.bgm.loop = true;
     music.gameover.setAttribute('src', 'sounds/gameover.mp3');
     music.remove.setAttribute('src', 'sounds/remove.mp3');
+
+    var toggleMute = function() {
+        if (isMuted) {
+            isMuted = false;
+            $("#muteIcon").attr('src', '../../octicons/svg/mute.svg');
+            $("#mute").removeClass("active");
+            if (isGaming) {
+                music.bgm.load();
+                music.bgm.play();
+            }
+        } else {
+            isMuted = true;
+            $("#muteIcon").attr('src', '../../octicons/svg/unmute.svg');
+            $("#mute").addClass("active");
+            music.bgm.pause();
+            music.gameover.pause();
+            music.remove.pause();
+        }
+    }
 
     var isColValid = function (c, shape) {
         for (var i = 0; i < shape.length; i++) {
@@ -183,6 +204,7 @@
     }
 
     var gameover = function () {
+        isGaming = false;
         $(document).off("keydown");
         clearInterval(timer);
         $("#gameover").show();
@@ -190,8 +212,10 @@
             hiScore = score;
             $("#hi-score").text(hiScore);
         }
-        music.bgm.pause();
-        music.gameover.play();
+        if (!isMuted) {
+            music.bgm.pause();
+            music.gameover.play();
+        }
     }
 
     var growth = function () {
@@ -244,9 +268,11 @@
     }
 
     var removeRow = function(r, callback) {
-        music.remove.pause();
-        music.remove.load();
-        music.remove.play();
+        if (!isMuted) {
+            music.remove.pause();
+            music.remove.load();
+            music.remove.play();
+        }
         
         removeNum++;
         $("#remove").text(removeNum);
@@ -383,9 +409,12 @@
 
         resetTimer();
 
+        isGaming = true;
         isMovable = true;
 
-        music.bgm.play();
+        if (!isMuted) {
+            music.bgm.play();
+        }
     }
 
     var reset = function () {
@@ -433,6 +462,8 @@
             reset();
             game();
         });
+
+        $("#mute").on('click', toggleMute);
     }
 
     $(document).ready(main);
