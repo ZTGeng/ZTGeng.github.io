@@ -13,7 +13,6 @@
     <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/tetris.css">
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../../js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/tetrisreverse.js"></script>
 </head>
 
@@ -31,11 +30,14 @@
 
         <div class="alert alert-dark">
             <h2 id="gameName">Tetris Reverse</h2>
-            <p id="operations">Move: ←, →; rotate: ↑; cut: space</p>
+            <p id="operations">Move: ←, →; rotate: ↑; growth: ↓; cut: space</p>
         </div>
         <div class="row justify-content-md-center">
             <div class="col col-4 col-lg-3 border border-primary p-0">
                 <div id="field"></div>
+                <div class="d-flex justify-content-center position-absolute w-100" style="top: 30%;">
+                    <h3 id="gameover" class="text-center border border-danger bg-white p-3">GAME OVER</h3>
+                </div>
             </div>
             <div id="panel" class="col col-3 ml-2">
                 <div class="border border-info p-3">
@@ -70,7 +72,7 @@
         if (lang.slice(0, 2) === "zh") {
             $('#title').text("俄罗斯方块倒玩版");
             $('#gameName').text("俄罗斯方块倒玩版");
-            $('#operations').text("移动：←，→；旋转：↑；消除：空格");
+            $('#operations').text("移动：←，→；旋转：↑；增长：↓；消除：空格");
             $('#hi-score-text').text("记录：");
             $('#score-text').text("分数：");
             $('#speed-text').text("速度：");

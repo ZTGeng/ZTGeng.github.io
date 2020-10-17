@@ -30,14 +30,6 @@
     background-color: deepskyblue;
 }
 
-.open {
+.grid:not(.filled) {
     opacity: 0.5;
-}
-
-.grid {
-    padding-bottom: 10%;
-}
-
-.grid_next {
-    padding-bottom: 25%;
 }
