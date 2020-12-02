@@ -45,7 +45,7 @@
                         <div class="col-3 border-bottom h4" id="square-4"></div>
                     </div>
                     <div class="row">
-                        <div class="col-2 offset-9 h4">&downarrow;&nbsp;<span id="reverse-text">reverse</span></div>
+                        <div class="col-2 offset-9 h4">&downarrow;&nbsp;<span id="reverse-text" style="font-size: 0.5rem;">reverse</span></div>
                     </div>
                     <div class="row">
                         <div class="col-1 border-bottom h4" id="mod-8"></div>
@@ -76,7 +76,7 @@
                         <div class="col-2 p-1"><img id="com-img-2" class="com-img img-fluid border rounded" src="images/paper-right.png"></div>
                     </div>
                 </div>
-                <div id="result-text"></div>
+                <div id="result-text" class="border border-danger"></div>
                 <div id="show-pics" class="row">
                     <div class="col-sm-6">
                         <div class="show-pic">
@@ -136,9 +136,10 @@
 			$('#com-tag').text("电脑");
 			$('#hum-tag').text("你");
             $('#reset').text('开始');
+            $('#prompt').text('快点>>>');
             $('#random-1').attr('placeholder', '随机数1');
             $('#random-2').attr('placeholder', '随机数2');
-            $('#mod-text').text('除以3取余数');
+            $('#mod-text').text('除以3的余数');
             $('#odd-digits-text').text('奇数位');
             $('#sqrt-text').text('开方');
             $('#reverse-text').text('反转');

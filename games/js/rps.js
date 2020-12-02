@@ -1,5 +1,5 @@
 /**
- * @version 0.30
+ * @version 0.31
  * @author Geng
  */
 
@@ -91,12 +91,12 @@ function game() {
                             $('#com-img-' + mod8).addClass('bg-danger');
                             $('#prompt').hide();
                             result(mod8);
-                        }, TIMEDELTA);
-                    }, TIMEDELTA);
+                        }, TIMEDELTA / 2);
+                    }, TIMEDELTA / 2);
                 }, TIMEDELTA);
             }, TIMEDELTA);
-        }, TIMEDELTA);
-    }, TIMEDELTA);
+        }, TIMEDELTA * 2);
+    }, TIMEDELTA * 2);
     $('#buttons').fadeIn(80).fadeOut(80).fadeIn(80).fadeOut(80).fadeIn(80);
 }
 
@@ -131,6 +131,7 @@ function result(result_num) {
             $('#result-text').text(iszh ? "你赢了！" : "YOU WIN!");
             break;
         }
+        $('#result-text').show();
     }, TIMEDELTA * 3);
 }
 
@@ -159,12 +160,14 @@ function reset() {
     $('#prompt').hide();
     $('#com-results').children().removeClass('text-danger');
     $('.com-img').removeClass('bg-danger');
+    $('#result-text').hide();
     countdown(game);
 }
 
 function main() {
     $('#reset').on('click', reset);
     $('#prompt').hide();
+    $('#result-text').hide();
     $('#button-rock').on('click', function() {
         if (STATE != 1) return;
         $('#hum-pic').attr('src', 'images/rock-right.png');

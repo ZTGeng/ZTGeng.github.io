@@ -1,5 +1,5 @@
 /**
- * @version 0.1
+ * @version 0.2
  * @author Geng
  */
 
@@ -72,7 +72,8 @@ var gameover = function() {
 }
 
 var checkWin = function() {
-    if (gameSet.grid_num - $('.opened').length <= gameSet.mine_num) {
+    // Covered grids num <= remaining mines num
+    if (gameSet.grid_num - $('.opened').length <= gameSet.mine_num - $('.exploded').length) {
         $('#result').text("You Win!");
         gameover();
     }
