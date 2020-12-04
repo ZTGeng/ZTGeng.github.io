@@ -242,6 +242,22 @@
                     </div>
                 </a>
             </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                <a class="figure" href="minesweeper/ghostsweeper.html">
+                    <img src="images/ghost-sweeper.png" class="figure-img shadow rounded" alt="mine sweeper ghost pic">
+                    <div class="figure-caption">
+                        <h6 id="name4-3">Mine Sweeper Ghost</h6>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="ghostsweeper-rule" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Rule <span class="caret"></span>
+                            </button>
+                            <div id="rule4-3" class="dropdown-menu" aria-labelledby="ghostsweeper-rule">
+                                <p>Your ghosts will repeat what you did before dying.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
         <hr>
 
@@ -321,6 +337,8 @@
             $('#rule4-1').html("<p>数字表示周围8个格子中雷的个数。<br>右击可标记。</p>");
             $('#name4-2').text("扫雷：数字会说谎");
             $('#rule4-2').html("<p>部分数字是假的。<br>右击可标记假数字。</p>");
+            $('#name4-3').text("幽灵扫雷");
+            $('#rule4-3').html("<p>幽灵会重复踩雷之前的所有操作。</p>");
             $('#group5').text("俄罗斯方块");
             $('#name5-1').text("俄罗斯方块原版");
             $('#rule5-1').html("<p>经典俄罗斯方块游戏。</p>");
