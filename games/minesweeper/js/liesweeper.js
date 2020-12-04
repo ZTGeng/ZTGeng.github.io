@@ -103,10 +103,11 @@
             grid.addClass('mine').addClass('exploded');
             lives--;
             $('#live-num').text(lives);
-            $('#mine-num').text(gameSet.mine_num - $('.marked').length - (gameSet.live_num - lives));
             if (lives === 0) {
                 $('#result').text("You Lose!");
                 gameover();
+            } else {
+                $('#mine-num').text(gameSet.mine_num - $('.marked').length - $('.mine').length);
             }
             return;
         }
@@ -133,11 +134,11 @@
             }
             return;
         }
-        if (!grid.hasClass('marked') && gameSet.mine_num === $('.marked').length) {
+        if (!grid.hasClass('marked') && gameSet.mine_num <= ($('.marked').length + $('.mine').length)) {
             return;
         }
         grid.toggleClass('marked');
-        $('#mine-num').text(gameSet.mine_num - $('.marked').length - (gameSet.live_num - lives));
+        $('#mine-num').text(gameSet.mine_num - $('.marked').length - $('.mine').length);
     }
 
     var mouseup = function(event) {

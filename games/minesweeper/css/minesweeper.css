@@ -40,7 +40,9 @@
 }
 
 .mine {
-    background-image: url("../images/mine.png")
+    background-image: url("../images/mine.png");
+    background-repeat:no-repeat;
+    background-size:cover;
 }
 
 .liar {
@@ -56,4 +58,14 @@
     -o-user-select: none;
     user-select: none;
     cursor: default;
+}
+
+.ghost-cursor {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.tomb:not(.opened) {
+    background-image: url("../images/tomb1.png")
 }

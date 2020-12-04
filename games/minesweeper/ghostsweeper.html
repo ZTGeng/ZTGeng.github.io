@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title id="title">Mine Sweeper Ghost</title>
+    <meta name="author" content="Geng">
+    <meta name="description" content="Mine Sweeper">
+
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/minesweeper.css">
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/ghostsweeper.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div id="header-nav"></div>
+            <br>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="../index.html">Game</a></li>
+                <li class="breadcrumb-item active">Mine Sweeper Ghost</li>
+            </ol>
+        </header>
+
+        <h2 id="gameName">Mine Sweeper Ghost</h2>
+        <p id="rule">
+            Once dead, mines and timer go back to the initial state and ghosts come.<br>
+            Your ghosts will repeat what you did before dying.
+        </p>
+        <br>
+        <div class="row justify-content-center">
+            <div class="d-flex align-items-center mb-2">
+                <img src="../../octicons/svg/clock.svg">
+                <div type="text" class="ml-2" id="time"></div>
+
+                <img src="images/mine.png">
+                <div type="text" class="ml-2" id="mine-num"></div>
+
+                <label id="live-label" class="mb-0">Lives:</label>
+                <div type="text" class="ml-2" id="live-num"></div>
+
+                <label id="ghost-label" class="mb-0">Ghosts:</label>
+                <div type="text" class="ml-2" id="ghost-num"></div>
+                
+                <div id="buttons" class="btn-group mr-2" role="group">
+                    <button id="b15x15" class="btn btn-secondary">15 X 15</button>
+                    <button id="b30x15" class="btn btn-secondary">30 X 15</button>
+                    <button id="b30x30" class="btn btn-secondary">30 X 30</button>
+                    <button id="b10lives" class="btn btn-secondary">10 Lives</button>
+                </div>
+                <button id="reset" class="btn btn-secondary">RESET</button>
+            </div>
+        </div>
+        <div id="field-container" class="text-center">
+            <div id="field" oncontextmenu="return false;"></div>
+            <h2 id="result"></h2>
+        </div>
+
+        <hr>
+
+        <footer>
+            <div id="footer-copyright"></div>
+        </footer>
+    </div>
+
+    <script type="text/javascript">
+        $('#header-nav').load("/nav.html", () => { $("#nav-game").addClass("active"); });
+        $('#footer-copyright').load("/copyright.html");
+        var lang = navigator.language;
+        if (lang.slice(0, 2) === "zh") {
+            $('#title').text("幽灵扫雷");
+            $('#gameName').text("幽灵扫雷");
+            $('#reset').text("重新开始");
+            $('#live-label').text("命");
+            $('#ghost-label').text("幽灵");
+            $('#rule').html("死亡后，雷区与计时都会回归起始状态并产生幽灵。<br>幽灵会重复踩雷之前的所有操作。");
+        }
+    </script>
+</body>
+
+</html>
