@@ -44,19 +44,20 @@
                     <h3>NEXT</h3>
                     <div id="next" class="w-50 mx-auto"></div>
                 </div>
-                <div class="d-flex my-5">
+                <div class="border border-info d-flex p-3 mt-2">
+                    <span id="rise-text" class="h4 align-self-end mb-0">UP: </span>
+                    <div class="h2 bg-primary text-white flex-fill text-right px-2 mx-2 mb-0">&nbsp;<span id="next-rise"></span></div>
+                    <span id="second-text" class="h4 align-self-end mb-0">second(s)</span>
+                </div>
+                <div class="d-flex my-3">
                     <button id="start" class="btn btn-primary mr-2">Start</button>
                     <button id="mute" class="btn btn-primary"><img id="muteIcon" src="../../octicons/svg/mute.svg" style="filter: invert(1);"></button>
                 </div>
                 <br>
                 <h5><span id="hi-score-text">HI-SCORE:</span> <span id="hi-score">0</span></h5>
-                <br>
                 <h5><span id="score-text">SCORE:</span> <span id="score">0</span></h5>
-                <br>
                 <h5><span id="speed-text">SPEED:</span> <span id="speed">0</span></h5>
-                <br>
                 <h5><span id="remove-text">REMOVE:</span> <span id="remove">0</span></h5>
-                <br>
                 <h5><span id="blocks-text">BLOCKS:</span> <span id="blocks">0</span></h5>
             </div>
         </div>
@@ -81,6 +82,8 @@
             $('#speed-text').text("速度：");
             $('#remove-text').text("消行：");
             $('#blocks-text').text("方块：");
+            $('#rise-text').text("上升：");
+            $('#second-text').text("秒");
         }
     </script>
 </body>

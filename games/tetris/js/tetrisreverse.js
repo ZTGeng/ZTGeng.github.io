@@ -12,7 +12,8 @@
     const REMOVE_LINE_SCORE = 50;
     const SPEED_THRESHOLD = 30; //lines
     const ANIMATE_DURATION = 40; //milliseconds
-    const SPEEDS = [10000, 8000, 5000, 4000]; //milliseconds
+    const SPEEDS = [10, 8, 5, 4]; //seconds
+    const SPEEDS_deprecated = [10000, 8000, 5000, 4000]; //milliseconds
     const COLORS = ["red", "orange", "blue", "purple", "yellow", "green", "aqua"]
     const BLOCKS = [
         {
@@ -199,7 +200,7 @@
         if (speed < SPEEDS.length - 1 && Math.floor(removeNum / SPEED_THRESHOLD) > speed) {
             speed++;
             $("#speed").text(speed);
-            resetTimer();
+            // resetTimer_deprecated();
         }
 
         var c = 1;
@@ -355,14 +356,31 @@
 
     var resetTimer = function() {
         clearInterval(timer);
+        let rise_countdown = SPEEDS[speed];
+        $("#next-rise").text(rise_countdown);
+        timer = setInterval(() => {
+            if (isPaused) return;
+            
+            rise_countdown--;
+            if (rise_countdown > 0) {
+                $("#next-rise").text(rise_countdown);
+            } else {
+                resetTimer();
+                raise();
+            }
+        }, 1000);
+    }
+
+    var resetTimer_deprecated = function() {
+        clearInterval(timer);
         timer = setInterval(() => {
             if (isPaused) {
                 clearInterval(timer);
-                setTimeout(resetTimer, 1000);
+                setTimeout(resetTimer_deprecated, 1000);
             } else {
                 raise();
             }
-        }, SPEEDS[speed]);
+        }, SPEEDS_deprecated[speed]);
     }
 
     var gameover = function() {
@@ -398,6 +416,7 @@
         $("#speed").text(speed);
         $("#remove").text(removeNum);
         $("#blocks").text(blockNum);
+        $("#next-rise").text("");
 
         MUSIC.gameover.pause();
         MUSIC.bgm.pause();
