@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Number JS Demo</title>
+    <meta name="description" content="Digital NUmber JS Demo">
+    <meta name="author" content="Geng">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div id="header-nav">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/index.html">HOME</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/cv.html">My CV</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/games/index.html">GAME</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/math/index.html">MATH</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link active" href="/tool/index.html">TOOL</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/blog/index.html">BLOG</a></li>
+                </ul>
+            </div>
+            <br>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/tool/index.html">Tool</a></li>
+                <li class="breadcrumb-item active">Digital Number JS</li>
+            </ol>
+        </header>
+
+        <h1>Digital Numbers JS Demo</h1>
+        <ul class="small text-secondary">
+            <li>此组件自动将数字转换为电子表数字样式。</li>
+            <li>只需加载一个js文件及jquery（>3.5.1）。无需任何字体等依赖。</li>
+            <li>转化后的数字样式为纯div实现，非字符，不支持拖选。</li>
+            <li>进行转换的标签只能包含文字，不能包含下级标签（将被移除）。支持数字与非数字混排（只有数字会被转换）。</li>
+            <li>支持对标签内容重新赋值，实时转换。</li>
+        </ul>
+        <h3>使用方法：</h3>
+        <p>1. 加载以下js文件:</p>
+        <pre class="bg-dark text-white p-3"><code>
+    &lt;script src="digital-numbers.js"></script>
+        </code></pre>
+        <p>2. 对包含数字的标签设置 <code>class="digital-numbers-js"</code>。</p>
+        <br>
+        <h3>效果：</h3>
+        <div class="digital-numbers-js">静态文本：1234567890</div>
+        <pre class="bg-dark text-white p-3"><code>
+    &lt;div class="digital-numbers-js"&gt;静态文本：1234567890&lt;/div&gt;
+        </code></pre>
+        <br>
+        <div class="d-inline">
+            <button id="random-number-button" class="btn btn-primary mb-1 mr-2">点击刷新数字 -></button>
+            <div class="digital-numbers-js" id="random-number">123</div>
+        </div>
+        <pre class="bg-dark text-white p-3"><code>
+    &lt;button id="random-number-button"&gt;点击刷新数字 ->&lt;/button&gt;
+    &lt;div class="digital-numbers-js" id="random-number"&gt;123&lt;/div&gt;
+    &lt;script&gt;
+        $("#random-number-button").on("click", function() {
+            $("#random-number").text(("" + Math.random()).slice(2, 5));
+        });
+    &lt;/script&gt;
+        </code></pre>
+        <br>
+        <div class="digital-numbers-js" id="clock">Time - 00:00:00</div>
+        <pre class="bg-dark text-white p-3"><code>
+    &lt;div class="digital-numbers-js" id="clock"&gt;Time - 00:00:00&lt;/div&gt;
+    &lt;script&gt;
+        var twoDigits = function(num) {
+            return (num &lt; 10 ? "0" : "") + num;
+        }
+        setInterval(function() {
+            var now = new Date();
+            $("#clock").text("Time - " + twoDigits(now.getHours()) + ":" + twoDigits(now.getMinutes()) + ":" + twoDigits(now.getSeconds()));
+        }, 1000);
+    &lt;/script&gt;
+        </code></pre>
+        <br>
+        <div>使用 <code>data-* attributes</code> 自定义高度（px）与颜色：<span class="digital-numbers-js" data-height="50" data-color="red">123</span></div>
+        <pre class="bg-dark text-white p-3"><code>
+    &lt;div&gt;使用 &lt;code&gt;data-* attributes&lt;/code&gt; 自定义高度（px）与颜色：&lt;span class="digital-numbers-js" data-height="50" data-color="red"&gt;123&lt;/span&gt;&lt;/div&gt;
+        </code></pre>
+
+        <hr>
+
+        <footer>
+            <div id="footer-copyright"><p> &copy; Copyright by Geng </p></div>
+        </footer>
+    </div>
+
+    <script>
+        $("#random-number-button").on("click", function() {
+            $("#random-number").text(("" + Math.random()).slice(2, 5));
+        });
+        var twoDigits = function(num) {
+            return (num < 10 ? "0" : "") + num;
+        }
+        setInterval(function() {
+            var now = new Date();
+            $("#clock").text("Time - " + twoDigits(now.getHours()) + ":" + twoDigits(now.getMinutes()) + ":" + twoDigits(now.getSeconds()));
+        }, 1000);
+    </script>
+    <script src="digital-numbers.js"></script>
+</body>
+</html>
