@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful Text JS Demo</title>
+    <meta name="description" content="Digital NUmber JS Demo">
+    <meta name="author" content="Geng">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div id="header-nav">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/index.html">HOME</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/cv.html">My CV</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/games/index.html">GAME</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/math/index.html">MATH</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link active" href="/tool/index.html">TOOL</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/blog/index.html">BLOG</a></li>
+                </ul>
+            </div>
+            <br>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/tool/index.html">Tool</a></li>
+                <li class="breadcrumb-item active">Colorful Text JS</li>
+            </ol>
+        </header>
+
+        <h1>Colorful Text JS Demo</h1>
+        <ul class="small text-secondary">
+            <li>将标签内文字颜色设定为两种预设颜色的渐变。渐变在标签滚动宽度（scrollWidth）上排布。（示例1、2、3）</li>
+            <li>稳定性：标签宽度固定时，字符颜色由其在标签内的横坐标位置决定，与每行文字长短、行数无关。（示例1、5、6）</li>
+            <li>动态性：在文字和标签宽度发生变化时自动重新设置。（示例4）</li>
+            <li>进行转换的标签只能包含文字和 <code>&lt;br&gt;</code> 标签，不能包含其他下级标签（将被移除）。</li>
+            <li>支持不同种类标签，如 <code>&lt;div&gt;</code>、<code>&lt;p&gt;</code>、<code>&lt;pre&gt;</code> 等。</li>
+            <li>浏览器兼容性要求：<a href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver#browser_compatibility" target="_blank">MutationObserver</a>和<a href="https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver#browser_compatibility" target="_blank">ResizeObserver</a>。</li>
+        </ul>
+        <h3>使用方法：</h3>
+        <ol>
+            <li>对需要设置颜色的标签设置 <code>class="colorful-text-js" data-color-left="..." data-color-right="..."</code>（支持常见颜色格式如 <code>"#ffffff" "#fff" "rgb(0, 0, 0)" "red"</code> 等）。</li>
+            <li>在文档末尾加载以下js文件:</li>
+        </ol>
+        <pre class="bg-dark text-white p-3"><code>
+    &lt;script src="colorful-text.js"&gt;&lt;/script&gt;
+        </code></pre>
+        <br>
+        <h3>效果：</h3>
+        <h5>1 <code>&lt;p&gt;</code> 标签静态文本（可尝试改变浏览器窗口大小观察效果）：</h5>
+        <p class="colorful-text-js" data-color-left="#dd0033" data-color-right="deepskyblue">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <br>
+            1994 年的一期《Before & After》杂志将“Lorem ipsum ...”追溯到 de Finibus Bonorum et Malorum（西塞罗在公元前 45 年撰写的伦理学理论方面的论文）中一段文字的混乱的拉丁语版。段落“Lorem ipsum ...”摘选自文字“Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit ...”，可以翻译为“没有人喜欢痛苦，追逐痛苦并且想拥有痛苦，因为痛苦就是痛苦...”
+        </p>
+        <pre class="bg-dark text-white p-3"><code>
+    &lt;p class="colorful-text-js" data-color-left="#dd0033" data-color-right="deepskyblue"&gt;
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        &lt;br&gt;
+        1994 年的一期《Before & After》杂志将“Lorem ipsum ...”追溯到 de Finibus Bonorum et Malorum（西塞罗在公元前 45 年撰写的伦理学理论方面的论文）中一段文字的混乱的拉丁语版。段落“Lorem ipsum ...”摘选自文字“Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit ...”，可以翻译为“没有人喜欢痛苦，追逐痛苦并且想拥有痛苦，因为痛苦就是痛苦...”
+    &lt;/p&gt;
+        </code></pre>
+        <br>
+
+        <h5>2 <code>&lt;pre&gt;</code> 标签静态文本（文字卷动效果）：</h5>
+        <pre class="colorful-text-js" data-color-left="#dd0033" data-color-right="deepskyblue">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </pre>
+        <pre class="bg-dark text-white p-3"><code>
+    &lt;pre class="colorful-text-js" data-color-left="#dd0033" data-color-right="deepskyblue"&gt;
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    &lt;/pre&gt;
+        </code></pre>
+        <br>
+
+        <h5>3 自适应内容宽度：</h5>
+        <div class="colorful-text-js" style="display:inline-block" data-color-left="#dd0033" data-color-right="deepskyblue">
+            春晓<br>
+            唐 孟浩然<br>
+            春眠不觉晓，处处闻啼鸟。<br>
+            夜来风雨声，花落知多少。
+        </div>
+        <pre class="bg-dark text-white p-3"><code>
+    &lt;div class="colorful-text-js" style="display:inline-block" data-color-left="#dd0033" data-color-right="deepskyblue"&gt;
+        春晓&lt;br&gt;
+        唐 孟浩然&lt;br&gt;
+        春眠不觉晓，处处闻啼鸟。&lt;br&gt;
+        夜来风雨声，花落知多少。
+    &lt;/div&gt;
+        </code></pre>
+        <br>
+
+        <h5>4 动态内容 + 自适应宽度：</h5>
+        <textarea style="width:100%" oninput="document.getElementById('text-output').innerHTML=value">在此行继续输入...</textarea>
+        <p id="text-output" class="colorful-text-js" style="display:inline-block" data-color-left="#dd0033" data-color-right="deepskyblue">在此行继续输入...</p>
+        <pre class="bg-dark text-white p-3"><code>
+    &lt;textarea style="width:100%" oninput="document.getElementById('text-output').innerHTML=value"&gt;在此行继续输入...&lt;/textarea&gt;
+    &lt;p id="text-output" class="colorful-text-js" style="display:inline-block" data-color-left="#dd0033" data-color-right="deepskyblue"&gt;在此行继续输入...&lt;/p&gt;
+        </code></pre>
+        <br>
+
+        <h5>5 文字居中效果：</h5>
+        <p class="colorful-text-js" style="text-align:center" data-color-left="#dd0033" data-color-right="deepskyblue">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br>
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        </p>
+        <pre class="bg-dark text-white p-3"><code>
+    &lt;p class="colorful-text-js" style="text-align:center" data-color-left="#dd0033" data-color-right="deepskyblue"&gt;
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;br&gt;
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    &lt;/p&gt;
+        </code></pre>
+        <br>
+
+        <h5>6 文字右对齐效果：</h5>
+        <p class="colorful-text-js" style="text-align:right" data-color-left="#dd0033" data-color-right="deepskyblue">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br>
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        </p>
+        <pre class="bg-dark text-white p-3"><code>
+    &lt;p class="colorful-text-js" style="text-align:right" data-color-left="#dd0033" data-color-right="deepskyblue"&gt;
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;br&gt;
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    &lt;/p&gt;
+        </code></pre>
+        
+        <hr>
+
+        <footer>
+            <div id="footer-copyright"><p> &copy; Copyright by Geng </p></div>
+        </footer>
+    </div>
+
+    <script src="colorful-text.js"></script>
+</body>
+</html>

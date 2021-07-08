@@ -37,6 +37,7 @@
             <li>转化后的数字样式为纯div实现，非字符，不支持拖选。</li>
             <li>进行转换的标签只能包含文字，不能包含下级标签（将被移除）。支持数字与非数字混排（只有数字会被转换）。</li>
             <li>支持对标签内容重新赋值，实时转换。</li>
+            <li>浏览器兼容性要求：<a href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver#browser_compatibility" target="_blank">MutationObserver</a>。</li>
         </ul>
         <h3>使用方法：</h3>
         <ol>
@@ -82,9 +83,9 @@
     &lt;/script&gt;
         </code></pre>
         <br>
-        <div>使用 <code>data-* attributes</code> 自定义高度（px）与颜色：<span class="digital-numbers-js" data-height="50" data-color="red">123</span></div>
+        <div>使用 <code>data-height</code> 与 <code>data-color</code> 自定义高度（px）与颜色：<span class="digital-numbers-js" data-height="50" data-color="red">123</span></div>
         <pre class="bg-dark text-white p-3"><code>
-    &lt;div&gt;使用 &lt;code&gt;data-* attributes&lt;/code&gt; 自定义高度（px）与颜色：&lt;span class="digital-numbers-js" data-height="50" data-color="red"&gt;123&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;使用 &lt;code&gt;data-height&lt;/code&gt; 与 &lt;code&gt;data-color&lt;/code&gt; 自定义高度（px）与颜色：&lt;span class="digital-numbers-js" data-height="50" data-color="red"&gt;123&lt;/span&gt;&lt;/div&gt;
         </code></pre>
 
         <hr>
