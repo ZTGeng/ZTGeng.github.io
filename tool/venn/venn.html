@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venn Diagram Online Tool</title>
+    <meta name="description" content="Venn Diagram Online Tool">
+    <meta name="author" content="Geng">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .isolate {
+            width: 700px;
+            height: 500px;
+            isolation: isolate;
+            position: relative;
+        }
+
+        .pic-title {
+            position: absolute;
+        }
+
+        .pic-title-centered {
+            left: 300px;
+            translate: -50%;
+        }
+
+        .circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            mix-blend-mode: screen;
+            position: absolute;
+            border: 1px solid white;
+        }
+
+        .circle-1 {
+            left: 300px;
+            top: 50px;
+            translate: -50%;
+        }
+
+        .circle-2 {
+            left: 300px;
+            top: 50px;
+            translate: -75% 43%;
+        }
+
+        .circle-3 {
+            left: 300px;
+            top: 50px;
+            translate: -25% 43%;
+        }
+
+        .text {
+            position: absolute;
+            white-space: pre-line;
+        }
+
+        .text-a {
+            left: 300px;
+            top: 125px;
+            translate: -50% -50%;
+        }
+
+        .text-b {
+            left: 150px;
+            top: 350px;
+            translate: -50% -50%;
+        }
+
+        .text-c {
+            left: 450px;
+            top: 350px;
+            translate: -50% -50%;
+        }
+
+        .text-ab {
+            left: 210px;
+            top: 230px;
+            translate: -50% -50%;
+        }
+
+        .text-ac {
+            left: 390px;
+            top: 230px;
+            translate: -50% -50%;
+        }
+
+        .text-bc {
+            left: 300px;
+            top: 390px;
+            translate: -50% -50%;
+        }
+
+        .text-abc {
+            left: 300px;
+            top: 290px;
+            translate: -50% -50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="container">
+        <header>
+            <div id="header-nav">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/index.html">HOME</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/cv.html">My CV</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/games/index.html">GAME</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/math/index.html">MATH</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link active" href="/tool/index.html">TOOL</a></li>
+                    <li role="presentation" class="nav-item"><a class="nav-link" href="/blog/index.html">BLOG</a></li>
+                </ul>
+            </div>
+            <br>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/tool/index.html">Tool</a></li>
+                <li class="breadcrumb-item active">Venn Diagram</li>
+            </ol>
+        </header>
+
+        <h1>{{ page_title }}</h1>
+        <ul class="small text-secondary">
+            <li v-for="description in descriptions">{{ description }}</li>
+        </ul>
+
+        <br>
+
+        <div class="row">
+            <div class="col col-auto" id="canvas">
+                
+                <div class="isolate">
+                    <div class="pic-title" :class="{ 'pic-title-centered': pic_title.centered }" :style="{ fontSize: pic_title.size }">
+                        <strong>{{ pic_title.text }}</strong>
+                    </div>
+                    <div class="circle circle-1" :style="{ background: circle_color_a }"></div>
+                    <div class="circle circle-2" :style="{ background: circle_color_b }"></div>
+                    <div class="circle circle-3" :style="{ background: circle_color_c }"></div>
+                    <div class="text text-a text-center" :style="{ color: all_text_color, fontSize: area_a.size }">{{ area_a.text || area_text_placeholder_a }}</div>
+                    <div class="text text-b text-start" :style="{ color: all_text_color, fontSize: area_b.size }">{{ area_b.text || area_text_placeholder_b }}</div>
+                    <div class="text text-c text-end" :style="{ color: all_text_color, fontSize: area_c.size }">{{ area_c.text || area_text_placeholder_c }}</div>
+                    <div class="text text-ab text-center" :style="{ color: all_text_color, fontSize: area_ab.size }">{{ area_ab.text || area_text_placeholder_ab }}</div>
+                    <div class="text text-ac text-center" :style="{ color: all_text_color, fontSize: area_ac.size }">{{ area_ac.text || area_text_placeholder_ac }}</div>
+                    <div class="text text-bc text-center" :style="{ color: all_text_color, fontSize: area_bc.size }">{{ area_bc.text || area_text_placeholder_bc }}</div>
+                    <div class="text text-abc text-center" :style="{ color: all_text_color, fontSize: area_abc.size }">{{ area_abc.text || area_text_placeholder_abc }}</div>
+                </div>
+            </div>
+
+            <div class="col" id="panel">
+                <br>
+                <div class="row mb-1">
+                    <div class="col">
+                        <input v-model="pic_title.text" :placeholder="pic_title_placeholder" class="form-control"></textarea>
+                    </div>
+                    <div class="col-auto">
+                        <input type="checkbox" class="btn-check" v-model="pic_title.centered" id="btn-pic-title-center" autocomplete="off">
+                        <label class="btn btn-outline-secondary" for="btn-pic-title-center">{{ text_center_button }}</label>
+                    </div>
+                    <div class="col-auto">
+                        <select v-model="pic_title.size" class="form-select">
+                            <option value="40px">40px</option>
+                            <option value="32px">32px</option>
+                            <option value="28px">28px</option>
+                            <option value="24px">24px</option>
+                            <option value="20px">20px</option>
+                            <option value="16px">16px</option>
+                        </select>
+                    </div>
+                </div>
+                <area-input :area="area_a" :placeholder="area_text_placeholder_a"></area-input>
+                <area-input :area="area_b" :placeholder="area_text_placeholder_b"></area-input>
+                <area-input :area="area_c" :placeholder="area_text_placeholder_c"></area-input>
+                <area-input :area="area_ab" :placeholder="area_text_placeholder_ab"></area-input>
+                <area-input :area="area_ac" :placeholder="area_text_placeholder_ac"></area-input>
+                <area-input :area="area_bc" :placeholder="area_text_placeholder_bc"></area-input>
+                <area-input :area="area_abc" :placeholder="area_text_placeholder_abc"></area-input>
+                <div class="input-group">
+                    <span class="input-group-text">{{ area_text_placeholder_a }}</span>
+                    <input type="color" class="form-control form-control-color" v-model="circle_color_a" :title="text_choose_area_a_color">
+                    <span class="input-group-text">{{ area_text_placeholder_b }}</span>
+                    <input type="color" class="form-control form-control-color" v-model="circle_color_b" :title="text_choose_area_b_color">
+                    <span class="input-group-text">{{ area_text_placeholder_c }}</span>
+                    <input type="color" class="form-control form-control-color" v-model="circle_color_c" :title="text_choose_area_c_color">
+                    <span class="input-group-text">{{ text_label }}</span>
+                    <input type="color" class="form-control form-control-color" v-model="all_text_color" :title="text_choose_text_color">
+                    <button class="btn btn-outline-secondary" type="button" @click="resetColor">{{ text_reset_button }}</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const { createApp } = Vue
+        const app = createApp({
+            data() {
+                var lang = navigator.language;
+                const strings = lang.slice(0, 2) === "zh" ?
+                {
+                    page_title: '文氏图（维恩图）制作',
+                    descriptions: [
+                        '为各个区域输入文字。可以换行输入。',
+                        '调整文字大小、颜色，以及三个主区域颜色。',
+                        '用浏览器或操作系统提供的截图功能保存图片。'
+                    ],
+                    text_label: '文字',
+                    text_center_button: '居中',
+                    text_reset_button: '重设',
+                    text_choose_text_color: '选择文字颜色',
+                    text_choose_area_a_color: '选择集合 A 颜色',
+                    text_choose_area_b_color: '选择集合 B 颜色',
+                    text_choose_area_c_color: '选择集合 C 颜色',
+
+                    area_text_placeholder_a:   '集合 A',
+                    area_text_placeholder_b:   '集合 B',
+                    area_text_placeholder_c:   '集合 C',
+                    area_text_placeholder_ab:  '交集 AB',
+                    area_text_placeholder_ac:  '交集 AC',
+                    area_text_placeholder_bc:  '交集 BC',
+                    area_text_placeholder_abc: '交集 ABC',
+
+                    pic_title_placeholder: '图片标题（可空白）',
+                } : {
+                    page_title: 'Venn Diagram Maker',
+                    descriptions: [
+                        'Put texts to circles and their overlaps. Multiple lines are supported.',
+                        'Adjust the text size/color and the color in the main part of the three circles.',
+                        'Capture and save the pic with the feature from your browser or os.'
+                    ],
+                    text_label: 'Text',
+                    text_center_button: 'Centered',
+                    text_reset_button: 'Reset',
+                    text_choose_text_color: 'Choose text color',
+                    text_choose_area_a_color: 'Choose area A color',
+                    text_choose_area_b_color: 'Choose area B color',
+                    text_choose_area_c_color: 'Choose area C color',
+
+                    area_text_placeholder_a:   'Area A',
+                    area_text_placeholder_b:   'Area B',
+                    area_text_placeholder_c:   'Area C',
+                    area_text_placeholder_ab:  'Area AB',
+                    area_text_placeholder_ac:  'Area AC',
+                    area_text_placeholder_bc:  'Area BC',
+                    area_text_placeholder_abc: 'Area ABC',
+
+                    pic_title_placeholder: 'Pic title (optional)',
+                };
+                const props =
+                {
+                    pic_title: { text: '', size: '24px', centered: false },
+
+                    area_a:   { text: '', size: '24px' },
+                    area_b:   { text: '', size: '24px' },
+                    area_c:   { text: '', size: '24px' },
+                    area_ab:  { text: '', size: '24px' },
+                    area_ac:  { text: '', size: '24px' },
+                    area_bc:  { text: '', size: '24px' },
+                    area_abc: { text: '', size: '24px' },
+
+                    circle_color_a: '#ff0000',
+                    circle_color_b: '#008800',
+                    circle_color_c: '#0000ff',
+                    all_text_color: '#ffffff',
+                };
+                return {...strings, ...props};
+            },
+            methods: {
+                resetColor() {
+                    this.circle_color_a = '#ff0000';
+                    this.circle_color_b = '#008800';
+                    this.circle_color_c = '#0000ff';
+                    this.all_text_color = '#ffffff';
+                }
+            }
+        })
+        app.component(
+            'area-input',
+            {
+                props: ['area', 'placeholder'],
+                template: `
+                <div class="row mb-1">
+                    <div class="col">
+                        <textarea v-model="area.text" :placeholder="placeholder" class="form-control" rows="1"></textarea>
+                    </div>
+                    <div class="col-auto">
+                        <select v-model="area.size" class="form-select">
+                            <option value="40px">40px</option>
+                            <option value="32px">32px</option>
+                            <option value="28px">28px</option>
+                            <option value="24px">24px</option>
+                            <option value="20px">20px</option>
+                            <option value="16px">16px</option>
+                        </select>
+                    </div>
+                </div>`
+            }
+        )
+        app.mount('#app')
+
+    </script>
+</body>
+</html>
