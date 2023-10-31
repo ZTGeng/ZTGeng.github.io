@@ -1,102 +1,132 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-
 <head>
+    <title>Blog</title>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title id="web_title">Blog Editor</title>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="js/utils.js"></script>
-    <script type="text/javascript" src="js/editor.js"></script>
-    <script type="text/javascript" src="js/buttons.js"></script>
-    <style>
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 
 <body>
     <div class="container">
         <header>
-            <div id="header-nav"></div>
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="nav-item"><a id="nav-home" class="nav-link" href="/">HOME</a></li>
+                <li role="presentation" class="nav-item"><a id="nav-cv" class="nav-link" href="/cv.html">My CV</a></li>
+                <li role="presentation" class="nav-item"><a id="nav-game" class="nav-link" href="/games/">GAME</a></li>
+                <li role="presentation" class="nav-item"><a id="nav-math" class="nav-link" href="/math/">MATH</a></li>
+                <li role="presentation" class="nav-item"><a id="nav-tool" class="nav-link" href="/tool/">TOOL</a></li>
+                <li role="presentation" class="nav-item"><a id="nav-blog" class="nav-link active" href="/blog/">BLOG</a></li>
+            </ul>
             <br>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="index.html">Blog</a></li>
-                <li class="breadcrumb-item active">Edit</li>
-            </ol>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/blog/">Blog</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                </ol>
+            </nav>
         </header>
 
-        <div class="form-group">
-            <input id="titleInput" type="text" class="form-control mb-2" placeholder="Title">
-            <div class="btn-toolbar text-monospace mb-2" role="toolbar">
-                <div class="btn-group mr-2" role="group">
-                    <button id="editBtnB" class="btn btn-outline-dark"><img src="../octicons/svg/bold.svg"></button>
-                    <button id="editBtnI" class="btn btn-outline-dark"><img src="../octicons/svg/italic.svg"></button>
-                    <button id="editBtnHead" class="btn btn-outline-dark"><img src="../octicons/svg/book.svg"></button>
+        <div id="app">
+            <div class="form-group">
+                <input id="titleInput" v-model="title" type="text" class="form-control mb-2" :placeholder="titleHint">
+                <div class="row">
+                    <textarea id="textInput" v-model="input" class="form-control mb-2 col" rows="10"></textarea>
+                    <div id="preview" class="col-sm-12 col-md-6" v-html="inputHtml" v-if="showPreview"></div>
                 </div>
-                <div class="btn-group mr-2" role="group">
-                    <button id="editBtnQuote" class="btn btn-outline-dark"><img src="../octicons/svg/quote.svg"></button>
-                    <button id="editBtnCode" class="btn btn-outline-dark"><img src="../octicons/svg/code.svg"></button>
-                    <button id="editBtnImage" class="btn btn-outline-dark"><img src="../octicons/svg/file-media.svg"></button>
-                    <button id="editBtnLink" class="btn btn-outline-dark"><img src="../octicons/svg/link.svg"></button>
-                    <button id="editBtnHr" class="btn btn-outline-dark"><img src="../octicons/svg/horizontal-rule.svg"></button>
+                
+                <div class="d-flex justify-content-end">
+                    <button id="preview" class="btn btn-primary" type="button" data-bs-toggle="button" @click="showPreview = !showPreview">{{ previewButton }}</button>
+                    <button id="save" class="btn btn-primary ms-2" @click="save">{{ saveButton }}.</button>
                 </div>
-                <div class="btn-group mr-auto" role="group">
-                    <button id="editBtnBList" class="btn btn-outline-dark"><img src="../octicons/svg/list-unordered.svg"></button>
-                    <button id="editBtnNList" class="btn btn-outline-dark"><img src="../octicons/svg/list-ordered.svg"></button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button id="editBtnBack" class="btn btn-outline-dark"><img src="../octicons/svg/arrow-left.svg"></button>
-                </div>
-            </div>
-            <textarea id="textInput" class="form-control mb-2" rows="10"></textarea>
-            <div class="d-flex justify-content-end">
-                <button id="preview" class="btn btn-dark" data-toggle="modal" data-target="#previewModal">Preview</button>
-                <button id="save" class="btn btn-dark ml-2">Save As...</button>
             </div>
         </div>
-        <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="modalTitle">Copy JSON to clipboard or save to a file</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                    <span id="modalBody" style="white-space: pre-wrap"></span>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalClose">Close</button>
-                  <button type="button" class="btn btn-dark" id="modalCopy">Copy JSON</button>
-                  <button type="button" class="btn btn-dark" id="modalSave">Save As...</button>
-                </div>
-              </div>
-            </div>
-          </div>
         <hr>
 
         <footer>
-            <div id="footer-copyright"></div>
+            <div id="footer-copyright">
+                <p>© 2023 by @ztgeng</p>
+            </div>
         </footer>
     </div>
-    <script type="text/javascript">
-        $('#header-nav').load("/nav.html", () => { $("#nav-blog").addClass("active"); });
-        $('#footer-copyright').load("/copyright.html");
-		var lang = navigator.language;
-		if (lang.slice(0, 2) === "zh") {
-			$('#web_title').text("写博客");
-            $('#preview').text("预览");
-            $('#save').text("保存为...");
-			$('#modalTitle').text("复制JSON到剪贴板或保存为文件");
-			$('#modalClose').text("关闭");
-            $('#modalCopy').text("复制JSON");
-            $('#modalSave').text("保存为...");
-		}
-    </script>
-</body>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="js/utils.js"></script>
+    <script type="text/javascript">
+        const { createApp } = Vue
+        const app = createApp({
+            data() {
+                return {
+                    title: "",
+                    input: "",
+                    showPreview: false,
+                    previewButton: "Preview",
+                    saveButton: "Save As...",
+                    titleHint: "Title"
+                }
+            },
+            computed: {
+                inputHtml() {
+                    return this.mdToHtml(this.input);
+                }
+            },
+            methods: {
+                ...window.sharedBlogMethods,
+                save() {
+                    content = `# ${this.title}\n\n`;
+                    const date = this.getDate();
+                    const filename = this.getFilename(date);
+                    content += `${date}\n\n`;
+                    content += this.input;
+                    const blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = filename + ".md";
+                    a.click();
+                    URL.revokeObjectURL(url);
+                    a.remove();
+
+                    this.updateList(this.title, date, filename);
+                },
+                getDate () {
+                    let date = new Date();
+                    let twoDigits = num => String(num).padStart(2, '0');
+                    return `${date.getFullYear()}-${twoDigits(date.getMonth() + 1)}-${twoDigits(date.getDate())} ${twoDigits(date.getHours())}:${twoDigits(date.getMinutes())}:${twoDigits(date.getSeconds())}`;
+                },
+                getFilename(date) {
+                    return `${date.substring(2, 4)}${date.substring(5, 7)}${date.substring(8, 10)}${date.substring(11, 13)}${date.substring(14, 16)}`;
+                },
+                updateList(title, date, filename) {
+                    fetch('list.json')
+                        .then(response => response.json())
+                        .then(data => {
+                            const list = data.list;
+                            list.unshift({title, date, filename});
+                            const blob = new Blob([JSON.stringify({list}, null, 2)], {type: "application/json;charset=utf-8"});
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement("a");
+                            a.href = url;
+                            a.download = "list.json";
+                            a.click();
+                            URL.revokeObjectURL(url);
+                            a.remove();
+                        });
+                }
+            },
+            mounted() {
+                var lang = navigator.language;
+                if (lang.slice(0, 2) === "zh") {
+                    this.previewButton = "预览";
+                    this.saveButton = "保存为..."
+                    this.titleHint = "请输入标题";
+                }
+            }
+        })
+        app.mount('#app')
+    </script>
+    
+</body>
 </html>
