@@ -133,11 +133,10 @@
                     return paragraphs.join('');
                 },
                 textBlockToHtml(text) {
-                    text = this.escapeText(text);
                     // Wrap heading lines with line breaks to prevent them from being merged into paragraphs
                     text = text.replace(/^(#{1,6} .*)$/gm, '\n$1\n');
                     // Convert horizontal rules
-                    text = text.replace(/^\-\-\-$|!\_\_\_$/gm, '<hr>');
+                    text = text.replace(/^\-\-\-$|!\_\_\_$/gm, '\n<hr>\n');
                     // Convert text to paragraphs
                     text = text
                         .split(/\n{2,}/)
@@ -171,18 +170,18 @@
                     // Split paragraphs to isolate inline code
                     return text
                         .flatMap(paragraph => {
-                            return paragraph.split(/`(.+?)`/g).map((textOrCode, index) => {
+                            return paragraph.split(/(?<!\\)`(.+?)`/gs).map((textOrCode, index) => {
                                 if (index % 2 === 0) {
-                                    return textOrCode
+                                    return this.escapeText(textOrCode)
                                         // Convert images
-                                        .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1" class="img-fluid mb-3" style="max-width: 100%;">')
+                                        .replace(/!\[(.*?)\]\((.*?)\)/gs, '<img src="$2" alt="$1" class="img-fluid mb-3" style="max-width: 100%;">')
                                         // Convert links
-                                        .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>')
+                                        .replace(/\[(.*?)\]\((.*?)\)/gs, '<a href="$2">$1</a>')
                                         // Convert emphasis
-                                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                                        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                                        .replace(/\*\*(.+?)\*\*/gs, '<strong>$1</strong>')
+                                        .replace(/\*(.+?)\*/gs, '<em>$1</em>')
                                         // Convert strikethrough
-                                        .replace(/~~(.*?)~~/g, '<del>$1</del>');
+                                        .replace(/~~(.+?)~~/gs, '<del>$1</del>');
                                 } else {
                                     // Convert inline code
                                     return this.codeToHtml(textOrCode);
