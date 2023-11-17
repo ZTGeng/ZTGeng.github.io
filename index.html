@@ -2,138 +2,207 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Geng's Homepage</title>
-    <meta name="author" content="Geng">
-    <style type="text/css">
-        body {
-            margin: 0 auto;
-            max-width: 800px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geng's Website</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-    <canvas id="canvas" width="800" height="600" >
-        <a href="/cv">My CV</a>
-        <br>
-        <a href="/games">Games</a>
-        <br>
-        <a href="https://github.com/ZTGeng/">My GitHub</a>
-    </canvas>
+
+<div class="container mt-4">
+    <!-- Profile Section -->
+    <div class="row">
+        <div class="col-md-3 bg-secondary text-white p-3">
+            <!-- Profile Picture -->
+            <img src="./images/profile.jpg" alt="My Photo" class="img-fluid mb-3">
+            <!-- Personal Info -->
+            <h2>耿志涛</h2>
+            <h5>Geng Zhitao</h5>
+            <hr>
+            <p id="my_intro" class="mb-3"></p>
+            <ul class="nav flex-column">
+                <li class="nav-item"><a href="https://github.com/ZTGeng" target="_blank" class="nav-link text-white">Github</a></li>
+                <li class="nav-item"><a href="https://www.linkedin.com/in/zhitao-geng-48766331/" target="_blank" class="nav-link text-white">LinkedIn</a></li>
+                <li class="nav-item"><a href="./blog/" class="nav-link text-white">Blogs</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <!-- Navigation Bar -->
+            <nav class="navbar navbar-expand-lg bg-body-secondary mb-4">
+                <div class="container-fluid">
+                    <a id="nav_title" class="navbar-brand" href="#">Geng's Website</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./games/">Games</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./tool/">Tools</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./math/">Math</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./blog/">Blogs</a>
+                        </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Portfolio Items -->
+            <div id="portfolioItems" class="row row-cols-1 row-cols-md-3 g-4"></div>
+        </div>
+    </div>
+
+    <hr>
     <footer>
-        <p>&copy; Copyright by Geng</p>
+        <div id="footer-copyright">
+            <p>© 2023 by @ztgeng</p>
+        </div>
     </footer>
-    <script>
-        var canvas = document.getElementById('canvas');
-        var ctx = canvas.getContext('2d');
-        var circles = [];
-        var width = canvas.width, height = canvas.height;
-        var centerX = width / 2, centerY = height / 2;
-        var circleR = 40;
+</div>
 
-        function Circle(cx, cy, r, str, url) {
-            this.x = cx;
-            this.y = cy;
-            this.r = r;
-            this.vx = 0.5;
-            this.vy = 0.5;
-            this.movable = true;
-            this.str = str;
-            this.url = url;
-            this.draw = function() {
-                ctx.beginPath();
-                ctx.moveTo(this.x, this.y);
-                ctx.lineTo(centerX, centerY);
-                ctx.closePath();
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-                ctx.closePath();
-                ctx.fillStyle = "rgb(255,255,255)";
-                ctx.fill();
-                ctx.stroke();
-                ctx.fillStyle = "rgb(0,0,0)";
-                ctx.fillText(str, this.x - this.r + 5, this.y + 8, this.r * 2);
-            };
-            this.contains = function(px, py) {
-                return (px - this.x) * (px - this.x) + (py - this.y) * (py - this.y) < this.r * this.r;
-            };
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-zVkmR0v1Mps9lL8H4eDlDZ98eD2u2QT4Cc5eA9Z4esuBvGp0+J3JtRr6pGgjfdGc" crossorigin="anonymous"></script>
+<script>
+    const translations = {
+        "en": {
+            "web_title": "Geng's Website",
+            "my_intro": "Welcome to my website! I'm Geng Zhitao, once a biology researcher and science editor in China, now an Android developer in Bay Area. This website is a playful collection of JavaScript games and Vue apps I've spun up along my learning journey, also where I spill my thoughts and discoveries in casual blog posts.",
+            "portfolio_items": [
+                {
+                    title: "Colorful Text",
+                    intro: "Customize your dynamic text with vibrant gradients.",
+                    imageSrc: "./tool/colorfultext/colorfultext.png",
+                    src: "./tool/colorfultext/colorfultext.html"
+                },
+                {
+                    title: "Venn Diagram",
+                    intro: "Craft personalized Venn diagrams with ease.",
+                    imageSrc: "./tool/venn/venn.png",
+                    src: "./tool/venn/venn.html"
+                },
+                {
+                    title: "Coin Puzzel",
+                    intro: "Discover the unique coin among twelve using only three balance attempts.",
+                    imageSrc: "./math/images/coins2.png",
+                    src: "./math/coins/coins2.html"
+                },
+                {
+                    title: "Mine Sweeper Liar",
+                    intro: "Navigate a deceitful grid of Mine Sweeper where discerning truth from lies is the real minefield.",
+                    imageSrc: "./games/images/lie-sweeper.png",
+                    src: "./games/minesweeper/liesweeper.html"
+                },
+                {
+                    title: "Catch Smelly Cat",
+                    intro: "Trap Smelly Cat in a minefield of mischief without disturbing the treacherous poop clues!",
+                    imageSrc: "./games/images/cat-poo.png",
+                    src: "./games/catchcat/catchcatpoo.html"
+                },
+                {
+                    title: "Tetris Reverse",
+                    intro: "Unbuild the rising chaos in Tetris by slicing away shapes before the blocks reach the top!",
+                    imageSrc: "./games/images/tetris-reverse.png",
+                    src: "./games/tetris/tetrisreverse.html"
+                },
+            ]
+        },
+        "zh": {
+            "web_title": "小耿的网站",
+            "my_intro": "欢迎光临我的网站！我是耿志涛，生物狗转行程序猿，坐标湾区。这个网站是我学习 JavaScript 和 Vue 的过程中随手做的一些小游戏和 Web 应用，以及一个手搓的 Markdown 解析器和它实现的博客。粗陋不堪，贻笑大方。",
+            "portfolio_items": [
+                {
+                    title: "舍简从繁",
+                    intro: "中文简体转繁体工具。当有多个对应字时，列出所有选项让使用者自行选择。",
+                    imageSrc: "./tool/images/zhs2t.png",
+                    src: "./tool/zhs2t.html"
+                },
+                {
+                    title: "动态文字渐变",
+                    intro: "用丰富多彩的渐变色彩定制你的动态文字。",
+                    imageSrc: "./tool/colorfultext/colorfultext.png",
+                    src: "./tool/colorfultext/colorfultext.html"
+                },
+                {
+                    title: "维恩图",
+                    intro: "轻松绘制个性化的维恩图。",
+                    imageSrc: "./tool/venn/venn.png",
+                    src: "./tool/venn/venn.html"
+                },
+                {
+                    title: "硬币谜题",
+                    intro: "用三次天平称重找出唯一的假币。",
+                    imageSrc: "./math/images/coins2.png",
+                    src: "./math/coins/coins2.html"
+                },
+                {
+                    title: "扫雷之数字会说谎",
+                    intro: "穿梭于充满欺骗的雷区，辨别数字真伪是真正的挑战。",
+                    imageSrc: "./games/images/lie-sweeper.png",
+                    src: "./games/minesweeper/liesweeper.html"
+                },
+                {
+                    title: "抓猫之猫屎扫雷",
+                    intro: "在充满猫屎的雷区里抓住臭猫猫。",
+                    imageSrc: "./games/images/cat-poo.png",
+                    src: "./games/catchcat/catchcatpoo.html"
+                },
+            ]
         }
+    }
 
-        var drawName = function(x, y, r) {
-            ctx.beginPath();
-            ctx.arc(x, y, r, 0, Math.PI * 2);
-            ctx.closePath;
-            ctx.fillStyle = "rgb(255,255,255)";
-            ctx.fill();
-            ctx.stroke();
-            ctx.fillStyle = "rgb(0,0,0)";
-            ctx.fillText("ZHITAO", x - r * 0.8, y, r * 2);
-            ctx.fillText("GENG", x - r * 0.8, y + 20, r * 2);
-        };
+    function createPortfolioItem(item) {
+        const colDiv = document.createElement('div');
+        colDiv.className = 'col';
 
-        ctx.font = "20px Arial";
-        var cv = new Circle(250, 200, circleR, "CV", "cv.html");
-        circles.push(cv);
-        var game = new Circle(150, 400, circleR, "Game", "games/index.html");
-        circles.push(game);
-        var math = new Circle(500, 150, circleR, "Math", "math/index.html");
-        circles.push(math);
-        var git = new Circle(600, 350, circleR, "Github", "https://github.com/ZTGeng/");
-        circles.push(git);
-        var tool = new Circle(350, 450, circleR, "Tool", "tool/index.html");
-        circles.push(tool);
-        var blog = new Circle(400, 100, circleR, "Blog", "blog/index.html");
-        circles.push(blog);
+        const cardDiv = document.createElement('a');
+        cardDiv.className = 'card h-100 text-decoration-none';
+        cardDiv.href = item.src;
 
-        var move = function() {
-            ctx.clearRect(0, 0, width, height);
-            for (var i = 0; i < circles.length; i++) {
-                var circle = circles[i];
-                if (circle.movable) {
-                    circle.x += circle.vx;
-                    if (circle.x < circleR) circle.x = circleR;
-                    if (circle.x > width - circleR) circle.x = width - circleR;
-                    circle.y += circle.vy;
-                    if (circle.y < circleR) circle.y = circleR;
-                    if (circle.y > height - circleR) circle.y = height - circleR;
-                }
-                circle.draw();
-            }
-            drawName(centerX, centerY, circleR + 10);
-        }
+        const img = document.createElement('img');
+        img.className = 'card-img-top';
+        img.src = item.imageSrc;
+        img.alt = item.title;
 
-        var turn = function() {
-            for (var i = 0; i < circles.length; i++) {
-                circles[i].vx = Math.random() * 2 - 1;
-                circles[i].vy = Math.random() * 2 - 1;
-            }
-        };
-        turn();
+        const cardBodyDiv = document.createElement('div');
+        cardBodyDiv.className = 'card-body';
 
-        setInterval(move, 75);
-        setInterval(turn, 3000);
+        const cardTitle = document.createElement('h5');
+        cardTitle.className = 'card-title';
+        cardTitle.textContent = item.title;
 
-        canvas.addEventListener("mousemove", function(event) {
-            for (var i = 0; i < circles.length; i++) {
-                var circle = circles[i];
-                if (circle.contains(event.offsetX, event.offsetY)) {
-                    circle.movable = false;
-                    circle.r = circleR + 10;
-                    break;
-                } else {
-                    circle.movable = true;
-                    circle.r = circleR;
-                }
-            }
+        const cardText = document.createElement('p');
+        cardText.className = 'card-text';
+        cardText.textContent = item.intro;
+
+        // Appending elements together
+        cardBodyDiv.appendChild(cardTitle);
+        cardBodyDiv.appendChild(cardText);
+
+        cardDiv.appendChild(img);
+        cardDiv.appendChild(cardBodyDiv);
+
+        colDiv.appendChild(cardDiv);
+
+        return colDiv;
+    }
+
+    function main() {
+        const userLang = navigator.language || navigator.userLanguage;
+        const translation = translations[userLang.slice(0, 2)] || translations["en"];
+
+        document.title = translation["web_title"];
+        document.getElementById("my_intro").textContent = translation["my_intro"];
+        document.getElementById("nav_title").textContent = translation["web_title"];
+        const portfolioContainer = document.getElementById("portfolioItems");
+        translation["portfolio_items"].forEach(item => {
+            portfolioContainer.appendChild(createPortfolioItem(item));
         });
-        canvas.addEventListener("click", function(event) {
-            for (var i = 0; i < circles.length; i++) {
-                if (!circles[i].movable) {
-                    window.location.href = circles[i].url;
-                }
-            }
-        });
-    </script>
+    }
+
+    window.onload = main;
+</script>
 </body>
 </html>
