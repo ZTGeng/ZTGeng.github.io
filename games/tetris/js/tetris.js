@@ -385,16 +385,19 @@ var main = function() {
         var row = $('<div id="row' + ri + '" class="row no-gutters row-cols-10"></div>').appendTo($('#field'));
         for (var ci = 0; ci < COL_NUM; ci++) {
             var grid = $('<div id="g' + ri + '_' + ci + '" class="grid col border border-light"></div>').appendTo(row);
+            grid.css('padding-bottom', (100 / COL_NUM) + '%');
         }
     }
 
     var row_next_0 = $('<div class="row no-gutters row-cols-4"></div>').appendTo($('#next'));
     for (var i = 0; i < 4; i++) {
         var grid = $('<div id="n0_' + i + '" class="grid_next col border border-light"></div>').appendTo(row_next_0);
+        grid.css('padding-bottom', '25%');
     }
     var row_next_1 = $('<div class="row no-gutters row-cols-4"></div>').appendTo($('#next'));
     for (var i = 0; i < 4; i++) {
         var grid = $('<div id="n1_' + i + '" class="grid_next col border border-light"></div>').appendTo(row_next_1);
+        grid.css('padding-bottom', '25%');
     }
 
     $("#start").on('click', () => {
