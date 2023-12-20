@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geng's Website</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="/shared/bootstrap-5.3.2.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -60,18 +60,12 @@
         </div>
     </div>
 
-    <hr>
-    <footer>
-        <div id="footer-copyright">
-            <p>© 2023 by @ztgeng</p>
-        </div>
-    </footer>
+    <div id="footer"></div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-zVkmR0v1Mps9lL8H4eDlDZ98eD2u2QT4Cc5eA9Z4esuBvGp0+J3JtRr6pGgjfdGc" crossorigin="anonymous"></script>
+<script src="/shared/bootstrap-5.3.2.bundle.min.js"></script>
+<script src="/shared/loadSharedUI.js"></script>
 <script>
-    const langEn = document.getElementById("lang_en");
-    const langZh = document.getElementById("lang_zh");
     const translations = {
         "en": {
             "web_title": "Geng's Website",
@@ -195,32 +189,34 @@
         return colDiv;
     }
 
-    function switchLanguage(lang) {
-        const translation = translations[lang];
+    function main() {
+        const langEn = document.getElementById("lang_en");
+        const langZh = document.getElementById("lang_zh");
+        function switchLanguage(lang) {
+            const translation = translations[lang];
 
-        if (lang === "zh") {
-            langEn.classList.add("link-primary");
-            langEn.classList.remove("link-secondary", "disabled");
-            langZh.classList.add("link-secondary", "disabled");
-            langZh.classList.remove("link-primary");
-        } else {
-            langEn.classList.add("link-secondary", "disabled");
-            langEn.classList.remove("link-primary");
-            langZh.classList.add("link-primary");
-            langZh.classList.remove("link-secondary", "disabled");
+            if (lang === "zh") {
+                langEn.classList.add("link-primary");
+                langEn.classList.remove("link-secondary", "disabled");
+                langZh.classList.add("link-secondary", "disabled");
+                langZh.classList.remove("link-primary");
+            } else {
+                langEn.classList.add("link-secondary", "disabled");
+                langEn.classList.remove("link-primary");
+                langZh.classList.add("link-primary");
+                langZh.classList.remove("link-secondary", "disabled");
+            }
+
+            document.title = translation["web_title"];
+            document.getElementById("my_intro").textContent = translation["my_intro"];
+            document.getElementById("nav_title").textContent = translation["web_title"];
+            const portfolioContainer = document.getElementById("portfolioItems");
+            portfolioContainer.innerHTML = "";
+            translation["portfolio_items"].forEach(item => {
+                portfolioContainer.appendChild(createPortfolioItem(item));
+            });
         }
 
-        document.title = translation["web_title"];
-        document.getElementById("my_intro").textContent = translation["my_intro"];
-        document.getElementById("nav_title").textContent = translation["web_title"];
-        const portfolioContainer = document.getElementById("portfolioItems");
-        portfolioContainer.innerHTML = "";
-        translation["portfolio_items"].forEach(item => {
-            portfolioContainer.appendChild(createPortfolioItem(item));
-        });
-    }
-
-    function main() {
         const userLang = navigator.language || navigator.userLanguage;
         const lang = userLang.slice(0, 2) || "en";
         switchLanguage(lang);

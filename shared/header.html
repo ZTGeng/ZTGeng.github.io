@@ -1,0 +1,72 @@
+<!-- Path: shared/header.html -->
+<header>
+    <div id="nav-en">
+        <nav class="navbar navbar-expand-lg bg-body-secondary">
+            <div class="container-fluid">
+                <a id="nav_title" class="navbar-brand" href="/">Home</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link nav-games" href="/games/">Games</a></li>
+                        <li class="nav-item"><a class="nav-link nav-tools" href="/tool/">Tools</a></li>
+                        <li class="nav-item"><a class="nav-link nav-math" href="/math/">Math</a></li>
+                        <li class="nav-item"><a class="nav-link nav-blogs" href="/blog/">Blogs</a></li>
+                    </ul>
+                    <div class="lang-switcher" hidden>
+                        <div class="d-flex small">
+                            <a id="lang_en" href="javascript:void(0)" class="nav-link me-2 link-secondary disabled">English</a>
+                            <a id="lang_zh" href="javascript:document.getElementById('nav-zh').removeAttribute('hidden');document.getElementById('nav-en').setAttribute('hidden','');onZh()" class="nav-link link-primary">中文</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '|';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item breadcrumb-games" hidden><a href="/games/">Games</a></li>
+                <li class="breadcrumb-item breadcrumb-tools" hidden><a href="/tool/">Tools</a></li>
+                <li class="breadcrumb-item breadcrumb-math" hidden><a href="/math/">Math</a></li>
+                <li class="breadcrumb-item breadcrumb-blogs" hidden><a href="/blog/">Blogs</a></li>
+                <li class="breadcrumb-item breadcrumb-page active" aria-current="page" hidden></li>
+            </ol>
+        </nav>
+    </div>
+    
+    <div id="nav-zh" hidden>
+        <nav class="navbar navbar-expand-lg bg-body-secondary">
+            <div class="container-fluid">
+                <a id="nav_title" class="navbar-brand" href="/">首页</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link nav-games" href="/games/">游戏</a></li>
+                        <li class="nav-item"><a class="nav-link nav-tools" href="/tool/">应用</a></li>
+                        <li class="nav-item"><a class="nav-link nav-math" href="/math/">数学</a></li>
+                        <li class="nav-item"><a class="nav-link nav-blogs" href="/blog/">文章</a></li>
+                    </ul>
+                    <div class="lang-switcher" hidden>
+                        <div class="d-flex small">
+                            <a id="lang_en" href="javascript:document.getElementById('nav-en').removeAttribute('hidden');document.getElementById('nav-zh').setAttribute('hidden','');onEn()" class="nav-link me-2 link-primary">English</a>
+                            <a id="lang_zh" href="javascript:void(0)" class="nav-link link-secondary disabled">中文</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '|';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">首页</a></li>
+                <li class="breadcrumb-item breadcrumb-games" hidden><a href="/games/">游戏</a></li>
+                <li class="breadcrumb-item breadcrumb-tools" hidden><a href="/tool/">应用</a></li>
+                <li class="breadcrumb-item breadcrumb-math" hidden><a href="/math/">数学</a></li>
+                <li class="breadcrumb-item breadcrumb-blogs" hidden><a href="/blog/">文章</a></li>
+                <li class="breadcrumb-item breadcrumb-page active" aria-current="page" hidden></li>
+            </ol>
+        </nav>
+    </div>
+</header>
