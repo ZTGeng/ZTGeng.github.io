@@ -6,14 +6,14 @@
 (function() {
     Vue.component('item-cell', {
         props: ['item'],
-        template: `<div class="col-2 pl-0 pr-2 pb-2">
+        template: `<div class="col-2 ps-0 pe-2 pb-2">
         <div class="border p-2">
             <a :href="item.url || '#'" :target="item.url ? '_blank' : '_self'">
                 <img :src="item.imgUrl || 'images/placeholder.jpg'" class="img-thumbnail">
                 {{ item.name }}
             </a>
             <div class="d-flex flex-wrap mt-2">
-                <small v-for="tag in item.tags" class="border border-light bg-light rounded mr-1 mb-1 px-1">{{ tag }}</small>
+                <small v-for="tag in item.tags" class="border border-light bg-light rounded me-1 mb-1 px-1">{{ tag }}</small>
             </div>
         </div>
         </div>`
@@ -38,9 +38,9 @@
             }
         },
         template: `<div class="d-flex flex-wrap align-items-center p-2">
-            <strong class="mr-2 mb-2">{{ filter.name }}</strong>
-            <div :class="{ active: noSelected }" @click="reset" class="btn btn-light btn-sm mr-2 mb-2">全部</div>
-            <div v-for="tag in filter.tags" :class="{ active: tag.selected }" @click="onClick(tag)" class="btn btn-light btn-sm mr-2 mb-2">
+            <strong class="me-2 mb-2">{{ filter.name }}</strong>
+            <div :class="{ active: noSelected }" @click="reset" class="btn btn-light btn-sm me-2 mb-2">全部</div>
+            <div v-for="tag in filter.tags" :class="{ active: tag.selected }" @click="onClick(tag)" class="btn btn-light btn-sm me-2 mb-2">
                 {{ tag.name }}
             </div>
         </div>`

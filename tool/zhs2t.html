@@ -9,34 +9,13 @@
     <meta name="description" content="Chinese Simplified to Traditional">
     <meta name="author" content="Geng">
 
-    <link
-        rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="/shared/bootstrap-5.3.2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
 </head>
 
 <body>
     <div class="container">
-        <header>
-            <div id="header-nav">
-                <ul class="nav nav-tabs">
-                    <li role="presentation" class="nav-item"><a class="nav-link" href="/index.html">HOME</a></li>
-                    <li role="presentation" class="nav-item"><a class="nav-link" href="/cv.html">My CV</a></li>
-                    <li role="presentation" class="nav-item"><a class="nav-link" href="/games/index.html">GAME</a></li>
-                    <li role="presentation" class="nav-item"><a class="nav-link" href="/math/index.html">MATH</a></li>
-                    <li role="presentation" class="nav-item"><a class="nav-link active" href="/tool/index.html">TOOL</a></li>
-                    <li role="presentation" class="nav-item"><a class="nav-link" href="/blog/index.html">BLOG</a></li>
-                </ul>
-            </div>
-            <br>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="index.html">Tool</a></li>
-                <li class="breadcrumb-item active">Chinese Simplified to Traditional</li>
-            </ol>
-        </header>
+        <div id="header"></div>
         <h1 id="title">舍简从繁 <small>结合语境的中文简体转繁体工具</small></h1>
         <ul class="small text-secondary">
             <li>此工具可以标出常见的对应多个繁体字的简体字，并由使用者自行选字。此工具提供的选字提示和默认选字仅供参考，不可做为依据。</li>
@@ -56,7 +35,7 @@
                 <div class="col-xl col-lg-6 col-md-12" id="right-area" v-on:click="hideModal">
                     <div class="mb-2 form-inline">
                         <button type="button" class="btn btn-primary" v-on:click="convert">转换</button>
-                        <div class="custom-switch ml-2 mr-2">
+                        <div class="custom-switch ms-2 me-2">
                             <input type="checkbox" class="custom-control-input align-middle" id="rareCharSwitch" v-model="showRareChar">
                             <label class="custom-control-label align-middle" for="rareCharSwitch">
                                 <abbr title="为罕见的转换关系提供选项" class="initialism text-decoration-none">罕见字义</abbr>
@@ -87,14 +66,11 @@
             </div>
         </div>
 
-        <hr>
-
-        <footer>
-            <div id="footer-copyright"><p> &copy; Copyright by Geng </p></div>
-        </footer>
+        <div id="footer"></div>
     </div>
 
 </body>
+<script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="tools" data-breadcrumb-page="舍简从繁"></script>
 <script type="text/javascript" src="js/zhmap.js"></script>
 <script type="text/javascript" src="js/zhs2t.js"></script>
 </html>

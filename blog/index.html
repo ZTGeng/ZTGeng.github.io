@@ -18,7 +18,7 @@
             </div>
             <div class="col-sm-12 col-md-3 pt-3 pb-3">
                 <div class="d-flex justify-content-between">
-                    <h3 id="list_title" class="float-left">{{ listTitle }}</h3>
+                    <h3 id="list_title" class="float-start">{{ listTitle }}</h3>
                 </div>
                 <div id="list" class="list-group">
                     <a v-for="(post, index) in postList" :href="`#post${post.filename}`"
@@ -40,7 +40,7 @@
         <div id="footer"></div>
     </div>
 
-    <script type="text/javascript" src="/shared/loadSharedUI.js" data-activetab="blogs"></script>
+    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="blogs"></script>
     <script type="text/javascript">
         const { createApp } = Vue
         const app = createApp({

@@ -9,137 +9,119 @@
     <meta name="description" content="equations">
     <meta name="author" content="Geng">
 
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/shared/bootstrap-5.3.2.min.css">
     <link rel="stylesheet" type="text/css" href="css/equations4.css">
     <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/shared/bootstrap-5.3.2.bundle.min.js"></script>
     <script type="text/javascript" src="js/equations4.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <header>
-            <div id="header-nav"></div>
-            <br>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="index.html">Math</a></li>
-                <li class="breadcrumb-item active">Linear System</li>
-            </ol>
-        </header>
+        <div id="header"></div>
+        <h1 id="problem-name">System of Linear Equations <small>coefficients = 1</small></h1>
         <div class="text-center">
-            <h1 id="problem-name">System of Linear Equations <small>coefficients = 1</small></h1>
             <div>
-                <ol id="rule">
-                </ol>
-            </div>
-
-            <div>
-                <div>
-                        <label class="btn btn-secondary"  id="two-v-button">
-                            <input type="radio" name="color-lock" autocomplete="off"> <span id="two-v-span">Two Variables</span>
-                        </label>
-                        <label class="btn btn-secondary" id="three-v-button">
-                            <input type="radio" name="color-lock" autocomplete="off"> <span id="three-v-span">Three Variable</span>
-                        </label>
-                        <label class="btn btn-secondary" id="four-v-button">
-                            <input type="radio" name="color-lock" autocomplete="off" checked> <span id="four-v-span">Four Variables</span>
-                        </label>
+                <div class="mb-2">
+                    <label class="btn btn-secondary"  id="two-v-button">
+                        <input type="radio" name="color-lock" autocomplete="off"> <span id="two-v-span">Two Variables</span>
+                    </label>
+                    <label class="btn btn-secondary" id="three-v-button">
+                        <input type="radio" name="color-lock" autocomplete="off"> <span id="three-v-span">Three Variable</span>
+                    </label>
+                    <label class="btn btn-secondary" id="four-v-button">
+                        <input type="radio" name="color-lock" autocomplete="off" checked> <span id="four-v-span">Four Variables</span>
+                    </label>
                 </div>
 
-                <div id="equation-list">
+                <div id="equation-list" class="mb-2">
                     <form class="two-v-equations row justify-content-md-center" id="equation-a-b">
                         <div class="equation text-primary col row" id="equation-a-add-b">
-                            <label for="constant-a-add-b" class="col control-label text-right">a + b =</label>
+                            <label for="constant-a-add-b" class="col control-label text-end">a + b =</label>
                             <input type="number" class="col" id="constant-a-add-b">
                         </div>
                         <div class="equation text-primary col row" id="equation-a-sub-b">
-                            <label for="constant-a-sub-b" class="col control-label text-right">a - b =</label>
+                            <label for="constant-a-sub-b" class="col control-label text-end">a - b =</label>
                             <input type="number" class="col" id="constant-a-sub-b">
                         </div>
                     </form>
                     <form class="three-v-equations row justify-content-md-center" id="equation-a-c">
                         <div class="equation text-primary col row" id="equation-a-add-c">
-                            <label for="constant-a-add-c" class="col control-label text-right">a + c =</label>
+                            <label for="constant-a-add-c" class="col control-label text-end">a + c =</label>
                             <input type="number" class="col" id="constant-a-add-c">
                         </div>
                         <div class="equation text-primary col row" id="equation-a-sub-c">
-                            <label for="constant-a-sub-c" class="col control-label text-right">a - c =</label>
+                            <label for="constant-a-sub-c" class="col control-label text-end">a - c =</label>
                             <input type="number" class="col" id="constant-a-sub-c">
                         </div>
                     </form>
                     <form class="four-v-equations row justify-content-md-center" id="equation-a-d">
                         <div class="equation text-primary col row" id="equation-a-add-d">
-                            <label for="constant-a-add-d" class="col control-label text-right">a + d =</label>
+                            <label for="constant-a-add-d" class="col control-label text-end">a + d =</label>
                             <input type="number" class="col" id="constant-a-add-d">
                         </div>
                         <div class="equation text-primary col row" id="equation-a-sub-d">
-                            <label for="constant-a-sub-d" class="col control-label text-right">a - d =</label>
+                            <label for="constant-a-sub-d" class="col control-label text-end">a - d =</label>
                             <input type="number" class="col" id="constant-a-sub-d">
                         </div>
                     </form>
                     <form class="three-v-equations row justify-content-md-center" id="equation-b-c">
                         <div class="equation text-primary col row" id="equation-b-add-c">
-                            <label for="constant-b-add-c" class="col control-label text-right">b + c =</label>
+                            <label for="constant-b-add-c" class="col control-label text-end">b + c =</label>
                             <input type="number" class="col" id="constant-b-add-c">
                         </div>
                         <div class="equation text-primary col row" id="equation-b-sub-c">
-                            <label for="constant-b-sub-b" class="col control-label text-right">b - c =</label>
+                            <label for="constant-b-sub-b" class="col control-label text-end">b - c =</label>
                             <input type="number" class="col" id="constant-b-sub-c">
                         </div>
                     </form>
                     <form class="four-v-equations row justify-content-md-center" id="equation-b-d">
                         <div class="equation text-primary col row" id="equation-b-add-d">
-                            <label for="constant-b-add-d" class="col control-label text-right">b + d =</label>
+                            <label for="constant-b-add-d" class="col control-label text-end">b + d =</label>
                             <input type="number" class="col" id="constant-b-add-d">
                         </div>
                         <div class="equation text-primary col row" id="equation-b-sub-d">
-                            <label for="constant-b-sub-d" class="col control-label text-right">b - d =</label>
+                            <label for="constant-b-sub-d" class="col control-label text-end">b - d =</label>
                             <input type="number" class="col" id="constant-b-sub-d">
                         </div>
                     </form>
                     <form class="four-v-equations row justify-content-md-center" id="equation-c-d">
                         <div class="equation text-primary col row" id="equation-c-add-d">
-                            <label for="constant-c-add-d" class="col control-label text-right">c + d =</label>
+                            <label for="constant-c-add-d" class="col control-label text-end">c + d =</label>
                             <input type="number" class="col" id="constant-c-add-d">
                         </div>
                         <div class="equation text-primary col row" id="equation-c-sub-d">
-                            <label for="constant-c-sub-d" class="col control-label text-right">c - d =</label>
+                            <label for="constant-c-sub-d" class="col control-label text-end">c - d =</label>
                             <input type="number" class="col" id="constant-c-sub-d">
                         </div>
                     </form>
                 </div>
 
-                <div>
-                    <div class="row text-left">
-                        <div class="col-xs-6 col-md-3">a = <span class="result" id="result-a"></span></div>
-                        <div class="col-xs-6 col-md-3">b = <span class="result" id="result-b"></span></div>
-                        <div class="col-xs-6 col-md-3 three-v-equations">c = <span class="result" id="result-c"></span></div>
-                        <div class="col-xs-6 col-md-3 four-v-equations">d = <span class="result" id="result-d"></span></div>
-                    </div>
+                <div class="row text-start">
+                    <div class="col-xs-6 col-md-3">a = <span class="result" id="result-a"></span></div>
+                    <div class="col-xs-6 col-md-3">b = <span class="result" id="result-b"></span></div>
+                    <div class="col-xs-6 col-md-3 three-v-equations">c = <span class="result" id="result-c"></span></div>
+                    <div class="col-xs-6 col-md-3 four-v-equations">d = <span class="result" id="result-d"></span></div>
                 </div>
             </div>
         </div>
 
-        <hr>
-
-        <footer>
-            <div id="footer-copyright"></div>
-        </footer>
+        <div id="footer"></div>
     </div>
 
+    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="math" data-breadcrumb-page="Linear System" data-breadcrumb-page-zh="四元一次方程组"></script>
     <script type="text/javascript">
-        $('#header-nav').load("/nav.html", () => { $("#nav-math").addClass("active"); });
-        $('#footer-copyright').load("/copyright.html");
-		var lang = navigator.language;
-		if (lang.slice(0, 2) === "zh") {
-			$('#title').text("四元一次方程组");
-			$('#problem-name').html("四元一次方程组 <small>所有系数为1</small>");
-            $('#two-v-span').text("二元一次方程组");
-            $('#three-v-span').text("三元一次方程组");
-            $('#four-v-span').text("四元一次方程组");
-        }
-		</script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let lang = navigator.language;
+            if (lang.slice(0, 2) === "zh") {
+                document.title = "四元一次方程组";
+                document.getElementById("problem-name").innerHTML = "四元一次方程组 <small>所有系数为1</small>";
+                document.getElementById("two-v-span").textContent = "二元一次方程组";
+                document.getElementById("three-v-span").textContent = "三元一次方程组";
+                document.getElementById("four-v-span").textContent = "四元一次方程组";
+            }
+        });
+	</script>
 </body>
 
 </html>

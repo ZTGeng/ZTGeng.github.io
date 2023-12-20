@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }).then(data => {
             document.getElementById('header').innerHTML = data;
         }).then(() => {
-            const activeTab = currentScript.getAttribute('data-activetab');
+            const activeTab = currentScript.getAttribute('data-active-tab');
             if (activeTab) {
                 let tabs = document.getElementsByClassName('nav-' + activeTab);
                 for (let i = 0; i < tabs.length; i++) {
@@ -27,13 +27,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 for (let i = 0; i < breadcrumbCatalogs.length; i++) {
                     breadcrumbCatalogs[i].removeAttribute('hidden');
                 }
-                const breadcrumbPage = currentScript.getAttribute('data-breadcrumbpage');
-                if (breadcrumbPage) {
-                    let breadcrumbPages = document.getElementsByClassName('breadcrumb-page');
-                    for (let i = 0; i < breadcrumbPages.length; i++) {
-                        breadcrumbPages[i].textContent = breadcrumbPage;
-                        breadcrumbPages[i].removeAttribute('hidden');
-                    }
+                const breadcrumbPageTitle = currentScript.getAttribute('data-breadcrumb-page');
+                if (breadcrumbPageTitle) {
+                    let breadcrumbPageEn = document.getElementById('breadcrumb-page-en');
+                    breadcrumbPageEn.textContent = breadcrumbPageTitle;
+                    breadcrumbPageEn.removeAttribute('hidden');
+                    let breadcrumbPageZh = document.getElementById('breadcrumb-page-zh');
+                    const breadcrumbPageTitleZh = currentScript.getAttribute('data-breadcrumb-page-zh');
+                    breadcrumbPageZh.textContent = breadcrumbPageTitleZh || breadcrumbPageTitle;
+                    breadcrumbPageZh.removeAttribute('hidden');
                 } else {
                     for (let i = 0; i < breadcrumbCatalogs.length; i++) {
                         breadcrumbCatalogs[i].textContent = breadcrumbCatalogs[i].textContent;
@@ -49,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('nav-en').setAttribute('hidden', '');
             }
 
-            const isLangEnabled = currentScript.getAttribute('data-langenabled');
+            const isLangEnabled = currentScript.getAttribute('data-lang-enabled');
             if (isLangEnabled === 'true') {
                 let langSwitchers = document.getElementsByClassName('lang-switcher');
                 for (let i = 0; i < langSwitchers.length; i++) {
@@ -61,14 +63,14 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 function onEn() {
     console.log('en');
-    if (currentScript.hasAttribute('data-encallback')) {
+    if (currentScript.hasAttribute('data-en-callback')) {
         const callback = currentScript.getAttribute('data-encallback');
         window[callback]();
     }
 }
 function onZh() {
     console.log('zh');
-    if (currentScript.hasAttribute('data-zhcallback')) {
+    if (currentScript.hasAttribute('data-zh-callback')) {
         const callback = currentScript.getAttribute('data-zhcallback');
         window[callback]();
     }

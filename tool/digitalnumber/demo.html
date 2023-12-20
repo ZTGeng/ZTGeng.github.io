@@ -6,29 +6,12 @@
     <title>Digital Number JS Demo</title>
     <meta name="description" content="Digital NUmber JS Demo">
     <meta name="author" content="Geng">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="/shared/bootstrap-5.3.2.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
-        <header>
-            <div id="header-nav">
-                <ul class="nav nav-tabs">
-                    <li role="presentation" class="nav-item"><a class="nav-link" href="/index.html">HOME</a></li>
-                    <li role="presentation" class="nav-item"><a class="nav-link" href="/cv.html">My CV</a></li>
-                    <li role="presentation" class="nav-item"><a class="nav-link" href="/games/index.html">GAME</a></li>
-                    <li role="presentation" class="nav-item"><a class="nav-link" href="/math/index.html">MATH</a></li>
-                    <li role="presentation" class="nav-item"><a class="nav-link active" href="/tool/index.html">TOOL</a></li>
-                    <li role="presentation" class="nav-item"><a class="nav-link" href="/blog/index.html">BLOG</a></li>
-                </ul>
-            </div>
-            <br>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="/tool/index.html">Tool</a></li>
-                <li class="breadcrumb-item active">Digital Number JS</li>
-            </ol>
-        </header>
+        <div id="header"></div>
 
         <h1>Digital Numbers JS Demo</h1>
         <ul class="small text-secondary">
@@ -56,7 +39,7 @@
         </code></pre>
         <br>
         <div class="d-inline">
-            <button id="random-number-button" class="btn btn-primary mb-1 mr-2">点击刷新数字 -></button>
+            <button id="random-number-button" class="btn btn-primary mb-1 me-2">点击刷新数字 -></button>
             <div class="digital-numbers-js" id="random-number">123</div>
         </div>
         <pre class="bg-dark text-white p-3"><code>
@@ -88,13 +71,10 @@
     &lt;div&gt;使用 &lt;code&gt;data-height&lt;/code&gt; 与 &lt;code&gt;data-color&lt;/code&gt; 自定义高度（px）与颜色：&lt;span class="digital-numbers-js" data-height="50" data-color="red"&gt;123&lt;/span&gt;&lt;/div&gt;
         </code></pre>
 
-        <hr>
-
-        <footer>
-            <div id="footer-copyright"><p> &copy; Copyright by Geng </p></div>
-        </footer>
+        <div id="footer"></div>
     </div>
 
+    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="tools" data-breadcrumb-page="Digital Numbers JS Demo" data-breadcrumb-page-zh="电子表数字样式"></script>
     <script>
         $("#random-number-button").on("click", function() {
             $("#random-number").text(("" + Math.random()).slice(2, 5));

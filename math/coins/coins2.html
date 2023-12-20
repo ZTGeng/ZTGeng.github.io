@@ -10,39 +10,31 @@
     <meta name="description" content="">
     <meta name="author" content="Geng">
 
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="/shared/bootstrap-5.3.2.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/coins.css" />
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../js/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="../../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/shared/bootstrap-5.3.2.bundle.min.js"></script>
     <script type="text/javascript" src="js/coins2.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <header>
-            <div id="header-nav"></div>
-            <br>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="../index.html">Math</a></li>
-                <li class="breadcrumb-item active">Weight the Coins</li>
-            </ol>
-        </header>
+        <div id="header"></div>
 
         <div>
             <h1 id="gameName">Weight the Coins</h1>
-            <ul>
+            <ul class="text-secondary">
                 <li><span id="tip1">Drag Coins to Pans. Then click Weight.</span></li>
                 <li><span id="tip2">You can Weight 3 Times.</span></li>
             </ul>
 
             <div class="text-center">
                 <div class="d-flex">
-                    <div class="btn-group mr-2">
+                    <div class="btn-group me-2">
                         <button id="reset" class="btn btn-primary">RESET</button>
                     </div>
-                    <div class="btn-group mr-auto">
+                    <div class="btn-group me-auto">
                         <button class="btn btn-primary" id="weight"> Weight </button>
                         <button class="btn btn-primary" id="clear"> Clear </button>
                     </div>
@@ -52,24 +44,24 @@
                         </button>
                     </div>
                 </div>
-                <div class="well text-left">
+                <div class="well text-start">
                     <ul id="output-en" class="list-unstyled"></ul>
                     <ul id="output-zh" class="list-unstyled"></ul>
                 </div>
                 <div class="d-flex justify-content-center align-items-center">
                     <div class="col-sm-3">
                         <div class="input-group align-items-center">
-                            <span id="answer1" class="input-group-addon mr-2">Your guess: The Coin </span>
-                            <select id="coin-num" class="form-control mr-2"></select>
+                            <span id="answer1" class="input-group-addon me-2">Your guess: The Coin </span>
+                            <select id="coin-num" class="form-control me-2"></select>
                             <span id="answer2" class="input-group-addon"></span>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="input-group align-items-center">
-                            <span id="answer3" class="input-group-addon mr-2"> is </span>
-                            <button id="heavy_light" type="button" class="btn btn-primary form-control heavier mr-2" aria-pressed="false" autocomplete="off"
+                            <span id="answer3" class="input-group-addon me-2"> is </span>
+                            <button id="heavy_light" type="button" class="btn btn-primary form-control heavier me-2" aria-pressed="false" autocomplete="off"
                                 data-heavier-text="Heavier" data-lighter-text="Lighter">
-                                <span class="mr-2" id="heavy_light_text">Heavier</span><span>&#8645;</span>
+                                <span class="me-2" id="heavy_light_text">Heavier</span><span>&#8645;</span>
                             </button>
                             <span id="answer4" class="input-group-addon"> than the others!</span>
                         </div>
@@ -91,37 +83,34 @@
             </div>
         </div>
 
-        <hr>
-
-        <footer>
-            <div id="footer-copyright"></div>
-        </footer>
+        <div id="footer"></div>
     </div>
+    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="math" data-breadcrumb-page="Weight the Coins" data-breadcrumb-page-zh="称硬币"></script>
     <script type="text/javascript">
-        $('#header-nav').load("/nav.html", () => { $("#nav-math").addClass("active"); });
-        $('#footer-copyright').load("/copyright.html");
-        var lang = navigator.language;
-		if (lang.slice(0, 2) === "zh") {
-			$('#title').text("称硬币");
-			$('#gameName').text("称硬币");
-			$('#reset').text("重新开始");
-			$('#weight').text("称重");
-			$('#clear').text("重置");
-			$('#tip1').text("将硬币拖动到天平上。点击称重。");
-			$('#tip2').text("一共可以称重 3 次。");
-			$('#round-text').html('还可称重 <span class="badge" id="round-num">3</span> 次');
-			$('#answer1').text("请回答：第");
-			$('#answer2').text("号硬币");
-			$('#answer3').text("比其他硬币");
-			$('#answer4').text("");
-			$('#heavy_light_text').text(" 更重 ");
-			$('#heavy_light').data("heavier-text", "更重");
-			$('#heavy_light').data("lighter-text", "更轻");
-			$('#ok').text(" 确认 ");
-			$('#output-en').hide();
-		} else {
-			$('#output-zh').hide();
-        }
+        document.addEventListener("DOMContentLoaded", () => {
+            let lang = navigator.language;
+            if (lang.slice(0, 2) === "zh") {
+                document.title = "称硬币";
+                document.getElementById("gameName").textContent = "称硬币";
+                document.getElementById("tip1").textContent = "将硬币拖动到天平上。点击称重。";
+                document.getElementById("tip2").textContent = "一共可以称重 3 次。";
+                document.getElementById("reset").textContent = "重新开始";
+                document.getElementById("weight").textContent = "称重";
+                document.getElementById("clear").textContent = "重置";
+                document.getElementById("round-text").innerHTML = '还可称重 <span class="badge" id="round-num">3</span> 次';
+                document.getElementById("answer1").textContent = "请回答：第";
+                document.getElementById("answer2").textContent = "号硬币";
+                document.getElementById("answer3").textContent = "比其他硬币";
+                document.getElementById("answer4").textContent = "";
+                document.getElementById("heavy_light_text").textContent = " 更重 ";
+                document.getElementById("heavy_light").dataset.heavierText = "更重";
+                document.getElementById("heavy_light").dataset.lighterText = "更轻";
+                document.getElementById("ok").textContent = " 确认 ";
+                document.getElementById("output-en").style.display = "none";
+            } else {
+                document.getElementById("output-zh").style.display = "none";
+            }
+        });
     </script>
 </body>
 
