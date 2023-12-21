@@ -120,14 +120,14 @@ function createCarousel(catalog, lang="en") {
     prevButton.setAttribute("type", "button");
     prevButton.setAttribute("data-bs-target", "#" + carouselDiv.id);
     prevButton.setAttribute("data-bs-slide", "prev");
-    prevButton.innerHTML = '<span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span>';
+    prevButton.innerHTML = '<span class="carousel-control-prev-icon" style="background-color: #000000; border-radius: 10%" aria-hidden="true"></span><span class="visually-hidden">Previous</span>';
 
     const nextButton = document.createElement("button");
     nextButton.className = "carousel-control-next";
     nextButton.setAttribute("type", "button");
     nextButton.setAttribute("data-bs-target", "#" + carouselDiv.id);
     nextButton.setAttribute("data-bs-slide", "next");
-    nextButton.innerHTML = '<span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span>';
+    nextButton.innerHTML = '<span class="carousel-control-next-icon" style="background-color: #000000; border-radius: 10%" aria-hidden="true"></span><span class="visually-hidden">Next</span>';
 
     carouselDiv.appendChild(carouselInner);
     carouselDiv.appendChild(prevButton);

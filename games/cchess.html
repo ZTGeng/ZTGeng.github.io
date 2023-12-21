@@ -10,48 +10,36 @@
     <meta name="description" content="gomoku">
     <meta name="author" content="Geng">
 
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/shared/bootstrap-5.3.2.min.css">
     <link rel="stylesheet" type="text/css" href="css/cchess.css">
     <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/shared/bootstrap-5.3.2.bundle.min.js"></script>
     <script type="text/javascript" src="js/cchess.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <header>
-            <div id="header-nav"></div>
-            <br>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="index.html">Game</a></li>
-                <li class="breadcrumb-item active">Chinese Chess</li>
-            </ol>
-        </header>
+        <div id="header"></div>
 
+        <h1 id="gameName">Chinese Chess</h1>
         <div class="text-center">
-            <h1><span id="gameName">Chinese Chess</span> <small>v0.10</small></h1>
             <div id="field">
 
             </div>
-            <div class="row justify-content-center">
-                <div id="rbox" class="media mr-5">
-                    <img src="images/cchess/red.jpg" class="mr-2">
-                    <div class="media-body">
-                        <h3 id="rlabel" class="media-heading"> RED </h3>
-                        <h1><span id="rwin" class="label label-danger">WIN</span></h1>
-                        <h4><span id="rcheck" class="label label-danger">Check</span></h4>
-                    </div>
+            <div class="d-flex justify-content-center">
+                <img src="images/cchess/red.jpg" class="me-2">
+                <div class="me-4">
+                    <h3 id="rlabel" class="strong"> RED </h3>
+                    <h1><span id="rwin" class="strong text-danger">WIN</span></h1>
+                    <h4><span id="rcheck" class="strong text-danger">Check</span></h4>
                 </div>
+                <div>
+                    <h3 id="blabel" class="media-heading">BLACK</h3>
+                    <h1><span id="bwin" class="label label-danger">WIN</span></h1>
+                    <h4><span id="bcheck" class="label label-danger">Check</span></h4>
+                </div>
+                <img src="images/cchess/black.jpg" class="ms-2">
 
-                <div id="bbox" class="media">
-                    <div class="media-body">
-                        <h3 id="blabel" class="media-heading">BLACK</h3>
-                        <h1><span id="bwin" class="label label-danger">WIN</span></h1>
-                        <h4><span id="bcheck" class="label label-danger">Check</span></h4>
-                    </div>
-                    <img src="images/cchess/black.jpg" class="ml-2">
-                </div>
             </div>
             <br>
             <div class="panel penal-default">
@@ -60,16 +48,11 @@
             </div>
         </div>
 
-        <hr>
-
-        <footer>
-            <div id="footer-copyright"></div>
-        </footer>
+        <div id="footer"></div>
     </div>
 
+    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="games" data-breadcrumb-page="Chinese Chess" data-breadcrumb-page-zh="中国象棋"></script>
     <script type="text/javascript">
-        $('#header-nav').load("/nav.html", () => { $("#nav-game").addClass("active"); });
-        $('#footer-copyright').load("/copyright.html");
         var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
 			$('#title').text("中国象棋");
