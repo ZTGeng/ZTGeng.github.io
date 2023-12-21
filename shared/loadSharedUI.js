@@ -62,16 +62,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 function onEn() {
-    console.log('en');
-    if (currentScript.hasAttribute('data-en-callback')) {
-        const callback = currentScript.getAttribute('data-encallback');
+    const callback = currentScript.getAttribute('data-en-callback');
+    if (callback) {
         window[callback]();
     }
 }
 function onZh() {
-    console.log('zh');
-    if (currentScript.hasAttribute('data-zh-callback')) {
-        const callback = currentScript.getAttribute('data-zhcallback');
+    const callback = currentScript.getAttribute('data-zh-callback');
+    if (callback) {
         window[callback]();
     }
 }

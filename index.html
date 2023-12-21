@@ -193,7 +193,7 @@
         const langEn = document.getElementById("lang_en");
         const langZh = document.getElementById("lang_zh");
         function switchLanguage(lang) {
-            const translation = translations[lang];
+            const translation = translations[lang] || translations["en"];
 
             if (lang === "zh") {
                 langEn.classList.add("link-primary");
