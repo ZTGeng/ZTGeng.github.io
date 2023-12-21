@@ -10,70 +10,63 @@
     <meta name="description" content="gomoku">
     <meta name="author" content="Geng">
 
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/shared/bootstrap-5.3.2.min.css">
     <link rel="stylesheet" type="text/css" href="css/rps.css">
     <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/shared/bootstrap-5.3.2.bundle.min.js"></script>
     <script type="text/javascript" src="js/rps.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <header>
-            <div id="header-nav"></div>
-            <br>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="index.html">Game</a></li>
-                <li class="breadcrumb-item active">Rock Paper Scissors</li>
-            </ol>
-        </header>
+        <div id="header"></div>
 
+        <h1><span id="gameName">Rock Paper Scissors <small>HUMAN vs COMPUTER</small></span></h1>
         <div class="text-center">
-            <h1><span id="gameName">Rock Paper Scissors <small>HUMAN vs COMPUTER</small></span></h1>
+            
             <div></div>
             <div id="field">
                 <div>
-                    <p id="rule1" class="text-left">The selection of the computer will be calculated as below:</p>
+                    <p id="rule1" class="text-start">The selection of the computer will be calculated as below:</p>
                     <div class="row">
                         <div class="col-2 p-0"><input class="w-100" id="random-1" type="text" placeholder="random1" readonly></div>
                         <div class="col-1 p-0 h4">&nbsp;&plus;&nbsp;</div>
                         <div class="col-2 p-0"><input class="w-100" id="random-2" type="text" placeholder="random2" readonly></div>
                         <div class="col-1 p-0 h4">&nbsp;&equals;&nbsp;</div>
                         <div class="col-2 border-bottom h4" id="sum-3"></div>
-                        <div class="col-1 p-0 text-left"><sup class="h6">2</sup><span class="h4 col text-center">&nbsp;&equals;&nbsp;</span></div>
+                        <div class="col-1 p-0 text-start"><sup class="h6">2</sup><span class="h4 col text-center">&nbsp;&equals;&nbsp;</span></div>
                         <div class="col-3 border-bottom h4" id="square-4"></div>
                     </div>
                     <div class="row">
-                        <div class="col-2 offset-9 h4">&downarrow;&nbsp;<span id="reverse-text" style="font-size: 0.5rem;">reverse</span></div>
+                        <div class="col-2 offset-9 h4">&downarrow;&nbsp;<span id="reverse-text" class="fs-6">reverse</span></div>
                     </div>
                     <div class="row">
                         <div class="col-1 border-bottom h4" id="mod-8"></div>
                         <div class="col-2 p-0">
-                            <sub id="mod-text">mod 3</sub>
+                            <span id="mod-text" class="fs-6">mod 3</span>
                             <div class="h4" style="margin-top: -0.5rem">&nbsp;&leftarrow;&nbsp;</div>
                         </div>
                         <div class="col-1 border-bottom h4" id="odd-7"></div>
                         <div class="col-2 p-0">
-                            <sub id="odd-digits-text">odd digits</sub>
+                            <span id="odd-digits-text" class="fs-6">odd digits</span>
                             <div class="h4" style="margin-top: -0.5rem">&nbsp;&leftarrow;&nbsp;</div>
                         </div>
                         <div class="col-2 border-bottom h4" id="sqrt-6"></div>
                         <div class="col-1 p-0">
-                            <sub id="sqrt-text">sqrt</sub>
+                            <span id="sqrt-text" class="fs-6">sqrt</span>
                             <div class="h4" style="margin-top: -0.5rem">&nbsp;&leftarrow;&nbsp;</div>
                         </div>
                         <div class="col-3 border-bottom h4" id="reverse-5"></div>
                     </div>
                     <div class="row" id="com-results">
-                        <div id="com-result-0" class="col-2 h4 text-left">&equals;&nbsp;0&nbsp;&downarrow;</div>
-                        <div id="com-result-1" class="col-2 h4 text-left">&equals;&nbsp;1&nbsp;&downarrow;</div>
-                        <div id="com-result-2" class="col-2 h4 text-left">&equals;&nbsp;2&nbsp;&downarrow;</div>
+                        <div id="com-result-0" class="col-2 h4 text-start">&equals;&nbsp;0&nbsp;&downarrow;</div>
+                        <div id="com-result-1" class="col-2 h4 text-start">&equals;&nbsp;1&nbsp;&downarrow;</div>
+                        <div id="com-result-2" class="col-2 h4 text-start">&equals;&nbsp;2&nbsp;&downarrow;</div>
                     </div>
                     <div class="row">
-                        <div class="col-2 p-1"><img id="com-img-0" class="com-img img-fluid border rounded" src="images/rock-right.png"></div>
-                        <div class="col-2 p-1"><img id="com-img-1" class="com-img img-fluid border rounded" src="images/scissors-right.png"></div>
-                        <div class="col-2 p-1"><img id="com-img-2" class="com-img img-fluid border rounded" src="images/paper-right.png"></div>
+                        <div class="col-2 p-1"><img id="com-img-0" class="com-img img-fluid border rounded" src="images/rock-left.png"></div>
+                        <div class="col-2 p-1"><img id="com-img-1" class="com-img img-fluid border rounded" src="images/scissors-left.png"></div>
+                        <div class="col-2 p-1"><img id="com-img-2" class="com-img img-fluid border rounded" src="images/paper-left.png"></div>
                     </div>
                 </div>
                 <div id="result-text" class="border border-danger"></div>
@@ -92,10 +85,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-1 offset-2 h-100 my-auto">
+                    <div class="col-3 h-100 my-auto">
                         <button id="reset" class="btn btn-primary">PLAY</button>
                     </div>
-                    <div class="col-3  h-100 my-auto">
+                    <div class="col-3 h-100 my-auto">
                         <h4 class="text-danger" id="prompt">CLICK&gt;&gt;&gt;</h4>
                     </div>
                     <div class="col-6">
@@ -108,25 +101,22 @@
                 </div>
                 
                 <!-- Modal fullscreen -->
-                <div class="modal modal-fullscreen" id="modal-fullscreen" tabindex="-1" aria-hidden="true">
-                    <div class="modal-body text-center" id="countdown-body">
-                        <h1 class="modal-text" id="countdown-text"></h1>
+                <div class="modal" id="modal-fullscreen">
+                    <div class="modal-dialog modal-fullscreen" tabindex="-1" aria-hidden="true">
+                        <div class="modal-body text-center" id="countdown-body">
+                            <h1 class="modal-text" id="countdown-text"></h1>
+                        </div>
                     </div>
                 </div>
+                
             </div>
-            <br>
         </div>
 
-        <hr>
-
-        <footer>
-            <div id="footer-copyright"></div>
-        </footer>
+        <div id="footer"></div>
     </div>
 
+    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="games" data-breadcrumb-page="Rock Paper Scissors" data-breadcrumb-page-zh="石头剪刀布"></script>
     <script type="text/javascript">
-        $('#header-nav').load("/nav.html", () => { $("#nav-game").addClass("active"); });
-        $('#footer-copyright').load("/copyright.html");
         var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
 			$('#title').text("石头剪刀布");
@@ -139,7 +129,7 @@
             $('#prompt').text('快点>>>');
             $('#random-1').attr('placeholder', '随机数1');
             $('#random-2').attr('placeholder', '随机数2');
-            $('#mod-text').text('除以3的余数');
+            $('#mod-text').text('3的余数');
             $('#odd-digits-text').text('奇数位');
             $('#sqrt-text').text('开方');
             $('#reverse-text').text('反转');

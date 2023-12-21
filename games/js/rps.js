@@ -10,7 +10,8 @@ var timeout;
 var iszh = navigator.language.slice(0, 2) === "zh";
 
 function countdown(callback) {
-    $('#modal-fullscreen').modal("show");
+    let modal = new bootstrap.Modal('#modal-fullscreen');
+    modal.show();
     // console.log(3);
     modalshow("3");
     modalfade();

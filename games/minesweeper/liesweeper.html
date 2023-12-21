@@ -6,73 +6,58 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title id="title">Mine Sweeper Liar</title>
+    <title id="title">Minesweeper: Deceptive Digits</title>
     <meta name="author" content="Geng">
     <meta name="description" content="Mine Sweeper">
 
-    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/shared/bootstrap-5.3.2.min.css">
     <link rel="stylesheet" type="text/css" href="css/minesweeper.css">
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/shared/bootstrap-5.3.2.bundle.min.js"></script>
     <script type="text/javascript" src="js/liesweeper.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <header>
-            <div id="header-nav"></div>
-            <br>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="../index.html">Game</a></li>
-                <li class="breadcrumb-item active">Mine Sweeper Liar</li>
-            </ol>
-        </header>
+        <div id="header"></div>
 
-        <h2 id="gameName">Mine Sweeper Liar</h2>
-        <p id="rule">
-            Some numbers may be wrong (liars).<br>
-            Right click to mark wrong numbers.<br>
-            More than 1 live when playing 15 X 15 or bigger.
-        </p>
+        <h1 id="gameName">Minesweeper: Deceptive Digits</h1>
+        <ul id="rule" class="small text-secondary">
+            <li>Some numbers may be wrong (liars).</li>
+            <li>Right click to mark wrong numbers.</li>
+            <li>More than 1 live when playing 15 X 15 or bigger.</li>
+        </ul>
         <br>
-        <div class="row justify-content-center">
-            <div class="d-flex align-items-center mb-2">
-                <img src="../../octicons/svg/clock.svg">
-                <div type="text" class="ml-2" id="time"></div>
+        <div class="d-flex justify-content-center align-items-center mb-2">
+            <img src="../../octicons/svg/clock.svg">
+            <div type="text" class="ms-2" id="time"></div>
 
-                <img src="images/mine.png">
-                <div type="text" class="ml-2" id="mine-num"></div>
+            <img src="images/mine.png">
+            <div type="text" class="ms-2" id="mine-num"></div>
 
-                <label id="liar-label" class="mb-0">Liars:</label>
-                <div type="text" class="ml-2" id="liar-num"></div>
+            <label id="liar-label" class="mb-0">Liars:</label>
+            <div type="text" class="ms-2" id="liar-num"></div>
 
-                <label id="live-label" class="mb-0">Lives:</label>
-                <div type="text" class="ml-2" id="live-num"></div>
+            <label id="live-label" class="mb-0">Lives:</label>
+            <div type="text" class="ms-2" id="live-num"></div>
                 
-                <div id="buttons" class="btn-group mr-2" role="group">
-                    <button id="b10x10" class="btn btn-secondary">10 X 10</button>
-                    <button id="b15x15" class="btn btn-secondary">15 X 15</button>
-                    <button id="b30x15" class="btn btn-secondary">30 X 15</button>
-                </div>
-                <button id="reset" class="btn btn-secondary">RESET</button>
+            <div id="buttons" class="btn-group me-2" role="group">
+                <button id="b10x10" class="btn btn-secondary">10 X 10</button>
+                <button id="b15x15" class="btn btn-secondary">15 X 15</button>
+                <button id="b30x15" class="btn btn-secondary">30 X 15</button>
             </div>
+            <button id="reset" class="btn btn-secondary">RESET</button>
         </div>
         <div class="text-center">
             <div id="field" oncontextmenu="return false;"></div>
             <h2 id="result"></h2>
         </div>
 
-        <hr>
-
-        <footer>
-            <div id="footer-copyright"></div>
-        </footer>
+        <div id="footer"></div>
     </div>
 
+    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="games" data-breadcrumb-page="Minesweeper: Deceptive Digits" data-breadcrumb-page-zh="扫雷：数字会说谎"></script>
     <script type="text/javascript">
-        $('#header-nav').load("/nav.html", () => { $("#nav-game").addClass("active"); });
-        $('#footer-copyright').load("/copyright.html");
         var lang = navigator.language;
         if (lang.slice(0, 2) === "zh") {
             $('#title').text("扫雷：数字会说谎");
@@ -80,7 +65,7 @@
             $('#reset').text("重新开始");
             $('#liar-label').text("谎数");
             $('#live-label').text("命");
-            $('#rule').html("小心！部分数字可能是错的。<br>右击可标记错的数字。<br>15 X 15以上的游戏可有多于一条命。");
+            $('#rule').html("<li>小心！部分数字可能是错的。</li><li>右击可标记错的数字。</li><li>15 X 15以上的游戏可有多于一条命。</li>");
         }
     </script>
 </body>

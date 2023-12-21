@@ -5,74 +5,62 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Memory (Hard)</title>
+    <title>Matching Card EX</title>
     <meta name="description" content="memory game">
     <meta name="author" content="Geng">
 
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/shared/bootstrap-5.3.2.min.css">
     <link rel="stylesheet" type="text/css" href="css/memory.css" />
     <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/shared/bootstrap-5.3.2.bundle.min.js"></script>
     <script type="text/javascript" src="js/memory.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <header>
-            <div id="header-nav"></div>
-            <br>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="index.html">Game</a></li>
-                <li class="breadcrumb-item active">Memory</li>
-            </ol>
-        </header>
-        <div class="text-center">
-            <h1 id="gameName">Memory Game (Hard) <small>v0.2</small></h1>
-            <div id="rule-record">
-                <ol id="rule">
-                    <li>Match two grids with the same picture and color.</li>
-                    <li>Matching will not happen before half of the grids are clicked.</li>
-                    <li>Matched opening and necessary checking at the beginning are not counted.</li>
-                </ol>
-                <p class="alert alert-info"><span id="record">Your Best: </span><span id="best-en">No Record</span><span id="best-zh">无记录</span></p>
-            </div>
-            <div id="board" class="lead">
+        <div id="header"></div>
 
-            </div>
+        <h1 id="gameName">Matching Card EX</h1>
+        <ul id="rule" class="small text-secondary">
+            <li>Match two grids with the same picture and color.</li>
+            <li>Matching will not happen before half of the grids are clicked.</li>
+            <li>Matched opening and necessary checking at the beginning are not counted.</li>
+        </ul>
+        <br>
+        <div class="row justify-content-end">
+            <p class="col-auto alert alert-info"><span id="record">Your Best: </span><span id="best-en">No Record</span><span id="best-zh">无记录</span></p>
+        </div>
+        <div class="text-center">
+            
+            <div id="board" class="lead"></div>
             <div id="panel">
                 <h3>
                     <span id="steps" class="label label-info">Unnecessary Opens: <span id="count">0</span></span>
                 </h3>
-                <label for="buttons" class="mr-2">New Game: </label>
+                <label for="buttons" class="me-2">New Game: </label>
                 <div id="buttons" class="btn-group btn-group-toggle" role="group" data-toggle="buttons">
                     <label class="btn btn-primary active" id="b4x4">
-                        <input type="radio" name="options" autocomplete="off" checked>4 X 4
+                        <input class="me-2" type="radio" name="options" autocomplete="off" checked>4 X 4
                     </label>
                     <label class="btn btn-primary" id="b8x4">
-                        <input type="radio" name="options" autocomplete="off">8 X 4
+                        <input class="me-2" type="radio" name="options" autocomplete="off">8 X 4
                     </label>
                     <label class="btn btn-primary" id="b8x8">
-                        <input type="radio" name="options" autocomplete="off">8 X 8
+                        <input class="me-2" type="radio" name="options" autocomplete="off">8 X 8
                     </label>
                 </div>
             </div>
         </div>
 
-        <hr>
-
-        <footer>
-            <div id="footer-copyright"></div>
-        </footer>
+        <div id="footer"></div>
     </div>
 
+    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="games" data-breadcrumb-page="Matching Card EX" data-breadcrumb-page-zh="记忆翻牌超难版"></script>
     <script type="text/javascript">
-        $('#header-nav').load("/nav.html", () => { $("#nav-game").addClass("active"); });
-        $('#footer-copyright').load("/copyright.html");
 		var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
-			$('#title').text("记忆游戏超难版");
-			$('#gameName').html("记忆游戏超难版 <small>v0.2</small>");
+			$('#title').text("记忆翻牌超难版");
+			$('#gameName').text("记忆翻牌超难版");
             $('#record').html('最好成绩：');
             $('#best-en').hide();
 			$('#steps').html('不匹配点击：<span id="count">0</span>次');

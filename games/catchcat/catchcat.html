@@ -10,58 +10,44 @@
 	<meta name="author" content="Geng">
 	<meta name="description" content="Catch Cat">
 
-	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/shared/bootstrap-5.3.2.min.css">
 	<link rel="stylesheet" type="text/css" href="css/catchcat.css">
 	<script type="text/javascript" src="../../js/jquery.min.js"></script>
-	<script type="text/javascript" src="../../js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="/shared/bootstrap-5.3.2.bundle.min.js"></script>
 	<script type="text/javascript" src="js/catchcat.js"></script>
 </head>
 
 <body>
 	<div class="container">
-		<header>
-			<div id="header-nav"></div>
-			<br>
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
-				<li class="breadcrumb-item"><a href="../index.html">Game</a></li>
-				<li class="breadcrumb-item active">Catch Cat</li>
-			</ol>
-		</header>
+		<div id="header"></div>
 
+		<h1 id="gameName">Catch the Cat!</h1>
+		<ul id="rule" class="small text-secondary">
+			<li>Click on tiles to trap the cat.</li>
+			<li>Game over when the cat reaches the edge.</li>
+		</ul>
+		<br>
 		<div class="text-center">
-			<h1 id="gameName">Catch the Cat!</h1>
 			<div class="field">
 			</div>
 			<div>
 				<p class="result"></p>
 			</div>
 			<button id="reset" class="btn btn-secondary">RESET</button>
-			<div id="rule">
-				<p>Rule:</p>
-				<ul>
-					<li>Click on dots to block the cat.</li>
-					<li>You lose when cat reach the edge.</li>
-				</ul>
-			</div>
+			
 		</div>
 
-		<hr>
-
-		<footer>
-			<div id="footer-copyright"></div>
-		</footer>
+		<div id="footer"></div>
 	</div>
 
+	<script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="games" data-breadcrumb-page="Catch the Cat" data-breadcrumb-page-zh="抓猫原版"></script>
 	<script type="text/javascript">
-        $('#header-nav').load("/nav.html", () => { $("#nav-game").addClass("active"); });
-        $('#footer-copyright').load("/copyright.html");
         var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
-			$('#title').text("抓猫 - 普通版");
+			$('#title').text("抓猫原版");
 			$('#gameName').text("抓住这只猫！");
 			$('#reset').text("重新开始");
-            $('#rule').html("<p>规则：</p><ul><li>点击格子将猫围住。</li><li>猫跑到边缘则游戏结束。</li></ul>");
+            $('#rule').html("<li>点击格子将猫围住。</li><li>猫跑到边缘则游戏结束。</li>");
 		}
     </script>
 </body>
