@@ -10,54 +10,47 @@
     <meta name="description" content="gomoku">
     <meta name="author" content="Geng">
 
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/shared/bootstrap-5.3.2.min.css">
     <link rel="stylesheet" type="text/css" href="css/gomoku.css">
     <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/shared/bootstrap-5.3.2.bundle.min.js"></script>
     <script type="text/javascript" src="js/gomoku.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <header>
-            <div id="header-nav"></div>
-            <br>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="index.html">Game</a></li>
-                <li class="breadcrumb-item active">Gomoku</li>
-            </ol>
-        </header>
+        <div id="header"></div>
 
         <div>
-            <h1><span id="gameName">Gomoku</span> <small>v0.12</small></h1>
+            <h1 id="gameName">Gomoku</h1>
             <span id="rule">Two players take turns. No bans.</span>
             <div class="text-center field">
 
             </div>
-            <div class="players">
-                <div class="player" style="float: left"><img src="images/blackpiece.jpg" style="float: left" />
-                    <p id="blabel">BLACK</p>
-                    <p id="bwin"></p>
+            <div class="players d-flex justify-content-center align-items-start">
+                <div class="d-flex align-items-start me-2">
+                    <img src="images/blackpiece.jpg" class="me-2" />
+                    <div>
+                        <p id="blabel">BLACK</p>
+                        <p id="bwin"></p>
+                    </div>
                 </div>
-                <div class="player" style="float: right"><img src="images/whitepiece.jpg" style="float: right" />
-                    <p id="wlabel">WHITE</p>
-                    <p id="wwin"></p>
+                <button id="reset" class="btn btn-secondary me-2">RESET</button>
+                <div class="d-flex align-items-start">
+                    <div class="me-2">
+                        <p id="wlabel">WHITE</p>
+                        <p id="wwin"></p>
+                    </div>
+                    <img src="images/whitepiece.jpg" />
                 </div>
-                <button id="reset" class="btn btn-secondary">RESET</button>
             </div>
         </div>
 
-        <hr>
-
-        <footer>
-            <div id="footer-copyright"></div>
-        </footer>
+        <div id="footer"></div>
     </div>
 
+    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="games" data-breadcrumb-page="Gomoku" data-breadcrumb-page-zh="五子棋"></script>
     <script type="text/javascript">
-        $('#header-nav').load("/nav.html", () => { $("#nav-game").addClass("active"); });
-        $('#footer-copyright').load("/copyright.html");
         var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
 			$('#title').text("五子棋");
