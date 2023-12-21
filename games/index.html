@@ -26,12 +26,8 @@
         <div id="footer"></div>
     </div>
     <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="games" data-lang-enabled="true" data-en-callback="switchToEn" data-zh-callback="switchToZh"></script>
-    <script type="text/javascript" src="/shared/autoCarousel.js"></script>
+    <script type="text/javascript" src="/shared/autoReorganizedCarousel.js"></script>
     <script type="text/javascript">
-        const itemIdPrefix = "item-";
-        const catalogIdPrefix = "catalog-";
-        const catalogTitleIdPrefix = "catalog-title-";
-
         const catalogs = [
             {
                 id: "boardgames",
@@ -273,114 +269,34 @@
                 "greeting": "这里展示了设计师缺席的情况下做出的游戏是什么样子。",
             }
         };
-        
-        function createGameItem(item, lang = "en") {
-            const colDiv = document.createElement("div");
-            colDiv.className = "col";
-            colDiv.id = itemIdPrefix + item.id;
 
-            const cardDiv = document.createElement("a");
-            cardDiv.className = "card h-100 text-decoration-none";
-            cardDiv.href = item.src;
-
-            const img = document.createElement("img");
-            img.className = "card-img-top";
-            img.src = item.imageSrc;
-            img.alt = item.title[lang] || item.title["en"];
-
-            const cardBodyDiv = document.createElement("div");
-            cardBodyDiv.className = "card-body";
-
-            const cardTitle = document.createElement("h5");
-            cardTitle.className = "card-title";
-            cardTitle.textContent = item.title[lang] || item.title["en"];
-
-            const cardText = document.createElement("p");
-            cardText.className = "card-text";
-            cardText.textContent = item.intro[lang] || item.intro["en"];
-
-            cardBodyDiv.appendChild(cardTitle);
-            cardBodyDiv.appendChild(cardText);
-
-            cardDiv.appendChild(img);
-            cardDiv.appendChild(cardBodyDiv);
-
-            colDiv.appendChild(cardDiv);
-
-            return colDiv;
-        }
-
-        function switchLanguage(lang) {
+        function switchPageLanguage(lang) {
             const translation = translations[lang] || translations["en"];
             
             document.title = translation.web_title;
             document.getElementById("title").textContent = translation.title;
             document.getElementById("greeting").textContent = translation.greeting;
-            
-            for (let catalog of catalogs) {
-                const catalogTitle = document.getElementById(catalogTitleIdPrefix + catalog.id);
-                if (catalogTitle) {
-                    catalogTitle.textContent = catalog.title[lang] || catalog.title["en"];
-                }
-
-                for (let item of catalog.items) {
-                    const itemDiv = document.getElementById(itemIdPrefix + item.id);
-                    if (itemDiv) {
-                        const cardTitle = itemDiv.querySelector(".card-title");
-                        if (cardTitle) {
-                            cardTitle.textContent = item.title[lang] || item.title["en"];
-                        }
-
-                        const cardText = itemDiv.querySelector(".card-text");
-                        if (cardText) {
-                            cardText.textContent = item.intro[lang] || item.intro["en"];
-                        }
-
-                        const imgElement = itemDiv.querySelector("img.card-img-top");
-                        if (imgElement) {
-                            imgElement.alt = item.title[lang] || item.title["en"];
-                        }
-                    }
-                }
-            }
-
         }
         function switchToZh() {
-            switchLanguage("zh");
+            switchPageLanguage("zh");
+            switchCatalogsLanguage(catalogs, "zh");
         }
         function switchToEn() {
-            switchLanguage("en");
+            switchPageLanguage("en");
+            switchCatalogsLanguage(catalogs, "en");
         }
 
         document.addEventListener("DOMContentLoaded", () => {
             const userLang = navigator.language || navigator.userLanguage;
             const lang = userLang.slice(0, 2) || "en";
-            const translation = translations[lang] || translations["en"];
-            
-            document.title = translation.web_title;
-            document.getElementById("title").textContent = translation.title;
-            document.getElementById("greeting").textContent = translation.greeting;
+            switchPageLanguage(lang);
 
-            const carousels = [];
             const portfolio = document.getElementById("portfolio");
-            portfolio.innerHTML = "";
-            for (let catalog of catalogs) {
-                const catalogTitle = document.createElement("h4");
-                catalogTitle.id = catalogTitleIdPrefix + catalog.id;
-                catalogTitle.textContent = catalog.title[lang] || catalog.title["en"];
-                portfolio.appendChild(catalogTitle);
-
-                const items = [];
-                for (let item of catalog.items) {
-                    items.push(createGameItem(item, lang));
-                }
-                let casousel = createCarousel(items, catalogIdPrefix + catalog.id);
-                portfolio.appendChild(casousel);
-                carousels.push(casousel);
+            const catalogDOMs = createCatalogsAndListenToResize(catalogs, lang);
+            for (let catalogDOM of catalogDOMs) {
+                portfolio.appendChild(catalogDOM);
             }
-            listenToResize(carousels);
         });
-		
     </script>
 </body>
 
