@@ -50,8 +50,11 @@ function createItem(item, lang="en") {
     cardDiv.className = "card h-100 text-decoration-none";
     cardDiv.href = item.src;
 
+    const imgDiv = document.createElement("div");
+    imgDiv.className = "px-3 pt-3";
+
     const img = document.createElement("img");
-    img.className = "card-img-top";
+    img.className = "card-img-top shadow rounded";
     img.src = item.imageSrc;
     img.alt = item.title[lang] || item.title["en"];
 
@@ -69,7 +72,9 @@ function createItem(item, lang="en") {
     cardBodyDiv.appendChild(cardTitle);
     cardBodyDiv.appendChild(cardText);
 
-    cardDiv.appendChild(img);
+    imgDiv.appendChild(img);
+
+    cardDiv.appendChild(imgDiv);
     cardDiv.appendChild(cardBodyDiv);
 
     colDiv.appendChild(cardDiv);
