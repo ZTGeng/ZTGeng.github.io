@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch('/shared/footer.html').then(response => {
             return response.text();
         }).then(data => {
-            document.getElementById('footer').innerHTML = data;
+            footer.innerHTML = data;
         });
     }
     
@@ -14,34 +14,44 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch('/shared/header.html').then(response => {
             return response.text();
         }).then(data => {
-            document.getElementById('header').innerHTML = data;
+            header.innerHTML = data;
         }).then(() => {
             const activeTab = currentScript.getAttribute('data-active-tab');
             if (activeTab) {
-                let tabs = document.getElementsByClassName('nav-' + activeTab);
+                const tabs = document.getElementsByClassName('nav-' + activeTab);
                 for (let i = 0; i < tabs.length; i++) {
                     tabs[i].classList.add('active');
                 }
 
-                let breadcrumbCatalogs = document.getElementsByClassName('breadcrumb-' + activeTab);
+                const breadcrumbCatalogs = header.getElementsByClassName('breadcrumb-' + activeTab);
                 for (let i = 0; i < breadcrumbCatalogs.length; i++) {
                     breadcrumbCatalogs[i].removeAttribute('hidden');
                 }
-                const breadcrumbPageTitle = currentScript.getAttribute('data-breadcrumb-page');
-                if (breadcrumbPageTitle) {
-                    let breadcrumbPageEn = document.getElementById('breadcrumb-page-en');
+            }
+
+            const breadcrumbPageTitle = currentScript.getAttribute('data-breadcrumb-page');
+            if (breadcrumbPageTitle) {
+                // Always setup the En breadcrumb page with the default breadcrumb title
+                const breadcrumbPageEn = document.getElementById('breadcrumb-page-en');
+                if (breadcrumbPageEn) {
                     breadcrumbPageEn.textContent = breadcrumbPageTitle;
                     breadcrumbPageEn.removeAttribute('hidden');
-                    let breadcrumbPageZh = document.getElementById('breadcrumb-page-zh');
+                }
+                // When the Zh breadcrumb title is available, setup the Zh breadcrumb page
+                // Otherwise, use the default breadcrumb title for the Zh breadcrumb page
+                const breadcrumbPageZh = document.getElementById('breadcrumb-page-zh');
+                if (breadcrumbPageZh) {
                     const breadcrumbPageTitleZh = currentScript.getAttribute('data-breadcrumb-page-zh');
                     breadcrumbPageZh.textContent = breadcrumbPageTitleZh || breadcrumbPageTitle;
                     breadcrumbPageZh.removeAttribute('hidden');
-                } else {
-                    for (let i = 0; i < breadcrumbCatalogs.length; i++) {
-                        breadcrumbCatalogs[i].textContent = breadcrumbCatalogs[i].textContent;
-                        breadcrumbCatalogs[i].setAttribute('aria-current', 'page');
-                        breadcrumbCatalogs[i].classList.add('active');
-                    }
+                }
+            } else {
+                const breadcrumbCatalogs = header.getElementsByClassName('breadcrumb-' + activeTab);
+                for (let i = 0; i < breadcrumbCatalogs.length; i++) {
+                    // Remove the link
+                    breadcrumbCatalogs[i].textContent = breadcrumbCatalogs[i].textContent;
+                    breadcrumbCatalogs[i].setAttribute('aria-current', 'page');
+                    breadcrumbCatalogs[i].classList.add('active');
                 }
             }
 
@@ -53,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const isLangEnabled = currentScript.getAttribute('data-lang-enabled');
             if (isLangEnabled === 'true') {
-                let langSwitchers = document.getElementsByClassName('lang-switcher');
+                const langSwitchers = document.getElementsByClassName('lang-switcher');
                 for (let i = 0; i < langSwitchers.length; i++) {
                     langSwitchers[i].removeAttribute('hidden');
                 }
