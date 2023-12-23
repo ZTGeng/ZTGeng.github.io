@@ -7,7 +7,7 @@
     <meta name="description" content="Digital NUmber JS Demo">
     <meta name="author" content="Geng">
     <link href="/shared/bootstrap-5.3.2.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="/shared/bootstrap-5.3.2.bundle.min.js" type="text/javascript"></script>
 </head>
 <body>
     <div class="container">
@@ -15,77 +15,181 @@
 
         <h1>Digital Numbers JS Demo</h1>
         <ul class="small text-secondary">
-            <li>此组件自动将数字转换为电子表数字样式。</li>
-            <li>只需加载一个js文件及jquery（>3.5.1）。无需任何字体等依赖。</li>
-            <li>转化后的数字样式为纯div实现，非字符，不支持拖选。</li>
-            <li>进行转换的标签只能包含文字，不能包含下级标签（将被移除）。支持数字与非数字混排（只有数字会被转换）。</li>
-            <li>支持对标签内容重新赋值，实时转换。</li>
-            <li>浏览器兼容性要求：<a href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver#browser_compatibility" target="_blank">MutationObserver</a>。</li>
+            <li>自动将数字转换为液晶数字样式。</li>
+            <li>转化后的数字为纯 div 实现，非字符，不支持拖选。</li>
+            <li>支持静态和动态内容。</li>
         </ul>
-        <h3>使用方法：</h3>
-        <ol>
-            <li>需加载jquery。</li>
+        <h3>使用方法</h3>
+        <ol class="small text-secondary">
             <li>对需要转换数字的标签设置 <code>class="digital-numbers-js"</code>。</li>
-            <li>在文档末尾加载以下js文件:</li>
+            <li>在文档末尾加载以下 js 文件:</li>
         </ol>
-        <pre class="bg-dark text-white p-3"><code>
+        <pre class="bg-dark text-white"><code>
     &lt;script src="digital-numbers.js"&gt;&lt;/script&gt;
         </code></pre>
         <br>
-        <h3>效果：</h3>
-        <div class="digital-numbers-js">静态文本：1234567890</div>
-        <pre class="bg-dark text-white p-3"><code>
-    &lt;div class="digital-numbers-js"&gt;静态文本：1234567890&lt;/div&gt;
-        </code></pre>
-        <br>
-        <div class="d-inline">
-            <button id="random-number-button" class="btn btn-primary mb-1 me-2">点击刷新数字 -></button>
-            <div class="digital-numbers-js" id="random-number">123</div>
+        <h3>效果</h3>
+        <h5>静态文本</h5>
+        <ul class="small text-secondary">
+            <li>支持下级标签，所有子元素中的数字都会被转换。</li>
+            <li>支持数字与非数字混排。</li>
+        </ul>
+        <div class="digital-numbers-js">静态文本展示：1234567890</div>
+        <div class="digital-numbers-js">
+            <div>温度：20.5°C</div>
+            <div>湿度：50%</div>
         </div>
-        <pre class="bg-dark text-white p-3"><code>
-    &lt;button id="random-number-button"&gt;点击刷新数字 ->&lt;/button&gt;
-    &lt;div class="digital-numbers-js" id="random-number"&gt;123&lt;/div&gt;
-    &lt;script&gt;
-        $("#random-number-button").on("click", function() {
-            $("#random-number").text(("" + Math.random()).slice(2, 5));
-        });
-    &lt;/script&gt;
+        <pre class="bg-dark text-white"><code>
+    &lt;div class="digital-numbers-js"&gt;静态文本展示：1234567890&lt;/div&gt;
+    &lt;div class="digital-numbers-js"&gt;
+        &lt;div&gt;温度：20.5°C&lt;/div&gt;
+        &lt;div&gt;湿度：50&lt;/div&gt;
+    &lt;/div&gt;
         </code></pre>
         <br>
-        <div class="digital-numbers-js" id="clock">Time - 00:00:00</div>
-        <pre class="bg-dark text-white p-3"><code>
-    &lt;div class="digital-numbers-js" id="clock"&gt;Time - 00:00:00&lt;/div&gt;
+        <h5>动态文本</h5>
+        <ul class="small text-secondary">
+            <li>设置 <code>data-dn-dynamic="true"</code> 监听动态内容。</li>
+            <li>只能动态监听当前元素的内容变化。子元素内容变化不会触发。</li>
+        </ul>
+        <div id="clock" class="digital-numbers-js" data-dn-dynamic="true" style="display: flex; align-items: center;"></div>
+        <pre class="bg-dark text-white"><code>
+    &lt;div id="clock" class="digital-numbers-js" data-dn-dynamic="true" style="display: flex; align-items: center;"&gt;&lt;/div&gt;
     &lt;script&gt;
-        var twoDigits = function(num) {
-            return (num &lt; 10 ? "0" : "") + num;
+        function formatNumber(num) {
+            return `${num}`.padStart(2, '0');
         }
-        setInterval(function() {
-            var now = new Date();
-            $("#clock").text("Time - " + twoDigits(now.getHours()) + ":" + twoDigits(now.getMinutes()) + ":" + twoDigits(now.getSeconds()));
+        setInterval(() => {
+            let now = new Date();
+            document.getElementById("clock").innerHTML =
+                formatNumber(now.getHours()) + "&lt;h2&gt;:&lt;/h2&gt;" + formatNumber(now.getMinutes()) + "&lt;h2&gt;:&lt;/h2&gt;" + formatNumber(now.getSeconds());
         }, 1000);
     &lt;/script&gt;
         </code></pre>
         <br>
-        <div>使用 <code>data-height</code> 与 <code>data-color</code> 自定义高度（px）与颜色：<span class="digital-numbers-js" data-height="50" data-color="red">123</span></div>
-        <pre class="bg-dark text-white p-3"><code>
-    &lt;div&gt;使用 &lt;code&gt;data-height&lt;/code&gt; 与 &lt;code&gt;data-color&lt;/code&gt; 自定义高度（px）与颜色：&lt;span class="digital-numbers-js" data-height="50" data-color="red"&gt;123&lt;/span&gt;&lt;/div&gt;
-        </code></pre>
+        <h5>自定义样式</h5>
+        <p class="small text-secondary">可以通过以下方式自定义样式：</p>
+        <ul class="small text-secondary">
+            <li><code>data-dn-width</code> 数字宽度，单位：px（默认：15）</li>
+            <li><code>data-dn-height</code> 数字高度，单位：px（默认：27）</li>
+            <li><code>data-dn-thickness</code> 数字线条粗细，单位：px（默认：3）</li>
+            <li><code>data-dn-gap</code> 相邻线条间隙，单位：px（默认：约 0.7）</li>
+            <li><code>data-dn-color-lit</code> 液晶亮条颜色（默认：#32CD32）</li>
+            <li><code>data-dn-color-unlit</code> 液晶暗条颜色（默认：#FFFFFF）</li>
+            <li><code>data-dn-dynamic</code> 动态监听（默认：false）</li>
+        </ul>
+        <div class="row">
+            <div class="col-3">
+                <div class="row g-3 align-items-center mb-2">
+                    <div class="col-auto"><label for="widthRange" class="form-label">宽度</label></div>
+                    <div class="col"><input type="range" class="form-range" id="widthRange" value="15" min="10" max="200"></div>
+                    <div class="col-1"><label for="widthRange" class="form-label" id="widthNum">15</label></div>
+                </div>
+                <div class="row g-3 align-items-center mb-2">
+                    <div class="col-auto"><label for="heightRange" class="form-label">高度</label></div>
+                    <div class="col"><input type="range" class="form-range" id="heightRange" value="27" min="18" max="360"></div>
+                    <div class="col-1"><label for="heightRange" class="form-label" id="heightNum">27</label></div>
+                </div>
+                <div class="row g-3 align-items-center mb-2">
+                    <div class="col-auto"><label for="thicknessRange" class="form-label">线粗</label></div>
+                    <div class="col"><input type="range" class="form-range" id="thicknessRange" value="3" min="2" max="40"></div>
+                    <div class="col-1"><label for="thicknessRange" class="form-label" id="thicknessNum">3</label></div>
+                </div>
+                <div class="row g-3 align-items-center mb-2">
+                    <div class="col-auto"><label for="gapRange" class="form-label">间隙</label></div>
+                    <div class="col"><input type="range" class="form-range" id="gapRange" value="0.7" min="0" max="10" step="0.1"></div>
+                    <div class="col-1"><label for="gapRange" class="form-label" id="gapNum">0.7</label></div>
+                </div>
+                <div class="row g-3 align-items-center mb-2">
+                    <div class="col-auto"><label for="colorLit" class="form-label">亮条颜色</label></div>
+                    <div class="col"><input type="color" class="form-control form-control-color" value="#32CD32" id="colorLit"></div>
+                    <div class="col-auto"><label for="colorUnlit" class="form-label">暗条颜色</label></div>
+                    <div class="col"><input type="color" class="form-control form-control-color" value="#FFFFFF" id="colorUnlit"></div>
+                </div>
+                <div class="row g-3 align-items-center mb-2">
+                    <div class="col-auto"><label for="colorBackground" class="form-label">背景颜色</label></div>
+                    <div class="col"><input type="color" class="form-control form-control-color" value="#FFFFFF" id="colorBackground"></div>
+                </div>
+                <textarea type="text" class="form-control" placeholder="自定义文字" rows="3" id="textBox"></textarea>
+            </div>
+            <div class="col-9">
+                <p class="small text-secondary">自定义样式展示：</p>
+                <div id="customized" class="digital-numbers-js p-3" data-dn-dynamic="true">1234567890</div>
+            </div>
+            <pre class="bg-dark text-white text-wrap p-3 mt-2"><code id="customized-code">
+    &lt;div id="customized" class="digital-numbers-js p-3" data-dn-dynamic="true"&gt;1234567890&lt;/div&gt;
+            </code></pre>
+                
+        </div>
+        <br>
 
+        <h5>兼容性</h5>
+        <ul>
+            <li>浏览器兼容性要求：<a href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver#browser_compatibility" target="_blank">MutationObserver</a>（动态内容需要）。</li>
+        </ul>
         <div id="footer"></div>
     </div>
 
-    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="tools" data-breadcrumb-page="Digital Numbers JS Demo" data-breadcrumb-page-zh="电子表数字样式"></script>
+    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="tools" data-breadcrumb-page="Digital Numbers JS Demo" data-breadcrumb-page-zh="液晶数字样式"></script>
     <script>
-        $("#random-number-button").on("click", function() {
-            $("#random-number").text(("" + Math.random()).slice(2, 5));
-        });
-        var twoDigits = function(num) {
-            return (num < 10 ? "0" : "") + num;
+        function formatNumber(num) {
+            return `${num}`.padStart(2, '0');
         }
-        setInterval(function() {
-            var now = new Date();
-            $("#clock").text("Time - " + twoDigits(now.getHours()) + ":" + twoDigits(now.getMinutes()) + ":" + twoDigits(now.getSeconds()));
+        setInterval(() => {
+            let now = new Date();
+            document.getElementById("clock").innerHTML =
+                formatNumber(now.getHours()) + "<h2>:</h2>" + formatNumber(now.getMinutes()) + "<h2>:</h2>" + formatNumber(now.getSeconds());
         }, 1000);
+
+        const customized = document.getElementById("customized");
+        const customizedCode = document.getElementById("customized-code");
+        const textBox = document.getElementById("textBox");
+        const widthNum = document.getElementById("widthNum");
+        const heightNum = document.getElementById("heightNum");
+        const thicknessNum = document.getElementById("thicknessNum");
+        const gapNum = document.getElementById("gapNum");
+        textBox.addEventListener("change", () => {
+            console.log(textBox.value);
+            customized.innerText = textBox.value || "1234567890";
+            customizedCode.textContent = `\n${customized.outerHTML}\n\n`;
+        });
+        document.getElementById("widthRange").addEventListener("change", () => {
+            customized.setAttribute("data-dn-width", widthRange.value);
+            customized.innerText = textBox.value || "1234567890";
+            customizedCode.textContent = `\n${customized.outerHTML}\n\n`;
+            widthNum.innerText = widthRange.value;
+        });
+        document.getElementById("heightRange").addEventListener("change", () => {
+            customized.setAttribute("data-dn-height", heightRange.value);
+            customized.innerText = textBox.value || "1234567890";
+            customizedCode.textContent = `\n${customized.outerHTML}\n\n`;
+            heightNum.innerText = heightRange.value;
+        });
+        document.getElementById("thicknessRange").addEventListener("change", () => {
+            customized.setAttribute("data-dn-thickness", thicknessRange.value);
+            customized.innerText = textBox.value || "1234567890";
+            customizedCode.textContent = `\n${customized.outerHTML}\n\n`;
+            thicknessNum.innerText = thicknessRange.value;
+        });
+        document.getElementById("gapRange").addEventListener("change", () => {
+            customized.setAttribute("data-dn-gap", gapRange.value);
+            customized.innerText = textBox.value || "1234567890";
+            customizedCode.textContent = `\n${customized.outerHTML}\n\n`;
+            gapNum.innerText = gapRange.value;
+        });
+        document.getElementById("colorLit").addEventListener("change", () => {
+            customized.setAttribute("data-dn-color-lit", colorLit.value);
+            customized.innerText = textBox.value || "1234567890";
+            customizedCode.textContent = `\n${customized.outerHTML}\n\n`;
+        });
+        document.getElementById("colorUnlit").addEventListener("change", () => {
+            customized.setAttribute("data-dn-color-unlit", colorUnlit.value);
+            customized.innerText = textBox.value || "1234567890";
+            customizedCode.textContent = `\n${customized.outerHTML}\n\n`;
+        });
+        document.getElementById("colorBackground").addEventListener("change", () => {
+            customized.style.backgroundColor = colorBackground.value;
+        });
     </script>
     <script src="digital-numbers.js"></script>
 </body>
