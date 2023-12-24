@@ -1,5 +1,5 @@
 /**
- * @version 0.20
+ * @version 0.30
  * @author Geng
  */
 
@@ -304,7 +304,6 @@
     }
 
     function adjustDOMStyle(element, style) {
-        console.log("adjustStyle", element);
         for (let childNode of element.childNodes) {
             if (childNode.nodeType === Node.ELEMENT_NODE) {
                 if (childNode.classList.contains(CLASSNAME)) {
@@ -319,7 +318,7 @@
     const markedDOMs = document.querySelectorAll(".digital-numbers-js");
     for (let i = 0; i < markedDOMs.length; i++) {
         const element = markedDOMs[i];
-        const dynamic = element.getAttribute("data-dn-dynamic") || false;
+        const dynamic = element.getAttribute("data-dn-dynamic");
 
         function getStyleAttributes() {
             const totalWidth = element.getAttribute("data-dn-width") || TOTAL_WIDTH_DEFAULT;
@@ -334,10 +333,9 @@
         const style = getStyleAttributes();
         Array.from(element.childNodes).forEach((childNode) => { processNode(element, childNode, style); });
 
-        if (dynamic) {
+        if (dynamic === "true") {
             let observer = new MutationObserver((mutationList, obs) => {
                 const newStyle = getStyleAttributes();
-                console.log(mutationList);
                 Array.from(mutationList).forEach((mutation) => {
                     if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
                         Array.from(mutation.addedNodes).forEach((addedNode) => {
@@ -351,6 +349,5 @@
             });
             observer.observe(element, {attributes: true, childList: true, subtree: true, attributeFilter: ["data-dn-width", "data-dn-height", "data-dn-thickness", "data-dn-gap", "data-dn-color-lit", "data-dn-color-unlit"]});
         }
-        
     }
 })();
