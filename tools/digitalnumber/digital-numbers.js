@@ -11,7 +11,7 @@
     const COLOR_UNLIT_DEFAULT = "#FFFFFF";
     const SHRINK_DEFAULT = 0.5;
     const SQRT1_2 = Math.sqrt(0.5);
-    const PLACEHOLDER = "{{PLACEHOLDER}}";
+    const CLASSNAME = "digital-numbers-dom";
 
     // [top, upper left, upper right, middle, lower left, lower right, bottom]
     const LIT_DIGITS = [
@@ -78,6 +78,23 @@
         return line;
     }
 
+    function adjustHorizontalLineDOMStyle(line, horizontalContainerWidth, horizontalLineWidth, horizontalLineHeight, color) {
+        const lineTop = line.childNodes[0];
+        const lineBottom = line.childNodes[1];
+        const horizontalLineHalfHeight = horizontalLineHeight / 2;
+        line.style.width = `${horizontalContainerWidth}px`;
+
+        lineTop.style.width = `${horizontalLineWidth}px`;
+        lineTop.style.borderBottom = `${horizontalLineHalfHeight}px solid ${color}`;
+        lineTop.style.borderLeft = `${horizontalLineHalfHeight}px solid transparent`;
+        lineTop.style.borderRight = `${horizontalLineHalfHeight}px solid transparent`;
+
+        lineBottom.style.width = `${horizontalLineWidth}px`;
+        lineBottom.style.borderTop = `${horizontalLineHalfHeight}px solid ${color}`;
+        lineBottom.style.borderLeft = `${horizontalLineHalfHeight}px solid transparent`;
+        lineBottom.style.borderRight = `${horizontalLineHalfHeight}px solid transparent`;
+    }
+
     function getVerticalLineDOM(verticalContainerHeight, verticalLineWidth, verticalLineHeight, color = COLOR_LIT_DEFAULT) {
         const verticalLineHalfWidth = verticalLineWidth / 2;
         const line = document.createElement("div");
@@ -111,17 +128,36 @@
         return line;
     }
 
+    function adjustVerticalLineDOMStyle(line, verticalContainerHeight, verticalLineWidth, verticalLineHeight, color = COLOR_LIT_DEFAULT) {
+        const lineLeft = line.childNodes[0];
+        const lineRight = line.childNodes[1];
+        const verticalLineHalfWidth = verticalLineWidth / 2;
+        line.style.height = `${verticalContainerHeight}px`;
+
+        lineLeft.style.height = `${verticalLineHeight}px`;
+        lineLeft.style.borderRight = `${verticalLineHalfWidth}px solid ${color}`;
+        lineLeft.style.borderTop = `${verticalLineHalfWidth}px solid transparent`;
+        lineLeft.style.borderBottom = `${verticalLineHalfWidth}px solid transparent`;
+
+        lineRight.style.height = `${verticalLineHeight}px`;
+        lineRight.style.borderLeft = `${verticalLineHalfWidth}px solid ${color}`;
+        lineRight.style.borderTop = `${verticalLineHalfWidth}px solid transparent`;
+        lineRight.style.borderBottom = `${verticalLineHalfWidth}px solid transparent`;
+    }
+
     function getNumberDOM(number, totalWidth = TOTAL_WIDTH_DEFAULT, totalHeight = TOTAL_HEIGHT_DEFAULT, lineThickness = LINE_THICKNESS_DEFAULT, colorLit = COLOR_LIT_DEFAULT, colorUnlit = COLOR_UNLIT_DEFAULT, gap = -1) {
         if (number < 0 || number > 9) return null;
         const margin_x = Math.max(totalHeight / 20, 1);
         const litDigits = LIT_DIGITS[number];
         const size = getLineSizes(totalWidth, totalHeight, lineThickness, gap);
         const numberDOM = document.createElement("div");
+        numberDOM.classList.add(CLASSNAME);
         numberDOM.style.width = `${totalWidth}px`;
         numberDOM.style.height = `${totalHeight}px`;
         numberDOM.style.position = "relative";
         numberDOM.style.display = "inline-block";
         numberDOM.style.margin = `0 ${margin_x}px`;
+        numberDOM.setAttribute("data-dn-number", number);
 
         const lineDOMs = [];
         for (let i = 0; i < 7; i++) {
@@ -135,7 +171,6 @@
         lineDOMs[0].style.top = 0;
         lineDOMs[0].style.left = `${lineThickness / 2}px`;
         numberDOM.appendChild(lineDOMs[0]);
-
 
         // Upper left
         lineDOMs[1].style.top = `${lineThickness / 2}px`;
@@ -170,102 +205,151 @@
         return numberDOM;
     }
 
-    function getHorizontalLineHTML(horizontalContainerWidth, horizontalLineWidth, horizontalLineHeight, color) {
-        const horizontalLineHalfHeight = horizontalLineHeight / 2;
-        return `<div style="width: ${horizontalContainerWidth}px; position: absolute; display: flex; flex-direction: column; justify-content: center; align-items: center; ${PLACEHOLDER}">
-            <div style="width: ${horizontalLineWidth}px; height: 0; position: relative; border-bottom: ${horizontalLineHalfHeight}px solid ${color}; border-left: ${horizontalLineHalfHeight}px solid transparent; border-right: ${horizontalLineHalfHeight}px solid transparent; box-sizing: content-box;"></div>
-            <div style="width: ${horizontalLineWidth}px; height: 0; position: relative; border-top: ${horizontalLineHalfHeight}px solid ${color}; border-left: ${horizontalLineHalfHeight}px solid transparent; border-right: ${horizontalLineHalfHeight}px solid transparent; box-sizing: content-box;"></div>
-        </div>`;
-    }
+    function adjustNumerDOMStyle(element, totalWidth = TOTAL_WIDTH_DEFAULT, totalHeight = TOTAL_HEIGHT_DEFAULT, lineThickness = LINE_THICKNESS_DEFAULT, colorLit = COLOR_LIT_DEFAULT, colorUnlit = COLOR_UNLIT_DEFAULT, gap = -1) {
+        if (!element.classList.contains(CLASSNAME)) return;
+        const number = parseInt(element.getAttribute("data-dn-number"));
+        const lineDOMs = element.childNodes;
+        const margin_x = Math.max(totalHeight / 20, 1);
+        const litDigits = LIT_DIGITS[number];
+        const size = getLineSizes(totalWidth, totalHeight, lineThickness, gap);
+        
+        element.style.width = `${totalWidth}px`;
+        element.style.height = `${totalHeight}px`;
+        element.style.margin = `0 ${margin_x}px`;
 
-    function getVerticalLineHTML(verticalContainerHeight, verticalLineWidth, verticalLineHeight, color = COLOR_LIT_DEFAULT) {
-        const verticalLineHalfWidth = verticalLineWidth / 2;
-        return `<div style="height: ${verticalContainerHeight}px; position: absolute; display: flex; flex-direction: row; justify-content: center; align-items: center; ${PLACEHOLDER}">
-            <div style="width: 0; height: ${verticalLineHeight}px; position: relative; border-right: ${verticalLineHalfWidth}px solid ${color}; border-top: ${verticalLineHalfWidth}px solid transparent; border-bottom: ${verticalLineHalfWidth}px solid transparent; box-sizing: content-box;"></div>
-            <div style="width: 0; height: ${verticalLineHeight}px; position: relative; border-left: ${verticalLineHalfWidth}px solid ${color}; border-top: ${verticalLineHalfWidth}px solid transparent; border-bottom: ${verticalLineHalfWidth}px solid transparent; box-sizing: content-box;"></div>
-        </div>`;
+        for (let i = 0; i < 7; i++) {
+            if (i % 3 === 0) {
+                adjustHorizontalLineDOMStyle(lineDOMs[i], size.horizontalContainerWidth, size.horizontalLineWidth, size.horizontalLineHeight, litDigits[i] ? colorLit: colorUnlit);
+            } else {
+                adjustVerticalLineDOMStyle(lineDOMs[i], size.verticalContainerHeight, size.verticalLineWidth, size.verticalLineHeight, litDigits[i] ? colorLit: colorUnlit);
+            }
+        }
+
+        lineDOMs[0].style.left = `${lineThickness / 2}px`;
+        lineDOMs[1].style.top = `${lineThickness / 2}px`;
+        lineDOMs[2].style.top = `${lineThickness / 2}px`;
+        lineDOMs[3].style.top = `${(totalHeight - lineThickness) / 2}px`;
+        lineDOMs[3].style.left = `${lineThickness / 2}px`;
+        lineDOMs[4].style.bottom = `${lineThickness / 2}px`;
+        lineDOMs[5].style.bottom = `${lineThickness / 2}px`;
+        lineDOMs[6].style.left = `${lineThickness / 2}px`;
     }
 
     function getNumberHTML(number, totalWidth = TOTAL_WIDTH_DEFAULT, totalHeight = TOTAL_HEIGHT_DEFAULT, lineThickness = LINE_THICKNESS_DEFAULT, colorLit = COLOR_LIT_DEFAULT, colorUnlit = COLOR_UNLIT_DEFAULT, gap = -1) {
         if (number < 0 || number > 9) return null;
         const margin_x = Math.max(totalHeight / 20, 1);
-        const litDigits = LIT_DIGITS[number];
+        const colors = LIT_DIGITS[number].map((lit) => lit ? colorLit : colorUnlit);
         const size = getLineSizes(totalWidth, totalHeight, lineThickness, gap);
+        const horizontalContainerWidth = size.horizontalContainerWidth;
+        const horizontalLineWidth = size.horizontalLineWidth;
+        const horizontalLineHeight = size.horizontalLineHeight;
+        const horizontalLineHalfHeight = horizontalLineHeight / 2;
+        const verticalContainerHeight = size.verticalContainerHeight;
+        const verticalLineWidth = size.verticalLineWidth;
+        const verticalLineHeight = size.verticalLineHeight;
+        const verticalLineHalfWidth = verticalLineWidth / 2;
 
-        let numberHTML = `<div style="width: ${totalWidth}px; height: ${totalHeight}px; position: relative; display: inline-block; margin: 0 ${margin_x}px;">`;
+        let numberHTML = `<div style="width: ${totalWidth}px; height: ${totalHeight}px; position: relative; display: inline-block; margin: 0 ${margin_x}px;">
+        <div style="width: ${horizontalContainerWidth}px; position: absolute; display: flex; flex-direction: column; justify-content: center; align-items: center; top: 0; left: ${lineThickness / 2}px;">
+            <div style="width: ${horizontalLineWidth}px; height: 0; position: relative; border-bottom: ${horizontalLineHalfHeight}px solid ${colors[0]}; border-left: ${horizontalLineHalfHeight}px solid transparent; border-right: ${horizontalLineHalfHeight}px solid transparent; box-sizing: content-box;"></div>
+            <div style="width: ${horizontalLineWidth}px; height: 0; position: relative; border-top: ${horizontalLineHalfHeight}px solid ${colors[0]}; border-left: ${horizontalLineHalfHeight}px solid transparent; border-right: ${horizontalLineHalfHeight}px solid transparent; box-sizing: content-box;"></div>
+        </div>
+        <div style="height: ${verticalContainerHeight}px; position: absolute; display: flex; flex-direction: row; justify-content: center; align-items: center; top: ${lineThickness / 2}px; left: 0;">
+            <div style="width: 0; height: ${verticalLineHeight}px; position: relative; border-right: ${verticalLineHalfWidth}px solid ${colors[1]}; border-top: ${verticalLineHalfWidth}px solid transparent; border-bottom: ${verticalLineHalfWidth}px solid transparent; box-sizing: content-box;"></div>
+            <div style="width: 0; height: ${verticalLineHeight}px; position: relative; border-left: ${verticalLineHalfWidth}px solid ${colors[1]}; border-top: ${verticalLineHalfWidth}px solid transparent; border-bottom: ${verticalLineHalfWidth}px solid transparent; box-sizing: content-box;"></div>
+        </div>
+        <div style="height: ${verticalContainerHeight}px; position: absolute; display: flex; flex-direction: row; justify-content: center; align-items: center; top: ${lineThickness / 2}px; right: 0;">
+            <div style="width: 0; height: ${verticalLineHeight}px; position: relative; border-right: ${verticalLineHalfWidth}px solid ${colors[2]}; border-top: ${verticalLineHalfWidth}px solid transparent; border-bottom: ${verticalLineHalfWidth}px solid transparent; box-sizing: content-box;"></div>
+            <div style="width: 0; height: ${verticalLineHeight}px; position: relative; border-left: ${verticalLineHalfWidth}px solid ${colors[2]}; border-top: ${verticalLineHalfWidth}px solid transparent; border-bottom: ${verticalLineHalfWidth}px solid transparent; box-sizing: content-box;"></div>
+        </div>
+        <div style="width: ${horizontalContainerWidth}px; position: absolute; display: flex; flex-direction: column; justify-content: center; align-items: center; top: ${(totalHeight - lineThickness) / 2}px; left: ${lineThickness / 2}px;">
+            <div style="width: ${horizontalLineWidth}px; height: 0; position: relative; border-bottom: ${horizontalLineHalfHeight}px solid ${colors[3]}; border-left: ${horizontalLineHalfHeight}px solid transparent; border-right: ${horizontalLineHalfHeight}px solid transparent; box-sizing: content-box;"></div>
+            <div style="width: ${horizontalLineWidth}px; height: 0; position: relative; border-top: ${horizontalLineHalfHeight}px solid ${colors[3]}; border-left: ${horizontalLineHalfHeight}px solid transparent; border-right: ${horizontalLineHalfHeight}px solid transparent; box-sizing: content-box;"></div>
+        </div>
+        <div style="height: ${verticalContainerHeight}px; position: absolute; display: flex; flex-direction: row; justify-content: center; align-items: center; bottom: ${lineThickness / 2}px; left: 0;">
+            <div style="width: 0; height: ${verticalLineHeight}px; position: relative; border-right: ${verticalLineHalfWidth}px solid ${colors[4]}; border-top: ${verticalLineHalfWidth}px solid transparent; border-bottom: ${verticalLineHalfWidth}px solid transparent; box-sizing: content-box;"></div>
+            <div style="width: 0; height: ${verticalLineHeight}px; position: relative; border-left: ${verticalLineHalfWidth}px solid ${colors[4]}; border-top: ${verticalLineHalfWidth}px solid transparent; border-bottom: ${verticalLineHalfWidth}px solid transparent; box-sizing: content-box;"></div>
+        </div>
+        <div style="height: ${verticalContainerHeight}px; position: absolute; display: flex; flex-direction: row; justify-content: center; align-items: center; bottom: ${lineThickness / 2}px; right: 0;">
+            <div style="width: 0; height: ${verticalLineHeight}px; position: relative; border-right: ${verticalLineHalfWidth}px solid ${colors[5]}; border-top: ${verticalLineHalfWidth}px solid transparent; border-bottom: ${verticalLineHalfWidth}px solid transparent; box-sizing: content-box;"></div>
+            <div style="width: 0; height: ${verticalLineHeight}px; position: relative; border-left: ${verticalLineHalfWidth}px solid ${colors[5]}; border-top: ${verticalLineHalfWidth}px solid transparent; border-bottom: ${verticalLineHalfWidth}px solid transparent; box-sizing: content-box;"></div>
+        </div>
+        <div style="width: ${horizontalContainerWidth}px; position: absolute; display: flex; flex-direction: column; justify-content: center; align-items: center; bottom: 0; left: ${lineThickness / 2}px;">
+            <div style="width: ${horizontalLineWidth}px; height: 0; position: relative; border-bottom: ${horizontalLineHalfHeight}px solid ${colors[6]}; border-left: ${horizontalLineHalfHeight}px solid transparent; border-right: ${horizontalLineHalfHeight}px solid transparent; box-sizing: content-box;"></div>
+            <div style="width: ${horizontalLineWidth}px; height: 0; position: relative; border-top: ${horizontalLineHalfHeight}px solid ${colors[6]}; border-left: ${horizontalLineHalfHeight}px solid transparent; border-right: ${horizontalLineHalfHeight}px solid transparent; box-sizing: content-box;"></div>
+        </div></div>`;
 
-        const lineHTMLs = [];
-        for (let i = 0; i < 7; i++) {
-            const lineHTML = i % 3 === 0
-                ? getHorizontalLineHTML(size.horizontalContainerWidth, size.horizontalLineWidth, size.horizontalLineHeight, litDigits[i] ? colorLit: colorUnlit)
-                : getVerticalLineHTML(size.verticalContainerHeight, size.verticalLineWidth, size.verticalLineHeight, litDigits[i] ? colorLit: colorUnlit);
-            lineHTMLs.push(lineHTML);
+        return numberHTML;
+    }
+
+    function processNode(parent, node, style) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            if (node.nodeValue && node.nodeValue.match(/\d/)) {
+                const fragment = document.createDocumentFragment();
+                node.nodeValue.split(/(\d+)/).forEach((text, index) => {
+                    if (index % 2 === 1) {
+                        for (let digit of text) {
+                            const number = parseInt(digit);
+                            fragment.appendChild(getNumberDOM(number, style.totalWidth, style.totalHeight, style.lineThickness, style.colorLit, style.colorUnlit, style.gap));
+                        }
+                    } else if (text) {
+                        fragment.appendChild(document.createTextNode(text));
+                    }
+                });
+                parent.replaceChild(fragment, node);
+            }
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+            Array.from(node.childNodes).forEach((childNode) => { processNode(node, childNode, style); });
         }
+    }
 
-        // Top
-        numberHTML += lineHTMLs[0].replace(PLACEHOLDER, `top: 0; left: ${lineThickness / 2}px;`);
-
-        // Upper left
-        numberHTML += lineHTMLs[1].replace(PLACEHOLDER, `top: ${lineThickness / 2}px; left: 0;`);
-
-        // Uppder right
-        numberHTML += lineHTMLs[2].replace(PLACEHOLDER, `top: ${lineThickness / 2}px; right: 0;`);
-
-        // Middle
-        numberHTML += lineHTMLs[3].replace(PLACEHOLDER, `top: ${(totalHeight - lineThickness) / 2}px; left: ${lineThickness / 2}px;`);
-
-        // Lower left
-        numberHTML += lineHTMLs[4].replace(PLACEHOLDER, `bottom: ${lineThickness / 2}px; left: 0;`);
-
-        // Lower right
-        numberHTML += lineHTMLs[5].replace(PLACEHOLDER, `bottom: ${lineThickness / 2}px; right: 0;`);
-
-        // Bottom
-        numberHTML += lineHTMLs[6].replace(PLACEHOLDER, `bottom: 0; left: ${lineThickness / 2}px;`);
-
-        return numberHTML + "</div>";
+    function adjustDOMStyle(element, style) {
+        console.log("adjustStyle", element);
+        for (let childNode of element.childNodes) {
+            if (childNode.nodeType === Node.ELEMENT_NODE) {
+                if (childNode.classList.contains(CLASSNAME)) {
+                    adjustNumerDOMStyle(childNode, style.totalWidth, style.totalHeight, style.lineThickness, style.colorLit, style.colorUnlit, style.gap);
+                } else {
+                    adjustDOMStyle(childNode, style);
+                }
+            }
+        }
     }
 
     const markedDOMs = document.querySelectorAll(".digital-numbers-js");
     for (let i = 0; i < markedDOMs.length; i++) {
         const element = markedDOMs[i];
-        
         const dynamic = element.getAttribute("data-dn-dynamic") || false;
 
-        function processNode(parent, node) {
-            if (node.nodeType === Node.TEXT_NODE) {
-                if (node.nodeValue && node.nodeValue.match(/\d/)) {
-                    const fragment = document.createDocumentFragment();
-                    node.nodeValue.split(/(\d+)/).forEach((text, index) => {
-                        if (index % 2 === 1) {
-                            for (let digit of text) {
-                                const number = parseInt(digit);
-                                const totalWidth = element.getAttribute("data-dn-width") || TOTAL_WIDTH_DEFAULT;
-                                const totalHeight = element.getAttribute("data-dn-height") || TOTAL_HEIGHT_DEFAULT;
-                                const lineThickness = element.getAttribute("data-dn-thickness") || LINE_THICKNESS_DEFAULT;
-                                const gap = element.getAttribute("data-dn-gap") || -1;
-                                const colorLit = element.getAttribute("data-dn-color-lit") || COLOR_LIT_DEFAULT;
-                                const colorUnlit = element.getAttribute("data-dn-color-unlit") || COLOR_UNLIT_DEFAULT;
-                                fragment.appendChild(getNumberDOM(number, totalWidth, totalHeight, lineThickness, colorLit, colorUnlit, gap));
-                            }
-                        } else if (text) {
-                            fragment.appendChild(document.createTextNode(text));
-                        }
-                    });
-                    parent.replaceChild(fragment, node);
-                }
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                Array.from(node.childNodes).forEach((childNode) => { processNode(node, childNode); });
-            }
+        function getStyleAttributes() {
+            const totalWidth = element.getAttribute("data-dn-width") || TOTAL_WIDTH_DEFAULT;
+            const totalHeight = element.getAttribute("data-dn-height") || TOTAL_HEIGHT_DEFAULT;
+            const lineThickness = element.getAttribute("data-dn-thickness") || LINE_THICKNESS_DEFAULT;
+            const gap = element.getAttribute("data-dn-gap") || -1;
+            const colorLit = element.getAttribute("data-dn-color-lit") || COLOR_LIT_DEFAULT;
+            const colorUnlit = element.getAttribute("data-dn-color-unlit") || COLOR_UNLIT_DEFAULT;
+            return {totalWidth, totalHeight, lineThickness, gap, colorLit, colorUnlit};
         }
 
-        Array.from(element.childNodes).forEach((childNode) => { processNode(element, childNode); });
+        const style = getStyleAttributes();
+        Array.from(element.childNodes).forEach((childNode) => { processNode(element, childNode, style); });
 
         if (dynamic) {
             let observer = new MutationObserver((mutationList, obs) => {
-                Array.from(element.childNodes).forEach((childNode) => { processNode(element, childNode); });
+                const newStyle = getStyleAttributes();
+                console.log(mutationList);
+                Array.from(mutationList).forEach((mutation) => {
+                    if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
+                        Array.from(mutation.addedNodes).forEach((addedNode) => {
+                            if (addedNode.classList && addedNode.classList.contains(CLASSNAME)) return;
+                            processNode(mutation.target, addedNode, newStyle);
+                        });
+                    } else if (mutation.type === "attributes") {
+                        adjustDOMStyle(mutation.target, newStyle);
+                    }
+                });
             });
-            observer.observe(element, {attributes: false, childList: true, subtree: false});
+            observer.observe(element, {attributes: true, childList: true, subtree: true, attributeFilter: ["data-dn-width", "data-dn-height", "data-dn-thickness", "data-dn-gap", "data-dn-color-lit", "data-dn-color-unlit"]});
         }
         
     }

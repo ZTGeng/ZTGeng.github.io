@@ -25,9 +25,7 @@
                 <li>Set the <code>class="digital-numbers-js"</code> for elements that need number conversion.</li>
                 <li>Load the following JS file at the end of the document:</li>
             </ol>
-            <pre class="bg-dark text-white"><code>
-        &lt;script src="digital-numbers.js"&gt;&lt;/script&gt;
-            </code></pre>
+            <pre class="bg-dark text-white p-3"><code>&lt;script src="digital-numbers.js"&gt;&lt;/script&gt;</code></pre>
             <br>
             <h3>Effects</h3>
             <h5>Static Text</h5>
@@ -40,18 +38,16 @@
                 <div>Temperature: 20.5°C</div>
                 <div>Humidity: 50%</div>
             </div>
-            <pre class="bg-dark text-white"><code>
-        &lt;div class="digital-numbers-js"&gt;Static text display: 1234567890&lt;/div&gt;
-        &lt;div class="digital-numbers-js"&gt;
-            &lt;div&gt;Temperature: 20.5°C&lt;/div&gt;
-            &lt;div&gt;Humidity: 50%&lt;/div&gt;
-        &lt;/div&gt;
-            </code></pre>
+            <pre class="bg-dark text-white p-3"><code>&lt;div class="digital-numbers-js"&gt;Static text display: 1234567890&lt;/div&gt;
+&lt;div class="digital-numbers-js"&gt;
+    &lt;div&gt;Temperature: 20.5°C&lt;/div&gt;
+    &lt;div&gt;Humidity: 50%&lt;/div&gt;
+&lt;/div&gt;</code></pre>
             <br>
             <h5>Dynamic Text</h5>
             <ul class="small text-secondary">
                 <li>Set <code>data-dn-dynamic="true"</code> to monitor dynamic content.</li>
-                <li>Can only dynamically monitor content changes of the top element. Changes in child elements do not trigger conversion.</li>
+                <li>The content change of child elements will also trigger the conversion.</li>
             </ul>
         </div>
         <div class="zh" hidden>
@@ -66,9 +62,7 @@
                 <li>对需要转换数字的元素设置 <code>class="digital-numbers-js"</code>。</li>
                 <li>在文档末尾加载以下 js 文件：</li>
             </ol>
-            <pre class="bg-dark text-white"><code>
-        &lt;script src="digital-numbers.js"&gt;&lt;/script&gt;
-            </code></pre>
+            <pre class="bg-dark text-white p-3"><code>&lt;script src="digital-numbers.js"&gt;&lt;/script&gt;</code></pre>
             <br>
             <h3>效果</h3>
             <h5>静态文本</h5>
@@ -81,34 +75,34 @@
                 <div>温度：20.5°C</div>
                 <div>湿度：50%</div>
             </div>
-            <pre class="bg-dark text-white"><code>
-        &lt;div class="digital-numbers-js"&gt;静态文本展示：1234567890&lt;/div&gt;
-        &lt;div class="digital-numbers-js"&gt;
-            &lt;div&gt;温度：20.5°C&lt;/div&gt;
-            &lt;div&gt;湿度：50%&lt;/div&gt;
-        &lt;/div&gt;
-            </code></pre>
+            <pre class="bg-dark text-white p-3"><code>&lt;div class="digital-numbers-js"&gt;静态文本展示：1234567890&lt;/div&gt;
+&lt;div class="digital-numbers-js"&gt;
+    &lt;div&gt;温度：20.5°C&lt;/div&gt;
+    &lt;div&gt;湿度：50%&lt;/div&gt;
+&lt;/div&gt;</code></pre>
             <br>
             <h5>动态文本</h5>
             <ul class="small text-secondary">
                 <li>设置 <code>data-dn-dynamic="true"</code> 监听动态内容。</li>
-                <li>只能动态监听顶层元素的内容变化。子元素内容变化不会触发转换。</li>
+                <li>子元素的内容变化也会触发转换。</li>
             </ul>
         </div>
-        <div id="clock" class="digital-numbers-js" data-dn-dynamic="true" style="display: flex; align-items: center;"></div>
-        <pre class="bg-dark text-white"><code>
-    &lt;div id="clock" class="digital-numbers-js" data-dn-dynamic="true" style="display: flex; align-items: center;"&gt;&lt;/div&gt;
-    &lt;script&gt;
-        function formatNumber(num) {
-            return `${num}`.padStart(2, '0');
-        }
-        setInterval(() => {
-            let now = new Date();
-            document.getElementById("clock").innerHTML =
-                formatNumber(now.getHours()) + "&lt;h2&gt;:&lt;/h2&gt;" + formatNumber(now.getMinutes()) + "&lt;h2&gt;:&lt;/h2&gt;" + formatNumber(now.getSeconds());
-        }, 1000);
-    &lt;/script&gt;
-        </code></pre>
+        <div class="digital-numbers-js" data-dn-dynamic="true">
+            <div id="clock" style="display: flex; align-items: center;"></div>
+        </div>
+        <pre class="bg-dark text-white p-3"><code>&lt;div class="digital-numbers-js" data-dn-dynamic="true"&gt;
+    &lt;div id="clock" style="display: flex; align-items: center;"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+    function formatNumber(num) {
+        return `${num}`.padStart(2, '0');
+    }
+    setInterval(() => {
+        let now = new Date();
+        document.getElementById("clock").innerHTML =
+            `${formatNumber(now.getHours())}&lt;h2&gt;:&lt;/h2&gt;${formatNumber(now.getMinutes())}&lt;h2&gt;:&lt;/h2&gt;${formatNumber(now.getSeconds())}`;
+    }, 1000);
+&lt;/script&gt;</code></pre>
         <br>
         <div class="en">
             <h5>Custom Styles</h5>
@@ -137,7 +131,7 @@
             </ul>
         </div>
         <div class="row">
-            <div class="col-3">
+            <div class="col-3 mb-2">
                 <div class="row g-3 align-items-center mb-2">
                     <div class="col-auto"><label for="widthRange" class="form-label en">Width</label><label for="widthRange" class="form-label zh" hidden>宽度</label></div>
                     <div class="col"><input type="range" class="form-range" id="widthRange" value="15" min="10" max="200"></div>
@@ -176,14 +170,14 @@
                 
                 <textarea type="text" class="form-control" placeholder="Custom Text" rows="3" id="textBox"></textarea>
             </div>
-            <div class="col-9">
+            <div class="col-9 mb-2">
                 <p class="small text-secondary en">Custom Style Display:</p>
                 <p class="small text-secondary zh" hidden>自定义样式展示：</p>
                 <div id="customized" class="digital-numbers-js p-3 bg-light text-dark" data-dn-dynamic="true">1234567890</div>
             </div>
-            <pre class="bg-dark text-white text-wrap p-3 mt-2"><code id="customized-code">
-    &lt;div id="customized" class="digital-numbers-js p-3" data-dn-dynamic="true"&gt;1234567890&lt;/div&gt;
-            </code></pre>
+            <pre class="bg-dark text-white p-3"><code id="customized-code">&lt;div id="customized" class="digital-numbers-js p-3 bg-light text-dark" data-dn-dynamic="true"&gt;
+    ...
+&lt;/div&gt;</code></pre>
                 
         </div>
         <br>
@@ -213,7 +207,7 @@
         setInterval(() => {
             let now = new Date();
             document.getElementById("clock").innerHTML =
-                formatNumber(now.getHours()) + "<h2>:</h2>" + formatNumber(now.getMinutes()) + "<h2>:</h2>" + formatNumber(now.getSeconds());
+                `${formatNumber(now.getHours())}<h2>:</h2>${formatNumber(now.getMinutes())}<h2>:</h2>${formatNumber(now.getSeconds())}`;
         }, 1000);
 
         const customized = document.getElementById("customized");
@@ -223,43 +217,41 @@
         const heightNum = document.getElementById("heightNum");
         const thicknessNum = document.getElementById("thicknessNum");
         const gapNum = document.getElementById("gapNum");
+        function updateCustomizedCode() {
+            const index = customized.outerHTML.indexOf(">");
+            const html = customized.outerHTML.substring(0, index + 1);
+            customizedCode.innerText = `${html}\n    ...\n</div>\n`;
+        }
         textBox.addEventListener("change", () => {
             customized.innerText = textBox.value || "1234567890";
-            customizedCode.textContent = `\n${customized.outerHTML}\n\n`;
         });
         document.getElementById("widthRange").addEventListener("change", () => {
             customized.setAttribute("data-dn-width", widthRange.value);
-            customized.innerText = textBox.value || "1234567890";
-            customizedCode.textContent = `\n${customized.outerHTML}\n\n`;
+            updateCustomizedCode()
             widthNum.innerText = widthRange.value;
         });
         document.getElementById("heightRange").addEventListener("change", () => {
             customized.setAttribute("data-dn-height", heightRange.value);
-            customized.innerText = textBox.value || "1234567890";
-            customizedCode.textContent = `\n${customized.outerHTML}\n\n`;
+            updateCustomizedCode()
             heightNum.innerText = heightRange.value;
         });
         document.getElementById("thicknessRange").addEventListener("change", () => {
             customized.setAttribute("data-dn-thickness", thicknessRange.value);
-            customized.innerText = textBox.value || "1234567890";
-            customizedCode.textContent = `\n${customized.outerHTML}\n\n`;
+            updateCustomizedCode()
             thicknessNum.innerText = thicknessRange.value;
         });
         document.getElementById("gapRange").addEventListener("change", () => {
             customized.setAttribute("data-dn-gap", gapRange.value);
-            customized.innerText = textBox.value || "1234567890";
-            customizedCode.textContent = `\n${customized.outerHTML}\n\n`;
+            updateCustomizedCode()
             gapNum.innerText = gapRange.value;
         });
         document.getElementById("colorLit").addEventListener("change", () => {
             customized.setAttribute("data-dn-color-lit", colorLit.value);
-            customized.innerText = textBox.value || "1234567890";
-            customizedCode.textContent = `\n${customized.outerHTML}\n\n`;
+            updateCustomizedCode()
         });
         document.getElementById("colorUnlit").addEventListener("change", () => {
             customized.setAttribute("data-dn-color-unlit", colorUnlit.value);
-            customized.innerText = textBox.value || "1234567890";
-            customizedCode.textContent = `\n${customized.outerHTML}\n\n`;
+            updateCustomizedCode()
         });
         document.getElementById("theme").addEventListener("change", (e) => {
             if (e.target.id === "light-theme") {
@@ -273,6 +265,7 @@
                 customized.classList.add("bg-dark");
                 customized.classList.add("text-white");
             }
+            updateCustomizedCode()
         });
 
         function switchToEn() {
