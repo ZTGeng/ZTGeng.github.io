@@ -12,6 +12,7 @@
     const SHRINK_DEFAULT = 0.5;
     const SQRT1_2 = Math.sqrt(0.5);
     const CLASSNAME = "digital-numbers-dom";
+    const NUMBER_ARRTIBUTE_NAME = "data-dn-number";
 
     // [top, upper left, upper right, middle, lower left, lower right, bottom]
     const LIT_DIGITS = [
@@ -157,7 +158,7 @@
         numberDOM.style.position = "relative";
         numberDOM.style.display = "inline-block";
         numberDOM.style.margin = `0 ${margin_x}px`;
-        numberDOM.setAttribute("data-dn-number", number);
+        numberDOM.setAttribute(NUMBER_ARRTIBUTE_NAME, number);
 
         const lineDOMs = [];
         for (let i = 0; i < 7; i++) {
@@ -207,7 +208,7 @@
 
     function adjustNumerDOMStyle(element, totalWidth = TOTAL_WIDTH_DEFAULT, totalHeight = TOTAL_HEIGHT_DEFAULT, lineThickness = LINE_THICKNESS_DEFAULT, colorLit = COLOR_LIT_DEFAULT, colorUnlit = COLOR_UNLIT_DEFAULT, gap = -1) {
         if (!element.classList.contains(CLASSNAME)) return;
-        const number = parseInt(element.getAttribute("data-dn-number"));
+        const number = parseInt(element.getAttribute(NUMBER_ARRTIBUTE_NAME));
         const lineDOMs = element.childNodes;
         const margin_x = Math.max(totalHeight / 20, 1);
         const litDigits = LIT_DIGITS[number];
