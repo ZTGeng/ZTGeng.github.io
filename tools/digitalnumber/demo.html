@@ -13,45 +13,88 @@
     <div class="container">
         <div id="header"></div>
 
-        <h1>Digital Numbers JS Demo</h1>
-        <ul class="small text-secondary">
-            <li>自动将数字转换为液晶数字样式。</li>
-            <li>转化后的数字为纯 div 实现，非字符，不支持拖选。</li>
-            <li>支持静态和动态内容。</li>
-        </ul>
-        <h3>使用方法</h3>
-        <ol class="small text-secondary">
-            <li>对需要转换数字的标签设置 <code>class="digital-numbers-js"</code>。</li>
-            <li>在文档末尾加载以下 js 文件:</li>
-        </ol>
-        <pre class="bg-dark text-white"><code>
-    &lt;script src="digital-numbers.js"&gt;&lt;/script&gt;
-        </code></pre>
-        <br>
-        <h3>效果</h3>
-        <h5>静态文本</h5>
-        <ul class="small text-secondary">
-            <li>支持下级标签，所有子元素中的数字都会被转换。</li>
-            <li>支持数字与非数字混排。</li>
-        </ul>
-        <div class="digital-numbers-js">静态文本展示：1234567890</div>
-        <div class="digital-numbers-js">
-            <div>温度：20.5°C</div>
-            <div>湿度：50%</div>
+        <div class="en">
+            <h1>Digital Numbers JS Demo</h1>
+            <ul class="small text-secondary">
+                <li>Automatically converts numbers to LCD digital style.</li>
+                <li>The transformed numbers are implemented purely with div, not characters, and do not support drag selection.</li>
+                <li>Supports both static and dynamic content.</li>
+            </ul>
+            <h3>How to Use</h3>
+            <ol class="small text-secondary">
+                <li>Set the <code>class="digital-numbers-js"</code> for elements that need number conversion.</li>
+                <li>Load the following JS file at the end of the document:</li>
+            </ol>
+            <pre class="bg-dark text-white"><code>
+        &lt;script src="digital-numbers.js"&gt;&lt;/script&gt;
+            </code></pre>
+            <br>
+            <h3>Effects</h3>
+            <h5>Static Text</h5>
+            <ul class="small text-secondary">
+                <li>All numbers in child elements will be converted.</li>
+                <li>Supports mixed arrangement of numbers and non-numbers.</li>
+            </ul>
+            <div class="digital-numbers-js">Static text display: 1234567890</div>
+            <div class="digital-numbers-js">
+                <div>Temperature: 20.5°C</div>
+                <div>Humidity: 50%</div>
+            </div>
+            <pre class="bg-dark text-white"><code>
+        &lt;div class="digital-numbers-js"&gt;Static text display: 1234567890&lt;/div&gt;
+        &lt;div class="digital-numbers-js"&gt;
+            &lt;div&gt;Temperature: 20.5°C&lt;/div&gt;
+            &lt;div&gt;Humidity: 50%&lt;/div&gt;
+        &lt;/div&gt;
+            </code></pre>
+            <br>
+            <h5>Dynamic Text</h5>
+            <ul class="small text-secondary">
+                <li>Set <code>data-dn-dynamic="true"</code> to monitor dynamic content.</li>
+                <li>Can only dynamically monitor content changes of the top element. Changes in child elements do not trigger conversion.</li>
+            </ul>
         </div>
-        <pre class="bg-dark text-white"><code>
-    &lt;div class="digital-numbers-js"&gt;静态文本展示：1234567890&lt;/div&gt;
-    &lt;div class="digital-numbers-js"&gt;
-        &lt;div&gt;温度：20.5°C&lt;/div&gt;
-        &lt;div&gt;湿度：50&lt;/div&gt;
-    &lt;/div&gt;
-        </code></pre>
-        <br>
-        <h5>动态文本</h5>
-        <ul class="small text-secondary">
-            <li>设置 <code>data-dn-dynamic="true"</code> 监听动态内容。</li>
-            <li>只能动态监听当前元素的内容变化。子元素内容变化不会触发。</li>
-        </ul>
+        <div class="zh" hidden>
+            <h1>液晶数字样式</h1>
+            <ul class="small text-secondary">
+                <li>自动将数字转换为液晶数字样式。</li>
+                <li>转化后的数字为纯 div 实现，非字符，不支持拖选。</li>
+                <li>支持静态和动态内容。</li>
+            </ul>
+            <h3>使用方法</h3>
+            <ol class="small text-secondary">
+                <li>对需要转换数字的元素设置 <code>class="digital-numbers-js"</code>。</li>
+                <li>在文档末尾加载以下 js 文件：</li>
+            </ol>
+            <pre class="bg-dark text-white"><code>
+        &lt;script src="digital-numbers.js"&gt;&lt;/script&gt;
+            </code></pre>
+            <br>
+            <h3>效果</h3>
+            <h5>静态文本</h5>
+            <ul class="small text-secondary">
+                <li>所有子元素中的数字都会被转换。</li>
+                <li>支持数字与非数字混排。</li>
+            </ul>
+            <div class="digital-numbers-js">静态文本展示：1234567890</div>
+            <div class="digital-numbers-js">
+                <div>温度：20.5°C</div>
+                <div>湿度：50%</div>
+            </div>
+            <pre class="bg-dark text-white"><code>
+        &lt;div class="digital-numbers-js"&gt;静态文本展示：1234567890&lt;/div&gt;
+        &lt;div class="digital-numbers-js"&gt;
+            &lt;div&gt;温度：20.5°C&lt;/div&gt;
+            &lt;div&gt;湿度：50%&lt;/div&gt;
+        &lt;/div&gt;
+            </code></pre>
+            <br>
+            <h5>动态文本</h5>
+            <ul class="small text-secondary">
+                <li>设置 <code>data-dn-dynamic="true"</code> 监听动态内容。</li>
+                <li>只能动态监听顶层元素的内容变化。子元素内容变化不会触发转换。</li>
+            </ul>
+        </div>
         <div id="clock" class="digital-numbers-js" data-dn-dynamic="true" style="display: flex; align-items: center;"></div>
         <pre class="bg-dark text-white"><code>
     &lt;div id="clock" class="digital-numbers-js" data-dn-dynamic="true" style="display: flex; align-items: center;"&gt;&lt;/div&gt;
@@ -67,54 +110,76 @@
     &lt;/script&gt;
         </code></pre>
         <br>
-        <h5>自定义样式</h5>
-        <p class="small text-secondary">可以通过以下方式自定义样式：</p>
-        <ul class="small text-secondary">
-            <li><code>data-dn-width</code> 数字宽度，单位：px（默认：15）</li>
-            <li><code>data-dn-height</code> 数字高度，单位：px（默认：27）</li>
-            <li><code>data-dn-thickness</code> 数字线条粗细，单位：px（默认：3）</li>
-            <li><code>data-dn-gap</code> 相邻线条间隙，单位：px（默认：约 0.7）</li>
-            <li><code>data-dn-color-lit</code> 液晶亮条颜色（默认：#32CD32）</li>
-            <li><code>data-dn-color-unlit</code> 液晶暗条颜色（默认：#FFFFFF）</li>
-            <li><code>data-dn-dynamic</code> 动态监听（默认：false）</li>
-        </ul>
+        <div class="en">
+            <h5>Custom Styles</h5>
+            <p class="small text-secondary">Custom attributes can be used on elements to adjust styles as follows:</p>
+            <ul class="small text-secondary">
+                <li><code>data-dn-width</code> for number width, in px (default: 15)</li>
+                <li><code>data-dn-height</code> for number height, in px (default: 27)</li>
+                <li><code>data-dn-thickness</code> for the thickness of number lines, in px (default: 3)</li>
+                <li><code>data-dn-gap</code> for the gap between adjacent lines, in px (default: about 0.7)</li>
+                <li><code>data-dn-color-lit</code> for the color of lit LCD bars (default: #32CD32)</li>
+                <li><code>data-dn-color-unlit</code> for the color of unlit LCD bars (default: #FFFFFF)</li>
+                <li><code>data-dn-dynamic</code> for dynamic monitoring (default: false)</li>
+            </ul>
+        </div>
+        <div class="zh" hidden>
+            <h5>自定义样式</h5>
+            <p class="small text-secondary">可以在元素上使用以下自定义属性调整样式：</p>
+            <ul class="small text-secondary">
+                <li><code>data-dn-width</code> 数字宽度，单位：px（默认：15）</li>
+                <li><code>data-dn-height</code> 数字高度，单位：px（默认：27）</li>
+                <li><code>data-dn-thickness</code> 数字线条粗细，单位：px（默认：3）</li>
+                <li><code>data-dn-gap</code> 相邻线条间隙，单位：px（默认：约 0.7）</li>
+                <li><code>data-dn-color-lit</code> 液晶亮条颜色（默认：#32CD32）</li>
+                <li><code>data-dn-color-unlit</code> 液晶暗条颜色（默认：#FFFFFF）</li>
+                <li><code>data-dn-dynamic</code> 动态监听（默认：false）</li>
+            </ul>
+        </div>
         <div class="row">
             <div class="col-3">
                 <div class="row g-3 align-items-center mb-2">
-                    <div class="col-auto"><label for="widthRange" class="form-label">宽度</label></div>
+                    <div class="col-auto"><label for="widthRange" class="form-label en">Width</label><label for="widthRange" class="form-label zh" hidden>宽度</label></div>
                     <div class="col"><input type="range" class="form-range" id="widthRange" value="15" min="10" max="200"></div>
                     <div class="col-1"><label for="widthRange" class="form-label" id="widthNum">15</label></div>
                 </div>
                 <div class="row g-3 align-items-center mb-2">
-                    <div class="col-auto"><label for="heightRange" class="form-label">高度</label></div>
+                    <div class="col-auto"><label for="heightRange" class="form-label en">Height</label><label for="heightRange" class="form-label zh" hidden>高度</label></div>
                     <div class="col"><input type="range" class="form-range" id="heightRange" value="27" min="18" max="360"></div>
                     <div class="col-1"><label for="heightRange" class="form-label" id="heightNum">27</label></div>
                 </div>
                 <div class="row g-3 align-items-center mb-2">
-                    <div class="col-auto"><label for="thicknessRange" class="form-label">线粗</label></div>
+                    <div class="col-auto"><label for="thicknessRange" class="form-label en">Line</label><label for="thicknessRange" class="form-label zh" hidden>线粗</label></div>
                     <div class="col"><input type="range" class="form-range" id="thicknessRange" value="3" min="2" max="40"></div>
                     <div class="col-1"><label for="thicknessRange" class="form-label" id="thicknessNum">3</label></div>
                 </div>
                 <div class="row g-3 align-items-center mb-2">
-                    <div class="col-auto"><label for="gapRange" class="form-label">间隙</label></div>
+                    <div class="col-auto"><label for="gapRange" class="form-label en">Gap</label><label for="gapRange" class="form-label zh" hidden>间隙</label></div>
                     <div class="col"><input type="range" class="form-range" id="gapRange" value="0.7" min="0" max="10" step="0.1"></div>
                     <div class="col-1"><label for="gapRange" class="form-label" id="gapNum">0.7</label></div>
                 </div>
                 <div class="row g-3 align-items-center mb-2">
-                    <div class="col-auto"><label for="colorLit" class="form-label">亮条颜色</label></div>
+                    <div class="col-auto"><label for="colorLit" class="form-label en">Lit Bar</label><label for="colorLit" class="form-label zh" hidden>亮条颜色</label></div>
                     <div class="col"><input type="color" class="form-control form-control-color" value="#32CD32" id="colorLit"></div>
-                    <div class="col-auto"><label for="colorUnlit" class="form-label">暗条颜色</label></div>
+                    <div class="col-auto"><label for="colorUnlit" class="form-label en">Unlit Bar</label><label for="colorUnlit" class="form-label zh" hidden>暗条颜色</label></div>
                     <div class="col"><input type="color" class="form-control form-control-color" value="#FFFFFF" id="colorUnlit"></div>
                 </div>
                 <div class="row g-3 align-items-center mb-2">
-                    <div class="col-auto"><label for="colorBackground" class="form-label">背景颜色</label></div>
-                    <div class="col"><input type="color" class="form-control form-control-color" value="#FFFFFF" id="colorBackground"></div>
+                    <div class="col-auto"><label for="theme" class="form-label en">Theme</label><label for="theme" class="form-label zh" hidden>主题</label></div>
+                    <div class="col form-check form-check-inline ps-2 mb-2" id="theme">
+                        <input type="radio" class="btn-check" name="theme-choice" id="light-theme" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="light-theme" id="light-theme-label">Light</label>
+                        <input type="radio" class="btn-check" name="theme-choice" id="dark-theme" autocomplete="off">
+                        <label class="btn btn-outline-dark" for="dark-theme" id="dark-theme-label">Dark</label>
+                    </div>
                 </div>
-                <textarea type="text" class="form-control" placeholder="自定义文字" rows="3" id="textBox"></textarea>
+                
+                <textarea type="text" class="form-control" placeholder="Custom Text" rows="3" id="textBox"></textarea>
             </div>
             <div class="col-9">
-                <p class="small text-secondary">自定义样式展示：</p>
-                <div id="customized" class="digital-numbers-js p-3" data-dn-dynamic="true">1234567890</div>
+                <p class="small text-secondary en">Custom Style Display:</p>
+                <p class="small text-secondary zh" hidden>自定义样式展示：</p>
+                <div id="customized" class="digital-numbers-js p-3 bg-light text-dark" data-dn-dynamic="true">1234567890</div>
             </div>
             <pre class="bg-dark text-white text-wrap p-3 mt-2"><code id="customized-code">
     &lt;div id="customized" class="digital-numbers-js p-3" data-dn-dynamic="true"&gt;1234567890&lt;/div&gt;
@@ -123,14 +188,24 @@
         </div>
         <br>
 
-        <h5>兼容性</h5>
-        <ul>
-            <li>浏览器兼容性要求：<a href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver#browser_compatibility" target="_blank">MutationObserver</a>（动态内容需要）。</li>
-        </ul>
+        <div class="en">
+            <h2>Compatibility</h2>
+            <ul>
+                <li>Browser compatibility requirements: <a href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver#browser_compatibility" target="_blank">MutationObserver</a> (required for dynamic content monitoring).</li>
+            </ul>
+        </div>
+        <div class="zh" hidden>
+            <h2>兼容性</h2>
+            <ul>
+                <li>浏览器兼容性要求：<a href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver#browser_compatibility" target="_blank">MutationObserver</a>（开启动态内容监听需要）。</li>
+            </ul>
+        </div>
         <div id="footer"></div>
     </div>
 
-    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="tools" data-breadcrumb-page="Digital Numbers JS Demo" data-breadcrumb-page-zh="液晶数字样式"></script>
+    <script type="text/javascript" src="/shared/loadSharedUI.js"
+        data-active-tab="tools" data-breadcrumb-page="Digital Numbers JS Demo" data-breadcrumb-page-zh="液晶数字样式"
+        data-lang-enabled="true" data-en-callback="switchToEn" data-zh-callback="switchToZh"></script>
     <script>
         function formatNumber(num) {
             return `${num}`.padStart(2, '0');
@@ -149,7 +224,6 @@
         const thicknessNum = document.getElementById("thicknessNum");
         const gapNum = document.getElementById("gapNum");
         textBox.addEventListener("change", () => {
-            console.log(textBox.value);
             customized.innerText = textBox.value || "1234567890";
             customizedCode.textContent = `\n${customized.outerHTML}\n\n`;
         });
@@ -187,9 +261,52 @@
             customized.innerText = textBox.value || "1234567890";
             customizedCode.textContent = `\n${customized.outerHTML}\n\n`;
         });
-        document.getElementById("colorBackground").addEventListener("change", () => {
-            customized.style.backgroundColor = colorBackground.value;
+        document.getElementById("theme").addEventListener("change", (e) => {
+            if (e.target.id === "light-theme") {
+                customized.classList.remove("bg-dark");
+                customized.classList.remove("text-white");
+                customized.classList.add("bg-light");
+                customized.classList.add("text-dark");
+            } else if (e.target.id === "dark-theme") {
+                customized.classList.remove("bg-light");
+                customized.classList.remove("text-dark");
+                customized.classList.add("bg-dark");
+                customized.classList.add("text-white");
+            }
         });
+
+        function switchToEn() {
+            document.title = "Digital Number JS Demo";
+            const zhDivs = document.getElementsByClassName("zh");
+            for (let i = 0; i < zhDivs.length; i++) {
+                zhDivs[i].setAttribute("hidden", "");
+            }
+            const enDivs = document.getElementsByClassName("en");
+            for (let i = 0; i < enDivs.length; i++) {
+                enDivs[i].removeAttribute("hidden");
+            }
+            textBox.setAttribute("placeholder", "Custom Text");
+            document.getElementById("light-theme-label").innerText = "Light";
+            document.getElementById("dark-theme-label").innerText = "Dark";
+        }
+        function switchToZh() {
+            document.title = "液晶数字样式";
+            const enDivs = document.getElementsByClassName("en");
+            for (let i = 0; i < enDivs.length; i++) {
+                enDivs[i].setAttribute("hidden", "");
+            }
+            const zhDivs = document.getElementsByClassName("zh");
+            for (let i = 0; i < zhDivs.length; i++) {
+                zhDivs[i].removeAttribute("hidden");
+            }
+            textBox.setAttribute("placeholder", "自定义文本");
+            document.getElementById("light-theme-label").innerText = "浅色";
+            document.getElementById("dark-theme-label").innerText = "深色";
+        }
+        const userLang = navigator.language || navigator.userLanguage;
+        if (userLang.startsWith("zh")) {
+            switchToZh();
+        }
     </script>
     <script src="digital-numbers.js"></script>
 </body>
