@@ -190,18 +190,18 @@ var multiOptions = {
             // return "才";
         },
         options: [
-            { char: "才", text: "（通用）副词：刚刚，仅仅；才能" },
-            { char: "纔", text: "（亦可用“才”）副词：刚刚，仅仅" }
+            { char: "才", text: "副词：刚刚，仅仅（香港常用）；才能（通用）" },
+            { char: "纔", text: "副词：刚刚，仅仅（台湾常用）" }
         ]
     },
     "卫": {
-        skip: function(prev, next) { return true; },
+        skip: function(prev, next) { return false; },
         default: function(prev, next, prevprev, nextnext) {
             return "衛";
         },
         options: [
-            { char: "衛", text: "（常用）" },
-            { char: "衞", text: "“衛”的异体字" }
+            { char: "衛", text: "（台湾常用）" },
+            { char: "衞", text: "（香港常用）" }
         ]
     },
     "于": {
@@ -291,13 +291,13 @@ var multiOptions = {
         ]
     },
     "为": {
-        skip: function(prev, next) { return true; },
+        skip: function(prev, next) { return false; },
         default: function(prev, next, prevprev, nextnext) {
             return "為";
         },
         options: [
-            { char: "為", text: "（常见）" },
-            { char: "爲", text: "同“為”" }
+            { char: "為", text: "（台湾常用）" },
+            { char: "爲", text: "（香港常用）" }
         ]
     },
     "云": {
@@ -501,8 +501,8 @@ var multiOptions = {
             return "歎";
         },
         options: [
-            { char: "嘆", text: "（通用）" },
-            { char: "歎", text: "（通用）" }
+            { char: "嘆", text: "（台湾常用）" },
+            { char: "歎", text: "（香港常用）" }
         ]
     },
     "叶": {
@@ -535,8 +535,8 @@ var multiOptions = {
             return "只";
         },
         options: [
-            { char: "只", text: "【zhǐ】副词，仅仅，唯一" },
-            { char: "衹", text: "【zhǐ】同副词“只”" },
+            { char: "只", text: "【zhǐ】副词，仅仅，唯一（台湾常用）" },
+            { char: "衹", text: "【zhǐ】副词，仅仅，唯一（香港常用）" },
             { char: "隻", text: "【zhī】量词；单独" }
         ]
     },
@@ -1330,8 +1330,8 @@ var multiOptions = {
         },
         options: [
             { char: "里", text: "邻里；长度单位" },
-            { char: "裡", text: "里外" },
-            { char: "裏", text: "“裡”的异体字" }
+            { char: "裡", text: "里外（台湾常用）" },
+            { char: "裏", text: "里外（香港常用）" }
         ]
     },
     "呆": {
@@ -2323,8 +2323,8 @@ var multiOptions = {
         },
         options: [
             { char: "面", text: "脸面；前面" },
-            { char: "麵", text: "面条" },
-            { char: "麪", text: "“麵”的异体字" }
+            { char: "麵", text: "面条（台湾常用）" },
+            { char: "麪", text: "面条（香港常用）" }
         ]
     },
     "尝": {
@@ -2349,13 +2349,13 @@ var multiOptions = {
         ]
     },
     "钩": {
-        skip: function(prev, next) { return true; },
+        skip: function(prev, next) { return false; },
         default: function(prev, next, prevprev, nextnext) {
             return "鉤";
         },
         options: [
-            { char: "鉤", text: "（常用）" },
-            { char: "鈎", text: "“鉤”的异体字" }
+            { char: "鉤", text: "（台湾常用）" },
+            { char: "鈎", text: "（香港常用）" }
         ]
     },
     "党": {
@@ -2773,7 +2773,7 @@ var multiOptions = {
             return "煙";
         },
         options: [
-            { char: "煙", text: "烟草（香港常用）；除烟草外：冒烟，烟花" },
+            { char: "煙", text: "烟草（香港常用）；除烟草外：冒烟，烟花（通用）" },
             { char: "菸", text: "烟草（台湾常用）" }
         ]
     },
@@ -3326,13 +3326,13 @@ var multiOptions = {
         ]
     },
     "群": {
-        skip: function(prev, next) { return true; },
+        skip: function(prev, next) { return false; },
         default: function(prev, next, prevprev, nextnext) {
             return "群";
         },
         options: [
-            { char: "群", text: "（通用）" },
-            { char: "羣", text: "（通用）" }
+            { char: "群", text: "（台湾常用）" },
+            { char: "羣", text: "（香港常用）" }
         ]
     },
     "酬": {
@@ -4019,7 +4019,48 @@ var multiOptions = {
             { char: "彫", text: "（亦可用“雕”）刻花：雕弓" },
             { char: "琱", text: "（亦可用“雕”）治玉" }
         ]
-    }
+    },
+    "酝": {
+        skip: function(prev, next) { return false; },
+        default: function(prev, next, prevprev, nextnext) {
+            return "醞";
+        },
+        options: [
+            { char: "醖", text: "（香港常用）" },
+            { char: "醞", text: "（台湾常用）" },
+        ]
+    },
+    "峰": {
+        skip: function(prev, next) { return false; },
+        default: function(prev, next, prevprev, nextnext) {
+            return "峰";
+        },
+        options: [
+            { char: "峯", text: "（香港常用）" },
+            { char: "峰", text: "（台湾常用）" },
+        ]
+    },
+    "告": {
+        skip: function(prev, next) { return true; },
+        default: function(prev, next, prevprev, nextnext) {
+            return "告";
+        },
+        options: [
+            { char: "吿", text: "（香港常用）" },
+            { char: "告", text: "（台湾常用）" },
+        ]
+    },
+    "妆": {
+        skip: function(prev, next) { return false; },
+        default: function(prev, next, prevprev, nextnext) {
+            return "妝";
+        },
+        options: [
+            { char: "粧", text: "（香港常用）" },
+            { char: "妝", text: "（台湾常用）" },
+        ]
+    },
+    
 };
 
 var canConvertS = function(char) {
