@@ -159,7 +159,7 @@
                     // Split paragraphs to isolate inline code
                     return text
                         .flatMap(paragraph => {
-                            return paragraph.split(/(?<!\\)`(.+?)`/gs).map((textOrCode, index) => {
+                            return paragraph.split(/(?<!\\)`(.+?)(?<!\\)`/gs).map((textOrCode, index) => {
                                 if (index % 2 === 0) {
                                     return this.escapeText(textOrCode)
                                         // Convert images
