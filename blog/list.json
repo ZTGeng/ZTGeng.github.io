@@ -1,6 +1,11 @@
 {
   "list": [
     {
+      "title": "2D Fully Connected Layer - 一种无用的对于线性全连接层的模仿",
+      "date": "2024-08-05 13:08:01",
+      "filename": "2408051308"
+    },
+    {
       "title": "在 Windows 上下载和运行 Llama2",
       "date": "2024-03-28 22:26:10",
       "filename": "2403282226"
