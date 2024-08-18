@@ -96,6 +96,9 @@
                 loadPost(id) {
                     const filename = 'posts/' + id + '.md'
                     fetch(filename)
+                        .then(response => {
+                            return response.ok ? response : fetch('posts/' + this.emptyPost + '.md')
+                        })
                         .then(response => response.text())
                         .then(data => {
                             // console.log(data)
@@ -246,6 +249,7 @@
                 },
                 escapeCode(code) {
                     return code.replace(/&/g, '&amp;')
+                        .replace(/%/g, '&#37;')
                         .replace(/</g, '&lt;')
                         .replace(/>/g, '&gt;');
                 },
