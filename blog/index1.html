@@ -41,7 +41,7 @@ listSize: 5
                     <h3 id="list_title" class="float-start">{{ page.listTitleEn }}</h3>
                 </div>
                 <div id="list" class="list-group">
-                    {% for post in site.posts limit: layout.listSize %}
+                    {% for post in site.posts limit: page.listSize %}
                         {% assign mod = forloop.index | modulo: 2 %}
                         <a href="{{ post.url }}"
                             {% if mod == 1 %}
@@ -81,7 +81,7 @@ listSize: 5
                 },
             {% endfor %}
         ];
-        const listSize = {{ layout.listSize }};
+        const listSize = {{ page.listSize }};
 
         const refreshList = (page) => {
             const list = document.getElementById("list");
