@@ -12,7 +12,6 @@ listTitle: List
 </head>
 
 <body>
-    "{% assign layout.listTitle = 列表 %}"
     <div class="container">
         <div id="header"></div>
         <div class="row">
@@ -38,11 +37,29 @@ listTitle: List
                 </div>
                 <br>
                 <div id="list" class="list-group">
-                    {% for i in (0..site.posts.size) limit:2 %}
-                        {% assign post = site.posts[i] %}
+                    {% for post in site.posts limit: 4 %}
+                        {% assign mod = forloop.index | modulo: 2 %}
                         <a href="{{ post.url }}"
-                            class="list-group-item list-group-item-action"
-                            {% if i | modulo: 2 == 0 %}class="list-group-item-primary"{% endif %}>
+                            {% if mod == 0 %}
+                                class="list-group-item list-group-item-action list-group-item-primary"
+                            {% else %}
+                                class="list-group-item list-group-item-action"
+                            {% endif %}>
+                            <h6 class="mb-1">{{ post.title }}</h6>
+                            <small class="mb-1">{{ post.date | date: "%Y-%m-%d %H:%M" }}</small>
+                        </a>
+                    {% endfor %}
+                </div>
+                <br>
+                <div id="list" class="list-group">
+                    {% for post in site.posts limit: 4 %}
+                        {% assign i = forloop.index %}
+                        <a href="{{ post.url }}"
+                            {% if i | modulo: 2 == 0 %}
+                                class="list-group-item list-group-item-action list-group-item-primary"
+                            {% else %}
+                                class="list-group-item list-group-item-action"
+                            {% endif %}>
                             <h6 class="mb-1">{{ post.title }}</h6>
                             <small class="mb-1">{{ post.date | date: "%Y-%m-%d %H:%M" }}</small>
                         </a>
