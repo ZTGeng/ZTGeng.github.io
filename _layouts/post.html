@@ -49,7 +49,7 @@ listTitleZh: 列表
         <div id="footer"></div>
     </div>
 
-    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="blog"></script>
+    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="blog" data-breadcrumb-page="{{ page.title }}"></script>
     <script type="text/javascript">
         if (window.navigator.language.startsWith("zh")) {
             document.getElementById("list_title").innerText = "{{ layout.listTitleZh }}";
