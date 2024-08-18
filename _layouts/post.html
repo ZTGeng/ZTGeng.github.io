@@ -42,9 +42,8 @@ listTitle: List
     <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="blog"></script>
     <script type="text/javascript">
         console.log("{{ page.title }}");
-        console.log(page);
         console.log("{{ layout.listTitle }}");
-        console.log(layout);
+        "{{ layout.listTitle = 列表 }}"
     </script>
 </body>
 </html>
