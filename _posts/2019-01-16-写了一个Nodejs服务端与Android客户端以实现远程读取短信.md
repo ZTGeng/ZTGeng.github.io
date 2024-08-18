@@ -36,7 +36,7 @@ Github：
 
 没有用别的库，连Express都没用，自己写了一个路由，像这样：
 
-```JavaScript
+```javascript
         // 手机端：更新设备的FCM Token。
         if (method == 'POST' && path == '/token') {
             getBody(req, (data) => {
@@ -151,10 +151,10 @@ FCM消息下可以有`notification`和`data`等关键字。如果`notification`�
 
 读取短信需要用户授权。我在app启动时，在`onCreate()`里检查权限，如下：
 
-```Java
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_SMS), permissionRequestCode)
-        }
+```java
+if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_SMS), permissionRequestCode)
+}
 ```
 
 理论上第一次打开app时就应该请求授权，之后就不用重新授权了。不过Android的权限机制发生过变化，实测结果是：在Android 8设备上结果如预期；在Android 4.4设备上，启动app并不会触发授权请求，app会认为已经授权，但在第一次读取短信时还是会弹出请求。这就很麻烦，授权必须预先完成，否则等到用户请求读取短信时多半是远程状态，无法操作设备的。如果找不到更好的办法，hacky的解决方式是`onCreate()`时先读取一次短信。
