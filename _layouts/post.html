@@ -76,12 +76,15 @@ listSize: 5
         const refreshList = (page) => {
             const list = document.getElementById("list");
             list.innerHTML = "";
-            for (let i = (page - 1) * listSize; i < Math.min(page * listSize, posts.length); i++) {
-                const post = posts[i];
-                const mod = i % 2;
+            for (let i = 0; i < listSize; i++) {
+                p = (page - 1) * listSize + i;
+                if (p >= posts.length) {
+                    break;
+                }
+                const post = posts[p];
                 const a = document.createElement("a");
                 a.href = post.url;
-                a.className = "list-group-item list-group-item-action" + (mod === 0 ? " list-group-item-primary" : "");
+                a.className = "list-group-item list-group-item-action" + (i % 2 === 0 ? " list-group-item-primary" : "");
                 const h6 = document.createElement("h6");
                 h6.className = "mb-1";
                 h6.innerText = post.title;
