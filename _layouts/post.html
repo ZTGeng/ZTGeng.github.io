@@ -38,7 +38,7 @@ listTitle: List
                 </div>
                 <br>
                 <div id="list" class="list-group">
-                    {% for i in site.posts | size | at_most: 2 %}
+                    {% for i in (0..site.posts.size) limit:2 %}
                         {% assign post = site.posts[i] %}
                         <a href="{{ post.url }}"
                             class="list-group-item list-group-item-action"

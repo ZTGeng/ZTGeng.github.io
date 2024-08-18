@@ -10,7 +10,7 @@ date: 2017-06-19 12:02:24
 
 假设你在用 Builder 模式来创建一个对象，比如这样：​
 
-```java
+```Java
 User user = new User.Builder()
     .username("test_account")
     .email("test@example.com")
@@ -19,7 +19,7 @@ User user = new User.Builder()
 
 这时你希望：只有当输入的 email 是一个有效的邮件地址时，才设置这一项；否则就忽略 email。通常我们会这样修改代码：
 
-```java
+```Java
 User.Builder builder = new User.Builder()
     .username("");
 if (isValidEmail(emailStr)) {
@@ -32,7 +32,7 @@ User user = builder.build();
 
 第一个办法是使用三目运算符。在 Builder 方法支持的前提下，你可以写：
 
-```java
+```python
 builder
     .email(isValidEmail(emailStr) ? emailStr : "") // 或者 null
 ```
