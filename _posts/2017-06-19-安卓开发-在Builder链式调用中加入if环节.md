@@ -45,14 +45,14 @@ builder
 
 你要做的只是在 Builder 中加入以下方法：
 
-{% highlight java %}
+```
 public Builder ifThen(boolean condition, Function<Builder, Void> statement) {
   if (condition) {
     statement.apply(this);
   }
   return this;
 }
-{% endhighlight %}
+```
 
 然后你就可以这么调用：
 
@@ -70,7 +70,7 @@ User user = new User.Builder()
 
 还可以进一步扩展为 if-then-else 操作：
 
-{% highlight java %}
+```java
 public Builder ifThenElse(
     boolean condition,
     Function<Builder, Void> thenStatement,
@@ -82,4 +82,4 @@ public Builder ifThenElse(
   }
   return this;
 }​​​​
-{% endhighlight %}
+```
