@@ -1,5 +1,3 @@
----
----
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,13 +12,6 @@
 <body>
     <div class="container">
         <div id="header"></div>
-        {{ paginator.page }}<br>
-        {{ paginator.per_page }}<br>
-        {{ paginator.total_pages }}<br>
-        {{ paginator.total_posts }}<br>
-        {{ paginator.next_page_path }}<br>
-        {{ paginator.posts }}<br>
-
 
         <div class="row" id="app">
             <div class="col-sm-12 col-md-9" id="post">
@@ -51,6 +42,9 @@
     </div>
 
     <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="blog"></script>
+    <script type="text/javascript">
+        console.log("{{ paginator.total_posts }}")
+    </script>
     <script type="text/javascript">
         const { createApp } = Vue
         const app = createApp({

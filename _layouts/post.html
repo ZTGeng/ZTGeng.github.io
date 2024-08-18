@@ -51,6 +51,9 @@ listTitleZh: 列表
 
     <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="blog" data-breadcrumb-page="{{ page.title }}"></script>
     <script type="text/javascript">
+        console.log("{{ paginator.total_posts }}")
+    </script>
+    <script type="text/javascript">
         if (window.navigator.language.startsWith("zh")) {
             document.getElementById("list_title").innerText = "{{ layout.listTitleZh }}";
         } else {
