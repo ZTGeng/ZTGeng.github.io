@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 安卓开发：在 Builder 链式调用中加入 if 环节
+title: 安卓开发：在Builder链式调用中加入if环节
 date: 2017-06-19 12:02:24
 ---
 
