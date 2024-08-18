@@ -50,12 +50,10 @@ listTitleZh: 列表
 
     <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="blog"></script>
     <script type="text/javascript">
-        let listTitleEn = "{{ layout.listTitle }}";
-        let listTitleZh = "{{ layout.listTitleZh }}";
         if (window.navigator.language.startsWith("zh")) {
-            document.getElementById("list_title").innerText = listTitleZh;
+            document.getElementById("list_title").innerText = "{{ layout.listTitleZh }}";
         } else {
-            document.getElementById("list_title").innerText = listTitleEn;
+            document.getElementById("list_title").innerText = "{{ layout.listTitleEn }}";
         }
     </script>
 </body>
