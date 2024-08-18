@@ -1,6 +1,7 @@
 ---
 listTitleEn: List
 listTitleZh: 列表
+listSize: 10
 ---
 <!DOCTYPE html>
 <html>
@@ -30,7 +31,7 @@ listTitleZh: 列表
                     <h3 id="list_title" class="float-start">{{ layout.listTitleEn }}</h3>
                 </div>
                 <div id="list" class="list-group">
-                    {% for post in site.posts limit: 10 %}
+                    {% for post in site.posts limit: layout.listSize %}
                         {% assign mod = forloop.index | modulo: 2 %}
                         <a href="{{ post.url }}"
                             {% if mod == 1 %}
@@ -43,6 +44,17 @@ listTitleZh: 列表
                         </a>
                     {% endfor %}
                 </div>
+                <nav aria-label="Page navigation" class="mt-2">
+                    <ul class="pagination">
+                        {% assign pageNum = posts.size | minus: 1 | divided_by: layout.listSize | plus: 1 %}
+                        <li class="page-item"><a class="page-link" href="javascript:void(0)"  onclick="refreshList(1)">&laquo;</a></li>
+                        {% for i in (1..pageNum) %}
+                            <li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="refreshList({{ i }})">{{ i }}</a></li>
+                        {% endfor %}
+                        <li v-for="i in Math.ceil(posts.length / listSize)" class="page-item"><a class="page-link" href="javascript:void(0)" @click="page = i - 1">{{ i }}</a></li>
+                        <li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="refreshList({{ pageNum }})">&raquo;</a></li>
+                    </ul>
+                </nav>
             </div>
             
         </div>
@@ -51,7 +63,37 @@ listTitleZh: 列表
 
     <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="blog" data-breadcrumb-page="{{ page.title }}"></script>
     <script type="text/javascript">
-        console.log("{{ paginator.total_posts }}")
+        const posts = [
+            {% for post in site.posts %}
+                {
+                    title: "{{ post.title }}",
+                    date: "{{ post.date | date: "%Y-%m-%d %H:%M" }}",
+                    url: "{{ post.url }}"
+                },
+            {% endfor %}
+        ];
+        const listSize = {{ layout.listSize }};
+
+        const refreshList = (page) => {
+            const list = document.getElementById("list");
+            list.innerHTML = "";
+            for (let i = page * listSize; i < Math.min((page + 1) * listSize, posts.length); i++) {
+                const post = posts[i];
+                const mod = i % 2;
+                const a = document.createElement("a");
+                a.href = post.url;
+                a.className = "list-group-item list-group-item-action" + (mod === 0 ? " list-group-item-primary" : "");
+                const h6 = document.createElement("h6");
+                h6.className = "mb-1";
+                h6.innerText = post.title;
+                const small = document.createElement("small");
+                small.className = "mb-1";
+                small.innerText = post.date;
+                a.appendChild(h6);
+                a.appendChild(small);
+                list.appendChild(a);
+            }
+        };
     </script>
     <script type="text/javascript">
         if (window.navigator.language.startsWith("zh")) {
