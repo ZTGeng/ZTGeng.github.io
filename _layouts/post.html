@@ -12,6 +12,7 @@ listTitle: List
 </head>
 
 <body>
+    "{% assign layout.listTitle = 列表 %}"
     <div class="container">
         <div id="header"></div>
         <div class="row">
@@ -29,10 +30,19 @@ listTitle: List
                 </div>
                 <div id="list" class="list-group">
                     {% for post in site.posts %}
-                        {% if post.tags contains "sys" %}
-                            {% continue %}
-                        {% endif %}
                         <a href="{{ post.url }}" class="list-group-item list-group-item-action">
+                            <h6 class="mb-1">{{ post.title }}</h6>
+                            <small class="mb-1">{{ post.date | date: "%Y-%m-%d %H:%M" }}</small>
+                        </a>
+                    {% endfor %}
+                </div>
+                <br>
+                <div id="list" class="list-group">
+                    {% for i in site.posts | size | at_most: 2 %}
+                        {% assign post = site.posts[i] %}
+                        <a href="{{ post.url }}"
+                            class="list-group-item list-group-item-action"
+                            {% if i | modulo: 2 == 0 %}class="list-group-item-primary"{% endif %}>
                             <h6 class="mb-1">{{ post.title }}</h6>
                             <small class="mb-1">{{ post.date | date: "%Y-%m-%d %H:%M" }}</small>
                         </a>
