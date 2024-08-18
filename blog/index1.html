@@ -38,7 +38,7 @@ listSize: 5
             </div>
             <div class="col-sm-12 col-md-3 pt-3 pb-3">
                 <div class="d-flex justify-content-between">
-                    <h3 id="list_title" class="float-start">{{ layout.listTitleEn }}</h3>
+                    <h3 id="list_title" class="float-start">{{ page.listTitleEn }}</h3>
                 </div>
                 <div id="list" class="list-group">
                     {% for post in site.posts limit: layout.listSize %}
@@ -56,7 +56,7 @@ listSize: 5
                 </div>
                 <nav aria-label="Page navigation" class="mt-2">
                     <ul class="pagination">
-                        {% assign pageNum = site.posts.size | minus: 1 | divided_by: layout.listSize | plus: 1 %}
+                        {% assign pageNum = site.posts.size | minus: 1 | divided_by: page.listSize | plus: 1 %}
                         <li class="page-item"><a class="page-link" href="javascript:void(0)"  onclick="refreshList(1)">&laquo;</a></li>
                         {% for i in (1..pageNum) %}
                             <li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="refreshList({{ i }})">{{ i }}</a></li>
@@ -106,6 +106,12 @@ listSize: 5
                 list.appendChild(a);
             }
         };
+
+        if (window.navigator.language.startsWith("zh")) {
+            document.getElementById("list_title").innerText = "{{ page.listTitleZh }}";
+        } else {
+            document.getElementById("list_title").innerText = "{{ page.listTitleEn }}";
+        }
     </script>
 </body>
 </html>
