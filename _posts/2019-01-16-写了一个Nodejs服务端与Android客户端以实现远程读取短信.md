@@ -37,28 +37,28 @@ Github：
 没有用别的库，连Express都没用，自己写了一个路由，像这样：
 
 ```javascript
-        // 手机端：更新设备的FCM Token。
-        if (method == 'POST' && path == '/token') {
-            getBody(req, (data) => {
-                token = data;
-                console.log("New token: " + data);
-            });
-            res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
-            res.end("Token update success!")
-            return;
-        }
+// 手机端：更新设备的FCM Token。
+if (method == 'POST' && path == '/token') {
+    getBody(req, (data) => {
+        token = data;
+        console.log("New token: " + data);
+    });
+    res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+    res.end("Token update success!")
+    return;
+}
 
-        // 手机端：发送短信文本，格式为JSONArray。
-        if (method == 'POST' && path == '/sms') {
-            getBody(req, (data) => {
-                var sms = JSON.parse(data);
-                resBuffer.end(parseSms(sms));
-                console.log(JSON.stringify(sms, null, 2));
-            });
-            res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
-            res.end("Send sms success!")
-            return;
-        }
+// 手机端：发送短信文本，格式为JSONArray。
+if (method == 'POST' && path == '/sms') {
+    getBody(req, (data) => {
+        var sms = JSON.parse(data);
+        resBuffer.end(parseSms(sms));
+        console.log(JSON.stringify(sms, null, 2));
+    });
+    res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+    res.end("Send sms success!")
+    return;
+}
 ```
 
 因为总共就4条API，实在没必要上Express。Do it in hard way了。还能大大减少依赖库体积。
