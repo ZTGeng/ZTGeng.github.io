@@ -1,0 +1,2 @@
+kramdown:
+  syntax_highlighter: coderay

@@ -1,5 +1,6 @@
 ---
-listTitle: List
+listTitleEn: List
+listTitleZh: 列表
 ---
 <!DOCTYPE html>
 <html>
@@ -25,37 +26,13 @@ listTitle: List
             </div>
             <div class="col-sm-12 col-md-3 pt-3 pb-3">
                 <div class="d-flex justify-content-between">
-                    <h3 id="list_title" class="float-start">{{ layout.listTitle }}</h3>
+                    <h3 id="list_title" class="float-start">{{ layout.listTitleEn }}</h3>
                 </div>
                 <div id="list" class="list-group">
-                    {% for post in site.posts %}
-                        <a href="{{ post.url }}" class="list-group-item list-group-item-action">
-                            <h6 class="mb-1">{{ post.title }}</h6>
-                            <small class="mb-1">{{ post.date | date: "%Y-%m-%d %H:%M" }}</small>
-                        </a>
-                    {% endfor %}
-                </div>
-                <br>
-                <div id="list" class="list-group">
-                    {% for post in site.posts limit: 4 %}
+                    {% for post in site.posts limit: 10 %}
                         {% assign mod = forloop.index | modulo: 2 %}
                         <a href="{{ post.url }}"
-                            {% if mod == 0 %}
-                                class="list-group-item list-group-item-action list-group-item-primary"
-                            {% else %}
-                                class="list-group-item list-group-item-action"
-                            {% endif %}>
-                            <h6 class="mb-1">{{ post.title }}</h6>
-                            <small class="mb-1">{{ post.date | date: "%Y-%m-%d %H:%M" }}</small>
-                        </a>
-                    {% endfor %}
-                </div>
-                <br>
-                <div id="list" class="list-group">
-                    {% for post in site.posts limit: 4 %}
-                        {% assign i = forloop.index %}
-                        <a href="{{ post.url }}"
-                            {% if i | modulo: 2 == 0 %}
+                            {% if mod == 1 %}
                                 class="list-group-item list-group-item-action list-group-item-primary"
                             {% else %}
                                 class="list-group-item list-group-item-action"
@@ -73,10 +50,13 @@ listTitle: List
 
     <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="blog"></script>
     <script type="text/javascript">
-        console.log("{{ page.title }}");
-        console.log("{{ layout.listTitle }}");
-        "{% assign layout.listTitle = 列表 %}"
-        console.log("{{ layout.listTitle }}");
+        let listTitleEn = "{{ layout.listTitle }}";
+        let listTitleZh = "{{ layout.listTitleZh }}";
+        if (window.navigator.language.startsWith("zh")) {
+            document.getElementById("list_title").innerText = listTitleZh;
+        } else {
+            document.getElementById("list_title").innerText = listTitleEn;
+        }
     </script>
 </body>
 </html>
