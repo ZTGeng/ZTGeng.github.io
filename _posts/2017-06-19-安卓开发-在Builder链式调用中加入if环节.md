@@ -36,10 +36,10 @@ User user = builder.build();
 
 第一个办法是使用三目运算符。在 Builder 方法支持的前提下，你可以写：
 
-{% highlight java %}
+```java
 builder
     .email(isValidEmail(emailStr) ? emailStr : "") // 或者 null
-{% endhighlight %}
+```
 
 但是有时候 Builder 不希望你叫 email("") 或者 email(null)。Builder 希望你忽略这项设置，甚至可能要求你做一些其他操作（比如记录这个错误事件等等），总之三目运算符搞不定。这个时候你的另一个选择是：在 Builder 里创建一个 if-then 环节。
 
