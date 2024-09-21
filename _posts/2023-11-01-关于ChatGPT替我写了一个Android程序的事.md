@@ -50,7 +50,6 @@ limit: 返回的视频数量，默认为20<br>
 
 这样做的好处是避免对话过长导致prompt超出字数限制，从而丢失上下文。当一个问题解决后，你可以通过修改问题的功能，在提纲prompt下面另起一个分支：
 
-{% raw %}
 <div class="small p-2">
 <p class="p-2">
 你是一个熟悉安卓和python的全栈工程师，擅长编写优雅、健壮的代码。你将创建一个可以播放在线视频的Android app和与之配合的后台服务器（使用flask）。你使用Intellij作为IDE。<br>
@@ -69,7 +68,7 @@ app需要以下功能：<br>
 1，一个向右滑出的设置栏，其包含一个输入框用于手动输入服务器ip地址，并将其储存在本地。<br>
 2，在app启动时检查是否存有ip地址，如果找到，自动连接服务器获取视频列表（应包含最少0个、最多20个视频的信息）。以每行2个的格式在主屏幕上显示其thumbnail。<br>
 3，主屏幕使用瀑布流UI，当划到列表底部时，再次通过适当的参数获取后面20条视频的信息例如，假设主屏幕已经显示了20个视频，则下一次获取视频列表的url应该是：“/videos? start=20”。<br>
-4，当点击某一个视频的thumbnail时，通过api “ /<video_id>/play”播放该视频。<br>
+4，当点击某一个视频的thumbnail时，通过api “ /&lt;video_id>/play”播放该视频。<br>
 根据以上功能，列出Android app需要包含哪些组件。<br>
 </p>
 <p class="p-2 bg-light">
@@ -88,7 +87,6 @@ Video: 一个简单的数据类，包含视频的ID和缩略图URL。<br>
 ……
 </p>
 </div>
-{% endraw %}
 
 <ol start="2">
   <li><strong>迭代式提问。</strong>在ChatGPT回答了一个问题之后，根据它的答案修改你刚刚提的问题，而不是在它的答案下面继续提问。这样可以有效缩短prompt长度，避免对话丢失上下文。</li>
@@ -161,8 +159,8 @@ class SettingsFragment : PreferenceFragmentCompat() {<br>
 <br>
 而其中用到的R.xml.preferences代码如下：<br>
 <br>
-&#123;?xml version="1.0" encoding="utf-8"?\><br>
-&#123;PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"\><br>
+&lt;?xml version="1.0" encoding="utf-8"?\><br>
+&lt;PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"\><br>
 ……<br>
 <br>
 根据上面已存在的代码，编写 AppPreferences 类
