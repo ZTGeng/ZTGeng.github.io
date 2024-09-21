@@ -50,6 +50,7 @@ limit: 返回的视频数量，默认为20<br>
 
 这样做的好处是避免对话过长导致prompt超出字数限制，从而丢失上下文。当一个问题解决后，你可以通过修改问题的功能，在提纲prompt下面另起一个分支：
 
+{% raw %}
 <div class="small p-2">
 <p class="p-2">
 你是一个熟悉安卓和python的全栈工程师，擅长编写优雅、健壮的代码。你将创建一个可以播放在线视频的Android app和与之配合的后台服务器（使用flask）。你使用Intellij作为IDE。<br>
@@ -85,7 +86,9 @@ VideoListAdapter: 用于在MainActivity中显示视频列表的适配器。它�
 3. Models:<br>
 Video: 一个简单的数据类，包含视频的ID和缩略图URL。<br>
 ……
-</p></div>
+</p>
+</div>
+{% endraw %}
 
 <ol start="2">
   <li><strong>迭代式提问。</strong>在ChatGPT回答了一个问题之后，根据它的答案修改你刚刚提的问题，而不是在它的答案下面继续提问。这样可以有效缩短prompt长度，避免对话丢失上下文。</li>
