@@ -20,4 +20,4 @@ date: 2017-10-19 02:52:05
 
 找机会试一下这个组件进行中文排版的效果。
 
-代码：[BaselineGridTextView.java](https://github.com/nickbutcher/plaid/blob/master/base/src/main/java/io/plaidapp/base/ui/widget/BaselineGridTextView.java)
+代码：[BaselineGridTextView.java](https://github.com/nickbutcher/plaid/blob/master/base/src/main/java/io/plaidapp/base/ui/widget/BaselineGridTextView.java){:target="_blank"}

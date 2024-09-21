@@ -6,8 +6,8 @@ date: 2019-01-16 17:21:16
 
 Github：
 
-* 服务端repo：[https://github.com/ZTGeng/sms-sender-server](https://github.com/ZTGeng/sms-sender-server)
-* 客户端repo：[https://github.com/ZTGeng/sms-sender-android](https://github.com/ZTGeng/sms-sender-android)
+* 服务端repo：[https://github.com/ZTGeng/sms-sender-server](https://github.com/ZTGeng/sms-sender-server){:target="_blank"}
+* 客户端repo：[https://github.com/ZTGeng/sms-sender-android](https://github.com/ZTGeng/sms-sender-android){:target="_blank"}
 
 #### 需求
 
@@ -164,8 +164,8 @@ if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != Pac
 #### 更多阅读
 
 还是推荐阅读官方文档：<br>
-[FCM Android SDK 教程](https://firebase.google.com/docs/cloud-messaging/android/client)<br>
-[FCM 服务端 SDK 教程](https://firebase.google.com/docs/admin/setup)<br>
-[FCM 服务端发送消息](https://firebase.google.com/docs/cloud-messaging/admin)<br>
-[FCM 首页（创建新项目）](https://console.firebase.google.com/)<br>
-[Volley 官方教程](https://developer.android.com/training/volley/)
+[FCM Android SDK 教程](https://firebase.google.com/docs/cloud-messaging/android/client){:target="_blank"}<br>
+[FCM 服务端 SDK 教程](https://firebase.google.com/docs/admin/setup){:target="_blank"}<br>
+[FCM 服务端发送消息](https://firebase.google.com/docs/cloud-messaging/admin){:target="_blank"}<br>
+[FCM 首页（创建新项目）](https://console.firebase.google.com/){:target="_blank"}<br>
+[Volley 官方教程](https://developer.android.com/training/volley/){:target="_blank"}

@@ -4,7 +4,7 @@ title: 关于ChatGPT替我写了一个Android程序的事
 date: 2023-11-01 19:30:25
 ---
 
-最近做了一个[Android+server的小项目](https://github.com/ZTGeng/My-TikTok)，可以像短视频app一样，再Android端浏览播放server上提供的视频，并且上传视频到server。
+最近做了一个[Android+server的小项目](https://github.com/ZTGeng/My-TikTok){:target="_blank"}，可以像短视频app一样，再Android端浏览播放server上提供的视频，并且上传视频到server。
 
 本身没什么亮点，功能简陋，界面粗糙，是个学习项目，没什么实际使用价值。
 
@@ -85,10 +85,12 @@ VideoListAdapter: 用于在MainActivity中显示视频列表的适配器。它�
 3. Models:<br>
 Video: 一个简单的数据类，包含视频的ID和缩略图URL。<br>
 ……
-</p>
-</div>
+</p></div>
 
-2. **迭代式提问**。在ChatGPT回答了一个问题之后，根据它的答案修改你刚刚提的问题，而不是在它的答案下面继续提问。这样可以有效缩短prompt长度，避免对话丢失上下文。<br>
+<ol start="2">
+  <li><strong>迭代式提问。</strong>在ChatGPT回答了一个问题之后，根据它的答案修改你刚刚提的问题，而不是在它的答案下面继续提问。这样可以有效缩短prompt长度，避免对话丢失上下文。</li>
+</ol>
+
 例如，上面的对话中，ChatGPT给Android app规划了基本架构，列出了若干个类，如MainActivity等。于是我修改了我的问题：
 
 <div class="small p-2">
@@ -127,6 +129,7 @@ data class Video(
 </div>
 
 通过不断修改之前的提问，确保只有对当前问题有用的信息包含在prompt中。
+
 但是要注意，随着项目的逐步完成，需要在prompt中告诉**ChatGPT当前的进度，以避免它做重复的工作**。例如：
 
 <div class="small p-2">
@@ -139,7 +142,9 @@ app包含以下组件：<br>
 </p>
 </div>
 
-3. **在prompt中包含相关信息。**ChatGPT在某一个对话分支下时，其prompt并不包含其他对话分支下的讨论和代码，导致代码之间相互冲突，或功能重复。这时需要手动将它之前完成的代码补充进prompt，让新代码与已有的代码能相互配合。
+<ol start="3">
+  <li><strong>在prompt中包含相关信息。</strong>ChatGPT在某一个对话分支下时，其prompt并不包含其他对话分支下的讨论和代码，导致代码之间相互冲突，或功能重复。这时需要手动将它之前完成的代码补充进prompt，让新代码与已有的代码能相互配合。</li>
+</ol>
 
 <div class="small p-2">
 <p class="p-2">
@@ -153,8 +158,8 @@ class SettingsFragment : PreferenceFragmentCompat() {<br>
 <br>
 而其中用到的R.xml.preferences代码如下：<br>
 <br>
-\<?xml version="1.0" encoding="utf-8"?\><br>
-\<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"\><br>
+&#123;?xml version="1.0" encoding="utf-8"?\><br>
+&#123;PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"\><br>
 ……<br>
 <br>
 根据上面已存在的代码，编写 AppPreferences 类
@@ -179,13 +184,17 @@ class AppPreferences(context: Context) {
 </div>
 </div>
 
-4. **提供示例代码。**有一些新的技术出现较晚，不包含在ChatGPT的训练数据里。如果必须使用这些技术，ChatGPT在强制要求之下只会编造出虚假的使用代码。这种情况下，可以在prompt中提供该技术官方文档里的示例代码。ChatGPT只要一小段HelloWorld就能学会正确使用方法。
+<ol start="4">
+  <li><strong>提供示例代码。</strong>有一些新的技术出现较晚，不包含在ChatGPT的训练数据里。如果必须使用这些技术，ChatGPT在强制要求之下只会编造出虚假的使用代码。这种情况下，可以在prompt中提供该技术官方文档里的示例代码。ChatGPT只要一小段HelloWorld就能学会正确使用方法。</li>
+</ol>
 
-5. **较大的类，每次一个函数，多次完成。**特别是像Android里的Activity类，涉及功能较多。ChatGPT在第一次生成代码时，一般会仅给出框架和最基本的功能。之后当需要增添新的函数时，只要在代码中留下“`// TODO: （功能描述）`”的注释，贴回prompt，让ChatGPT完成这个“TODO”即可。
+<ol start="2">
+  <li><strong>较大的类，每次一个函数，多次完成。</strong>特别是像Android里的Activity类，涉及功能较多。ChatGPT在第一次生成代码时，一般会仅给出框架和最基本的功能。之后当需要增添新的函数时，只要在代码中留下“`// TODO: （功能描述）`”的注释，贴回prompt，让ChatGPT完成这个“TODO”即可。</li>
+</ol>
 
 #### AI的优势和局限
 
-[整个项目](https://github.com/ZTGeng/My-TikTok)花了大约四五天。比我没有使用AI时的工作速度要快很多。
+[整个项目](https://github.com/ZTGeng/My-TikTok){:target="_blank"}花了大约四五天。比我没有使用AI时的工作速度要快很多。
 
 ChatGPT提供了Android端大约90%的代码，和server端99%的代码。对于这部分代码，我做的仅仅是复制粘贴。当然，我仍然需要完全理解这些代码，但是借助询问ChatGPT，做到完全理解不算很难。
 
@@ -239,7 +248,9 @@ VideoListAdapter的代码为：<br>
 </p>
 </div>
 
-2. Bug解决之后，考虑到之前的prompt中提供了很多冗余信息，且出问题的代码不是一次提供的，所以我模拟了当时的交流过程，修改了提问prompt，使其只包含相关代码和问题描述。ChatGPT仍然没有找到bug的问题根源，而是继续列出多个调查方向（而且由于prompt中的代码减少，调查的范围反而更宽了）：
+<ol start="2">
+  <li>Bug解决之后，考虑到之前的prompt中提供了很多冗余信息，且出问题的代码不是一次提供的，所以我模拟了当时的交流过程，修改了提问prompt，使其只包含相关代码和问题描述。ChatGPT仍然没有找到bug的问题根源，而是继续列出多个调查方向（而且由于prompt中的代码减少，调查的范围反而更宽了）：</li>
+</ol>
 
 <div class="small p-2">
 <p class="p-2">
@@ -276,7 +287,9 @@ VideoListAdapter的代码为：<br>
 
 （其中第5点虽然与正确答案稍有接近，但仍然没有实际指出问题根源。）
 
-3. 在上一次尝试的基础上，我去掉了bug描述部分，明确地指出问题所在。这次ChatGPT终于找到了正确答案。
+<ol start="3">
+  <li>在上一次尝试的基础上，我去掉了bug描述部分，明确地指出问题所在。这次ChatGPT终于找到了正确答案。</li>
+</ol>
 
 <div class="small p-2">
 <p class="p-2">
@@ -342,9 +355,11 @@ app包含以下组件：<br>
 
 从这个意义上说，尽管ChatGPT提供了90%的代码，但并不能认为它完成了90%的工作。程序员作为AI代码的审核者，实际上在提高效率、减少无用功上面发挥了作用。尽管在AI与人类的结对编程中，绝大多数时候是人类在问、AI在答，但是二者的角色定位应该是人类为导师，AI为学徒。AI回答人类的提问体现了它作为工具的一面。它具备比人类渊博的知识，但它不能监管指导人类的编程工作，相反，它的代码需要人类去审核验收。
 
-2. 由于对话分支导致prompt信息不完整，从而引发的代码冲突、重复或缺失。这一问题并不严重，它产生的bug往往非常明显，在对话阶段就会被发现和纠正。通过在prompt中补充相关代码也可以有效避免。例如当它分别生成Activity和layout的代码时，有时Activity会引用layout不存在的id，或者layout上的组件不能与Activity功能相配合。
-3. UI和产品需求的细节部分，ChatGPT的效率往往不如人类。这并不是由于ChatGPT无法实现细枝末节的需求，而是因为这类需求要求详尽、反复的沟通，不断修改prompt重新提问。同样的时间也许人类程序员早就自行完成需求了。这个问题并不在AI这一边，而是出在沟通环节。它也将随着prompt工程的发展、AI交互能力的强大而得到解决。
-4. 与编程规范、代码风格相关的工作，比如接口设计、各种命名等。
+<ol start="2">
+  <li>由于对话分支导致prompt信息不完整，从而引发的代码冲突、重复或缺失。这一问题并不严重，它产生的bug往往非常明显，在对话阶段就会被发现和纠正。通过在prompt中补充相关代码也可以有效避免。例如当它分别生成Activity和layout的代码时，有时Activity会引用layout不存在的id，或者layout上的组件不能与Activity功能相配合。</li>
+  <li>UI和产品需求的细节部分，ChatGPT的效率往往不如人类。这并不是由于ChatGPT无法实现细枝末节的需求，而是因为这类需求要求详尽、反复的沟通，不断修改prompt重新提问。同样的时间也许人类程序员早就自行完成需求了。这个问题并不在AI这一边，而是出在沟通环节。它也将随着prompt工程的发展、AI交互能力的强大而得到解决。</li>
+  <li>与编程规范、代码风格相关的工作，比如接口设计、各种命名等。</li>
+</ol>
 
 **最后，ChatGPT能够取代我吗？**
 

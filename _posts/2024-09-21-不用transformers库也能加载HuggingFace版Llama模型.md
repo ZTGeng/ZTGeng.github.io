@@ -26,7 +26,7 @@ model = AutoModelForCausalLM.from_pretrained(
 )
 ```
 
-第二种方法是通过[Meta的官方repo](https://github.com/meta-llama/llama-models)下载模型。首先clone这个repo，然后在Linux下运行里面的一个`.sh`文件（Windows的话可以在WSL下运行），就会开始下载。
+第二种方法是通过[Meta的官方repo](https://github.com/meta-llama/llama-models){:target="_blank"}下载模型。首先clone这个repo，然后在Linux下运行里面的一个`.sh`文件（Windows的话可以在WSL下运行），就会开始下载。
 
 第一种方法会把模型下载到Windows的`.cache`缓存文件夹，下载的模型权重是一些`.safetensors`文件，这是HuggingFace自己的文件格式。模型实现和推理的代码也都是transformers库提供的，也就是HuggingFace自己写的。
 
