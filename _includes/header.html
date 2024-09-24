@@ -91,13 +91,14 @@
 </header>
 
 <script>
-    console.log("abc");
+    console.log(document.getElementById("abc").classList);
     new MutationObserver((mutations) => {
             mutations.forEach(mu => {
                 console.log(mu);
             });
         }).observe(document.getElementById("abc"), {
             attributes: true,
+            attributeOldValue: true,
         });
     const userLang = navigator.language || navigator.userLanguage;
     if (userLang.slice(0, 2) === 'zh') {
