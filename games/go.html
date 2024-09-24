@@ -70,6 +70,12 @@
     </div>
 
     <script type="text/javascript">
+        // On "abc"'s classList changes, log the event
+        document.getElementById("abc").addEventListener("transitionend", function(event) {
+            console.log(event);
+        });
+
+        
         var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
 			$('#title').text("围棋");
