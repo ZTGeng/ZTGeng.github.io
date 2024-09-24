@@ -16,7 +16,7 @@ listSize: 5
 
 <body>
     <div class="container">
-        <div id="header"></div>
+        {% include header.html active-tab='blog' %}
 
         <div class="row" id="app">
             <div class="col-sm-12 col-md-9" id="post">
@@ -38,7 +38,6 @@ listSize: 5
         {% include footer.html %}
     </div>
 
-    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="blog"></script>
     <script type="text/javascript">
         const posts = [
             {% for post in site.posts %}

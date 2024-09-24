@@ -8,12 +8,12 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link {% if include.active_tab == 'games' %} active {% endif %}" href="/games/">Games</a></li>
-                        <li class="nav-item"><a class="nav-link {% if include.active_tab == 'tools' %} active {% endif %}" href="/tools/">Tools</a></li>
-                        <li class="nav-item"><a class="nav-link {% if include.active_tab == 'math' %} active {% endif %}" href="/math/">Math</a></li>
-                        <li class="nav-item"><a class="nav-link {% if include.active_tab == 'blog' %} active {% endif %}" href="/blog/">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link {% if include.active-tab == 'games' %} active {% endif %}" href="/games/">Games</a></li>
+                        <li class="nav-item"><a class="nav-link {% if include.active-tab == 'tools' %} active {% endif %}" href="/tools/">Tools</a></li>
+                        <li class="nav-item"><a class="nav-link {% if include.active-tab == 'math' %} active {% endif %}" href="/math/">Math</a></li>
+                        <li class="nav-item"><a class="nav-link {% if include.active-tab == 'blog' %} active {% endif %}" href="/blog/">Blog</a></li>
                     </ul>
-                    {% if include.lang_enabled %}
+                    {% if include.lang-enabled %}
                         <div class="lang-switcher">
                             <div class="d-flex small">
                                 <a id="lang_en" href="javascript:void(0)" class="nav-link me-2 link-secondary disabled">English</a>
@@ -27,12 +27,12 @@
         <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '|';">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item" {% if include.active_tab != 'games' %} hidden {% endif %}><a href="/games/">Games</a></li>
-                <li class="breadcrumb-item" {% if include.active_tab != 'tools' %} hidden {% endif %}><a href="/tools/">Tools</a></li>
-                <li class="breadcrumb-item" {% if include.active_tab != 'math' %} hidden {% endif %}><a href="/math/">Math</a></li>
-                <li class="breadcrumb-item" {% if include.active_tab != 'blog' %} hidden {% endif %}><a href="/blog/">Blog</a></li>
-                {% if include.breadcrumb_page %}
-                    <li id="breadcrumb-page-en" class="breadcrumb-item active" aria-current="page">{{include.breadcrumb_page}}</li>
+                {% if include.active-tab != 'games' %} <li class="breadcrumb-item"><a href="/games/">Games</a></li> {% endif %}
+                {% if include.active-tab != 'tools' %} <li class="breadcrumb-item"><a href="/tools/">Tools</a></li> {% endif %}
+                {% if include.active-tab != 'math' %} <li class="breadcrumb-item"><a href="/math/">Math</a></li> {% endif %}
+                {% if include.active-tab != 'blog' %} <li class="breadcrumb-item"><a href="/blog/">Blog</a></li> {% endif %}
+                {% if include.breadcrumb-page %}
+                    <li id="breadcrumb-page-en" class="breadcrumb-item active" aria-current="page">{{include.breadcrumb-page}}</li>
                 {% endif %}
             </ol>
         </nav>
@@ -47,12 +47,12 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link {% if include.active_tab == 'games' %} active {% endif %}" href="/games/">游戏</a></li>
-                        <li class="nav-item"><a class="nav-link {% if include.active_tab == 'tools' %} active {% endif %}" href="/tools/">应用</a></li>
-                        <li class="nav-item"><a class="nav-link {% if include.active_tab == 'math' %} active {% endif %}" href="/math/">数学</a></li>
-                        <li class="nav-item"><a class="nav-link {% if include.active_tab == 'blog' %} active {% endif %}" href="/blog/">文章</a></li>
+                        <li class="nav-item"><a class="nav-link {% if include.active-tab == 'games' %} active {% endif %}" href="/games/">游戏</a></li>
+                        <li class="nav-item"><a class="nav-link {% if include.active-tab == 'tools' %} active {% endif %}" href="/tools/">应用</a></li>
+                        <li class="nav-item"><a class="nav-link {% if include.active-tab == 'math' %} active {% endif %}" href="/math/">数学</a></li>
+                        <li class="nav-item"><a class="nav-link {% if include.active-tab == 'blog' %} active {% endif %}" href="/blog/">文章</a></li>
                     </ul>
-                    {% if include.lang_enabled %}
+                    {% if include.lang-enabled %}
                         <div class="lang-switcher">
                             <div class="d-flex small">
                                 <a id="lang_en" href="javascript:document.getElementById('nav-en').removeAttribute('hidden');document.getElementById('nav-zh').setAttribute('hidden','');onEn()" class="nav-link me-2 link-primary">English</a>
@@ -66,14 +66,14 @@
         <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '|';">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">首页</a></li>
-                <li class="breadcrumb-item" {% if include.active_tab != 'games' %} hidden {% endif %}><a href="/games/">游戏</a></li>
-                <li class="breadcrumb-item" {% if include.active_tab != 'tools' %} hidden {% endif %}><a href="/tools/">应用</a></li>
-                <li class="breadcrumb-item" {% if include.active_tab != 'math' %} hidden {% endif %}><a href="/math/">数学</a></li>
-                <li class="breadcrumb-item" {% if include.active_tab != 'blog' %} hidden {% endif %}><a href="/blog/">文章</a></li>
-                {% if include.breadcrumb_page_zh %}
-                    <li id="breadcrumb-page-zh" class="breadcrumb-item active" aria-current="page">{{include.breadcrumb_page_zh}}</li>
-                {% elsif include.breadcrumb_page %}
-                    <li id="breadcrumb-page-zh" class="breadcrumb-item active" aria-current="page">{{include.breadcrumb_page}}</li>
+                {% if include.active-tab == 'games' %} <li class="breadcrumb-item"><a href="/games/">游戏</a></li> {% endif %}
+                {% if include.active-tab != 'tools' %} <li class="breadcrumb-item"><a href="/tools/">应用</a></li> {% endif %}
+                {% if include.active-tab != 'math' %} <li class="breadcrumb-item"><a href="/math/">数学</a></li> {% endif %}
+                {% if include.active-tab != 'blog' %} <li class="breadcrumb-item"><a href="/blog/">文章</a></li> {% endif %}
+                {% if include.breadcrumb-page-zh %}
+                    <li id="breadcrumb-page-zh" class="breadcrumb-item active" aria-current="page">{{include.breadcrumb-page-zh}}</li>
+                {% elsif include.breadcrumb-page %}
+                    <li id="breadcrumb-page-zh" class="breadcrumb-item active" aria-current="page">{{include.breadcrumb-page}}</li>
                 {% endif %}
             </ol>
         </nav>
