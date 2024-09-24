@@ -60,7 +60,8 @@ var reset = function() {
 
 	isBlack = true;
     lock = false;
-    $('.active').removeClass('active');
+    $('#black-only').removeClass('active');
+    $('#white-only').removeClass('active');
     $('#alternately').addClass('active');
 
     blackNum = 0;
