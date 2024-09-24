@@ -71,8 +71,13 @@
 
     <script type="text/javascript">
         // On "abc"'s classList changes, log the event
-        document.getElementById("abc").addEventListener("transitionend", function(event) {
-            console.log(event);
+        new MutationObserver((mutations) => {
+            mutations.forEach(mu => {
+                if (mu.type !== "attributes" && mu.attributeName !== "class") return;
+                console.log(mu);
+            });
+        }).observe(document.getElementById("abc"), {
+            attributes: true,
         });
 
         
