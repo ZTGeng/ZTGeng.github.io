@@ -70,17 +70,6 @@
     </div>
 
     <script type="text/javascript">
-        // On "abc"'s classList changes, log the event
-        new MutationObserver((mutations) => {
-            mutations.forEach(mu => {
-                if (mu.type !== "attributes" && mu.attributeName !== "class") return;
-                console.log(mu);
-            });
-        }).observe(document.getElementById("abc"), {
-            attributes: true,
-        });
-
-        
         var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
 			$('#title').text("围棋");

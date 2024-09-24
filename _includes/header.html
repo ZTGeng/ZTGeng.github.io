@@ -92,6 +92,14 @@
 
 <script>
     const userLang = navigator.language || navigator.userLanguage;
+    new MutationObserver((mutations) => {
+            mutations.forEach(mu => {
+                if (mu.type !== "attributes" && mu.attributeName !== "class") return;
+                console.log(mu);
+            });
+        }).observe(document.getElementById("abc"), {
+            attributes: true,
+        });
     if (userLang.slice(0, 2) === 'zh') {
         document.getElementById('nav-zh').removeAttribute('hidden');
         document.getElementById('nav-en').setAttribute('hidden', '');
