@@ -14,7 +14,8 @@
 
 <body>
     <div class="container">
-        {% include header.html active-tab='blog' breadcrumb-page='test' %}
+        {% assign title = page.title %}
+        {% include header.html active-tab='blog' breadcrumb-page=title %}
         <div class="row">
             <div class="col-sm-12 col-md-9" id="post">
                 <h1>{{ page.title }}</h1>
