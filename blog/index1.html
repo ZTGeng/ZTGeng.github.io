@@ -17,20 +17,14 @@ listSize: 5
 <body>
     <div class="container">
         <div id="header"></div>
-        {{ paginator.page }}<br>
-        {{ paginator.per_page }}<br>
-        {{ paginator.total_pages }}<br>
-        {{ paginator.total_posts }}<br>
-        {{ paginator.next_page_path }}<br>
-
 
         <div class="row" id="app">
             <div class="col-sm-12 col-md-9" id="post">
-                {% for post in paginator.posts %}
+                {% for post in site.posts limit: layout.listSize %}
                     <h1>{{ post.title }}</h1>
                     <p>{{ post.date | date: "%Y-%m-%d %H:%M" }}</p>
                     <hr>
-                    <div v-html="post.content"></div>
+                    <div v-html="post.excerpt"></div>
                     <div class="d-flex justify-content-between">
                         <a href="{{ post.url }}" class="btn btn-primary">Read more</a>
                     </div>
@@ -77,10 +71,12 @@ listSize: 5
                 {
                     title: "{{ post.title }}",
                     date: "{{ post.date | date: "%Y-%m-%d %H:%M" }}",
-                    url: "{{ post.url }}"
+                    url: "{{ post.url }}",
+                    content: "{{ post.content | strip_html | strip_newlines | escape }}"
                 },
             {% endfor %}
         ];
+        console.log(posts[0]);
         const listSize = {{ page.listSize }};
 
         const refreshList = (page) => {

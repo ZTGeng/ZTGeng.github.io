@@ -189,7 +189,7 @@ class AppPreferences(context: Context) {
   <li><strong>提供示例代码。</strong>有一些新的技术出现较晚，不包含在ChatGPT的训练数据里。如果必须使用这些技术，ChatGPT在强制要求之下只会编造出虚假的使用代码。这种情况下，可以在prompt中提供该技术官方文档里的示例代码。ChatGPT只要一小段HelloWorld就能学会正确使用方法。</li>
 </ol>
 
-<ol start="2">
+<ol start="5">
   <li><strong>较大的类，每次一个函数，多次完成。</strong>特别是像Android里的Activity类，涉及功能较多。ChatGPT在第一次生成代码时，一般会仅给出框架和最基本的功能。之后当需要增添新的函数时，只要在代码中留下“`// TODO: （功能描述）`”的注释，贴回prompt，让ChatGPT完成这个“TODO”即可。</li>
 </ol>
 

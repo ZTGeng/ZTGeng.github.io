@@ -1,7 +1,5 @@
 ---
-listTitleEn: List
-listTitleZh: 列表
-listSize: 10
+
 ---
 <!DOCTYPE html>
 <html>
@@ -27,7 +25,7 @@ listSize: 10
                 {{ content }}
             </div>
             <div class="col-sm-12 col-md-3 pt-3 pb-3">
-                <div class="sticky-md-top">
+                <!-- <div class="sticky-md-top">
                     <div class="d-flex justify-content-between">
                         <h3 id="list_title" class="float-start">{{ layout.listTitleEn }}</h3>
                     </div>
@@ -55,7 +53,8 @@ listSize: 10
                             <li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="refreshList({{ pageNum }})">&raquo;</a></li>
                         </ul>
                     </nav>
-                </div>
+                </div> -->
+                {% include blog-list.html %}
             </div>
             
         </div>
@@ -63,7 +62,7 @@ listSize: 10
     </div>
 
     <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="blog" data-breadcrumb-page="{{ page.title }}"></script>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         const posts = [
             {% for post in site.posts %}
                 {
@@ -104,6 +103,6 @@ listSize: 10
         } else {
             document.getElementById("list_title").innerText = "{{ layout.listTitleEn }}";
         }
-    </script>
+    </script> -->
 </body>
 </html>
