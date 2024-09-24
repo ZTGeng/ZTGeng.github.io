@@ -1,14 +1,10 @@
----
-listTitleEn: List
-listTitleZh: 列表
-listSize: 10
----
 <div class="sticky-md-top">
     <div class="d-flex justify-content-between">
-        <h3 id="list_title" class="float-start">{{ layout.listTitleEn }}</h3>
+        <h3 id="list_title_en" class="float-start">List</h3>
+        <h3 id="list_title_zh" class="float-start" style="display: none;">列表</h3>
     </div>
     <div id="list" class="list-group">
-        {% for post in site.posts limit: layout.listSize %}
+        {% for post in site.posts limit: include.listSize %}
             {% assign mod = forloop.index | modulo: 2 %}
             <a href="{{ post.url }}"
                 {% if mod == 1 %}
@@ -23,7 +19,7 @@ listSize: 10
     </div>
     <nav aria-label="Page navigation" class="mt-2">
         <ul class="pagination">
-            {% assign pageNum = site.posts.size | minus: 1 | divided_by: layout.listSize | plus: 1 %}
+            {% assign pageNum = site.posts.size | minus: 1 | divided_by: include.listSize | plus: 1 %}
             <li class="page-item"><a class="page-link" href="javascript:void(0)"  onclick="refreshList(1)">&laquo;</a></li>
             {% for i in (1..pageNum) %}
                 <li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="refreshList({{ i }})">{{ i }}</a></li>
@@ -43,7 +39,7 @@ listSize: 10
             },
         {% endfor %}
     ];
-    const listSize = {{ layout.listSize }};
+    const listSize = {{ include.listSize }};
 
     const refreshList = (page) => {
         const list = document.getElementById("list");
@@ -70,8 +66,10 @@ listSize: 10
     };
 
     if (window.navigator.language.startsWith("zh")) {
-        document.getElementById("list_title").innerText = "{{ layout.listTitleZh }}";
+        document.getElementById("list_title_en").style.display = "none";
+        document.getElementById("list_title_zh").style.display = "block";
     } else {
-        document.getElementById("list_title").innerText = "{{ layout.listTitleEn }}";
+        document.getElementById("list_title_en").style.display = "block";
+        document.getElementById("list_title_zh").style.display = "none";
     }
 </script>
