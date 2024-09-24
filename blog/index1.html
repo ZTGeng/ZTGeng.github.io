@@ -24,44 +24,18 @@ listSize: 5
                     <h1>{{ post.title }}</h1>
                     <p>{{ post.date | date: "%Y-%m-%d %H:%M" }}</p>
                     <hr>
-                    <div v-html="post.excerpt"></div>
+                    <div v-html="{{ post.excerpt }}"></div>
                     <div class="d-flex justify-content-between">
                         <a href="{{ post.url }}" class="btn btn-primary">Read more</a>
                     </div>
                 {% endfor %}
             </div>
             <div class="col-sm-12 col-md-3 pt-3 pb-3">
-                <div class="d-flex justify-content-between">
-                    <h3 id="list_title" class="float-start">{{ page.listTitleEn }}</h3>
-                </div>
-                <div id="list" class="list-group">
-                    {% for post in site.posts limit: page.listSize %}
-                        {% assign mod = forloop.index | modulo: 2 %}
-                        <a href="{{ post.url }}"
-                            {% if mod == 1 %}
-                                class="list-group-item list-group-item-action list-group-item-primary"
-                            {% else %}
-                                class="list-group-item list-group-item-action"
-                            {% endif %}>
-                            <h6 class="mb-1">{{ post.title }}</h6>
-                            <small class="mb-1">{{ post.date | date: "%Y-%m-%d %H:%M" }}</small>
-                        </a>
-                    {% endfor %}
-                </div>
-                <nav aria-label="Page navigation" class="mt-2">
-                    <ul class="pagination">
-                        {% assign pageNum = site.posts.size | minus: 1 | divided_by: page.listSize | plus: 1 %}
-                        <li class="page-item"><a class="page-link" href="javascript:void(0)"  onclick="refreshList(1)">&laquo;</a></li>
-                        {% for i in (1..pageNum) %}
-                            <li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="refreshList({{ i }})">{{ i }}</a></li>
-                        {% endfor %}
-                        <li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="refreshList({{ pageNum }})">&raquo;</a></li>
-                    </ul>
-                </nav>
+                {% include blog-list.html list_size=10 %}
             </div>
         </div>
 
-        <div id="footer"></div>
+        {% include footer.html %}
     </div>
 
     <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="blog"></script>

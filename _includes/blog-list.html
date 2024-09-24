@@ -1,10 +1,10 @@
 <div class="sticky-md-top">
     <div class="d-flex justify-content-between">
         <h3 id="list_title_en" class="float-start">List</h3>
-        <h3 id="list_title_zh" class="float-start" style="display: none;">列表</h3>
+        <h3 id="list_title_zh" class="float-start" hidden>列表</h3>
     </div>
     <div id="list" class="list-group">
-        {% for post in site.posts limit: include.listSize %}
+        {% for post in site.posts limit: include.list_size %}
             {% assign mod = forloop.index | modulo: 2 %}
             <a href="{{ post.url }}"
                 {% if mod == 1 %}
@@ -19,7 +19,7 @@
     </div>
     <nav aria-label="Page navigation" class="mt-2">
         <ul class="pagination">
-            {% assign pageNum = site.posts.size | minus: 1 | divided_by: include.listSize | plus: 1 %}
+            {% assign pageNum = site.posts.size | minus: 1 | divided_by: include.list_size | plus: 1 %}
             <li class="page-item"><a class="page-link" href="javascript:void(0)"  onclick="refreshList(1)">&laquo;</a></li>
             {% for i in (1..pageNum) %}
                 <li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="refreshList({{ i }})">{{ i }}</a></li>
@@ -39,7 +39,7 @@
             },
         {% endfor %}
     ];
-    const listSize = {{ include.listSize }};
+    const listSize = {{ include.list_size }};
 
     const refreshList = (page) => {
         const list = document.getElementById("list");
@@ -66,10 +66,10 @@
     };
 
     if (window.navigator.language.startsWith("zh")) {
-        document.getElementById("list_title_en").style.display = "none";
-        document.getElementById("list_title_zh").style.display = "block";
+        document.getElementById("list_title_en").setAttribute("hidden", "");
+        document.getElementById("list_title_zh").removeAttribute("hidden");
     } else {
-        document.getElementById("list_title_en").style.display = "block";
-        document.getElementById("list_title_zh").style.display = "none";
+        document.getElementById("list_title_en").removeAttribute("hidden");
+        document.getElementById("list_title_zh").setAttribute("hidden", "");
     }
 </script>

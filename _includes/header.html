@@ -1,0 +1,102 @@
+<header>
+    <div id="nav-en">
+        <nav class="navbar navbar-expand-lg bg-body-secondary">
+            <div class="container-fluid">
+                <a id="nav_title" class="navbar-brand" href="/">Home</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link {% if include.active_tab == 'games' %} active {% endif %}" href="/games/">Games</a></li>
+                        <li class="nav-item"><a class="nav-link {% if include.active_tab == 'tools' %} active {% endif %}" href="/tools/">Tools</a></li>
+                        <li class="nav-item"><a class="nav-link {% if include.active_tab == 'math' %} active {% endif %}" href="/math/">Math</a></li>
+                        <li class="nav-item"><a class="nav-link {% if include.active_tab == 'blog' %} active {% endif %}" href="/blog/">Blog</a></li>
+                    </ul>
+                    {% if include.lang_enabled %}
+                        <div class="lang-switcher">
+                            <div class="d-flex small">
+                                <a id="lang_en" href="javascript:void(0)" class="nav-link me-2 link-secondary disabled">English</a>
+                                <a id="lang_zh" href="javascript:document.getElementById('nav-zh').removeAttribute('hidden');document.getElementById('nav-en').setAttribute('hidden','');onZh()" class="nav-link link-primary">中文</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '|';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item" {% if include.active_tab != 'games' %} hidden {% endif %}><a href="/games/">Games</a></li>
+                <li class="breadcrumb-item" {% if include.active_tab != 'tools' %} hidden {% endif %}><a href="/tools/">Tools</a></li>
+                <li class="breadcrumb-item" {% if include.active_tab != 'math' %} hidden {% endif %}><a href="/math/">Math</a></li>
+                <li class="breadcrumb-item" {% if include.active_tab != 'blog' %} hidden {% endif %}><a href="/blog/">Blog</a></li>
+                {% if include.breadcrumb_page %}
+                    <li id="breadcrumb-page-en" class="breadcrumb-item active" aria-current="page">{{include.breadcrumb_page}}</li>
+                {% endif %}
+            </ol>
+        </nav>
+    </div>
+    
+    <div id="nav-zh" hidden>
+        <nav class="navbar navbar-expand-lg bg-body-secondary">
+            <div class="container-fluid">
+                <a id="nav_title" class="navbar-brand" href="/">首页</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link {% if include.active_tab == 'games' %} active {% endif %}" href="/games/">游戏</a></li>
+                        <li class="nav-item"><a class="nav-link {% if include.active_tab == 'tools' %} active {% endif %}" href="/tools/">应用</a></li>
+                        <li class="nav-item"><a class="nav-link {% if include.active_tab == 'math' %} active {% endif %}" href="/math/">数学</a></li>
+                        <li class="nav-item"><a class="nav-link {% if include.active_tab == 'blog' %} active {% endif %}" href="/blog/">文章</a></li>
+                    </ul>
+                    {% if include.lang_enabled %}
+                        <div class="lang-switcher">
+                            <div class="d-flex small">
+                                <a id="lang_en" href="javascript:document.getElementById('nav-en').removeAttribute('hidden');document.getElementById('nav-zh').setAttribute('hidden','');onEn()" class="nav-link me-2 link-primary">English</a>
+                                <a id="lang_zh" href="javascript:void(0)" class="nav-link link-secondary disabled">中文</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '|';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">首页</a></li>
+                <li class="breadcrumb-item" {% if include.active_tab != 'games' %} hidden {% endif %}><a href="/games/">游戏</a></li>
+                <li class="breadcrumb-item" {% if include.active_tab != 'tools' %} hidden {% endif %}><a href="/tools/">应用</a></li>
+                <li class="breadcrumb-item" {% if include.active_tab != 'math' %} hidden {% endif %}><a href="/math/">数学</a></li>
+                <li class="breadcrumb-item" {% if include.active_tab != 'blog' %} hidden {% endif %}><a href="/blog/">文章</a></li>
+                {% if include.breadcrumb_page_zh %}
+                    <li id="breadcrumb-page-zh" class="breadcrumb-item active" aria-current="page">{{include.breadcrumb_page_zh}}</li>
+                {% elsif include.breadcrumb_page %}
+                    <li id="breadcrumb-page-zh" class="breadcrumb-item active" aria-current="page">{{include.breadcrumb_page}}</li>
+                {% endif %}
+            </ol>
+        </nav>
+    </div>
+</header>
+
+<script>
+    const userLang = navigator.language || navigator.userLanguage;
+    if (userLang.slice(0, 2) === 'zh') {
+        document.getElementById('nav-zh').removeAttribute('hidden');
+        document.getElementById('nav-en').setAttribute('hidden', '');
+    }
+
+    function onEn() {
+        const callback = include.callback_en;
+        if (callback) {
+            window[callback]();
+        }
+    }
+    function onZh() {
+        const callback = include.callback_zh;
+        if (callback) {
+            window[callback]();
+        }
+    }
+</script>

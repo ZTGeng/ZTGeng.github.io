@@ -19,7 +19,7 @@
 
 <body>
     <div class="container">
-        <div id="header"></div>
+        {% include header.html active_tab="games" breadcrumb_page="Go" breadcrumb_page_zh="围棋" %}
 
         <h1 id="gameName">Go</h1>
         <div>
@@ -64,10 +64,9 @@
             </div>
         </div>
 
-        <div id="footer"></div>
+        {% include footer.html %}
     </div>
 
-    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="games" data-breadcrumb-page="Go" data-breadcrumb-page-zh="围棋"></script>
     <script type="text/javascript">
         var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {
