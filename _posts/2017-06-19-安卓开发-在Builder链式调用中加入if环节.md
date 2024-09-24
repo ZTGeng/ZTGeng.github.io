@@ -9,6 +9,7 @@ date: 2017-06-19 12:02:24
 我们要解决这样一个问题：
 
 假设你在用 Builder 模式来创建一个对象，比如这样：​
+<!--more-->
 
 ```java
 User user = new User.Builder()

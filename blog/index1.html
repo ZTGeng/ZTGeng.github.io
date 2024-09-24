@@ -1,7 +1,5 @@
 ---
-listTitleEn: List
-listTitleZh: 列表
-listSize: 5
+
 ---
 <!DOCTYPE html>
 <html>
@@ -21,12 +19,10 @@ listSize: 5
         <div class="col-sm-12 col-md-9" id="post">
             {% for post in site.posts limit: layout.listSize %}
                 <h3>{{ post.title }}</h3>
-                <div>{{ post.excerpt | strip_html | strip_newlines | escape }}"></div>
+                <div>{{ post.excerpt | strip_html | strip_newlines | escape }}</div>
                 <div class="d-flex flex-row">
-                    <p>{{ post.date | date: "%Y-%m-%d %H:%M" }}</p>
-                    <div class="d-flex justify-content-between">
-                        <a href="{{ post.url }}" class="link-primary">Read more</a>
-                    </div>
+                    <p>{{ post.date | date: "%Y-%m-%d %H:%M" }} | </p>
+                    <a href="{{ post.url }}" class="link-primary ms-2">READ</a>
                 </div>
                 <hr>
             {% endfor %}

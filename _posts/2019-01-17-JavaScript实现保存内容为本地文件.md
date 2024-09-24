@@ -5,6 +5,7 @@ date: 2019-01-17 23:37:25
 ---
 
 我的Github Pages有[写博客功能](/2018/06/24/用Github-Pages写博客.html)，但是实际上Github Pages不支持在线保存内容，我的博客编辑页面其实只是个伪markdown编辑器，写完之后我需要手动保存到本地文件，然后git push到Github Pages的repo。
+<!--more-->
 
 之前没有找到保存文件的方法，还以为需要用JavaScript读写本地文件，查了半天发现做不到，就放弃了，改为将parse好的json显示出来，一键复制到剪贴板，然后在vscode里手动创建文件再ctrl-V。还觉得挺方便的。这次因为查别的东西，无意中看到了解决方法！
 
