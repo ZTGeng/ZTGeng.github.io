@@ -60,9 +60,8 @@ var reset = function() {
 
 	isBlack = true;
     lock = false;
-    $('#black-only').removeClass('active');
-    $('#white-only').removeClass('active');
-    $('#alternately').addClass('active');
+    // trigger click event on #alternately
+    $('#alternately').click();
 
     blackNum = 0;
     whiteNum = 0;
