@@ -5,6 +5,7 @@ date: 2024-03-28 22:26:10
 ---
 
 tl;dr 本文记录了我在我的 Windows PC 上下载 Llama2 模型并运行示例代码（[repo](https://github.com/meta-llama/llama){:target="_blank"}）的过程，适用于该 repo 截至本日（3/28/2024）的代码版本。
+<!--more-->
 
 Meta Llama2 模型的[官方 repo](https://github.com/meta-llama/llama){:target="_blank"} 介绍了下载和本地测试模型的方法，只要按照 readme 的指引一步步操作即可。可是这个 repo 只适用于 Linux 环境。如果你想在 Windows 环境下载运行，可能会遇到一些问题，这时你可以参考本文尝试解决。
 

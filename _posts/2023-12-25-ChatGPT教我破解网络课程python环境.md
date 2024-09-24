@@ -7,6 +7,7 @@ date: 2023-12-25 01:18:58
 是这样的。
 
 我正在学一门在线课程。这个课程的页面上有一个 Jupyter Notebook，上面有一些预先写好的 python 代码。其中最开始的几行是这样的：
+<!--more-->
 
 ```python
 import os

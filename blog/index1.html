@@ -17,21 +17,19 @@ listSize: 5
     <div class="container">
         {% include header.html active-tab='blog' %}
 
-        <div class="row" id="app">
-            <div class="col-sm-12 col-md-9" id="post">
-                {% for post in site.posts limit: layout.listSize %}
-                    <h3>{{ post.title }}</h3>
+        <br>
+        <div class="col-sm-12 col-md-9" id="post">
+            {% for post in site.posts limit: layout.listSize %}
+                <h3>{{ post.title }}</h3>
+                <div>{{ post.excerpt | strip_html | strip_newlines | escape }}"></div>
+                <div class="d-flex flex-row">
                     <p>{{ post.date | date: "%Y-%m-%d %H:%M" }}</p>
-                    <hr>
-                    <div>{{ post.excerpt }}"></div>
                     <div class="d-flex justify-content-between">
-                        <a href="{{ post.url }}" class="btn btn-primary">Read more</a>
+                        <a href="{{ post.url }}" class="link-primary">Read more</a>
                     </div>
-                {% endfor %}
-            </div>
-            <div class="col-sm-12 col-md-3 pt-3 pb-3">
-                {% include blog-list.html list_size=10 %}
-            </div>
+                </div>
+                <hr>
+            {% endfor %}
         </div>
 
         {% include footer.html %}
@@ -44,42 +42,12 @@ listSize: 5
                     title: "{{ post.title }}",
                     date: "{{ post.date | date: "%Y-%m-%d %H:%M" }}",
                     url: "{{ post.url }}",
+                    excerpt: "{{ post.excerpt | strip_html | strip_newlines | escape }}",
                     content: "{{ post.content | strip_html | strip_newlines | escape }}"
                 },
             {% endfor %}
         ];
         console.log(posts[0]);
-        const listSize = {{ page.listSize }};
-
-        const refreshList = (page) => {
-            const list = document.getElementById("list");
-            list.innerHTML = "";
-            for (let i = 0; i < listSize; i++) {
-                p = (page - 1) * listSize + i;
-                if (p >= posts.length) {
-                    break;
-                }
-                const post = posts[p];
-                const a = document.createElement("a");
-                a.href = post.url;
-                a.className = "list-group-item list-group-item-action" + (i % 2 === 0 ? " list-group-item-primary" : "");
-                const h6 = document.createElement("h6");
-                h6.className = "mb-1";
-                h6.innerText = post.title;
-                const small = document.createElement("small");
-                small.className = "mb-1";
-                small.innerText = post.date;
-                a.appendChild(h6);
-                a.appendChild(small);
-                list.appendChild(a);
-            }
-        };
-
-        if (window.navigator.language.startsWith("zh")) {
-            document.getElementById("list_title").innerText = "{{ page.listTitleZh }}";
-        } else {
-            document.getElementById("list_title").innerText = "{{ page.listTitleEn }}";
-        }
     </script>
 </body>
 </html>

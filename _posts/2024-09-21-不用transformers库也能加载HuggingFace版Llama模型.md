@@ -7,6 +7,7 @@ date: 2024-09-21 00:33:12
 下载Llama模型有很多渠道。
 
 第一种方法是通过HuggingFace的transformers库，使用`AutoModel`类加载：
+<!--more-->
 
 ```python
 from transformers import (
