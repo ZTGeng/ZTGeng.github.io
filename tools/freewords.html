@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE HTML>
 <html>
 
@@ -30,7 +32,7 @@
 
 <body>
     <div class="container">
-        <div id="header"></div>
+        {% include header.html active-tab='tools' breadcrumb-page='划线排版' %}
         <h1 id="title">划线排版 <small>微博文字排列工具</small></h1>
         <ul class="small text-secondary">
             <li>宽度暂时设置为23字，长度不限，会自动向下扩张。</li>
@@ -107,10 +109,9 @@
             </div>
         </div>
 
-        <div id="footer"></div>
+        {% include footer.html %}
     </div>
 
 </body>
-<script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="tools" data-breadcrumb-page="划线排版"></script>
 <script type="text/javascript" src="js/freewords.js"></script>
 </html>
