@@ -12,7 +12,7 @@
 
 <body>
     <div class="container">
-        <div id="header"></div>
+        {% include header.html active-tab='games' lang-enabled=true callback-en="switchToEn" callback-zh="switchToZh" %}
         <h1>
             <span id="title"></span><br>
             <small class="text-muted" id="greeting"></small>
@@ -23,7 +23,6 @@
 
         <div id="footer"></div>
     </div>
-    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="games" data-lang-enabled="true" data-en-callback="switchToEn" data-zh-callback="switchToZh"></script>
     <script type="text/javascript" src="/shared/autoReorganizedCarousel.js"></script>
     <script type="text/javascript">
         const catalogs = [
