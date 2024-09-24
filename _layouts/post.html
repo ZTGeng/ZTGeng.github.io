@@ -14,7 +14,7 @@
 
 <body>
     <div class="container">
-        {% include header.html active-tab='blog' %}
+        {% include header.html active-tab='blog' breadcrumb-page='{{ page.title }}' %}
         <div class="row">
             <div class="col-sm-12 col-md-9" id="post">
                 <h1>{{ page.title }}</h1>
@@ -31,7 +31,5 @@
         </div>
         {% include footer.html %}
     </div>
-
-    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="blog" data-breadcrumb-page="{{ page.title }}"></script>
 </body>
 </html>

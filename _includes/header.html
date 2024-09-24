@@ -8,10 +8,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link {% if include.active-tab == 'games' %}active" aria-current="page{% endif %}" href="/games/">Games</a></li>
-                        <li class="nav-item"><a class="nav-link {% if include.active-tab == 'tools' %}active" aria-current="page{% endif %}" href="/tools/">Tools</a></li>
-                        <li class="nav-item"><a class="nav-link {% if include.active-tab == 'math' %}active" aria-current="page{% endif %}" href="/math/">Math</a></li>
-                        <li class="nav-item"><a class="nav-link {% if include.active-tab == 'blog' %}active" aria-current="page{% endif %}" href="/blog/">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link{% if include.active-tab == 'games' %} active" aria-current="page{% endif %}" href="/games/">Games</a></li>
+                        <li class="nav-item"><a class="nav-link{% if include.active-tab == 'tools' %} active" aria-current="page{% endif %}" href="/tools/">Tools</a></li>
+                        <li class="nav-item"><a class="nav-link{% if include.active-tab == 'math' %} active" aria-current="page{% endif %}" href="/math/">Math</a></li>
+                        <li class="nav-item"><a class="nav-link{% if include.active-tab == 'blog' %} active" aria-current="page{% endif %}" href="/blog/">Blog</a></li>
                     </ul>
                     {% if include.lang-enabled %}
                         <div class="lang-switcher">
@@ -52,10 +52,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link {% if include.active-tab == 'games' %}active" aria-current="page{% endif %}" href="/games/">游戏</a></li>
-                        <li class="nav-item"><a class="nav-link {% if include.active-tab == 'tools' %}active" aria-current="page{% endif %}" href="/tools/">应用</a></li>
-                        <li class="nav-item"><a class="nav-link {% if include.active-tab == 'math' %}active" aria-current="page{% endif %}" href="/math/">数学</a></li>
-                        <li class="nav-item"><a class="nav-link {% if include.active-tab == 'blog' %}active" aria-current="page{% endif %}" href="/blog/">文章</a></li>
+                        <li class="nav-item"><a class="nav-link{% if include.active-tab == 'games' %} active" aria-current="page{% endif %}" href="/games/">游戏</a></li>
+                        <li class="nav-item"><a class="nav-link{% if include.active-tab == 'tools' %} active" aria-current="page{% endif %}" href="/tools/">应用</a></li>
+                        <li class="nav-item"><a class="nav-link{% if include.active-tab == 'math' %} active" aria-current="page{% endif %}" href="/math/">数学</a></li>
+                        <li class="nav-item"><a class="nav-link{% if include.active-tab == 'blog' %} active" aria-current="page{% endif %}" href="/blog/">文章</a></li>
                     </ul>
                     {% if include.lang-enabled %}
                         <div class="lang-switcher">
