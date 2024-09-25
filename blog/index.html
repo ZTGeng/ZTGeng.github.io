@@ -16,7 +16,7 @@
 
         <div id="post">
             {% for post in paginator.posts %}
-                <h3><a href="{{ post.url }}" class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">{{ post.title }}</a></h3>
+                <h3 class="mt-2"><a href="{{ post.url }}" class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">{{ post.title }}</a></h3>
                 <p>{{ post.excerpt | strip_html | strip_newlines | escape }}</p>
                 <div class="d-flex flex-row">
                     <p>{{ post.date | date: "%Y-%m-%d %H:%M" }} | </p>

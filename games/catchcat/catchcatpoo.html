@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +21,7 @@
 
 <body>
     <div class="container">
-        <div id="header"></div>
+        {% include header.html active-tab='games' breadcrumb-page='Catch the Cat: Poopsweeper' breadcrumb-page-zh='抓猫扫雷版' %}
 
         <h1 id="gameName">Catch the Smelly Cat</h1>
         <ul id="rule" class="small text-secondary">
@@ -34,10 +36,9 @@
             <button id="reset" class="btn btn-secondary">RESET</button>
         </div>
 
-        <div id="footer"></div>
+        {% include footer.html %}
     </div>
 
-    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="games" data-breadcrumb-page="Catch the Cat: Poopsweeper" data-breadcrumb-page-zh="抓猫扫雷版"></script>
     <script type="text/javascript">
         var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {

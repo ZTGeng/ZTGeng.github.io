@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE HTML>
 <html>
 
@@ -18,7 +20,7 @@
 
 <body>
     <div class="container">
-        <div id="header"></div>
+        {% include header.html active-tab='games' breadcrumb-page='Matching Card EX' breadcrumb-page-zh='记忆翻牌超难版' %}
 
         <h1 id="gameName">Matching Card EX</h1>
         <ul id="rule" class="small text-secondary">
@@ -52,10 +54,9 @@
             </div>
         </div>
 
-        <div id="footer"></div>
+        {% include footer.html %}
     </div>
 
-    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="games" data-breadcrumb-page="Matching Card EX" data-breadcrumb-page-zh="记忆翻牌超难版"></script>
     <script type="text/javascript">
 		var lang = navigator.language;
 		if (lang.slice(0, 2) === "zh") {

@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +21,7 @@
 
 <body>
     <div class="container">
-        <div id="header"></div>
+        {% include header.html active-tab='games' breadcrumb-page='Minesweeper' breadcrumb-page-zh='扫雷原版' %}
 
         <h1 id="gameName">Minesweeper</h1>
         <div class="row justify-content-center">
@@ -46,10 +48,9 @@
             <h2 id="result"></h2>
         </div>
 
-        <div id="footer"></div>
+        {% include footer.html %}
     </div>
 
-    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="games" data-breadcrumb-page="Minesweeper" data-breadcrumb-page-zh="扫雷原版"></script>
     <script type="text/javascript">
         var lang = navigator.language;
         if (lang.slice(0, 2) === "zh") {
