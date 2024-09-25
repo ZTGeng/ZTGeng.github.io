@@ -14,6 +14,9 @@
     <div class="container">
         {% include header.html active-tab='blog' %}
 
+        <div class="d-flex flex-row-reverse">
+            <a href="/blog/index-v1.html" class="btn btn-outline-primary">&rarr; Blog v1 </a>
+        </div>
         <div id="post">
             {% for post in paginator.posts %}
                 <h3 class="mt-2"><a href="{{ post.url }}" class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">{{ post.title }}</a></h3>

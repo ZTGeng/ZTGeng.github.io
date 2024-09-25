@@ -1,0 +1,302 @@
+---
+---
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title id="webTitle">Games</title>
+    <link href="/shared/bootstrap-5.3.2.min.css" rel="stylesheet">
+    <script src="/shared/bootstrap-5.3.2.bundle.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="container">
+        {% include header.html active-tab=page.active-tab lang-enabled=page.lang-enabled callback-en='switchToEn' callback-zh='switchToZh' %}
+        <h1>
+            <span id="title"></span><br>
+            <small class="text-muted" id="greeting"></small>
+        </h1>
+        <br>
+
+        <div id="portfolio"></div>
+
+        {% include footer.html %}
+    </div>
+    <script type="text/javascript" src="/shared/autoReorganizedCarousel.js"></script>
+    <script type="text/javascript">
+        const catalogs = [
+            {
+                id: "boardgames",
+                title: {
+                    "en": "Board Games",
+                    "zh": "棋类",
+                },
+                items: [
+                    {
+                        id: "gomoku",
+                        title: {
+                            "en": "Gomoku",
+                            "zh": "五子棋",
+                        },
+                        intro: {
+                            "en": "15x15 board. Two-player game. No forbidden moves.",
+                            "zh": "15x15 棋盘。双人游戏。黑方无禁手。",
+                        },
+                        imageSrc: "/games/images/gomoku.png",
+                        src: "/games/gomoku.html"
+                    },
+                    {
+                        id: "go",
+                        title: {
+                            "en": "Go",
+                            "zh": "围棋",
+                        },
+                        intro: {
+                            "en": "10x19 board. Two-player game.",
+                            "zh": "19x19 棋盘。双人游戏。",
+                        },
+                        imageSrc: "/games/images/go.png",
+                        src: "/games/go.html"
+                    },
+                    {
+                        id: "cchess",
+                        title: {
+                            "en": "Chinese Chess",
+                            "zh": "中国象棋",
+                        },
+                        intro: {
+                            "en": "Two-player game. Red first.",
+                            "zh": "双人游戏。红先黑后。",
+                        },
+                        imageSrc: "/games/images/cchess.png",
+                        src: "/games/cchess.html"
+                    },
+                    {
+                        id: "chess",
+                        title: {
+                            "en": "Chess",
+                            "zh": "国际象棋",
+                        },
+                        intro: {
+                            "en": "Two-player game. White first.",
+                            "zh": "双人游戏。白先黑后。",
+                        },
+                        imageSrc: "/games/images/chess.png",
+                        src: "/games/chess.html"
+                    }
+                ]
+            },
+            {
+                id: "catchcat",
+                title: {
+                    "en": "Catch the Cat",
+                    "zh": "抓猫",
+                },
+                items: [
+                    {
+                        id: "catchcat",
+                        title: {
+                            "en": "Catch the Cat",
+                            "zh": "抓猫原版",
+                        },
+                        intro: {
+                            "en": "Click on the tiles to trap the cat. Game over when it reaches the edge.",
+                            "zh": "点击格子围住猫。猫跑到边缘则游戏结束。",
+                        },
+                        imageSrc: "/games/images/cat-original.png",
+                        src: "/games/catchcat/catchcat.html"
+                    },
+                    {
+                        id: "catchcatpoop",
+                        title: {
+                            "en": "Catch the Cat: Poopsweeper",
+                            "zh": "抓猫扫雷版",
+                        },
+                        intro: {
+                            "en": "Observe the numbers to avoid cat poop that the cat won't step on.",
+                            "zh": "观察数字，避免踩到猫屎。猫不会踩猫屎。",
+                        },
+                        imageSrc: "/games/images/cat-poo.png",
+                        src: "/games/catchcat/catchcatpoo.html"
+                    },
+                    {
+                        id: "catch2cats",
+                        title: {
+                            "en": "Catch the Cat: Two Cats",
+                            "zh": "抓猫双猫版",
+                        },
+                        intro: {
+                            "en": "Open two tiles each turn and trap the two cats that won't overlap.",
+                            "zh": "每回合点开两格，围住两只猫。猫不会重叠。",
+                        },
+                        imageSrc: "/games/images/cat-two.png",
+                        src: "/games/catchcat/catch2cat.html"
+                    },
+                ]
+            },
+            {
+                id: "minesweeper",
+                title: {
+                    "en": "Minesweeper",
+                    "zh": "扫雷",
+                },
+                items: [
+                    {
+                        id: "minesweeper",
+                        title: {
+                            "en": "Minesweeper",
+                            "zh": "扫雷原版",
+                        },
+                        intro: {
+                            "en": "Classic minesweeper game.",
+                            "zh": "经典扫雷游戏。",
+                        },
+                        imageSrc: "/games/images/mine-sweeper.png",
+                        src: "/games/minesweeper/minesweeper.html"
+                    },
+                    {
+                        id: "liesweeper",
+                        title: {
+                            "en": "Minesweeper: Deceptive Digits",
+                            "zh": "扫雷：数字会说谎",
+                        },
+                        intro: {
+                            "en": "Some numbers are either 1 more or 1 less than their actual value.",
+                            "zh": "部分数字比实际值多 1 或少 1。",
+                        },
+                        imageSrc: "/games/images/lie-sweeper.png",
+                        src: "/games/minesweeper/liesweeper.html"
+                    },
+                    {
+                        id: "ghostsweeper",
+                        title: {
+                            "en": "Minesweeper: Ghosts",
+                            "zh": "幽灵扫雷",
+                        },
+                        intro: {
+                            "en": "Restart after a mistake, and a ghost appears repeating previous actions.",
+                            "zh": "失误后重开，并在场上出现重复先前操作的幽灵。",
+                        },
+                        imageSrc: "/games/images/ghost-sweeper.png",
+                        src: "/games/minesweeper/ghostsweeper.html"
+                    }
+                ]
+            },
+            {
+                id: "tetris",
+                title: {
+                    "en": "Tetris",
+                    "zh": "俄罗斯方块",
+                },
+                items: [
+                    {
+                        id: "tetris",
+                        title: {
+                            "en": "Tetris",
+                            "zh": "俄罗斯方块原版",
+                        },
+                        intro: {
+                            "en": "Classic Tetris game.",
+                            "zh": "经典俄罗斯方块游戏。",
+                        },
+                        imageSrc: "/games/images/tetris.png",
+                        src: "/games/tetris/tetris.html"
+                    },
+                    {
+                        id: "tetrisreverse",
+                        title: {
+                            "en": "Tetris: Reverse Play",
+                            "zh": "俄罗斯方块倒玩版",
+                        },
+                        intro: {
+                            "en": "Cut the bricks from the rising wall.",
+                            "zh": "从缓慢上升的砖墙中切下各形状砖块。",
+                        },
+                        imageSrc: "/games/images/tetris-reverse.png",
+                        src: "/games/tetris/tetrisreverse.html"
+                    }
+                ]
+            },
+            {
+                id: "miscellaneous",
+                title: {
+                    "en": "Miscellaneous",
+                    "zh": "其他",
+                },
+                items: [
+                    {
+                        id: "memory",
+                        title: {
+                            "en": "Matching Card EX",
+                            "zh": "记忆翻牌超难版",
+                        },
+                        intro: {
+                            "en": "The same pattern won't appear before flipping half of the cards.",
+                            "zh": "翻开半数的牌之前不会出现相同图案。",
+                        },
+                        imageSrc: "/games/images/memory.png",
+                        src: "/games/memory.html"
+                    },
+                    {
+                        id: "rps",
+                        title: {
+                            "en": "Rock Paper Scissors",
+                            "zh": "石头剪刀布",
+                        },
+                        intro: {
+                            "en": "The computer's choice is made at the beginning of the game, so it can't cheat.",
+                            "zh": "电脑的选择会在游戏开始时给出，因此电脑无法作弊。",
+                        },
+                        imageSrc: "/games/images/rps.png",
+                        src: "/games/rps.html"
+                    }
+                ]
+            },        
+        ];
+        const translations = {
+            "en": {
+                "web_title": "Games",
+                "title": "Barebones Games",
+                "greeting": "This shows what the game looks like when made in the absence of a designer.",
+            },
+            "zh": {
+                "web_title": "游戏",
+                "title": "朴素游戏",
+                "greeting": "这里展示了设计师缺席的情况下做出的游戏是什么样子。",
+            }
+        };
+
+        function switchPageLanguage(lang) {
+            const translation = translations[lang] || translations["en"];
+            
+            document.title = translation.web_title;
+            document.getElementById("title").textContent = translation.title;
+            document.getElementById("greeting").textContent = translation.greeting;
+        }
+        function switchToZh() {
+            switchPageLanguage("zh");
+            switchCatalogsLanguage(catalogs, "zh");
+        }
+        function switchToEn() {
+            switchPageLanguage("en");
+            switchCatalogsLanguage(catalogs, "en");
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const userLang = navigator.language || navigator.userLanguage;
+            const lang = userLang.slice(0, 2) || "en";
+            switchPageLanguage(lang);
+
+            const portfolio = document.getElementById("portfolio");
+            const catalogDOMs = createCatalogsAndListenToResize(catalogs, lang);
+            for (let catalogDOM of catalogDOMs) {
+                portfolio.appendChild(catalogDOM);
+            }
+        });
+    </script>
+</body>
+
+</html>
