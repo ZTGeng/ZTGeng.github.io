@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE HTML>
 <html>
 
@@ -18,7 +20,7 @@
 
 <body>
     <div class="container">
-        <div id="header"></div>
+        {% include header.html active-tab='math' breadcrumb-page='Linear System' breadcrumb-page-zh='四元一次方程组' %}
         <h1 id="problem-name">System of Linear Equations <small>coefficients = 1</small></h1>
         <div class="text-center">
             <div>
@@ -106,10 +108,9 @@
             </div>
         </div>
 
-        <div id="footer"></div>
+        {% include footer.html %}
     </div>
 
-    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="math" data-breadcrumb-page="Linear System" data-breadcrumb-page-zh="四元一次方程组"></script>
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
             let lang = navigator.language;

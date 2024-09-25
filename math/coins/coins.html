@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +21,7 @@
 
 <body>
     <div class="container">
-        <div id="header"></div>
+        {% include header.html active-tab='math' breadcrumb-page='Computer Coin Scale Challenge' breadcrumb-page-zh='电脑称硬币' %}
 
         <h1 id="gameName">Computer Coin Scale Challenge</h1>
         <strong id="howToPlay">How to Play:</strong>
@@ -61,9 +63,8 @@
             </div>
         </div>
 
-        <div id="footer"></div>
+        {% include footer.html %}
     </div>
-    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="math" data-breadcrumb-page="Computer Coin Scale Challenge" data-breadcrumb-page-zh="电脑称硬币"></script>
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", () => {
             let lang = navigator.language;
