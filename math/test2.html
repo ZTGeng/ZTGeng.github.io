@@ -7,122 +7,126 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Linear System</title>
-    <meta name="description" content="equations">
-    <meta name="author" content="Geng">
-
-    <link rel="stylesheet" type="text/css" href="/shared/bootstrap-5.3.2.min.css">
-    <link rel="stylesheet" type="text/css" href="css/equations4.css">
-    <script type="text/javascript" src="/shared/jquery.min.js"></script>
-    <script type="text/javascript" src="/shared/bootstrap-5.3.2.bundle.min.js"></script>
-    <script type="text/javascript" src="js/equations4.js"></script>
+    <title id="webTitle">Math</title>
+    <link href="/shared/bootstrap-5.3.2.min.css" rel="stylesheet">
+    <script src="/shared/bootstrap-5.3.2.bundle.min.js" type="text/javascript"></script>
 </head>
 
 <body>
     <div class="container">
-        {% include header.html active-tab='math' breadcrumb-page='Linear System' breadcrumb-page-zh='四元一次方程组' %}
-        <h1 id="problem-name">System of Linear Equations <small>coefficients = 1</small></h1>
-        <div class="text-center">
-            <div>
-                <div class="mb-2">
-                    <label class="btn btn-secondary"  id="two-v-button">
-                        <input type="radio" name="color-lock" autocomplete="off"> <span id="two-v-span">Two Variables</span>
-                    </label>
-                    <label class="btn btn-secondary" id="three-v-button">
-                        <input type="radio" name="color-lock" autocomplete="off"> <span id="three-v-span">Three Variable</span>
-                    </label>
-                    <label class="btn btn-secondary" id="four-v-button">
-                        <input type="radio" name="color-lock" autocomplete="off" checked> <span id="four-v-span">Four Variables</span>
-                    </label>
-                </div>
+        {% include header.html active-tab='math' lang-enabled=true callback-en='switchToEn' callback-zh='switchToZh' %}
+        <h1>
+            <span id="title"></span><br>
+            <small class="text-muted" id="greeting"></small>
+        </h1>
+        <br>
 
-                <div id="equation-list" class="mb-2">
-                    <form class="two-v-equations row justify-content-md-center" id="equation-a-b">
-                        <div class="equation text-primary col row" id="equation-a-add-b">
-                            <label for="constant-a-add-b" class="col control-label text-end">a + b =</label>
-                            <input type="number" class="col" id="constant-a-add-b">
-                        </div>
-                        <div class="equation text-primary col row" id="equation-a-sub-b">
-                            <label for="constant-a-sub-b" class="col control-label text-end">a - b =</label>
-                            <input type="number" class="col" id="constant-a-sub-b">
-                        </div>
-                    </form>
-                    <form class="three-v-equations row justify-content-md-center" id="equation-a-c">
-                        <div class="equation text-primary col row" id="equation-a-add-c">
-                            <label for="constant-a-add-c" class="col control-label text-end">a + c =</label>
-                            <input type="number" class="col" id="constant-a-add-c">
-                        </div>
-                        <div class="equation text-primary col row" id="equation-a-sub-c">
-                            <label for="constant-a-sub-c" class="col control-label text-end">a - c =</label>
-                            <input type="number" class="col" id="constant-a-sub-c">
-                        </div>
-                    </form>
-                    <form class="four-v-equations row justify-content-md-center" id="equation-a-d">
-                        <div class="equation text-primary col row" id="equation-a-add-d">
-                            <label for="constant-a-add-d" class="col control-label text-end">a + d =</label>
-                            <input type="number" class="col" id="constant-a-add-d">
-                        </div>
-                        <div class="equation text-primary col row" id="equation-a-sub-d">
-                            <label for="constant-a-sub-d" class="col control-label text-end">a - d =</label>
-                            <input type="number" class="col" id="constant-a-sub-d">
-                        </div>
-                    </form>
-                    <form class="three-v-equations row justify-content-md-center" id="equation-b-c">
-                        <div class="equation text-primary col row" id="equation-b-add-c">
-                            <label for="constant-b-add-c" class="col control-label text-end">b + c =</label>
-                            <input type="number" class="col" id="constant-b-add-c">
-                        </div>
-                        <div class="equation text-primary col row" id="equation-b-sub-c">
-                            <label for="constant-b-sub-b" class="col control-label text-end">b - c =</label>
-                            <input type="number" class="col" id="constant-b-sub-c">
-                        </div>
-                    </form>
-                    <form class="four-v-equations row justify-content-md-center" id="equation-b-d">
-                        <div class="equation text-primary col row" id="equation-b-add-d">
-                            <label for="constant-b-add-d" class="col control-label text-end">b + d =</label>
-                            <input type="number" class="col" id="constant-b-add-d">
-                        </div>
-                        <div class="equation text-primary col row" id="equation-b-sub-d">
-                            <label for="constant-b-sub-d" class="col control-label text-end">b - d =</label>
-                            <input type="number" class="col" id="constant-b-sub-d">
-                        </div>
-                    </form>
-                    <form class="four-v-equations row justify-content-md-center" id="equation-c-d">
-                        <div class="equation text-primary col row" id="equation-c-add-d">
-                            <label for="constant-c-add-d" class="col control-label text-end">c + d =</label>
-                            <input type="number" class="col" id="constant-c-add-d">
-                        </div>
-                        <div class="equation text-primary col row" id="equation-c-sub-d">
-                            <label for="constant-c-sub-d" class="col control-label text-end">c - d =</label>
-                            <input type="number" class="col" id="constant-c-sub-d">
-                        </div>
-                    </form>
-                </div>
-
-                <div class="row text-start">
-                    <div class="col-xs-6 col-md-3">a = <span class="result" id="result-a"></span></div>
-                    <div class="col-xs-6 col-md-3">b = <span class="result" id="result-b"></span></div>
-                    <div class="col-xs-6 col-md-3 three-v-equations">c = <span class="result" id="result-c"></span></div>
-                    <div class="col-xs-6 col-md-3 four-v-equations">d = <span class="result" id="result-d"></span></div>
-                </div>
-            </div>
-        </div>
+        <div id="portfolio"></div>
 
         {% include footer.html %}
     </div>
-
+    <script type="text/javascript" src="/shared/autoReorganizedCarousel.js"></script>
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function() {
-            let lang = navigator.language;
-            if (lang.slice(0, 2) === "zh") {
-                document.title = "四元一次方程组";
-                document.getElementById("problem-name").innerHTML = "四元一次方程组 <small>所有系数为1</small>";
-                document.getElementById("two-v-span").textContent = "二元一次方程组";
-                document.getElementById("three-v-span").textContent = "三元一次方程组";
-                document.getElementById("four-v-span").textContent = "四元一次方程组";
+        const catalogs = [
+            {
+                id: "equations",
+                title: {
+                    "en": "Equations",
+                    "zh": "方程",
+                },
+                items: [
+                    {
+                        id: "equations4",
+                        title: {
+                            "en": "Simple 4-variable Linear System",
+                            "zh": "简单四元一次方程组",
+                        },
+                        intro: {
+                            "en": "Solving linear equations with two to four variables, where all the coefficients are 1.",
+                            "zh": "求解二到四元的线性方程组，所有未知数的系数为 1。",
+                        },
+                        src: "/math/equations4.html",
+                        imageSrc: "/math/images/equations4.png",
+                    },
+                ]
+            },
+            {
+                id: "coins",
+                title: {
+                    "en": "Coin Puzzel",
+                    "zh": "硬币谜题",
+                },
+                items: [
+                {
+                        id: "coinshuman",
+                        title: {
+                            "en": "Coin Conundrum",
+                            "zh": "称硬币",
+                        },
+                        intro: {
+                            "en": "Find the one coin of a different weight among 12 coins by weighing them three times.",
+                            "zh": "三次称重找出 12 枚硬币中重量不同的一枚。",
+                        },
+                        src: "/math/coins/coins2.html",
+                        imageSrc: "/math/images/coins2.png",
+                    },
+                    {
+                        id: "coinscomputer",
+                        title: {
+                            "en": "Coin Conundrum: Computer",
+                            "zh": "电脑称硬币",
+                        },
+                        intro: {
+                            "en": "Verifying the coin problem can be solved with three weighings.",
+                            "zh": "由计算机验证硬币问题可通过三次称重解决。",
+                        },
+                        src: "/math/coins/coins.html",
+                        imageSrc: "/math/images/coins.png",
+                    },
+                ]
+            }
+        ];
+        const translations = {
+            "en": {
+                "web_title": "Math",
+                "title": "Math Beyond Practicality",
+                "greeting": "Unlike other problems, math always has a right answer.",
+            },
+            "zh": {
+                "web_title": "数学",
+                "title": "实用数学",
+                "greeting": "数学问题与其他不同，总是有正确答案。",
+            }
+        };
+
+        function switchPageLanguage(lang) {
+            const translation = translations[lang] || translations["en"];
+            
+            document.title = translation.web_title;
+            document.getElementById("title").textContent = translation.title;
+            document.getElementById("greeting").textContent = translation.greeting;
+        }
+        function switchToZh() {
+            switchPageLanguage("zh");
+            switchCatalogsLanguage(catalogs, "zh");
+        }
+        function switchToEn() {
+            switchPageLanguage("en");
+            switchCatalogsLanguage(catalogs, "en");
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const userLang = navigator.language || navigator.userLanguage;
+            const lang = userLang.slice(0, 2) || "en";
+            switchPageLanguage(lang);
+
+            const portfolio = document.getElementById("portfolio");
+            const catalogDOMs = createCatalogsAndListenToResize(catalogs, lang);
+            for (let catalogDOM of catalogDOMs) {
+                portfolio.appendChild(catalogDOM);
             }
         });
-	</script>
+    </script>
 </body>
 
 </html>
