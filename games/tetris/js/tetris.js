@@ -382,7 +382,7 @@ var reset = function() {
 
 var main = function() {
     for (var ri = 0; ri < ROW_NUM; ri++) {
-        var row = $('<div id="row' + ri + '" class="row no-gutters row-cols-10"></div>').appendTo($('#field'));
+        var row = $('<div id="row' + ri + '" class="row no-gutters row-cols-10 mx-0"></div>').appendTo($('#field'));
         for (var ci = 0; ci < COL_NUM; ci++) {
             var grid = $('<div id="g' + ri + '_' + ci + '" class="grid col border border-light"></div>').appendTo(row);
             grid.css('padding-bottom', (100 / COL_NUM) + '%');
