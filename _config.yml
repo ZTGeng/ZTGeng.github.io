@@ -6,3 +6,6 @@ kramdown:
 excerpt_separator: <!--more-->
 paginate: 6
 paginate_path: "/blog/page:num/"
+
+optional_front_matter:
+  enabled: false
