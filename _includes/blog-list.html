@@ -20,11 +20,11 @@
     <nav aria-label="Page navigation" class="mt-2">
         <ul class="pagination pagination-sm">
             {% assign total_page = site.posts.size | minus: 1 | divided_by: include.list_size | plus: 1 %}
-            <li id="first-page-item" class="page-item disabled"><a class="page-link" href="javascript:void(0)"  onclick="refreshList(1)">&laquo;</a></li>
+            <li id="first-page-item" class="page-item disabled"><a class="page-link" href="javascript:void(0)"  onclick="toPreviousPage()">&laquo;</a></li>
             {% for i in (1..total_page) %}
-                <li id="page-item-{{i}}" class="page-item{% if i == 1 %} active{% endif %}"><a class="page-link" href="javascript:void(0)" onclick="refreshList({{ i }})">{{ i }}</a></li>
+                <li id="page-item-{{i}}" class="page-item{% if i == 1 %} active{% endif %}"><a class="page-link" href="javascript:void(0)" onclick="toPage({{ i }})">{{ i }}</a></li>
             {% endfor %}
-            <li id="last-page-item" class="page-item"><a class="page-link" href="javascript:void(0)" onclick="refreshList({{ total_page }})">&raquo;</a></li>
+            <li id="last-page-item" class="page-item"><a class="page-link" href="javascript:void(0)" onclick="toNextPage()">&raquo;</a></li>
         </ul>
     </nav>
 </div>
@@ -37,8 +37,19 @@
     ];
     const listSize = {{ include.list_size }};
     const totalPage = {{ total_page }};
+    var currentPage = 1;
 
-    const refreshList = (page) => {
+    const toPreviousPage = () => {
+        if (currentPage > 1) {
+            toPage(currentPage - 1);
+        }
+    };
+    const toNextPage = () => {
+        if (currentPage < totalPage) {
+            toPage(currentPage + 1);
+        }
+    };
+    const toPage = (page) => {
         const list = document.getElementById("list");
         list.innerHTML = "";
         for (let i = 0; i < listSize; i++) {
@@ -60,6 +71,11 @@
             a.appendChild(small);
             list.appendChild(a);
         }
+        const currentActiveTab = document.getElementById("page-item-" + currentPage);
+        const newActiveTab = document.getElementById("page-item-" + page);
+        currentActiveTab.classList.remove("active");
+        newActiveTab.classList.add("active");
+        currentPage = page;
         if (page === 1) {
             document.getElementById("first-page-item").classList.add("disabled");
         } else {
@@ -69,14 +85,6 @@
             document.getElementById("last-page-item").classList.add("disabled");
         } else {
             document.getElementById("last-page-item").classList.remove("disabled");
-        }
-        for (let i = 1; i <= totalPage; i++) {
-            const item = document.getElementById("page-item-" + i);
-            if (i === page) {
-                item.classList.add("active");
-            } else {
-                item.classList.remove("active");
-            }
         }
     };
 
