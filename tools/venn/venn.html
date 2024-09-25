@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -103,7 +105,8 @@
 </head>
 <body>
     <div id="app" class="container">
-        <div id="header"></div>
+        {% include header.html active-tab='tools' breadcrumb-page='Venn Diagram Online Tool' breadcrumb-page-zh='文氏图（维恩图）制作' %}
+        {% raw %}
 
         <h1>{{ page_title }}</h1>
         <ul class="small text-secondary">
@@ -175,10 +178,10 @@
             </div>
         </div>
         
-        <div id="footer"></div>
+        {% endraw %}
+        {% include footer.html %}
     </div>
     
-    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="tools" data-breadcrumb-page="Venn Diagram Online Tool" data-breadcrumb-page-zh="文氏图（维恩图）制作"></script>
     <script>
         const { createApp } = Vue
         const app = createApp({

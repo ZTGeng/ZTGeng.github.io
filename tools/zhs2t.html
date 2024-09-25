@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE HTML>
 <html>
 
@@ -15,7 +17,8 @@
 
 <body>
     <div class="container">
-        <div id="header"></div>
+        {% include header.html active-tab='tools' breadcrumb-page='舍简从繁' %}
+        {% raw %}
         <h1 id="title">舍简从繁 <small>结合语境的中文简体转繁体工具</small></h1>
         <ul class="small text-secondary">
             <li>此工具可以标出常见的对应多个繁体字的简体字，并由使用者自行选字。此工具提供的选字提示和默认选字仅供参考，不可做为依据。</li>
@@ -69,11 +72,11 @@
             </div>
         </div>
 
-        <div id="footer"></div>
+        {% endraw %}
+        {% include footer.html %}
     </div>
 
 </body>
-<script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="tools" data-breadcrumb-page="舍简从繁"></script>
 <script type="text/javascript" src="js/zhmap.js"></script>
 <script type="text/javascript" src="js/zhs2t.js"></script>
 </html>
