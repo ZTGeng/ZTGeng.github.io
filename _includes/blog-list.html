@@ -18,13 +18,13 @@
         {% endfor %}
     </div>
     <nav aria-label="Page navigation" class="mt-2">
-        <ul class="pagination">
-            {% assign pageNum = site.posts.size | minus: 1 | divided_by: include.list_size | plus: 1 %}
-            <li class="page-item"><a class="page-link" href="javascript:void(0)"  onclick="refreshList(1)">&laquo;</a></li>
-            {% for i in (1..pageNum) %}
-                <li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="refreshList({{ i }})">{{ i }}</a></li>
+        <ul class="pagination pagination-sm">
+            {% assign total_page = site.posts.size | minus: 1 | divided_by: include.list_size | plus: 1 %}
+            <li id="first-page-item" class="page-item disabled"><a class="page-link" href="javascript:void(0)"  onclick="refreshList(1)">&laquo;</a></li>
+            {% for i in (1..total_page) %}
+                <li id="page-item-{{i}}" class="page-item{% if i == 1 %} active{% endif %}"><a class="page-link" href="javascript:void(0)" onclick="refreshList({{ i }})">{{ i }}</a></li>
             {% endfor %}
-            <li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="refreshList({{ pageNum }})">&raquo;</a></li>
+            <li id="last-page-item" class="page-item"><a class="page-link" href="javascript:void(0)" onclick="refreshList({{ total_page }})">&raquo;</a></li>
         </ul>
     </nav>
 </div>
@@ -32,14 +32,11 @@
 <script type="text/javascript">
     const posts = [
         {% for post in site.posts %}
-            {
-                title: "{{ post.title }}",
-                date: "{{ post.date | date: "%Y-%m-%d %H:%M" }}",
-                url: "{{ post.url }}"
-            },
+            { title: "{{ post.title }}", date: "{{ post.date | date: "%Y-%m-%d %H:%M" }}", url: "{{ post.url }}" },
         {% endfor %}
     ];
     const listSize = {{ include.list_size }};
+    const totalPage = {{ total_page }};
 
     const refreshList = (page) => {
         const list = document.getElementById("list");
@@ -62,6 +59,24 @@
             a.appendChild(h6);
             a.appendChild(small);
             list.appendChild(a);
+        }
+        if (page === 1) {
+            document.getElementById("first-page-item").classList.add("disabled");
+        } else {
+            document.getElementById("first-page-item").classList.remove("disabled");
+        }
+        if (page === totalPage) {
+            document.getElementById("last-page-item").classList.add("disabled");
+        } else {
+            document.getElementById("last-page-item").classList.remove("disabled");
+        }
+        for (let i = 1; i <= totalPage; i++) {
+            const item = document.getElementById("page-item-" + i);
+            if (i === page) {
+                item.classList.add("active");
+            } else {
+                item.classList.remove("active");
+            }
         }
     };
 

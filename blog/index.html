@@ -35,7 +35,7 @@
                     {% for page in (1..paginator.total_pages) %}
                         <li class="page-item{% if page == paginator.page %} active" aria-current="page{% endif %}">
                             {% if page == paginator.page %}
-                                <em class="page-link">{{ page }}</em>
+                                <div class="page-link">{{ page }}</div>
                             {% elsif page == 1 %}
                                 <a class="page-link" href="{{ site.paginate_path | relative_url | replace: 'page:num/', '' }}">{{ page }}</a>
                             {% else %}
