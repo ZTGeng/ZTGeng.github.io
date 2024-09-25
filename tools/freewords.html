@@ -33,6 +33,7 @@
 <body>
     <div class="container">
         {% include header.html active-tab='tools' breadcrumb-page='划线排版' %}
+        {% raw %}
         <h1 id="title">划线排版 <small>微博文字排列工具</small></h1>
         <ul class="small text-secondary">
             <li>宽度暂时设置为23字，长度不限，会自动向下扩张。</li>
@@ -108,6 +109,7 @@
                 </div>
             </div>
         </div>
+        {% endraw %}
 
         {% include footer.html %}
     </div>
