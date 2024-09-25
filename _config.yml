@@ -7,4 +7,4 @@ excerpt_separator: <!--more-->
 paginate: 6
 paginate_path: "/blog/page:num/"
 
-exclude: ["/blog/posts/"]
+keep_files: ["/blog/posts/"]
