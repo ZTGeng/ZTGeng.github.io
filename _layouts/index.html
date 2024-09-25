@@ -28,7 +28,32 @@
     <script type="text/javascript" src="/shared/autoReorganizedCarousel.js"></script>
     <script type="text/javascript">
         const catalogs = [
-            
+            {% for catalog in page.catalogs %}
+            {
+                id: "{{ catalog.id }}",
+                title: {
+                    "en": "{{ catalog.title-en }}",
+                    "zh": "{{ catalog.title-zh }}",
+                },
+                items: [
+                    {% for item in catalog.items %}
+                    {
+                        id: "{{ item.id }}",
+                        title: {
+                            "en": "{{ item.title-en }}",
+                            "zh": "{{ item.title-zh }}",
+                        },
+                        intro: {
+                            "en": "{{ item.intro-en }}",
+                            "zh": "{{ item.intro-zh }}",
+                        },
+                        src: "{{ item.src }}",
+                        imageSrc: "{{ item.imageSrc }}",
+                    },
+                    {% endfor %}
+                ]
+            },
+            {% endfor %}
         ];
         const translations = {
             "en": {

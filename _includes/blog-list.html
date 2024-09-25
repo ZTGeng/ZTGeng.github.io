@@ -6,12 +6,11 @@
     <div id="list" class="list-group">
         {% for post in site.posts limit: include.list_size %}
             {% assign mod = forloop.index | modulo: 2 %}
-            <a href="{{ post.url }}"
-                {% if mod == 1 %}
-                    class="list-group-item list-group-item-action list-group-item-primary"
-                {% else %}
-                    class="list-group-item list-group-item-action"
-                {% endif %}>
+            {% if mod == 1 %}
+            <a href="{{ post.url }}" class="list-group-item list-group-item-action list-group-item-primary">
+            {% else %}
+            <a href="{{ post.url }}" class="list-group-item list-group-item-action">
+            {% endif %}
                 <h6 class="mb-1">{{ post.title }}</h6>
                 <small class="mb-1">{{ post.date | date: "%Y-%m-%d %H:%M" }}</small>
             </a>
@@ -19,12 +18,18 @@
     </div>
     <nav aria-label="Page navigation" class="mt-2">
         <ul class="pagination pagination-sm">
+            <li id="first-page-item" class="page-item disabled">
+                <a class="page-link" href="javascript:void(0)" onclick="toPreviousPage()">&laquo;</a>
+            </li>
             {% assign total_page = site.posts.size | minus: 1 | divided_by: include.list_size | plus: 1 %}
-            <li id="first-page-item" class="page-item disabled"><a class="page-link" href="javascript:void(0)"  onclick="toPreviousPage()">&laquo;</a></li>
             {% for i in (1..total_page) %}
-                <li id="page-item-{{i}}" class="page-item{% if i == 1 %} active{% endif %}"><a class="page-link" href="javascript:void(0)" onclick="toPage({{ i }})">{{ i }}</a></li>
+                <li id="page-item-{{i}}" class="page-item{% if i == 1 %} active{% endif %}">
+                    <a class="page-link" href="javascript:void(0)" onclick="toPage({{ i }})">{{ i }}</a>
+                </li>
             {% endfor %}
-            <li id="last-page-item" class="page-item"><a class="page-link" href="javascript:void(0)" onclick="toNextPage()">&raquo;</a></li>
+            <li id="last-page-item" class="page-item">
+                <a class="page-link" href="javascript:void(0)" onclick="toNextPage()">&raquo;</a>
+            </li>
         </ul>
     </nav>
 </div>
