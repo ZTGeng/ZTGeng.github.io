@@ -299,8 +299,7 @@
             document.getElementById("light-theme-label").innerText = "浅色";
             document.getElementById("dark-theme-label").innerText = "深色";
         }
-        const userLang = navigator.language || navigator.userLanguage;
-        if (userLang.startsWith("zh")) {
+        if ((navigator.language || navigator.userLanguage).startsWith("zh")) {
             switchToZh();
         }
     </script>

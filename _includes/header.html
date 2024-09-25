@@ -98,13 +98,13 @@
     }
 
     function onEn() {
-        const callback = {{ include.callback-en }};
+        const callback = "{{include.callback-en}}";
         if (callback) {
             window[callback]();
         }
     }
     function onZh() {
-        const callback = {{ include.callback-zh }};
+        const callback = "{{include.callback-zh}}";
         if (callback) {
             window[callback]();
         }
