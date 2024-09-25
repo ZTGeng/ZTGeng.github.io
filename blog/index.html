@@ -54,19 +54,5 @@
 
         {% include footer.html %}
     </div>
-
-    <script type="text/javascript">
-        const posts = [
-            {% for post in site.posts %}
-                {
-                    title: "{{ post.title }}",
-                    date: "{{ post.date | date: "%Y-%m-%d %H:%M" }}",
-                    url: "{{ post.url }}",
-                    excerpt: "{{ post.excerpt | strip_html | escape }}"
-                },
-            {% endfor %}
-        ];
-        console.log(posts[0]);
-    </script>
 </body>
 </html>
