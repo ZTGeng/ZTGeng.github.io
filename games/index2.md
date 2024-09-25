@@ -1,4 +1,5 @@
 ---
 layout: index
-active-tab: 
+active-tab: "games"
+lang-enabled: true
 ---
