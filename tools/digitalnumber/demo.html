@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +13,7 @@
 </head>
 <body>
     <div class="container">
-        <div id="header"></div>
+        {% include header.html active-tab='tools' breadcrumb-page='Digital Numbers JS Demo' breadcrumb-page-zh='液晶数字样式' lang-enabled=true callback-en='switchToEn' callback-zh='switchToZh' %}
 
         <div class="en">
             <h1>Digital Numbers JS Demo</h1>
@@ -198,12 +200,9 @@
                 <li>浏览器兼容性要求：<a href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver#browser_compatibility" target="_blank">MutationObserver</a>（开启动态内容监听需要）。</li>
             </ul>
         </div>
-        <div id="footer"></div>
+        {% include footer.html %}
     </div>
 
-    <script type="text/javascript" src="/shared/loadSharedUI.js"
-        data-active-tab="tools" data-breadcrumb-page="Digital Numbers JS Demo" data-breadcrumb-page-zh="液晶数字样式"
-        data-lang-enabled="true" data-en-callback="switchToEn" data-zh-callback="switchToZh"></script>
     <script>
         function formatNumber(num) {
             return `${num}`.padStart(2, '0');

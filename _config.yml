@@ -6,7 +6,3 @@ kramdown:
 excerpt_separator: <!--more-->
 paginate: 6
 paginate_path: "/blog/page:num/"
-
-include: 
-  - "/games/index.html"
-  - "/tools/index.html"

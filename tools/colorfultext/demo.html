@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +12,7 @@
 </head>
 <body>
     <div class="container">
-        <div id="header"></div>
+        {% include header.html active-tab='tools' breadcrumb-page='Colorful Text JS' breadcrumb-page-zh='动态文字渐变' %}
 
         <h1>Colorful Text JS Demo</h1>
         <ul class="small text-secondary">
@@ -112,10 +114,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     &lt;/p&gt;
         </code></pre>
         
-        <div id="footer"></div>
+        {% include footer.html %}
     </div>
 
-    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="tools" data-breadcrumb-page="Colorful Text JS" data-breadcrumb-page-zh="动态文字渐变"></script>
     <script src="colorful-text.js"></script>
 </body>
 </html>

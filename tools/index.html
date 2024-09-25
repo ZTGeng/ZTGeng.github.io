@@ -1,6 +1,4 @@
-﻿---
----
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html>
 
 <head>
@@ -14,7 +12,7 @@
 
 <body>
     <div class="container">
-        {% include header.html active-tab='tools' lang-enabled=true callback-en='switchToEn' call-back-zh='switchToZh' %}
+        <div id="header"></div>
         <h1>
             <span id="title"></span><br>
             <small class="text-muted" id="greeting"></small>
@@ -23,8 +21,9 @@
 
         <div id="portfolio"></div>
 
-        {% include footer.html %}
+        <div id="footer"></div>
     </div>
+    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="tools" data-lang-enabled="true" data-en-callback="switchToEn" data-zh-callback="switchToZh"></script>
     <script type="text/javascript" src="/shared/autoReorganizedCarousel.js"></script>
     <script type="text/javascript">
         const catalogs = [

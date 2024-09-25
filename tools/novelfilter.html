@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE HTML>
 <html>
 
@@ -15,7 +17,7 @@
 
 <body>
     <div class="container">
-        <div id="header"></div>
+        {% include header.html active-tab='tools' breadcrumb-page='异世界轻小说筛选器' %}
         <h1 id="title">异世界轻小说筛选器 <small>标签与过滤系统展示</small></h1>
         <ul class="small text-secondary">
             <li>此组件是基于自定义标签的筛选工具。可整合于预加载了Vue和Bootstrap的网页上。</li>
@@ -38,8 +40,7 @@
         <div id="footer"></div>
     </div>
 
-</body> 
-<script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="tools" data-breadcrumb-page="异世界轻小说筛选器"></script>
+</body>
 <script type="text/javascript" src="js/novelfilterdata.js"></script>
 <script type="text/javascript" src="js/novelfilter.js"></script>
 </html>
