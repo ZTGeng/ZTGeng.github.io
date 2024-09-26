@@ -447,16 +447,16 @@
     var toggleMute = function() {
         if (isMuted) {
             isMuted = false;
-            $("#muteIcon").attr('src', '../../octicons/svg/mute.svg');
-            $("#mute").removeClass("active");
+            $("#mute-icon").removeAttr('hidden');
+            $("#unmute-icon").attr('hidden', 'hidden');
             if (isGaming) {
                 MUSIC.bgm.load();
                 MUSIC.bgm.play();
             }
         } else {
             isMuted = true;
-            $("#muteIcon").attr('src', '../../octicons/svg/unmute.svg');
-            $("#mute").addClass("active");
+            $("#mute-icon").attr('hidden', 'hidden');
+            $("#unmute-icon").removeAttr('hidden');
             MUSIC.bgm.pause();
             MUSIC.gameover.pause();
             MUSIC.remove.pause();
