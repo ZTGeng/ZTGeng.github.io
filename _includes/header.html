@@ -91,7 +91,7 @@
 </header>
 
 <script>
-    function _() {
+    (function() {
         const userLang = navigator.language || navigator.userLanguage;
         if (userLang.slice(0, 2) === 'zh') {
             document.getElementById('nav-zh').removeAttribute('hidden');
@@ -110,5 +110,5 @@
                 window[callback]();
             }
         }
-    }();
+    })();
 </script>
