@@ -1,5 +1,5 @@
 ---
-layout: index
+layout: subindex
 
 web-title:
   - lang: "en"
