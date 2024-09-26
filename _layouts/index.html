@@ -218,11 +218,9 @@
         }
 
         function switchPageLanguage(lang) {
-            const translation = translations[lang] || translations["en"];
-            
-            document.title = translation.web_title;
-            document.getElementById("title").textContent = translation.title;
-            document.getElementById("greeting").textContent = translation.greeting;
+            document.title = translations.web_title[lang] || translations.web_title["en"];
+            document.getElementById("title").textContent = translations.title[lang] || translations.title["en"];
+            document.getElementById("greeting").textContent = translations.greeting[lang] || translations.greeting["en"];
         }
         function switchToZh() {
             switchPageLanguage("zh");

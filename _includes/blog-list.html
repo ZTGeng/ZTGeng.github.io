@@ -35,69 +35,71 @@
 </div>
 
 <script type="text/javascript">
-    const posts = [
-        {% for post in site.posts %}
-            { title: "{{ post.title }}", date: "{{ post.date | date: "%Y-%m-%d %H:%M" }}", url: "{{ post.url }}" },
-        {% endfor %}
-    ];
-    const listSize = {{ include.list_size }};
-    const totalPage = {{ total_page }};
-    var currentPage = 1;
+    function() {
+        const posts = [
+            {% for post in site.posts %}
+                { title: "{{ post.title }}", date: "{{ post.date | date: "%Y-%m-%d %H:%M" }}", url: "{{ post.url }}" },
+            {% endfor %}
+        ];
+        const listSize = {{ include.list_size }};
+        const totalPage = {{ total_page }};
+        var currentPage = 1;
 
-    const toPreviousPage = () => {
-        if (currentPage > 1) {
-            toPage(currentPage - 1);
-        }
-    };
-    const toNextPage = () => {
-        if (currentPage < totalPage) {
-            toPage(currentPage + 1);
-        }
-    };
-    const toPage = (page) => {
-        const list = document.getElementById("list");
-        list.innerHTML = "";
-        for (let i = 0; i < listSize; i++) {
-            p = (page - 1) * listSize + i;
-            if (p >= posts.length) {
-                break;
+        const toPreviousPage = () => {
+            if (currentPage > 1) {
+                toPage(currentPage - 1);
             }
-            const post = posts[p];
-            const a = document.createElement("a");
-            a.href = post.url;
-            a.className = "list-group-item list-group-item-action" + (i % 2 === 0 ? " list-group-item-primary" : "");
-            const h6 = document.createElement("h6");
-            h6.className = "mb-1";
-            h6.innerText = post.title;
-            const small = document.createElement("small");
-            small.className = "mb-1";
-            small.innerText = post.date;
-            a.appendChild(h6);
-            a.appendChild(small);
-            list.appendChild(a);
-        }
-        const currentActiveTab = document.getElementById("page-item-" + currentPage);
-        const newActiveTab = document.getElementById("page-item-" + page);
-        currentActiveTab.classList.remove("active");
-        newActiveTab.classList.add("active");
-        currentPage = page;
-        if (page === 1) {
-            document.getElementById("first-page-item").classList.add("disabled");
-        } else {
-            document.getElementById("first-page-item").classList.remove("disabled");
-        }
-        if (page === totalPage) {
-            document.getElementById("last-page-item").classList.add("disabled");
-        } else {
-            document.getElementById("last-page-item").classList.remove("disabled");
-        }
-    };
+        };
+        const toNextPage = () => {
+            if (currentPage < totalPage) {
+                toPage(currentPage + 1);
+            }
+        };
+        const toPage = (page) => {
+            const list = document.getElementById("list");
+            list.innerHTML = "";
+            for (let i = 0; i < listSize; i++) {
+                p = (page - 1) * listSize + i;
+                if (p >= posts.length) {
+                    break;
+                }
+                const post = posts[p];
+                const a = document.createElement("a");
+                a.href = post.url;
+                a.className = "list-group-item list-group-item-action" + (i % 2 === 0 ? " list-group-item-primary" : "");
+                const h6 = document.createElement("h6");
+                h6.className = "mb-1";
+                h6.innerText = post.title;
+                const small = document.createElement("small");
+                small.className = "mb-1";
+                small.innerText = post.date;
+                a.appendChild(h6);
+                a.appendChild(small);
+                list.appendChild(a);
+            }
+            const currentActiveTab = document.getElementById("page-item-" + currentPage);
+            const newActiveTab = document.getElementById("page-item-" + page);
+            currentActiveTab.classList.remove("active");
+            newActiveTab.classList.add("active");
+            currentPage = page;
+            if (page === 1) {
+                document.getElementById("first-page-item").classList.add("disabled");
+            } else {
+                document.getElementById("first-page-item").classList.remove("disabled");
+            }
+            if (page === totalPage) {
+                document.getElementById("last-page-item").classList.add("disabled");
+            } else {
+                document.getElementById("last-page-item").classList.remove("disabled");
+            }
+        };
 
-    if (window.navigator.language.startsWith("zh")) {
-        document.getElementById("list_title_en").setAttribute("hidden", "");
-        document.getElementById("list_title_zh").removeAttribute("hidden");
-    } else {
-        document.getElementById("list_title_en").removeAttribute("hidden");
-        document.getElementById("list_title_zh").setAttribute("hidden", "");
-    }
+        if (window.navigator.language.startsWith("zh")) {
+            document.getElementById("list_title_en").setAttribute("hidden", "");
+            document.getElementById("list_title_zh").removeAttribute("hidden");
+        } else {
+            document.getElementById("list_title_en").removeAttribute("hidden");
+            document.getElementById("list_title_zh").setAttribute("hidden", "");
+        }
+    }();
 </script>
