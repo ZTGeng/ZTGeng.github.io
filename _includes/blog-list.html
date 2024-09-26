@@ -57,7 +57,9 @@
         };
         for (let i = 1; i <= totalPage; i++) {
             document.getElementById("btn-to-page-" + i).onclick = function() {
-                toPage(i);
+                if (i !== currentPage) {
+                    toPage(i);
+                }
             };
         }
         const toPage = (page) => {
