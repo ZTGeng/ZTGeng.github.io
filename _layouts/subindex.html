@@ -169,7 +169,7 @@
                 for (let catalog of catalogs) {
                     const carousel = document.getElementById(carouselIdPrefix + catalog.id);
                     if (carousel) {
-                        const itemOnPage = carousel.dataset.itemOnPage;
+                        const itemOnPage = parseInt(carousel.dataset.itemOnPage);
                         if (itemOnPage !== getItemNumForWidth()) {
                             reorganizeCarousel(carousel);
                         }
