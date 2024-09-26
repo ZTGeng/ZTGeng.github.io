@@ -17,7 +17,7 @@
                         <div class="lang-switcher">
                             <div class="d-flex small">
                             {% capture js-on-zh %}
-                            document.getElementById('nav-en').removeAttribute('hidden');document.getElementById('nav-zh').setAttribute('hidden','');{% if include.callback-en %}window[{{include.callback-zh}}](){% endif %}
+                            document.getElementById('nav-en').removeAttribute('hidden');document.getElementById('nav-zh').setAttribute('hidden','');{% if include.callback-en %}{{include.callback-zh}}();{% endif %}
                             {% endcapture %}
                                 <a href="javascript:void(0)" class="nav-link me-2 link-secondary disabled">English</a>
                                 <a href="javascript:{{ js-on-zh | strip_newlines | strip }}" class="nav-link link-primary">中文</a>
@@ -64,7 +64,7 @@
                         <div class="lang-switcher">
                             <div class="d-flex small">
                             {% capture js-on-en %}
-                            document.getElementById('nav-en').removeAttribute('hidden');document.getElementById('nav-zh').setAttribute('hidden','');{% if include.callback-en %}window[{{include.callback-en}}](){% endif %}
+                            document.getElementById('nav-en').removeAttribute('hidden');document.getElementById('nav-zh').setAttribute('hidden','');{% if include.callback-en %}{{include.callback-en}}();{% endif %}
                             {% endcapture %}
                                 <a href="javascript:{{ js-on-en | strip_newlines | strip }}" class="nav-link me-2 link-primary">English</a>
                                 <a href="javascript:void(0)" class="nav-link link-secondary disabled">中文</a>
