@@ -91,22 +91,24 @@
 </header>
 
 <script>
-    const userLang = navigator.language || navigator.userLanguage;
-    if (userLang.slice(0, 2) === 'zh') {
-        document.getElementById('nav-zh').removeAttribute('hidden');
-        document.getElementById('nav-en').setAttribute('hidden', '');
-    }
+    function _() {
+        const userLang = navigator.language || navigator.userLanguage;
+        if (userLang.slice(0, 2) === 'zh') {
+            document.getElementById('nav-zh').removeAttribute('hidden');
+            document.getElementById('nav-en').setAttribute('hidden', '');
+        }
 
-    function onEn() {
-        const callback = "{{include.callback-en}}";
-        if (callback) {
-            window[callback]();
+        function onEn() {
+            const callback = "{{include.callback-en}}";
+            if (callback) {
+                window[callback]();
+            }
         }
-    }
-    function onZh() {
-        const callback = "{{include.callback-zh}}";
-        if (callback) {
-            window[callback]();
+        function onZh() {
+            const callback = "{{include.callback-zh}}";
+            if (callback) {
+                window[callback]();
+            }
         }
-    }
+    }();
 </script>

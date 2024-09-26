@@ -35,7 +35,7 @@
 </div>
 
 <script type="text/javascript">
-    function() {
+    function _() {
         const posts = [
             {% for post in site.posts %}
                 { title: "{{ post.title }}", date: "{{ post.date | date: "%Y-%m-%d %H:%M" }}", url: "{{ post.url }}" },
