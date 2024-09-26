@@ -17,7 +17,7 @@
                         <div class="lang-switcher">
                             <div class="d-flex small">
                             {% capture js-on-zh %}
-                            document.getElementById('nav-en').removeAttribute('hidden');document.getElementById('nav-zh').setAttribute('hidden','');{% if include.callback-en %}{{include.callback-zh}}();{% endif %}
+                            document.getElementById('nav-zh').removeAttribute('hidden');document.getElementById('nav-en').setAttribute('hidden','');{% if include.callback-en %}{{include.callback-zh}}();{% endif %}
                             {% endcapture %}
                                 <a href="javascript:void(0)" class="nav-link me-2 link-secondary disabled">English</a>
                                 <a href="javascript:{{ js-on-zh | strip_newlines | strip }}" class="nav-link link-primary">中文</a>
