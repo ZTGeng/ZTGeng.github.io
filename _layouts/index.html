@@ -94,16 +94,21 @@
             {% endfor %}
         ];
         const translations = {
-            "en": {
-                "web_title": "{% if page.web-title-en %}{{ page.web-title-en }}{% else %}{{ page.web-title }}{% endif %}",
-                "title": "{% if page.title-en %}{{ page.title-en }}{% else %}{{ page.title }}{% endif %}",
-                "greeting": "{% if page.greeting-en %}{{ page.greeting-en }}{% else %}{{ page.greeting }}{% endif %}",
+            "web_title": {
+                {% for local-web-title in page.web-title %}
+                "{{ local-web-title.lang }}": "{{ local-web-title.content }}",
+                {% endfor %}
             },
-            "zh": {
-                "web_title": "{% if page.web-title-zh %}{{ page.web-title-zh }}{% else %}{{ page.web-title }}{% endif %}",
-                "title": "{% if page.title-zh %}{{ page.title-zh }}{% else %}{{ page.title }}{% endif %}",
-                "greeting": "{% if page.greeting-zh %}{{ page.greeting-zh }}{% else %}{{ page.greeting }}{% endif %}",
-            }
+            "title": {
+                {% for local-title in page.title %}
+                "{{ local-title.lang }}": "{{ local-title.content }}",
+                {% endfor %}
+            },
+            "greeting": {
+                {% for local-greeting in page.greeting %}
+                "{{ local-greeting.lang }}": "{{ local-greeting.content }}",
+                {% endfor %}
+            },
         };
 
         const itemIdPrefix = "item-";
