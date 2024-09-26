@@ -15,15 +15,73 @@
 
         <div id="app">
             <div class="form-group">
-                <input id="titleInput" v-model="title" type="text" class="form-control mb-2" :placeholder="titleHint">
-                <div class="row">
-                    <textarea id="textInput" v-model="input" class="form-control mb-2 col" rows="10"></textarea>
-                    <div id="preview" class="col-sm-12 col-md-6" v-html="inputHtml" v-if="showPreview"></div>
+                <div class="input-group mb-2">
+                    <div class="btn-group me-2" role="group">
+                        <button @click="onFontBold" class="btn btn-outline-secondary"><img src="../octicons/svg/bold.svg"></button>
+                        <button @click="onFontItalic" class="btn btn-outline-secondary"><img src="../octicons/svg/italic.svg"></button>
+                        <button @click="onFontStrike" class="btn btn-outline-secondary"><img src="../octicons/svg/strikethrough.svg"></button>
+                        <button class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img src="../octicons/svg/book.svg">&nbsp;</button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item h1" href="#" @click="onHead(1)">标题 H1</a></li>
+                            <li><a class="dropdown-item h2" href="#" @click="onHead(2)">标题 H2</a></li>
+                            <li><a class="dropdown-item h3" href="#" @click="onHead(3)">标题 H3</a></li>
+                            <li><a class="dropdown-item h4" href="#" @click="onHead(4)">标题 H4</a></li>
+                            <li><a class="dropdown-item h5" href="#" @click="onHead(5)">标题 H5</a></li>
+                            <li><a class="dropdown-item h6" href="#" @click="onHead(6)">标题 H6</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group me-2" role="group">
+                        <button @click="onAddCode" class="btn btn-outline-secondary"><img src="../octicons/svg/code.svg"></button>
+                        <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#imageFileInput"><img src="../octicons/svg/file-media.svg"></button>
+                        <button @click="onAddLink" class="btn btn-outline-secondary"><img src="../octicons/svg/link.svg"></button>
+                        <button @click="onAddHr" class="btn btn-outline-secondary"><img src="../octicons/svg/horizontal-rule.svg"></button>
+                        <button @click="onAddQuote" class="btn btn-outline-secondary"><img src="../octicons/svg/quote.svg"></button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button @click="onListUnordered" class="btn btn-outline-secondary"><img src="../octicons/svg/list-unordered.svg"></button>
+                        <button @click="onListOrdered" class="btn btn-outline-secondary"><img src="../octicons/svg/list-ordered.svg"></button>
+                    </div>
                 </div>
+
+                <div class="mb-2">
+                    <input id="titleInput" v-model="title" type="text" class="form-control mb-2" :placeholder="titleHint">
+                </div>
+                
+                <div class="input-group">
+                    <textarea 
+                        id="textInput" 
+                        ref="textInputRef"
+                        v-model="input" 
+                        class="form-control mb-2 col" 
+                        rows="10" 
+                        @select="updateCursorPosition"
+                        @mouseup="updateCursorPosition"
+                        @keyup="updateCursorPosition"></textarea>
+                    <div id="preview" class="col-sm-12 col-md-6 ms-2" v-html="inputHtml" v-if="showPreview"></div>
+                </div>
+                <div>{{ selectionStart }} - {{ selectionEnd }} : {{ input.slice(selectionStart, selectionEnd) }}</div>
                 
                 <div class="d-flex justify-content-end">
                     <button id="preview" class="btn btn-primary" type="button" data-bs-toggle="button" @click="showPreview = !showPreview">{{ previewButton }}</button>
                     <button id="save" class="btn btn-primary ms-2" @click="save">{{ saveButton }}.</button>
+                </div>
+            </div>
+
+            <div class="modal fade" id="imageFileInput" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">\blog\images\...</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="file" class="form-control" id="imageFile" accept="image/*" @change="onSelectImage">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="onAddImage" :disabled="!selectedImage">确定</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -39,10 +97,13 @@
                 return {
                     title: "",
                     input: "",
+                    selectionStart: 0,
+                    selectionEnd: 0,
+                    selectedImage: "",
                     showPreview: false,
-                    previewButton: "Preview",
-                    saveButton: "Save As...",
-                    titleHint: "Title"
+                    previewButton: "预览",
+                    saveButton: "保存为...",
+                    titleHint: "请输入标题"
                 }
             },
             computed: {
@@ -310,15 +371,222 @@
                                 return match;
                         }
                     });
-                }
+                },
+                updateCursorPosition(event) {
+                    this.selectionStart = event.target.selectionStart;
+                    this.selectionEnd = event.target.selectionEnd;
+                },
+                recoverTextAreaFocus() {
+                    this.$nextTick(() => {
+                        this.textArea.focus();
+                        this.textArea.setSelectionRange(this.selectionStart, this.selectionEnd);
+                    });
+                },
+                onFontBold() {
+                    let selectText = this.input.slice(this.selectionStart, this.selectionEnd);
+                    if (selectText.startsWith("**") && selectText.endsWith("**") && selectText.length > 4) {
+                        this.input = this.input.slice(0, this.selectionStart).concat(selectText.slice(2, -2)).concat(this.input.slice(this.selectionEnd));
+                        this.selectionEnd -= 4;
+                    } else {
+                        if (selectText.length === 0) {
+                            this.input = this.input.slice(0, this.selectionStart).concat(`**bold text**`).concat(this.input.slice(this.selectionEnd));
+                            this.selectionStart += 2;
+                            this.selectionEnd += 11;
+                        } else {
+                            this.input = this.input.slice(0, this.selectionStart).concat(`**${selectText}**`).concat(this.input.slice(this.selectionEnd));
+                            this.selectionEnd = this.selectionStart + selectText.length + 4;
+                        }
+                        
+                    }
+                    this.recoverTextAreaFocus();
+                },
+                onFontItalic() {
+                    let selectText = this.input.slice(this.selectionStart, this.selectionEnd);
+                    if (selectText.startsWith("*") && selectText.endsWith("*") && selectText.length > 2) {
+                        this.input = this.input.slice(0, this.selectionStart).concat(selectText.slice(1, -1)).concat(this.input.slice(this.selectionEnd));
+                        this.selectionEnd -= 2;
+                    } else {
+                        if (selectText.length === 0) {
+                            this.input = this.input.slice(0, this.selectionStart).concat(`*italic text*`).concat(this.input.slice(this.selectionEnd));
+                            this.selectionStart += 1;
+                            this.selectionEnd += 12;
+                        } else {
+                            this.input = this.input.slice(0, this.selectionStart).concat(`*${selectText}*`).concat(this.input.slice(this.selectionEnd));
+                            this.selectionEnd = this.selectionStart + selectText.length + 2;
+                        }
+                    }
+                    this.recoverTextAreaFocus();
+                },
+                onFontStrike() {
+                    let selectText = this.input.slice(this.selectionStart, this.selectionEnd);
+                    if (selectText.startsWith("~~") && selectText.endsWith("~~") && selectText.length > 4) {
+                        this.input = this.input.slice(0, this.selectionStart).concat(selectText.slice(2, -2)).concat(this.input.slice(this.selectionEnd));
+                        this.selectionEnd -= 4;
+                    } else {
+                        if (selectText.length === 0) {
+                            this.input = this.input.slice(0, this.selectionStart).concat(`~~strike text~~`).concat(this.input.slice(this.selectionEnd));
+                            this.selectionStart += 2;
+                            this.selectionEnd += 13;
+                        } else {
+                            this.input = this.input.slice(0, this.selectionStart).concat(`~~${selectText}~~`).concat(this.input.slice(this.selectionEnd));
+                            this.selectionEnd = this.selectionStart + selectText.length + 4;
+                        }
+                    }
+                    this.recoverTextAreaFocus();
+                },
+                onHead(level) {
+                    if ((this.selectionStart === 0 || this.input[this.selectionStart - 1] === '\n')
+                        && (this.selectionEnd === this.input.length || this.input[this.selectionEnd] === '\n')) {
+                        let selectText = this.input.slice(this.selectionStart, this.selectionEnd);
+                        for (heading of ["# ", "## ", "### ", "#### ", "##### ", "###### "]) {
+                            if (selectText.startsWith(heading)) {
+                                selectText = selectText.slice(heading.length);
+                            }
+                        }
+                        if (selectText.length === 0) {
+                            this.input = this.input.slice(0, this.selectionStart).concat(`${"#".repeat(level)} heading text`).concat(this.input.slice(this.selectionEnd));
+                            this.selectionStart += level + 1;
+                            this.selectionEnd += level + 13;
+                        } else {
+                            this.input = this.input.slice(0, this.selectionStart).concat(`${"#".repeat(level)} ${selectText}`).concat(this.input.slice(this.selectionEnd));
+                            this.selectionEnd = this.selectionStart + selectText.length + level + 1;
+                        }
+                        this.recoverTextAreaFocus();
+                    } else {
+                        alert("设置标题需要选中整行");
+                    }
+                },
+                onAddCode() {
+                    if ((this.selectionStart === 0 || this.input[this.selectionStart - 1] === '\n')
+                        && (this.selectionEnd === this.input.length || this.input[this.selectionEnd] === '\n')) {
+                        // 选中整行，插入代码块
+                        let selectText = this.input.slice(this.selectionStart, this.selectionEnd);
+                        if (selectText.length === 0) {
+                            this.input = this.input.slice(0, this.selectionStart).concat("```\ncode block\n```").concat(this.input.slice(this.selectionEnd));
+                            this.selectionStart += 4;
+                            this.selectionEnd += 14;
+                        } else {
+                            if (selectText.startsWith("```\n") && selectText.endsWith("\n```") && selectText.length > 8) {
+                                this.input = this.input.slice(0, this.selectionStart).concat(selectText.slice(4, -4)).concat(this.input.slice(this.selectionEnd));
+                                this.selectionEnd -= 8;
+                            } else {
+                                this.input = this.input.slice(0, this.selectionStart).concat("```\n").concat(selectText).concat("\n```").concat(this.input.slice(this.selectionEnd));
+                                this.selectionEnd = this.selectionStart + selectText.length + 8;
+                            }
+                        }
+                    } else {
+                        // 选中部分，插入行内代码
+                        let selectText = this.input.slice(this.selectionStart, this.selectionEnd);
+                        if (selectText.length === 0) {
+                            this.input = this.input.slice(0, this.selectionStart).concat("`inline code`").concat(this.input.slice(this.selectionEnd));
+                            this.selectionStart += 1;
+                            this.selectionEnd += 12;
+                        } else {
+                            if (selectText.startsWith("`") && selectText.endsWith("`") && selectText.length > 2) {
+                                this.input = this.input.slice(0, this.selectionStart).concat(selectText.slice(1, -1)).concat(this.input.slice(this.selectionEnd));
+                                this.selectionEnd -= 2;
+                            } else {
+                                this.input = this.input.slice(0, this.selectionStart).concat("`").concat(selectText).concat("`").concat(this.input.slice(this.selectionEnd));
+                                this.selectionEnd = this.selectionStart + selectText.length + 2;
+                            }
+                        }
+                    }
+                    this.recoverTextAreaFocus();
+                },
+                onSelectImage(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        this.selectedImage = file.name;
+                    }
+                },
+                onAddImage() {
+                    let selectText = this.input.slice(this.selectionStart, this.selectionEnd);
+                    if (selectText.length === 0) {
+                        this.input = this.input.slice(0, this.selectionStart).concat(`![image alt](/blog/images/${this.selectedImage}){:width="100%"}`).concat(this.input.slice(this.selectionEnd));
+                        this.selectionStart += 2;
+                        this.selectionEnd += 11;
+                    } else {
+                        this.input = this.input.slice(0, this.selectionStart).concat(`![${selectText}](/blog/images/${this.selectedImage}){:width="100%"}`).concat(this.input.slice(this.selectionEnd));
+                        this.selectionStart += 2;
+                        this.selectionEnd = this.selectionStart + selectText.length;
+                    }
+                    this.selectedImage = "";
+                    this.recoverTextAreaFocus();
+                },
+                onAddLink() {
+                    let selectText = this.input.slice(this.selectionStart, this.selectionEnd);
+                    if (selectText.length === 0) {
+                        this.input = this.input.slice(0, this.selectionStart).concat(`[link text](https://){:target="_blank"}`).concat(this.input.slice(this.selectionEnd));
+                        this.selectionStart += 1;
+                        this.selectionEnd += 10;
+                    } else {
+                        this.input = this.input.slice(0, this.selectionStart).concat(`[${selectText}](https://){:target="_blank"}`).concat(this.input.slice(this.selectionEnd));
+                        this.selectionStart += selectText.length + 3;
+                        this.selectionEnd = this.selectionStart + 8;
+                    }
+                    this.recoverTextAreaFocus();
+                },
+                onAddHr() {
+                    console.log(this.selectionStart !== this.selectionEnd, this.selectionStart !== 0, this.input[this.selectionStart - 1] !== '\n');
+                    if (this.selectionStart !== this.selectionEnd) {
+                        alert("不能在选中文本中插入水平线");
+                        return;
+                    }
+
+                    let hrText = "\n\n---\n\n";
+                    let lFlag = false;
+                    let rFlag = false;
+
+                    if (this.selectionStart === 0) {
+                        lFlag = true;
+                        hrText = hrText.slice(2);
+                    } else if (this.selectionStart === 1) {
+                        if (this.input[this.selectionStart - 1] === '\n') {
+                            lFlag = true;
+                            hrText = hrText.slice(2);
+                        } // else lFlag = false
+                    } else { // this.selectionStart >= 2
+                        if (this.input[this.selectionStart - 1] === '\n') {
+                            lFlag = true;
+                            if (this.input[this.selectionStart - 2] === '\n') {
+                                hrText = hrText.slice(2);
+                            } else {
+                                hrText = hrText.slice(1);
+                            }
+                        } // else lFlag = false
+                    }
+
+                    if (this.selectionEnd === this.input.length) {
+                        rFlag = true;
+                        hrText = hrText.slice(0, -2);
+                    } else if (this.selectionEnd === this.input.length - 1) {
+                        if (this.input[this.selectionEnd] === '\n') {
+                            rFlag = true;
+                            hrText = hrText.slice(0, -2);
+                        } // else rFlag = false
+                    } else { // this.selectionEnd <= this.input.length - 2
+                        if (this.input[this.selectionEnd] === '\n') {
+                            rFlag = true;
+                            if (this.input[this.selectionEnd + 1] === '\n') {
+                                hrText = hrText.slice(0, -2);
+                            } else {
+                                hrText = hrText.slice(0, -1);
+                            }
+                        } // else rFlag = false
+                    }
+                    
+                    if (lFlag || rFlag) {
+                        this.input = this.input.slice(0, this.selectionStart).concat(hrText).concat(this.input.slice(this.selectionEnd));
+                        this.selectionStart += hrText.length;
+                        this.selectionEnd += hrText.length;
+                        this.recoverTextAreaFocus();
+                    } else {
+                        alert("不能在段落中插入水平线");
+                    }
+                },
             },
             mounted() {
-                var lang = navigator.language;
-                if (lang.slice(0, 2) === "zh") {
-                    this.previewButton = "预览";
-                    this.saveButton = "保存为..."
-                    this.titleHint = "请输入标题";
-                }
+                this.textArea = this.$refs.textInputRef;
             }
         })
         app.mount('#app')
