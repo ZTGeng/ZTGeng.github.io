@@ -115,8 +115,9 @@
             const catalogIdPrefix = "catalog-";
             const catalogTitleIdPrefix = "catalog-title-";
             const carouselIdPrefix = "carousel-";
+            // let lastItemNumber = catalogs.map(catalog => catalog.items.length).reduce((a, b) => Math.max(a, b), 0);
 
-            function getNumOnPage() {
+            function getItemNumForWidth() {
                 const screenWidth = window.innerWidth;
                 if (screenWidth < 768) {
                     return 2;
@@ -127,7 +128,7 @@
                 }
             }
 
-            function reorganizeCarousel(carousel, numOnPage) {
+            function reorganizeCarousel(carousel) {
                 const carouselInner = carousel.getElementsByClassName("carousel-inner")[0];
                 if (!carouselInner) {
                     return;
@@ -145,51 +146,51 @@
                 }
                 carouselInner.innerHTML = "";
 
-                const numPages = Math.ceil(items.length / numOnPage);
-                for (let i = 0; i < numPages; i++) {
+                const itemOnPage = getItemNumForWidth();
+                for (let i = 0; i < items.length; i += itemOnPage) {
                     const carouselItem = document.createElement("div");
                     carouselItem.className = "carousel-item";
                     if (i === 0) {
                         carouselItem.classList.add("active");
                     }
                     const carouselItemInner = document.createElement("div");
-                    carouselItemInner.className = "carousel-item-inner row row-cols-" + numOnPage + " justify-content-center g-4";
-                    for (let j = 0; j < numOnPage; j++) {
-                        if (i * numOnPage + j >= items.length) {
-                            break;
-                        }
-                        const item = items[i * numOnPage + j];
-                        carouselItemInner.appendChild(item);
+                    carouselItemInner.className = "carousel-item-inner row row-cols-" + itemOnPage + " justify-content-center g-4";
+                    for (let j = i; j < i + itemOnPage && j < items.length; j++) {
+                        carouselItemInner.appendChild(items[j]);
                     }
                     carouselItem.appendChild(carouselItemInner);
                     carouselInner.appendChild(carouselItem);
+                }
 
+                carousel.dataset.itemOnPage = itemOnPage;
+            }
+
+            function checkAndReorganizeCarousels() {
+                for (let catalog of catalogs) {
+                    const carousel = document.getElementById(carouselIdPrefix + catalog.id);
+                    if (carousel) {
+                        const itemOnPage = carousel.dataset.itemOnPage;
+                        if (itemOnPage !== getItemNumForWidth()) {
+                            reorganizeCarousel(carousel);
+                        }
+                    }
                 }
             }
 
-            function listenToResize(catalogs, intervel = 200) {
+            function listenToResize(intervel = 200) {
                 window.addEventListener("resize", () => {
                     let inThrottle;
-                    let lastNumOnPage = getNumOnPage();
                     if (!inThrottle) {
                         inThrottle = true;
                         setTimeout(function() {
                             inThrottle = false;
-
-                            const numOnPage = getNumOnPage();
-                            if (numOnPage !== lastNumOnPage) {
-                                lastNumOnPage = numOnPage;
-                                for (let catalog of catalogs) {
-                                    const carousel = document.getElementById(carouselIdPrefix + catalog.id);
-                                    reorganizeCarousel(carousel, numOnPage);
-                                }
-                            }
+                            checkAndReorganizeCarousels();
                         }, intervel);
                     }
                 });
             }
 
-            function switchCatalogsLanguage(catalogs, lang) {    
+            function switchCatalogsLanguage(lang) {    
                 for (let catalog of catalogs) {
                     const catalogTitle = document.getElementById(catalogTitleIdPrefix + catalog.id);
                     if (catalogTitle) {
@@ -226,13 +227,13 @@
 
             function switchToZh() {
                 switchPageLanguage("zh");
-                switchCatalogsLanguage(catalogs, "zh");
+                switchCatalogsLanguage("zh");
             }
             window.switchToZh = switchToZh;
 
             function switchToEn() {
                 switchPageLanguage("en");
-                switchCatalogsLanguage(catalogs, "en");
+                switchCatalogsLanguage("en");
             }
             window.switchToEn = switchToEn;
 
@@ -240,8 +241,9 @@
                 const userLang = navigator.language || navigator.userLanguage;
                 const lang = userLang.slice(0, 2) || "en";
                 switchPageLanguage(lang);
-                switchCatalogsLanguage(catalogs, lang);
-                listenToResize(catalogs);
+                switchCatalogsLanguage(lang);
+                checkAndReorganizeCarousels();
+                listenToResize();
             });
         })();
     </script>
