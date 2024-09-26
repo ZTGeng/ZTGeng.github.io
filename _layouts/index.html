@@ -232,11 +232,11 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            // const userLang = navigator.language || navigator.userLanguage;
-            // const lang = userLang.slice(0, 2) || "en";
-            // switchPageLanguage(lang);
-            // switchCatalogsLanguage(catalogs, lang);
-            // ListenToResize(catalogs);
+            const userLang = navigator.language || navigator.userLanguage;
+            const lang = userLang.slice(0, 2) || "en";
+            switchPageLanguage(lang);
+            switchCatalogsLanguage(catalogs, lang);
+            ListenToResize(catalogs);
         });
     </script>
 </body>
