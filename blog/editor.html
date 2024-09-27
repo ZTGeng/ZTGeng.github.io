@@ -188,8 +188,8 @@
                 save() {
                     const date = this.getDate();
                     const filename = this.getFilename(date);
-                    const title = this.title.trim().replace(/{/g, "&#123;").replace(/}/g, "&#125;").replace(/:/g, "&#58;");
-                    let content = this.input.trim().replace(/{/g, "&#123;").replace(/}/g, "&#125;");
+                    const title = this.title.trim().replace(/:/g, "&#58;");
+                    let content = this.input.trim();
                     if (content.indexOf("<!--more-->") === -1) {
                         let firstParagraphIndex = content.indexOf("\n\n");
                         if (firstParagraphIndex === -1) {
