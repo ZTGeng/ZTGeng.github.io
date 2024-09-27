@@ -14,8 +14,9 @@
     <div class="container">
         {% include header.html active-tab='blog' %}
 
-        <div class="d-flex flex-row-reverse">
-            <a href="/blog/index-v1.html" class="btn btn-outline-primary">&rarr; Blog v1 </a>
+        <div class="d-flex">
+            <a href="/blog/editor.html" class="btn btn-outline-secondary me-auto">Editor</a>
+            <a href="/blog/index-v1.html">&rarr; Blog v1 </a>
         </div>
         <div id="post">
             {% for post in paginator.posts %}
@@ -23,7 +24,7 @@
                 <p>{{ post.excerpt | strip_html | strip_newlines | escape }}</p>
                 <div class="d-flex flex-row">
                     <p>{{ post.date | date: "%Y-%m-%d %H:%M" }} | </p>
-                    <a href="{{ post.url }}" class="ms-2">Read</a>
+                    <a href="{{ post.url }}" class="link-dark ms-2">Read</a>
                 </div>
             {% endfor %}
         </div>

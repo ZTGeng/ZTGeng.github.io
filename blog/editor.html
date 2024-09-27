@@ -102,6 +102,18 @@
                             </svg>
                         </button>
                     </div>
+                    <div class="btn-group me-2" role="group"></div>
+                        <button @click="onLessIndent" class="btn btn-outline-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                                <path d="M7.78 12.53a.75.75 0 0 1-1.06 0L2.47 8.28a.75.75 0 0 1 0-1.06l4.25-4.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L4.81 7h7.44a.75.75 0 0 1 0 1.5H4.81l2.97 2.97a.75.75 0 0 1 0 1.06Z"></path>
+                            </svg>
+                        </button>
+                        <button @click="onMoreIndent" class="btn btn-outline-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                                <path d="M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l2.97-2.97H3.75a.75.75 0 0 1 0-1.5h7.44L8.22 4.03a.75.75 0 0 1 0-1.06Z"></path>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="mb-2">
@@ -120,7 +132,7 @@
                         @keyup="updateCursorPosition"></textarea>
                     <div id="preview" class="col-sm-12 col-md-6 ms-2" v-html="inputHtml" v-if="showPreview"></div>
                 </div>
-                <div>{{ selectionStart }} - {{ selectionEnd }} : {{ input.slice(selectionStart, selectionEnd) }}</div>
+                <div hidden>{{ selectionStart }} - {{ selectionEnd }} : {{ input.slice(selectionStart, selectionEnd) }}</div>
                 
                 <div class="d-flex justify-content-end">
                     <button id="preview" class="btn btn-primary" type="button" data-bs-toggle="button" @click="showPreview = !showPreview">{{ previewButton }}</button>
@@ -176,7 +188,8 @@
                 save() {
                     const date = this.getDate();
                     const filename = this.getFilename(date);
-                    let content = this.input.trim();
+                    const title = this.title.trim().replace(/{/g, "&#123;").replace(/}/g, "&#125;").replace(/:/g, "&#58;");
+                    let content = this.input.trim().replace(/{/g, "&#123;").replace(/}/g, "&#125;");
                     if (content.indexOf("<!--more-->") === -1) {
                         let firstParagraphIndex = content.indexOf("\n\n");
                         if (firstParagraphIndex === -1) {
@@ -184,7 +197,7 @@
                         }
                         content = content.slice(0, firstParagraphIndex) + "\n<!--more-->" + content.slice(firstParagraphIndex);
                     }
-                    content = `---\nlayout: post\ntitle: ${this.title.trim().replace(/:/g, "")}\ndate: ${date}\n---\n\n${content}`;
+                    content = `---\nlayout: post\ntitle: ${this.title.trim().replace(/:/g, "&#58;")}\ndate: ${date}\n---\n\n${content}`;
                     const blob = new Blob([content], {type: "text/plain;charset=utf-8"});
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement("a");
@@ -201,7 +214,7 @@
 
                 },
                 getFilename(date) {
-                    let title = this.title.trim().replace(/\s+/g, "-").replace(/[\/:*?"<>|\\.]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+                    let title = this.title.trim().replace(/\s+/g, "-").replace(/[\/:*?"<>|{}\\.]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
                     return `${date.slice(0, 10)}-${title}.md`;
                 },
 
@@ -750,6 +763,40 @@
                         alert("只能在空行插入有序列表，或者选中整行");
                     }
                     this.recoverTextAreaFocus();
+                },
+                onLessIndent() {
+                    if ((this.selectionStart === 0 || this.input[this.selectionStart - 1] === '\n')
+                        && (this.selectionEnd === this.input.length || this.input[this.selectionEnd] === '\n')) {
+                        if (this.selectionStart === this.selectionEnd) return;
+                        let selectText = this.input.slice(this.selectionStart, this.selectionEnd);
+                        let indentToRemove = 4;
+                        for (let line of selectText.split('\n')) {
+                            if (line === "") continue;
+                            while (!line.startsWith(" ".repeat(indentToRemove))) {
+                                indentToRemove--;
+                            }
+                            if (indentToRemove === 0) break;
+                        }
+                        if (indentToRemove === 0) return;
+                        let newText = selectText.split('\n').map(line => line === "" ? "" : line.slice(indentToRemove)).join('\n');
+                        this.input = this.input.slice(0, this.selectionStart).concat(newText).concat(this.input.slice(this.selectionEnd));
+                        this.selectionEnd = this.selectionStart + newText.length;
+                    } else {
+                        alert("只能在空行缩进，或者选中整行");
+                    }
+                    this.recoverTextAreaFocus();
+                },
+                onMoreIndent() {
+                    if ((this.selectionStart === 0 || this.input[this.selectionStart - 1] === '\n')
+                        && (this.selectionEnd === this.input.length || this.input[this.selectionEnd] === '\n')) {
+                        let selectText = this.input.slice(this.selectionStart, this.selectionEnd);
+                        let newText = selectText.split('\n').map(line => line === "" ? "" : `    ${line}`).join('\n');
+                        this.input = this.input.slice(0, this.selectionStart).concat(newText).concat(this.input.slice(this.selectionEnd));
+                        this.selectionEnd = this.selectionStart + newText.length;
+                        this.recoverTextAreaFocus();
+                    } else {
+                        alert("只能在空行缩进，或者选中整行");
+                    }
                 }
             },
             mounted() {
