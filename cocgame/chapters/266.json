@@ -4,11 +4,11 @@
         "<p>又过了几秒钟，梅环顾四周，瞟了你几眼。然后，你听到了火柴轻轻划燃的声音。她把火柴丢到壁炉里的什么东西上，踮着脚出了房间。</p>",
         "<p>你听到她的卧室门关上以后，马上悄悄摸到壁炉前。壁炉里面点着一小堆黑色粉末，最多只有顶针大小。它散发出令人陶醉的烟气。</p>",
         "[guide-start]",
-        "<p>你可以进行一次困难难度的「科学（植物学）」检定。</p>",
+        "<p>你可以进行一次困难难度的「科学（生物学）」检定。</p>",
         "[guide-end]"
     ],
     "interactions": [
-        { "text": "科学（植物学）检定-困难", "action": "action_check", "param": { "key": "biology", "isSkill" : true, "level": "half" }, "show": "flag_check_unfinished" }
+        { "text": "科学（生物学）检定-困难", "action": "action_check", "param": { "key": "biology", "isSkill" : true, "level": "half" }, "show": "flag_check_unfinished" }
     ],
     "options": [
         { "key": 0, "text": "继续", "show": "flag_check_passed" },

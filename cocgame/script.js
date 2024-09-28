@@ -1,4 +1,4 @@
-var WELCOME = {
+const WELCOME = {
     key: 0,
     texts: [
         "<p>本文是一篇《克苏鲁的呼唤》单人冒险。这是一段设定在1920年代的恐怖故事，你是其中的主角，你的选择决定了结果。它在设计上循序渐进，以轻松的方式带你了解游戏的基础规则。",
@@ -14,42 +14,47 @@ var WELCOME = {
 
 };
 
-var TEXT404 = {
+const TEXT404 = {
     key: 404,
     texts: [ "<p>找不到章节</p>" ]
 };
 
-var guideHtmlStart = "<div class='alert alert-info'>";
-var guideHtmlEnd = "</div>";
-var guidePlaceHolderStart = "[guide-start]";
-var guidePlaceHolderEnd = "[guide-end]";
+const guideHtmlStart = "<div class='alert alert-info'>";
+const guideHtmlEnd = "</div>";
+const guidePlaceHolderStart = "[guide-start]";
+const guidePlaceHolderEnd = "[guide-end]";
 
-var artSkills = ['photography', 'art_1'];
-var interpersonalSkills = ['charm', 'talk', "intimidate", "persuade"];
-var languageSkills = ['latin', 'lang_1'];
+const artSkills = ['photography', 'art_1'];
+const interpersonalSkills = ['charm', 'talk', "intimidate", "persuade"];
+const languageSkills = ['latin', 'lang_1'];
 
-var checkLevelNames = ["失败", "成功", "困难成功", "极难成功"];
+const checkLevelNames = ["失败", "成功", "困难成功", "极难成功"];
 
-var tempFlagPrefix = "temp_";
+const tempFlagPrefix = "temp_";
 
-var half = function(value) {
+const half = function(value) {
     return value && Math.floor(value / 2);
 };
-var fifth = function(value) {
+const fifth = function(value) {
     return value && Math.floor(value / 5);
 };
 
-var roll = function(num, die) {
-    var result = [];
+const roll = function(num, die) {
+    let result = [];
     for (var i = 0; i < num; i++) {
-        result.push(Math.ceil(Math.random() * die));
+        result.push(Math.floor(Math.random() * die) + 1);
     }
     return result;
 };
-var sum = function(array) {
+const sum = function(array) {
     return array.reduce((a, b) => a + b, 0);
 }
 
+/**
+ * 特征单元格
+ * 特征在人物设定 - 特征设定阶段，由玩家一次性设定
+ * characteristic: { key: "STR", value: 80, name: "力量", display: '<div>力量<small><br>STR</small></div>', highlight: 'none' }
+ */
 Vue.component('characteristic-cell', {
     props: ['characteristic', 'isEditable', 'options'],
     computed: {
@@ -95,6 +100,10 @@ Vue.component('characteristic-cell', {
     </table>`
 });
 
+/**
+ * 所有特征表格
+ * characteristics: [ { key: "STR", value: undefined, name: "力量", display: '<div>力量<small><br>STR</small></div>', highlight: 'none' }, ... ]
+ */
 Vue.component('characteristics-table', {
     props: ['characteristics', 'isEditable'],
     data: function () {
@@ -106,6 +115,10 @@ Vue.component('characteristics-table', {
         }
     },
     methods: {
+        /**
+         * 特征设定阶段，玩家修改了某个特征值
+         * @param param { key: "STR", oldValue: 80, newValue: 50 }
+         */
         updateValueOptions: function(param) {
             // console.log(param);
             var oldOption = this.valueOptions.find(option => option.value === param.oldValue && option.usedBy === param.key);
@@ -131,6 +144,11 @@ Vue.component('characteristics-table', {
     </div>`
 });
 
+/**
+ * 所有属性表格
+ * 属性在人物设定 - 属性设定阶段自动设定
+ * HP: { key: "HP", value: 0, maxValue: 0, display: "耐久", highlight: "none"/"value"/"all" }
+ */
 Vue.component('attributes-table', {
     props: ['HP', 'San', 'Luck', 'MP'],
     template: `<table class="d-inline text-center">
@@ -158,6 +176,11 @@ Vue.component('attributes-table', {
     </table>`
 });
 
+/**
+ * 技能单元格
+ * 技能在人物设定 - 技能设定阶段，由玩家分两个步骤进行设定
+ * skill: { key: "appraise", value: 5, name: "估价", display: '估价<small><br>Appraise</small>', highlight: 'none', checked: false }
+ */
 Vue.component('skill-cell', {
     props: ['skill', 'options', 'isEditable', 'isPhase2', 'occupationAndCustomSkills', 'artPoint', 'interpersonalPoint', 'languagePoint', 'universalPoint', 'hobbySkills'],
     data: function() {
@@ -494,7 +517,7 @@ var game = new Vue({
                 art_end:     { key: "space" },
                 charm:       { key: "charm", value: 15, name: "魅惑", display: '魅惑<small><br>Charm</small>', highlight: 'none', checked: false },
                 climb:       { key: "climb", value: 20, name: "攀爬", display: '攀爬<small><br>Climb</small>', highlight: 'none', checked: false },
-                credit:      { key: "credit", value: undefined, name: "信誉", display: '信誉<small><br>Credit Rating</small>', highlight: 'none', checked: false },
+                credit:      { key: "credit", value: undefined, name: "信用评级", display: '信用评级<small><br>Credit Rating</small>', highlight: 'none', checked: false },
                 cthulhu:     { key: "cthulhu", value: 0, name: "克苏鲁神话", display: '克苏鲁神话<small><br>Cthulhu Mythos</small>', highlight: 'none', checked: false },
                 disguise:    { key: "disguise", value: 5, name: "乔装", display: '乔装<small><br>Disguise</small>', highlight: 'none', checked: false },
                 dodge:       { key: "dodge", value: undefined, name: "闪避", display: '闪避<small><br>Dodge</small>', highlight: 'none', checked: false },
@@ -523,7 +546,7 @@ var game = new Vue({
                 pharmacy:    { key: "pharmacy", value: 1, name: "药学", display: '药学<small><br>Pharmacy</small>', highlight: 'none', checked: false },
                 science_1:   { key: "science_1", value: 1, name: "科学", display: '<input type="text" class="border-bottom" style="width: 80%; border: none">', highlight: 'none', checked: false },
                 science_end: { key: "space" },
-                spot:        { key: "spot", value: 25, name: "侦察", display: '侦察<small><br>Spot Hidden</small>', highlight: 'none', checked: false },
+                spot:        { key: "spot", value: 25, name: "侦查", display: '侦查<small><br>Spot Hidden</small>', highlight: 'none', checked: false },
                 stealth:     { key: "stealth", value: 20, name: "潜行", display: '潜行<small><br>Stealth</small>', highlight: 'none', checked: false },
                 track:       { key: "track", value: 10, name: "追踪", display: '追踪<small><br>Track</small>', highlight: 'none', checked: false }
             },
@@ -635,6 +658,20 @@ var game = new Vue({
             this.flags.flag_san_reduced = false;
             this.flags.flag_major_wound = false;
             this.flags.flag_mp_used = false;
+        },
+        c_loadChapter: function(chapter) {
+            console.log("Go: " + this.chapter.key + "=>" + chapter);
+            axios.get("/cocgame/chapters/" + chapter + ".json")
+                .then(res => {
+                    this.reset();
+                    this.chapter = res.data;
+                    if (this.chapter.onload) {
+                        this.chapter.onload.forEach(action => {
+                            this[action.action](action.param);
+                        });
+                    }
+                    this.usedChapters.push(this.chapter.key);
+                });
         },
         loadChapter: function(optionKey) {
             console.log("chapter=" + this.chapter.key + "&option=" + optionKey);
