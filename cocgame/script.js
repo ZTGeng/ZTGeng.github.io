@@ -831,7 +831,7 @@ var game = new Vue({
         action_double_skill_value: function(key) {
             this.character.skills[param.key].value *= 2;
         },
-        action_double_half_value: function(key) {
+        action_half_skill_value: function(key) {
             this.character.skills[param.key].value /= 2;
         },
         action_set_flag_true: function(flag) {

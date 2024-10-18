@@ -416,7 +416,7 @@ var multiOptions = {
     "发": {
         skip: function(prev, next) { return false; },
         default: function(prev, next, prevprev, nextnext) {
-            if ("型廊妻辫辮鬓".indexOf(next) >= 0 || "头頭洗白黑金长長短结結".indexOf(prev) >= 0 ) return "髮";
+            if ("型廊妻辫辮鬓".indexOf(next) >= 0 || "头頭理洗白黑金长長短结結".indexOf(prev) >= 0 ) return "髮";
             return "發";
         },
         options: [
