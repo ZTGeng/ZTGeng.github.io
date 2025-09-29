@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>技能五子棋</title>
+    <style>
+      :root { --board-size: min(90vmin, 720px); --ui-gap: 12px; --accent: #2b7a78; --text: #222; --muted: #666; }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body { 
+        margin: 0; 
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans"; 
+        color: var(--text); 
+        display: grid; 
+        place-items: center; 
+        background: #f4f7f8; 
+      }
+      .app { width: 100%; max-width: calc(var(--board-size) + 32px); padding: 16px; display: grid; grid-template-columns: 1fr; gap: 12px; }
+      header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+      .title { font-size: 1.25rem; font-weight: 700; }
+      .controls { display: flex; align-items: center; gap: var(--ui-gap); }
+      button { 
+        appearance: none; 
+        border:1px solid #c9d6d8; 
+        background:white; 
+        color:var(--text); 
+        padding:8px 14px; 
+        border-radius:8px; 
+        cursor:pointer; 
+        font-weight:600; 
+        transition: background .15s ease, transform .05s ease; 
+      }
+      button.primary { background: var(--accent); color:#fff; border-color: transparent; }
+      button:disabled { opacity: .6; cursor: not-allowed; }
+      button:active { transform: translateY(1px); }
+
+      .board-wrap { width: var(--board-size); height: var(--board-size); margin: 0 auto; position: relative; user-select:none; }
+      #table { 
+        width:100%; 
+        height:100%; 
+        position:relative; 
+        display:grid; 
+        place-items:center; 
+        background-image:url('./assets/gomoku-bg.png'); 
+        background-size:cover; 
+        background-position:center; 
+        background-repeat:no-repeat; 
+        border-radius:12px; 
+        overflow:hidden; 
+      }
+      #board { 
+        width:60%; 
+        height:60%; 
+        background-image:url('./assets/gomoku-board.png'); 
+        background-repeat:no-repeat; 
+        background-size:cover; 
+        background-position:center; 
+        border-radius:12px; 
+        position:relative; 
+        overflow:hidden; 
+        box-shadow: 0 6px 24px rgba(0,0,0,.08); 
+      }
+      .stone { 
+        position:absolute; 
+        width:40px; 
+        height:40px; 
+        pointer-events:none; 
+        image-rendering:-webkit-optimize-contrast; 
+        filter: drop-shadow(0 2px 2px rgba(0,0,0,.2)); 
+      }
+      /* transient sprite for removal animation */
+      .stone-fx { position:absolute; pointer-events:none; will-change: transform, opacity; transition: transform .55s cubic-bezier(.22,1,.36,1), opacity .55s ease; filter: drop-shadow(0 6px 10px rgba(0,0,0,.35)); }
+      .hint { position:absolute; width:12px; height:12px; border-radius:50%; transform:translate(-50%,-50%); pointer-events:none; }
+      footer { display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:12px; }
+
+      /* Player panels */
+      #player-black, #player-white { position:absolute; width:33%; max-width:260px; z-index:2; }
+      #player-black { left:10px; top:10px; }
+      #player-white { right:10px; top:10px; }
+      .player {
+        position:relative;
+        background:#fff; 
+        border:1px solid #e2e8ea; 
+        border-radius:10px; 
+        padding:12px; 
+        box-shadow:0 4px 10px rgba(0,0,0,.05); 
+        transition: box-shadow .15s ease, transform .12s ease; 
+      }
+      .player:not(:hover) > :not(.head):not(.xp):not(.ice-overlay) { display:none; }
+      .player:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,.12); z-index:3; }
+      .player.inactive { opacity:.55; filter: grayscale(.3); }
+      .player.active { opacity:1; filter:none; }
+      .player .head { display:flex; align-items:center; justify-content:flex-start; margin-bottom:6px; }
+      .player .title { font-weight:700; }
+      .player .mp { margin-left:12px; }
+      .player .meta { margin-left:auto; color:#607075; font-size:12px; }
+      .player .xp { margin:6px 0 8px; }
+      .player .xp .bar { height:8px; background:#eef4f5; border-radius:6px; overflow:hidden; }
+      .player .xp .fill { height:100%; background:#7bb4b0; width:0%; transition: width .2s ease; }
+      .player .xp .label { font-size:12px; color:#556; margin-top:4px; }
+      .player .mp { font-size:12px; color:#334; }
+      .player .skills { display:flex; flex-wrap:wrap; gap:8px; }
+
+      .skill { 
+        border:1px solid #d9e2e4; 
+        background:#fafcfc; 
+        border-radius:8px; 
+        padding:6px 8px; 
+        font-size:12px; 
+        cursor:pointer; 
+        transition: background .15s, transform .05s, box-shadow .12s; 
+        box-shadow:0 2px 6px rgba(0,0,0,.04); 
+        font-family:inherit; 
+        font-weight:inherit; 
+        display:inline-flex; 
+        align-items:center; 
+      }
+      .skill:active:not(:disabled) { transform: translateY(1px); box-shadow:0 1px 2px rgba(0,0,0,.08); background:#f0f4f4; }
+      .skill:disabled { background: #eee; color: #aaa; border-color: #e0e0e0; cursor: not-allowed; box-shadow: none; transform: none; }
+      .skill .cost { color:#666; }
+      .skill .description { font-size:10px; color:#888; margin-top:2px; }
+      .skill.disabled { background: #eee; color: #aaa; border-color: #e0e0e0; cursor: not-allowed; pointer-events: none; }
+      
+      /* Skill cinematic overlay */
+      .skill-overlay { position:absolute; inset:0; display:grid; place-items:center; pointer-events:none; z-index:4; }
+      .skill-overlay .burst { 
+        position:absolute; 
+        inset:0; 
+        background: radial-gradient(ellipse at center, rgba(255,255,255,.35), rgba(255,120,60,.25) 40%, rgba(0,0,0,0) 70%); 
+        filter: blur(6px); 
+        animation: burst-fade 1.6s ease forwards; 
+      }
+      .skill-overlay .label { 
+        position:relative; 
+        font-size: clamp(28px, 8vmin, 72px); 
+        color:#fff; 
+        font-weight: 900; 
+        padding: 8px 18px; 
+        letter-spacing: .1em; 
+        text-shadow: 0 2px 0 #000, 0 0 18px rgba(255,120,60,.9), 0 0 36px rgba(255,180,120,.8); 
+        -webkit-text-stroke: 2px rgba(0,0,0,.75); 
+        background: linear-gradient(45deg, rgba(255,140,80,.9), rgba(255,240,180,.95)); 
+        border-radius: 12px; 
+        box-shadow: 0 12px 40px rgba(0,0,0,.4); 
+        animation: skill-enter 1.6s cubic-bezier(.2,1,.2,1) forwards; 
+      }
+      @keyframes skill-enter { 
+        0% { opacity:0; transform: scale(.2) rotate(-8deg); filter: blur(6px); } 
+        20% { opacity:1; transform: scale(1.08) rotate(0deg); filter: blur(0); } 
+        60% { transform: scale(1); } 
+        100% { opacity:0; transform: scale(1.12); } 
+      }
+      @keyframes burst-fade { 
+        0% { opacity:.9; transform: scale(.6); } 
+        50% { opacity:.6; transform: scale(1.1);} 
+        100% { opacity:0; transform: scale(1.25);} 
+      }
+      /* Board micro effects for skill actions */
+      @keyframes shake { 
+        0%,100%{ transform: translate(0,0); } 
+        20%{ transform: translate(-3px,2px);} 
+        40%{ transform: translate(3px,-2px);} 
+        60%{ transform: translate(-2px,1px);} 
+        80%{ transform: translate(2px,-1px);} 
+      }
+      #board.effect-shake { animation: shake .45s linear 0s 2; }
+      @keyframes pulse { 
+        0%{ box-shadow:0 0 0 rgba(255,130,80,0);} 
+        50%{ box-shadow:0 0 40px rgba(255,130,80,.7);} 
+        100%{ box-shadow:0 0 0 rgba(255,130,80,0);} 
+      }
+      #board.effect-pulse { animation: pulse .7s ease-in-out; }
+      [v-cloak] { display: none; }
+      /* Add floating-stone style for smooth animation */
+      .floating-stone {
+        will-change: transform, opacity;
+        pointer-events: none;
+      }
+      .stone-fx-throw {
+        animation: stone-throw-anim 0.7s cubic-bezier(.7,-0.2,.7,1.2) forwards;
+      }
+      @keyframes stone-throw-anim {
+        0% { transform: scale(1) translateX(0); opacity: 1; }
+        60% { transform: scale(3) translateX(-60px); opacity: 1; }
+        70% { transform: scale(3) translateX(160px); opacity: 1; }
+        100% { transform: scale(3) translateX(160px); opacity: 0; }
+      }
+      .ice-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, rgba(80,180,255,0.45) 60%, rgba(180,220,255,0.25) 100%);
+        pointer-events: none;
+        z-index: 5;
+        border-radius: 10px;
+        box-shadow: 0 0 24px 8px rgba(80,180,255,0.18) inset;
+        backdrop-filter: blur(1.5px) brightness(1.08);
+        animation: ice-freeze-in .5s cubic-bezier(.2,1,.2,1);
+      }
+      @keyframes ice-freeze-in {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+      #board.board-drop {
+        animation: board-drop-anim 1.2s cubic-bezier(.7,0,1,1) forwards;
+      }
+      @keyframes board-drop-anim {
+        0% {
+          transform: translateY(0) scaleX(1) scaleY(1) skewX(0deg);
+          box-shadow: 0 6px 24px 0 rgba(0,0,0,0.10);
+        }
+        55% {
+          transform: translateY(-60px) scaleX(1.12) scaleY(0.92) skewX(-2deg);
+          box-shadow: 0 40px 60px 0 rgba(0,0,0,0.18);
+        }
+        70% {
+          transform: translateY(220px) scaleX(1) scaleY(0.4) skewX(-12deg);
+          box-shadow: 0 12px 32px 0 rgba(0,0,0,0.22);
+        }
+        85% {
+          transform: translateY(200px) scaleX(1) scaleY(0.3) skewX(-14deg);
+          box-shadow: 0 8px 16px 0 rgba(0,0,0,0.18);
+        }
+        100% {
+          transform: translateY(250px) scaleX(1) scaleY(0.3) skewX(-16deg);
+          box-shadow: 0 4px 12px 0 rgba(0,0,0,0.12);
+        }
+      }
+      #board.board-drop-recover {
+        animation: board-drop-recover-anim 0.7s cubic-bezier(.7,0,1,1) forwards;
+      }
+      @keyframes board-drop-recover-anim {
+        0% {
+          transform: translateY(250px) scaleX(1) scaleY(0.3) skewX(-16deg);
+          box-shadow: 0 4px 12px 0 rgba(0,0,0,0.12);
+        }
+        50% {
+          transform: translateY(120px) scaleX(1) scaleY(1) skewX(0deg);
+          box-shadow: 0 24px 48px 0 rgba(0,0,0,0.10);
+        }
+        100% {
+          transform: translateY(0) scaleX(1) scaleY(1) skewX(0deg);
+          box-shadow: 0 6px 24px 0 rgba(0,0,0,0.10);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="app" v-cloak>
+      <header>
+        <div class="title">技能五子棋</div>
+        <div class="controls">
+          <button class="primary" @click="startGame" :disabled="gameActive">
+            {{ hasStarted ? (gameActive ? '游戏进行中' : '再来一盘') : '开始' }}
+          </button>
+        </div>
+      </header>
+
+      <div class="board-wrap" ref="wrapEl">
+        <!-- Skill cinematic overlay -->
+        <div class="skill-overlay" v-if="overlay.show" :key="overlay.key">
+          <div class="burst"></div>
+          <div class="label">{{ overlay.text }}</div>
+        </div>
+        <div id="player-black">
+          <player-panel
+            :player="playerBlack"
+            :is-active="!gameActive || currentPlayer===STONE.black"
+            :skills="unlockedSkills(playerBlack)"
+            :is-frozen="isJingRuZhiShuiActive && currentPlayer===STONE.white"
+            @use-skill="useSkill(playerBlack, $event)" />
+        </div>
+        <div id="table">
+          <div id="board" 
+            ref="boardEl" 
+            aria-label="五子棋棋盘" 
+            role="application" 
+            tabindex="0" 
+            @click="handleBoardClick" 
+            @mousemove="handleBoardMove" 
+            @mouseleave="handleBoardLeave">
+            <img v-for="s in stones" 
+              :key="s.key" 
+              class="stone" 
+              :src="s.val===STONE.black? './assets/stone-black.png':'./assets/stone-white.png'" 
+              :alt="s.val===STONE.black? '黑子':'白子'" 
+              :style="stoneStyle(s.x, s.y)" />
+          </div>
+        </div>
+        <div id="player-white">
+          <player-panel
+            :player="playerWhite" 
+            :is-active="!gameActive || currentPlayer===STONE.white"
+            :skills="unlockedSkills(playerWhite)"
+            :is-frozen="isJingRuZhiShuiActive && currentPlayer===STONE.black"
+            @use-skill="useSkill(playerWhite, $event)" />
+        </div>
+        <div class="hint" v-show="hint.show" :style="hintStyle"></div>
+      </div>
+
+      <footer>
+        <div>规则：黑白轮流落子，五子连线即胜。</div>
+        <div>{{ gameActive ? '当前：' + (currentPlayer===STONE.black? '黑棋':'白棋') : '' }}</div>
+      </footer>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script>
+      const { createApp, ref, reactive, computed } = Vue;
+      createApp({
+        components: {
+          'player-panel': {
+            props: { player: { type: Object, required: true }, isActive: { type: Boolean, default: false }, skills: { type: Array, required: true }, isFrozen: { type: Boolean, default: false } },
+            emits: ['use-skill'],
+            template: `
+              <div class="player" :class="[isActive ? 'active' : 'inactive']">
+                <div v-if="isFrozen" class="ice-overlay"></div>
+                <div class="head">
+                  <div class="title">{{ player.title }}</div>
+                  <div class="mp">MP: <strong>{{ player.MP }}</strong></div>
+                  <div class="meta">Level: {{ player.level < 3 ? player.level : 'MAX' }}</div>
+                </div>
+                <div class="xp">
+                  <div class="bar">
+                    <div class="fill" :style="{ width:(player.XP)+'%' }"></div>
+                  </div>
+                  <div class="label">XP: {{ player.XP }}/100</div>
+                </div>
+                <div class="skills">
+                  <skill-button
+                    v-for="s in skills"
+                    :key="s.name"
+                    :skill="s"
+                    :disabled="s.isDisabled ? s.isDisabled(player) : false"
+                    @use="$emit('use-skill', s)"
+                  />
+                </div>
+              </div>
+            `,
+            components: { 
+              'skill-button': {
+                props: { skill: { type: Object, required: true }, disabled: { type: Boolean, default: false } },
+                emits: ['use'],
+                template: `
+                  <button class="skill" :disabled="disabled" @click="$emit('use')" style="width:100%; text-align:left; display:block;">
+                    <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+                      <span>{{ skill.name }}</span>
+                      <span class="cost">MP {{ skill.mp }}</span>
+                    </div>
+                    <div class="description" v-if="skill.description">{{ skill.description }}</div>
+                  </button>
+              `
+              } 
+            }
+          }
+        },
+        setup(){
+          const BOARD_SIZE = 15;
+          const BOARD_MARGIN = 20;
+          const STONE = { empty: 0, black: 1, white: 2 };
+
+          const wrapEl = ref(null);
+          const boardEl = ref(null);
+          const grid = reactive(Array.from({length:BOARD_SIZE},()=>Array(BOARD_SIZE).fill(STONE.empty)));
+          const currentPlayer = ref(STONE.black);
+          const gameActive = ref(false);
+          const hasStarted = ref(false);
+          const winner = ref(null);
+
+          const playerBlack = reactive({ stone: STONE.black, title:'黑方', level:1, XP:0, MP:0 });
+          const playerWhite = reactive({ stone: STONE.white, title:'白方', level:1, XP:0, MP:0 });
+          const isFeiShaZouShiActive = ref(false);
+          const isJingRuZhiShuiActive = ref(false);
+          const isLiBaShanXiActive = ref(false);
+          const isDiaoChengLiShanActive = ref(false);
+          const isBaoJieShangMenActive = ref(false);
+          const skills = [
+            { 
+              name:'飞沙走石', mp:5, minLevel:1, description:'顾名思义，就是把对手的棋子直接扔进：什刹海！', 
+              action: (p)=>{ 
+                if (!gameActive.value) return; 
+                isFeiShaZouShiActive.value = true; 
+              },
+              isDisabled: (p) => !gameActive.value 
+                || currentPlayer.value !== p.stone
+                || (p.MP < 5)
+                || [isFeiShaZouShiActive, isLiBaShanXiActive, isBaoJieShangMenActive].some(s=>s.value)
+                || stones.value.filter(s=>s.value !== STONE.empty && s.value !== p.stone).length === 0,
+            },
+            { 
+              name:'静如止水', mp:20, minLevel:1, description:'顾名思义，就是凝结时间，冻结空气！',
+              action: (p)=>{ 
+                if (!gameActive.value) return; 
+                isJingRuZhiShuiActive.value = true; 
+              },
+              isDisabled: (p) => !gameActive.value 
+                || currentPlayer.value !== p.stone
+                || (p.MP < 20)
+                || [isFeiShaZouShiActive, isJingRuZhiShuiActive, isLiBaShanXiActive, isDiaoChengLiShanActive, isBaoJieShangMenActive].some(s=>s.value),
+            },
+            { 
+              name:'力拔山兮', mp:50, minLevel:1, description:'顾名思义，就是摔坏棋盘，直接获胜！',
+              action: (p)=>{
+                if (!gameActive.value) return; 
+                isLiBaShanXiActive.value = true;
+              },
+              delayAction: ()=>{
+                animateBoardDrop(() => {
+                  winner.value = currentPlayer.value;
+                  gameActive.value = false;
+                  exchangeCurrentPlayer();
+                });
+              },
+              isDisabled: (p) => !gameActive.value 
+                || currentPlayer.value !== p.stone
+                || (p.MP < 50)
+                || [isFeiShaZouShiActive, isJingRuZhiShuiActive, isLiBaShanXiActive, isDiaoChengLiShanActive, isBaoJieShangMenActive].some(s=>s.value),
+            },
+            { 
+              name:'东山再起', mp:50, minLevel:1, description:'最终奥义，破解对手的超杀必胜技！',
+              delayAction: (p)=>{
+                if (boardEl.value) {
+                  boardEl.value.classList.remove('board-drop');
+                  boardEl.value.classList.remove('board-drop-recover');
+                  void boardEl.value.offsetWidth;
+                  boardEl.value.classList.add('board-drop-recover');
+                  boardEl.value.addEventListener('animationend', function handler() {
+                    gameActive.value = true;
+                    isLiBaShanXiActive.value = false;
+                    exchangeCurrentPlayer();
+
+                    boardEl.value.classList.remove('board-drop-recover');
+                    boardEl.value.style.transform = '';
+                    boardEl.value.style.boxShadow = '';
+                    boardEl.value.removeEventListener('animationend', handler);
+                  });
+                }
+              },
+              isDisabled: (p) => gameActive.value
+                || (p.MP < 50)
+                || !isLiBaShanXiActive.value,
+            },
+            { name:'擒拿擒拿', mp:5, minLevel:2, description:'擒擒又拿拿。擒住天地之精华，拿得老师笑哈哈。' },
+            { name:'调呈离山', mp:30, minLevel:2, description:'顾名思义，就是调走张呈，离开山。东。' },
+            { name:'保洁上门', mp:30, minLevel:2, description:'你你你，你要跳舞吗？' },
+            { name:'拾金不昧', mp:5, minLevel:3, description:'' },
+            { name:'水滴石穿', mp:20, minLevel:3, description:'' },
+            { name:'两极反转', mp:50, minLevel:3, description:'' },
+          ];
+          const unlockedSkills = (p)=>skills.filter(s=>p.level>=s.minLevel);
+          const isInSkillExcept = computed((except) => (
+            [isFeiShaZouShiActive, isJingRuZhiShuiActive, isLiBaShanXiActive, isDiaoChengLiShanActive, isBaoJieShangMenActive]
+              .filter(s=>s!==except)
+              .some(s=>s.value)
+          ));
+
+          const MP_MAX = 50;
+          const MP_DELTA = 5;
+
+          const metricsCache = ref(null);
+          function getMetrics() {
+            if (metricsCache.value) return metricsCache.value;
+            const rect = boardEl.value.getBoundingClientRect(); 
+            const size = Math.min(rect.width, rect.height);
+            const margin = (BOARD_MARGIN / 600) * size;
+            const step = (size - margin * 2) / (BOARD_SIZE - 1);
+            metricsCache.value = { rect, size, margin, step };
+            return metricsCache.value;
+          }
+          function xyToGrid(x, y) { 
+            const { rect, margin, step } = getMetrics();
+            const gx = Math.round((x - rect.left - margin) / step);
+            const gy = Math.round((y - rect.top - margin) / step);
+            return { gx, gy };
+          }
+          function gridToWrapXY(gx, gy) {
+            const { rect, margin, step } = getMetrics();
+            const wrapRect = wrapEl.value.getBoundingClientRect();
+            const x = margin + gx * step + rect.left - wrapRect.left;
+            const y = margin + gy * step + rect.top - wrapRect.top;
+            return { x, y };
+          }
+          function gridToBoardXY(gx, gy) {
+            const { margin, step } = getMetrics();
+            const x = margin + gx * step;
+            const y = margin + gy * step;
+            return { x, y };
+          }
+
+          // Stone placement and rendering
+          const stones = computed(() => { 
+            const arr = []; 
+            for (let y = 0; y < BOARD_SIZE; y++) { 
+              for (let x = 0; x < BOARD_SIZE; x++) { 
+                const v = grid[y][x]; 
+                if (v !== STONE.empty) arr.push({ x, y, val: v, key: `${x}-${y}` }); 
+              } 
+            } 
+            return arr; 
+          });
+          function stoneStyle(gx, gy) { 
+            const { margin, step } = getMetrics(); 
+            const sz = step * .82; 
+            const { x, y } = gridToBoardXY(gx, gy);
+            return { width: sz + 'px', height: sz + 'px', left: (x - sz / 2) + 'px', top: (y - sz / 2) + 'px' }; 
+          }
+          function placeStoneAt(gx, gy) { 
+            if (!gameActive.value) return false; 
+            if (gx < 0 || gx >= BOARD_SIZE || gy < 0 || gy >= BOARD_SIZE) return false; 
+            if (grid[gy][gx] !== STONE.empty) return false; 
+            grid[gy][gx] = currentPlayer.value; 
+            return true; 
+          }
+          // function removeStoneAt(x, y) { 
+          //   if (x < 0 || x >= BOARD_SIZE || y < 0 || y >= BOARD_SIZE) return false; 
+          //   if (grid[y][x] === STONE.empty) return false; 
+          //   grid[y][x] = STONE.empty; 
+          //   return true; 
+          // }
+          const hint = reactive({ show: false, left: 0, top: 0 });
+          const hintStyle = computed(() => (
+            isFeiShaZouShiActive.value
+              ? { 
+                left: hint.left + 'px', 
+                top: hint.top + 'px', 
+                background: 'rgba(255,80,60,0.75)',
+              } : {
+                left: hint.left + 'px', 
+                top: hint.top + 'px', 
+                background: currentPlayer.value === STONE.black ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.65)', 
+                border: currentPlayer.value === STONE.black ? '1px solid rgba(0,0,0,0.35)' : '1px solid rgba(0,0,0,0.15)'
+              })
+          );
+
+          //Skills
+          function useSkill(p, s) {
+            console.log('Use skill', p, s);
+            if (!p || !s) return;
+            if (p.stone !== currentPlayer.value) return;
+            if (s.mp > p.MP) return;
+            boardEffect('shake');
+            playSkillOverlay(s.name, () => {
+              try { 
+                if (typeof s.delayAction === 'function') s.delayAction(p); 
+              } catch (e) { 
+                console.error('Skill delayAction error', e); 
+              }
+            });
+            try { 
+              if (typeof s.action === 'function') s.action(p); 
+            } catch (e) { 
+              console.error('Skill action error', e); 
+            }
+            p.MP = Math.max(0, p.MP - s.mp);
+            addXP(p, s.mp);
+          }
+          function addXP(p, amount) {
+            if (p.level >= 3) return;
+            p.XP += amount; 
+            if (p.XP >= 100) { 
+              p.level++; 
+              p.XP = p.XP - 100;
+            } 
+          }
+          function handleFeiShaZouShiClick(gx, gy) {
+            if (!gameActive.value) return; 
+            if (gx < 0 || gx >= BOARD_SIZE || gy < 0 || gy >= BOARD_SIZE) return; 
+            if (grid[gy][gx] === STONE.empty) return; 
+            if (grid[gy][gx] === currentPlayer.value) return;
+            animateStoneRemoval(gx, gy);
+            // Remove stone from board
+            grid[gy][gx] = STONE.empty;
+            isFeiShaZouShiActive.value = false;
+            exchangeCurrentPlayer();
+            return;
+          }
+          function animateStoneRemoval(gx, gy) {
+            const { rect, margin, step } = getMetrics();
+            const { x: cx, y: cy } = gridToWrapXY(gx, gy);
+            const stoneType = grid[gy][gx];
+            const floatStone = document.createElement('img');
+            floatStone.src = stoneType === STONE.black ? './assets/stone-black.png' : './assets/stone-white.png';
+            floatStone.className = 'stone floating-stone stone-fx-throw';
+            floatStone.style.position = 'absolute';
+            floatStone.style.left = (cx - step * 0.41 ) + 'px';
+            floatStone.style.top = (cy - step * 0.41) + 'px';
+            floatStone.style.width = (step * 0.82) + 'px';
+            floatStone.style.height = (step * 0.82) + 'px';
+            floatStone.style.pointerEvents = 'none';
+            floatStone.style.zIndex = 10;
+            wrapEl.value.appendChild(floatStone);
+            // Remove after animation
+            setTimeout(() => {
+              if (floatStone.parentNode) floatStone.parentNode.removeChild(floatStone);
+            }, 500);
+          }
+          function animateBoardDrop(callback) {
+            const board = boardEl.value;
+            if (!board) { 
+              if (typeof callback === 'function') callback();
+              return;
+            }
+            board.classList.remove('board-drop');
+            void board.offsetWidth;
+            board.classList.add('board-drop');
+            board.addEventListener('animationend', function handler() {
+              board.removeEventListener('animationend', handler);
+              if (typeof callback === 'function') callback();
+            });
+          }
+
+          // Skill overlay + effects
+          const overlay = reactive({ show:false, text:'', key:0 });
+          function boardEffect(type) { 
+            console.log('Board effect', type);
+            const el = boardEl.value; if(!el) return; 
+            const cls = (type==='shake') ? 'effect-shake' : 'effect-pulse'; 
+            const duration = (type==='shake') ? 450 : 700;
+            el.classList.remove('effect-shake','effect-pulse'); 
+            void el.offsetWidth; 
+            el.classList.add(cls); 
+            setTimeout(()=>el.classList.remove(cls), duration); 
+          }
+          function playSkillOverlay(text, callback) { 
+            overlay.text = text; 
+            overlay.key++; 
+            overlay.show = true; 
+            setTimeout(() => {
+              overlay.show = false;
+              try {
+                if (typeof callback === 'function') callback();
+              } catch (e) {
+                console.error('Skill overlay callback error', e);
+              }
+            }, 1600);
+          }
+
+          // Game logic
+          function exchangeCurrentPlayer() { 
+            currentPlayer.value = currentPlayer.value === STONE.black ? STONE.white : STONE.black;
+            isJingRuZhiShuiActive.value = false;
+          }
+          function checkWinFrom(gx, gy) { 
+            const t = grid[gy][gx]; 
+            if (t === STONE.empty) return false; 
+            const dirs = [[1, 0], [0, 1], [1, 1], [1, -1]]; 
+            for (const [dx, dy] of dirs) { 
+              let c = 1, nx = gx + dx, ny = gy + dy; 
+              while (nx >= 0 && nx < BOARD_SIZE && ny >= 0 && ny < BOARD_SIZE && grid[ny][nx] === t) { 
+                c++; nx += dx; ny += dy; 
+              } 
+              nx = gx - dx; ny = gy - dy; 
+              while (nx >= 0 && nx < BOARD_SIZE && ny >= 0 && ny < BOARD_SIZE && grid[ny][nx] === t) { 
+                c++; nx -= dx; ny -= dy; 
+              } 
+              if (c >= 5) return true; 
+            } 
+            return false; 
+          }
+          function handleBoardClick(evt) {
+            if (!gameActive.value) return;
+            const { gx, gy } = xyToGrid(evt.clientX, evt.clientY);
+            if (isFeiShaZouShiActive.value) {
+              handleFeiShaZouShiClick(gx, gy);
+              return;
+            }
+            if (placeStoneAt(gx, gy)) {
+              // Both players gain 1 MP on every placement (persistent across games)
+              playerBlack.MP = Math.min(playerBlack.MP + MP_DELTA, MP_MAX);
+              playerWhite.MP = Math.min(playerWhite.MP + MP_DELTA, MP_MAX);
+              if (checkWinFrom(gx, gy)) {
+                winner.value = currentPlayer.value;
+                gameActive.value = false;
+                hint.show = false;
+              }
+              exchangeCurrentPlayer();
+            }
+          }
+          function handleBoardMove(evt) { 
+            if (!gameActive.value) { hint.show = false; return; } 
+            const { rect, margin, step } = getMetrics(); 
+            const { gx, gy } = xyToGrid(evt.clientX, evt.clientY);
+            if (gx < 0 || gy < 0 || gx >= BOARD_SIZE || gy >= BOARD_SIZE) { 
+              hint.show = false; 
+              return; 
+            }
+            if (isFeiShaZouShiActive.value) { 
+              if (grid[gy][gx] === STONE.empty || grid[gy][gx] === currentPlayer.value) { 
+                hint.show = false; 
+                return; 
+              } 
+            } else { 
+              if (grid[gy][gx] !== STONE.empty) { 
+                hint.show = false; 
+                return; 
+              } 
+            }
+            const wrapRect = wrapEl.value.getBoundingClientRect(); 
+            const cx = rect.left + margin + gx * step; 
+            const cy = rect.top + margin + gy * step; 
+            hint.left = cx - wrapRect.left; 
+            hint.top = cy - wrapRect.top; 
+            hint.show = true; 
+          }
+          function handleBoardLeave() { hint.show = false; }
+          function startGame() {
+            for (let y = 0; y < BOARD_SIZE; y++) 
+              for (let x = 0; x < BOARD_SIZE; x++) 
+                grid[y][x] = STONE.empty; 
+            currentPlayer.value = STONE.black; 
+            gameActive.value = true; 
+            hasStarted.value = true;
+            winner.value = null;
+            isFeiShaZouShiActive.value = false;
+            isJingRuZhiShuiActive.value = false;
+            isLiBaShanXiActive.value = false;
+            isDiaoChengLiShanActive.value = false;
+            isBaoJieShangMenActive.value = false;
+            // 恢复棋盘初始形态
+            if (boardEl.value) {
+              boardEl.value.classList.remove('board-drop');
+              boardEl.value.style.transform = '';
+              boardEl.value.style.boxShadow = '';
+            }
+          }
+          function restartGame() { startGame(); }
+          const statusText = computed(() => { 
+            if (!hasStarted.value) return '点击“开始”开局，黑棋先行'; 
+            if (!gameActive.value && winner.value) return (winner.value === STONE.black ? '黑棋' : '白棋') + '胜利！'; 
+            return '轮到' + (currentPlayer.value === STONE.black ? '黑棋' : '白棋') + '落子'; 
+          });
+
+          return {
+            STONE,
+            wrapEl,
+            boardEl,
+            stones,
+            stoneStyle,
+            handleBoardClick,
+            handleBoardMove,
+            handleBoardLeave,
+            startGame,
+            restartGame,
+            statusText,
+            currentPlayer,
+            gameActive,
+            hasStarted,
+            playerBlack,
+            playerWhite,
+            unlockedSkills,
+            hint,
+            hintStyle,
+            overlay,
+            useSkill,
+            isJingRuZhiShuiActive,
+          };
+        }
+      }).mount('#app');
+    </script>
+  </body>
+</html>
