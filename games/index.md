@@ -28,6 +28,19 @@ catalogs:
       - lang: "zh"
         content: "棋类"
     items:
+      - id: "skillgomoku"
+        title:
+          - lang: "zh"
+            content: "技能五子棋（开发中）"
+          - lang: "en"
+            content: "Ji Neng Wu Zi Qi"
+        intro:
+          - lang: "zh"
+            content: "传统的五子棋就是把五个子连成一条线，好无趣，好无聊。而技能五子棋就是在传统的五子棋加入技能，好好玩！"
+          - lang: "en"
+            content: "Traditional Gomoku is just about connecting five pieces in a row, so dull and boring. But Skill Gomoku adds special abilities to the classic game, and it’s so much fun!"
+        imageSrc: "/games/images/skillgomoku.png"
+        src: "/games/skillgomoku/index.html"
       - id: "gomoku"
         title:
           - lang: "en"
