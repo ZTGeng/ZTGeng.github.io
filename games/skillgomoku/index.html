@@ -116,7 +116,7 @@
         display:inline-flex; 
         align-items:center; 
       }
-      .skill:active:not(:disabled) { transform: translateY(1px); box-shadow:0 1px 2px rgba(0,0,0,.08); background:#f0f4f4; }
+      .skill:active:not(:disabled) { transform: translateY(1px); box-shadow:0 1px 2px rgba(0,0,0,.08); background:#f0f4f4; opacity: 1; }
       .skill:disabled { background: #eee; color: #aaa; border-color: #e0e0e0; cursor: not-allowed; box-shadow: none; transform: none; }
       .skill .cost { color:#666; }
       .skill .description { font-size:10px; color:#888; margin-top:2px; }
@@ -186,6 +186,11 @@
         70% { transform: scale(3) translateX(160px); opacity: 1; }
         100% { transform: scale(3) translateX(160px); opacity: 0; }
       }
+      @keyframes stone-fly-anim {
+        0% { transform: translate(0,0) scale(1) rotate(0deg); opacity: 1; }
+        80% { opacity: 1; }
+        100% { transform: translate(var(--fly-x, 0px), var(--fly-y, -300px)) scale(1.1) rotate(360deg); opacity: 0; }
+      }
       .ice-overlay {
         position: absolute;
         inset: 0;
@@ -231,17 +236,36 @@
       }
       @keyframes board-drop-recover-anim {
         0% {
-          transform: translateY(250px) scaleX(1) scaleY(0.3) skewX(-16deg);
+          transform: translateY(250px) scaleY(0.3) skewX(-16deg);
           box-shadow: 0 4px 12px 0 rgba(0,0,0,0.12);
         }
-        50% {
-          transform: translateY(120px) scaleX(1) scaleY(1) skewX(0deg);
+        40% {
+          transform: translateY(120px) scaleY(1) skewX(0deg);
           box-shadow: 0 24px 48px 0 rgba(0,0,0,0.10);
         }
-        100% {
-          transform: translateY(0) scaleX(1) scaleY(1) skewX(0deg);
+        85% {
+          transform: translateY(-80px);
           box-shadow: 0 6px 24px 0 rgba(0,0,0,0.10);
         }
+        100% {
+          transform: translateY(0);
+          box-shadow: 0 6px 24px 0 rgba(0,0,0,0.10);
+        }
+      }
+      #broom-sweep {
+        display: none;
+        pointer-events: none;
+        position: absolute;
+        z-index:20;
+      }
+      #broom-sweep.sweeping {
+        animation: broom-sweep-anim 0.5s cubic-bezier(.7,0,1,1) forwards;
+      }
+      @keyframes broom-sweep-anim {
+        0% { top: -120px; opacity: 0.7; }
+        10% { opacity: 1; }
+        80% { opacity: 1; }
+        100% { top: 100%; opacity: 0.2; }
       }
     </style>
   </head>
@@ -269,6 +293,7 @@
             :is-active="!gameActive || currentPlayer===STONE.black"
             :skills="unlockedSkills(playerBlack)"
             :is-frozen="isJingRuZhiShuiActive && currentPlayer===STONE.white"
+            v-show="!isDiaoChengLiShanActive || currentPlayer===STONE.black"
             @use-skill="useSkill(playerBlack, $event)" />
         </div>
         <div id="table">
@@ -290,13 +315,15 @@
         </div>
         <div id="player-white">
           <player-panel
-            :player="playerWhite" 
+            :player="playerWhite"
             :is-active="!gameActive || currentPlayer===STONE.white"
             :skills="unlockedSkills(playerWhite)"
             :is-frozen="isJingRuZhiShuiActive && currentPlayer===STONE.black"
+            v-show="!isDiaoChengLiShanActive || currentPlayer===STONE.white"
             @use-skill="useSkill(playerWhite, $event)" />
         </div>
         <div class="hint" v-show="hint.show" :style="hintStyle"></div>
+        <img id="broom-sweep" src="./assets/broom.png" />
       </div>
 
       <footer>
@@ -377,6 +404,7 @@
           const isLiBaShanXiActive = ref(false);
           const isDiaoChengLiShanActive = ref(false);
           const isBaoJieShangMenActive = ref(false);
+          const diaoChengLiShanRemovalCount = ref(0);
           const skills = [
             { 
               name:'飞沙走石', mp:5, minLevel:1, description:'顾名思义，就是把对手的棋子直接扔进：什刹海！', 
@@ -387,8 +415,8 @@
               isDisabled: (p) => !gameActive.value 
                 || currentPlayer.value !== p.stone
                 || (p.MP < 5)
-                || [isFeiShaZouShiActive, isLiBaShanXiActive, isBaoJieShangMenActive].some(s=>s.value)
-                || stones.value.filter(s=>s.value !== STONE.empty && s.value !== p.stone).length === 0,
+                || [isFeiShaZouShiActive, isLiBaShanXiActive, isDiaoChengLiShanActive, isBaoJieShangMenActive].some(s=>s.value)
+                || stones.value.filter(s=>s.val !== p.stone).length === 0,
             },
             { 
               name:'静如止水', mp:20, minLevel:1, description:'顾名思义，就是凝结时间，冻结空气！',
@@ -422,40 +450,81 @@
             { 
               name:'东山再起', mp:50, minLevel:1, description:'最终奥义，破解对手的超杀必胜技！',
               delayAction: (p)=>{
-                if (boardEl.value) {
-                  boardEl.value.classList.remove('board-drop');
-                  boardEl.value.classList.remove('board-drop-recover');
-                  void boardEl.value.offsetWidth;
-                  boardEl.value.classList.add('board-drop-recover');
-                  boardEl.value.addEventListener('animationend', function handler() {
-                    gameActive.value = true;
-                    isLiBaShanXiActive.value = false;
-                    exchangeCurrentPlayer();
-
-                    boardEl.value.classList.remove('board-drop-recover');
-                    boardEl.value.style.transform = '';
-                    boardEl.value.style.boxShadow = '';
-                    boardEl.value.removeEventListener('animationend', handler);
-                  });
-                }
+                animateBoardRecover(() => {
+                  gameActive.value = true;
+                  isLiBaShanXiActive.value = false;
+                  exchangeCurrentPlayer();
+                })
               },
               isDisabled: (p) => gameActive.value
                 || (p.MP < 50)
                 || !isLiBaShanXiActive.value,
             },
-            { name:'擒拿擒拿', mp:5, minLevel:2, description:'擒擒又拿拿。擒住天地之精华，拿得老师笑哈哈。' },
-            { name:'调呈离山', mp:30, minLevel:2, description:'顾名思义，就是调走张呈，离开山。东。' },
-            { name:'保洁上门', mp:30, minLevel:2, description:'你你你，你要跳舞吗？' },
-            { name:'拾金不昧', mp:5, minLevel:3, description:'' },
-            { name:'水滴石穿', mp:20, minLevel:3, description:'' },
-            { name:'两极反转', mp:50, minLevel:3, description:'' },
+            { 
+              name:'擒拿', mp:5, minLevel:2, description:'擒擒又拿拿。擒住天地之精华，拿得老师笑哈哈。',
+              action: (p)=>{
+                if (!gameActive.value) return; 
+                isFeiShaZouShiActive.value = false;
+                exchangeCurrentPlayer();
+              },
+              isDisabled: (p) => !gameActive.value 
+                || currentPlayer.value === p.stone
+                || (p.MP < 5)
+                || !isFeiShaZouShiActive.value,
+            },
+            { 
+              name:'调呈离山', mp:30, minLevel:2, description:'顾名思义，就是调走张呈，离开山。东。',
+              action: (p)=>{
+                if (!gameActive.value) return; 
+                isDiaoChengLiShanActive.value = true; 
+              },
+              isDisabled: (p) => !gameActive.value 
+                || currentPlayer.value !== p.stone
+                || (p.MP < 30)
+                || [isFeiShaZouShiActive, isLiBaShanXiActive, isDiaoChengLiShanActive, isBaoJieShangMenActive].some(s=>s.value)
+                || stones.value.filter(s=>s.val !== p.stone).length === 0,
+            },
+            { 
+              name:'保洁上门', mp:30, minLevel:2, description:'你你你，你要跳舞吗？',
+              action: (p)=>{
+                if (!gameActive.value) return; 
+                isBaoJieShangMenActive.value = true; 
+              },
+              delayAction: (p)=>{
+                animateBroomSweep(() => {
+                  isBaoJieShangMenActive.value = false;
+                  exchangeCurrentPlayer();
+                });
+
+                const opponentStones = stones.value.filter(s=>s.val !== p.stone);
+                const removalCount = Math.min(opponentStones.length, Math.floor(Math.random()*3)+2);
+                opponentStones.sort(() => Math.random() - 0.5);
+                for (let i=0; i<removalCount; i++) {
+                  const { x, y } = opponentStones[i];
+                  animateStoneFly(x, y);
+                  grid[y][x] = STONE.empty;
+                }
+              },
+              isDisabled: (p) => !gameActive.value 
+                || currentPlayer.value !== p.stone
+                || (p.MP < 30)
+                || [isFeiShaZouShiActive, isLiBaShanXiActive, isDiaoChengLiShanActive, isBaoJieShangMenActive].some(s=>s.value)
+                || stones.value.filter(s=>s.val !== p.stone).length === 0,
+            },
+            { 
+              name:'拾金不昧（被动）', mp:0, minLevel:3, description:'？？？',
+              isDisabled: (p) => true
+             },
+            { 
+              name:'水滴石穿（被动）', mp:0, minLevel:3, description:'？？？',
+              isDisabled: (p) => true
+            },
+            { 
+              name:'两极反转', mp:50, minLevel:3, description:'？？？',
+              isDisabled: (p) => true
+            },
           ];
           const unlockedSkills = (p)=>skills.filter(s=>p.level>=s.minLevel);
-          const isInSkillExcept = computed((except) => (
-            [isFeiShaZouShiActive, isJingRuZhiShuiActive, isLiBaShanXiActive, isDiaoChengLiShanActive, isBaoJieShangMenActive]
-              .filter(s=>s!==except)
-              .some(s=>s.value)
-          ));
 
           const MP_MAX = 50;
           const MP_DELTA = 5;
@@ -514,15 +583,9 @@
             grid[gy][gx] = currentPlayer.value; 
             return true; 
           }
-          // function removeStoneAt(x, y) { 
-          //   if (x < 0 || x >= BOARD_SIZE || y < 0 || y >= BOARD_SIZE) return false; 
-          //   if (grid[y][x] === STONE.empty) return false; 
-          //   grid[y][x] = STONE.empty; 
-          //   return true; 
-          // }
           const hint = reactive({ show: false, left: 0, top: 0 });
           const hintStyle = computed(() => (
-            isFeiShaZouShiActive.value
+            isFeiShaZouShiActive.value || isDiaoChengLiShanActive.value
               ? { 
                 left: hint.left + 'px', 
                 top: hint.top + 'px', 
@@ -539,7 +602,6 @@
           function useSkill(p, s) {
             console.log('Use skill', p, s);
             if (!p || !s) return;
-            if (p.stone !== currentPlayer.value) return;
             if (s.mp > p.MP) return;
             boardEffect('shake');
             playSkillOverlay(s.name, () => {
@@ -575,7 +637,23 @@
             grid[gy][gx] = STONE.empty;
             isFeiShaZouShiActive.value = false;
             exchangeCurrentPlayer();
-            return;
+          }
+          function handleDiaoChengLiShanClick(gx, gy) {
+            if (!gameActive.value) return; 
+            if (gx < 0 || gx >= BOARD_SIZE || gy < 0 || gy >= BOARD_SIZE) return; 
+            if (grid[gy][gx] === STONE.empty) return; 
+            if (grid[gy][gx] === currentPlayer.value) return;
+            animateStoneRemoval(gx, gy);
+            // Remove stone from board
+            grid[gy][gx] = STONE.empty;
+            diaoChengLiShanRemovalCount.value++;
+            if (diaoChengLiShanRemovalCount.value >= 3
+              || stones.value.filter(s=>s.val !== currentPlayer.value).length === 0
+            ) {
+              isDiaoChengLiShanActive.value = false;
+              diaoChengLiShanRemovalCount.value = 0;
+              exchangeCurrentPlayer();
+            }
           }
           function animateStoneRemoval(gx, gy) {
             const { rect, margin, step } = getMetrics();
@@ -597,6 +675,33 @@
               if (floatStone.parentNode) floatStone.parentNode.removeChild(floatStone);
             }, 500);
           }
+          function animateStoneFly(gx, gy) {
+            const { rect, margin, step } = getMetrics();
+            const { x: cx, y: cy } = gridToWrapXY(gx, gy);
+            const stoneType = grid[gy][gx];
+            const floatStone = document.createElement('img');
+            floatStone.src = stoneType === STONE.black ? './assets/stone-black.png' : './assets/stone-white.png';
+            floatStone.className = 'stone floating-stone';
+            floatStone.style.position = 'absolute';
+            floatStone.style.left = (cx - step * 0.41 ) + 'px';
+            floatStone.style.top = (cy - step * 0.41) + 'px';
+            floatStone.style.width = (step * 0.82) + 'px';
+            floatStone.style.height = (step * 0.82) + 'px';
+            floatStone.style.pointerEvents = 'none';
+            floatStone.style.zIndex = 30;
+            // 随机方向
+            const angle = Math.random() * 2 * Math.PI;
+            const dist = 150 + Math.random() * 80;
+            const dx = Math.round(Math.cos(angle) * dist);
+            const dy = Math.round(Math.sin(angle) * dist);
+            floatStone.style.setProperty('--fly-x', dx + 'px');
+            floatStone.style.setProperty('--fly-y', dy + 'px');
+            floatStone.style.animation = 'stone-fly-anim 0.7s cubic-bezier(.7,-0.2,.7,1.2) forwards';
+            wrapEl.value.appendChild(floatStone);
+            setTimeout(() => {
+              if (floatStone.parentNode) floatStone.parentNode.removeChild(floatStone);
+            }, 700);
+          }
           function animateBoardDrop(callback) {
             const board = boardEl.value;
             if (!board) { 
@@ -608,6 +713,46 @@
             board.classList.add('board-drop');
             board.addEventListener('animationend', function handler() {
               board.removeEventListener('animationend', handler);
+              if (typeof callback === 'function') callback();
+            });
+          }
+          function animateBoardRecover(callback) {
+            const board = boardEl.value;
+            if (!board) { 
+              if (typeof callback === 'function') callback();
+              return;
+            }
+            board.classList.remove('board-drop');
+            board.classList.remove('board-drop-recover');
+            void board.offsetWidth;
+            board.classList.add('board-drop-recover');
+            board.addEventListener('animationend', function handler() {
+              board.removeEventListener('animationend', handler);
+              board.classList.remove('board-drop-recover');
+              board.style.transform = '';
+              board.style.boxShadow = '';
+              if (typeof callback === 'function') callback();
+            });
+          }
+          function animateBroomSweep(callback) {
+            const broom = document.getElementById('broom-sweep');
+            if (!broom) { 
+              if (typeof callback === 'function') callback();
+              return;
+            }
+            const boardRect = boardEl.value.getBoundingClientRect();
+            const wrapRect = wrapEl.value.getBoundingClientRect();
+            broom.style.left = (boardRect.left - wrapRect.left + boardRect.width/2) + 'px';
+            broom.style.top = '-120px';
+            broom.style.display = 'block';
+            broom.style.opacity = '1';
+            broom.style.transform = 'translateX(-50%) rotate(-10deg) scale(1.1)';
+            broom.style.transition = 'none';
+            broom.classList.add('sweeping');
+            broom.addEventListener('animationend', function handler() {
+              broom.removeEventListener('animationend', handler);
+              broom.style.display = 'none';
+              broom.classList.remove('sweeping');
               if (typeof callback === 'function') callback();
             });
           }
@@ -667,10 +812,15 @@
               handleFeiShaZouShiClick(gx, gy);
               return;
             }
+            if (isDiaoChengLiShanActive.value) {
+              handleDiaoChengLiShanClick(gx, gy);
+              return;
+            }
             if (placeStoneAt(gx, gy)) {
-              // Both players gain 1 MP on every placement (persistent across games)
-              playerBlack.MP = Math.min(playerBlack.MP + MP_DELTA, MP_MAX);
-              playerWhite.MP = Math.min(playerWhite.MP + MP_DELTA, MP_MAX);
+              // playerBlack.MP = Math.min(playerBlack.MP + MP_DELTA, MP_MAX);
+              // playerWhite.MP = Math.min(playerWhite.MP + MP_DELTA, MP_MAX);
+              const currentP = currentPlayer.value === STONE.black ? playerBlack : playerWhite;
+              currentP.MP = Math.min(currentP.MP + MP_DELTA, MP_MAX);
               if (checkWinFrom(gx, gy)) {
                 winner.value = currentPlayer.value;
                 gameActive.value = false;
@@ -687,7 +837,7 @@
               hint.show = false; 
               return; 
             }
-            if (isFeiShaZouShiActive.value) { 
+            if (isFeiShaZouShiActive.value || isDiaoChengLiShanActive.value) { 
               if (grid[gy][gx] === STONE.empty || grid[gy][gx] === currentPlayer.value) { 
                 hint.show = false; 
                 return; 
@@ -719,6 +869,7 @@
             isLiBaShanXiActive.value = false;
             isDiaoChengLiShanActive.value = false;
             isBaoJieShangMenActive.value = false;
+            diaoChengLiShanRemovalCount.value = 0;
             // 恢复棋盘初始形态
             if (boardEl.value) {
               boardEl.value.classList.remove('board-drop');
@@ -768,6 +919,7 @@
             overlay,
             useSkill,
             isJingRuZhiShuiActive,
+            isDiaoChengLiShanActive,
             bgmPlaying,
             toggleBgm,
           };
