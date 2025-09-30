@@ -253,6 +253,7 @@
           <button class="primary" @click="startGame" :disabled="gameActive">
             {{ hasStarted ? (gameActive ? '游戏进行中' : '再来一盘') : '开始' }}
           </button>
+          <button @click="toggleBgm" style="min-width:60px;">{{ bgmPlaying ? '音乐关' : '音乐开' }}</button>
         </div>
       </header>
 
@@ -303,6 +304,8 @@
         <div>{{ gameActive ? '当前：' + (currentPlayer===STONE.black? '黑棋':'白棋') : '' }}</div>
       </footer>
     </div>
+
+    <audio id="bgm-audio" src="./assets/gomoku-bgm.mp3" loop preload="auto"></audio>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <script>
@@ -729,6 +732,18 @@
             if (!gameActive.value && winner.value) return (winner.value === STONE.black ? '黑棋' : '白棋') + '胜利！'; 
             return '轮到' + (currentPlayer.value === STONE.black ? '黑棋' : '白棋') + '落子'; 
           });
+          const bgmPlaying = ref(false);
+          function toggleBgm() {
+            const audio = document.getElementById('bgm-audio');
+            if (!audio) return;
+            if (bgmPlaying.value) {
+              audio.pause();
+              bgmPlaying.value = false;
+            } else {
+              audio.play();
+              bgmPlaying.value = true;
+            }
+          }
 
           return {
             STONE,
@@ -753,6 +768,8 @@
             overlay,
             useSkill,
             isJingRuZhiShuiActive,
+            bgmPlaying,
+            toggleBgm,
           };
         }
       }).mount('#app');
