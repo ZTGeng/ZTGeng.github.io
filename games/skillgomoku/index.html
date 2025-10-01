@@ -8,143 +8,184 @@
       :root { --board-size: min(90vmin, 720px); --ui-gap: 12px; --accent: #2b7a78; --text: #222; --muted: #666; }
       * { box-sizing: border-box; }
       html, body { height: 100%; }
-      body { 
-        margin: 0; 
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans"; 
-        color: var(--text); 
-        display: grid; 
-        place-items: center; 
-        background: #f4f7f8; 
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+        color: var(--text);
+        display: grid;
+        place-items: center;
+        background: #f4f7f8;
       }
       .app { width: 100%; max-width: calc(var(--board-size) + 32px); padding: 16px; display: grid; grid-template-columns: 1fr; gap: 12px; }
       header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
       .title { font-size: 1.25rem; font-weight: 700; }
       .controls { display: flex; align-items: center; gap: var(--ui-gap); }
-      button { 
-        appearance: none; 
-        border:1px solid #c9d6d8; 
-        background:white; 
+      button {
+        appearance: none;
+        border:1px solid #c9d6d8;
+        background:white;
         color:var(--text); 
-        padding:8px 14px; 
-        border-radius:8px; 
-        cursor:pointer; 
-        font-weight:600; 
-        transition: background .15s ease, transform .05s ease; 
+        padding:8px 14px;
+        border-radius:8px;
+        cursor:pointer;
+        font-weight:600;
+        transition: background .15s ease, transform .05s ease;
       }
       button.primary { background: var(--accent); color:#fff; border-color: transparent; }
       button:disabled { opacity: .6; cursor: not-allowed; }
       button:active { transform: translateY(1px); }
 
-      .board-wrap { width: var(--board-size); height: var(--board-size); margin: 0 auto; position: relative; user-select:none; }
-      #table { 
-        width:100%; 
-        height:100%; 
-        position:relative; 
-        display:grid; 
-        place-items:center; 
-        background-image:url('./assets/gomoku-bg.png'); 
-        background-size:cover; 
-        background-position:center; 
-        background-repeat:no-repeat; 
-        border-radius:12px; 
-        overflow:hidden; 
+      .board-wrap { width: var(--board-size); height: var(--board-size); margin: 0 auto; position: relative; user-select: none; }
+      #table {
+        width:100%;
+        height:100%;
+        position:relative;
+        display:grid;
+        place-items:center;
+        background-image:url('./assets/gomoku-bg.png');
+        background-size:cover;
+        background-position:center;
+        background-repeat:no-repeat;
+        border-radius:12px;
+        overflow:hidden;
       }
-      #board { 
-        width:60%; 
-        height:60%; 
-        background-image:url('./assets/gomoku-board.png'); 
-        background-repeat:no-repeat; 
-        background-size:cover; 
-        background-position:center; 
-        border-radius:12px; 
-        position:relative; 
-        overflow:hidden; 
-        box-shadow: 0 6px 24px rgba(0,0,0,.08); 
+      #board {
+        width:60%;
+        height:60%;
+        background-image:url('./assets/gomoku-board.png');
+        background-repeat:no-repeat;
+        background-size:cover;
+        background-position:center;
+        border-radius:12px;
+        position:relative;
+        overflow:hidden;
+        box-shadow: 0 6px 24px rgba(0,0,0,.08);
       }
-      .stone { 
-        position:absolute; 
-        width:40px; 
-        height:40px; 
-        pointer-events:none; 
-        image-rendering:-webkit-optimize-contrast; 
-        filter: drop-shadow(0 2px 2px rgba(0,0,0,.2)); 
+      .stone {
+        position:absolute;
+        width:40px;
+        height:40px;
+        pointer-events:none;
+        image-rendering:-webkit-optimize-contrast;
+        filter: drop-shadow(0 2px 2px rgba(0,0,0,.2));
       }
       /* transient sprite for removal animation */
-      .stone-fx { position:absolute; pointer-events:none; will-change: transform, opacity; transition: transform .55s cubic-bezier(.22,1,.36,1), opacity .55s ease; filter: drop-shadow(0 6px 10px rgba(0,0,0,.35)); }
-      .hint { position:absolute; width:12px; height:12px; border-radius:50%; transform:translate(-50%,-50%); pointer-events:none; }
-      footer { display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:12px; }
+      .stone-fx {
+        position: absolute;
+        pointer-events: none;
+        will-change: transform, opacity;
+        transition: transform .55s cubic-bezier(.22,1,.36,1), opacity .55s ease;
+        filter: drop-shadow(0 6px 10px rgba(0,0,0,.35));
+      }
+      .hint {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        transform: translate(-50%,-50%);
+        pointer-events: none;
+      }
+      footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--muted);
+        font-size: 12px;
+      }
 
       /* Player panels */
       #player-black, #player-white { position:absolute; width:33%; max-width:260px; z-index:2; }
       #player-black { left:10px; top:10px; }
       #player-white { right:10px; top:10px; }
+
+      .score {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #f4f7f8;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        border: 2px solid #e2e8ea;
+        margin-left: 12px;
+      }
+      .score-black { color: #222; }
+      .score-white { color: #2b7a78; }
+
       .player {
         position:relative;
-        background:#fff; 
-        border:1px solid #e2e8ea; 
-        border-radius:10px; 
-        padding:12px; 
-        box-shadow:0 4px 10px rgba(0,0,0,.05); 
-        transition: box-shadow .15s ease, transform .12s ease; 
+        flex: 1;
+        background:#fff;
+        border:1px solid #e2e8ea;
+        border-radius:10px;
+        padding:12px;
+        box-shadow:0 4px 10px rgba(0,0,0,.05);
+        transition: box-shadow .15s ease, transform .12s ease;
       }
       .player:not(:hover) > :not(.head):not(.xp):not(.ice-overlay) { display:none; }
       .player:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,.12); z-index:3; }
-      .player.inactive { opacity:.55; filter: grayscale(.3); }
-      .player.active { opacity:1; filter:none; }
-      .player .head { display:flex; align-items:center; justify-content:flex-start; margin-bottom:6px; }
-      .player .title { font-weight:700; }
-      .player .mp { margin-left:12px; }
-      .player .meta { margin-left:auto; color:#607075; font-size:12px; }
-      .player .xp { margin:6px 0 8px; }
-      .player .xp .bar { height:8px; background:#eef4f5; border-radius:6px; overflow:hidden; }
-      .player .xp .fill { height:100%; background:#7bb4b0; width:0%; transition: width .2s ease; }
-      .player .xp .label { font-size:12px; color:#556; margin-top:4px; }
-      .player .mp { font-size:12px; color:#334; }
-      .player .skills { display:flex; flex-wrap:wrap; gap:8px; }
+      .player.inactive { opacity: .55; filter: grayscale(.3); }
+      .player.active { opacity: 1; filter: none; }
 
-      .skill { 
-        border:1px solid #d9e2e4; 
-        background:#fafcfc; 
-        border-radius:8px; 
-        padding:6px 8px; 
-        font-size:12px; 
-        cursor:pointer; 
-        transition: background .15s, transform .05s, box-shadow .12s; 
-        box-shadow:0 2px 6px rgba(0,0,0,.04); 
-        font-family:inherit; 
-        font-weight:inherit; 
-        display:inline-flex; 
-        align-items:center; 
+      .player .head { display: flex; align-items: center; justify-content: flex-start; margin-bottom: 6px; }
+      .player .title { font-weight: 700; }
+      .player .mp { font-size: 12px; color: #334; margin-left: 12px; }
+      .player .lv { margin-left: auto; color: #607075; font-size: 12px; }
+      .player .xp { margin: 6px 0 8px; }
+      .player .xp .bar { height: 8px; background: #eef4f5; border-radius: 6px; overflow: hidden; }
+      .player .xp .fill { height: 100%; background: #7bb4b0; width: 0%; transition: width .2s ease; }
+      .player .xp .label { font-size: 12px; color: #556; margin-top: 4px; }
+
+      .player .skills { display: flex; flex-wrap: wrap; gap: 8px; }
+      .skill {
+        width: 100%;
+        text-align: left;
+        border: 1px solid #d9e2e4;
+        background: #fafcfc;
+        border-radius: 8px;
+        padding: 6px 8px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: background .15s, transform .05s, box-shadow .12s;
+        box-shadow: 0 2px 6px rgba(0,0,0,.04);
+        font-family: inherit;
+        font-weight: inherit;
+        display: block;
+        align-items: center;
       }
-      .skill:active:not(:disabled) { transform: translateY(1px); box-shadow:0 1px 2px rgba(0,0,0,.08); background:#f0f4f4; opacity: 1; }
+      .skill:active:not(:disabled) { transform: translateY(1px); box-shadow: 0 1px 2px rgba(0,0,0,.08); background: #f0f4f4; opacity: 1; }
       .skill:disabled { background: #eee; color: #aaa; border-color: #e0e0e0; cursor: not-allowed; box-shadow: none; transform: none; }
-      .skill .cost { color:#666; }
-      .skill .description { font-size:10px; color:#888; margin-top:2px; }
-      .skill.disabled { background: #eee; color: #aaa; border-color: #e0e0e0; cursor: not-allowed; pointer-events: none; }
-      
+      .skill .head { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+      .skill .cost { color: #666; }
+      .skill .description { font-size: 10px; color: #888; margin-top: 2px; }
+
       /* Skill cinematic overlay */
-      .skill-overlay { position:absolute; inset:0; display:grid; place-items:center; pointer-events:none; z-index:4; }
+      .skill-overlay { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; z-index: 4; }
       .skill-overlay .burst { 
-        position:absolute; 
-        inset:0; 
+        position: absolute; 
+        inset: 0; 
         background: radial-gradient(ellipse at center, rgba(255,255,255,.35), rgba(255,120,60,.25) 40%, rgba(0,0,0,0) 70%); 
         filter: blur(6px); 
         animation: burst-fade 1.6s ease forwards; 
       }
-      .skill-overlay .label { 
-        position:relative; 
-        font-size: clamp(28px, 8vmin, 72px); 
-        color:#fff; 
-        font-weight: 900; 
-        padding: 8px 18px; 
-        letter-spacing: .1em; 
-        text-shadow: 0 2px 0 #000, 0 0 18px rgba(255,120,60,.9), 0 0 36px rgba(255,180,120,.8); 
-        -webkit-text-stroke: 2px rgba(0,0,0,.75); 
-        background: linear-gradient(45deg, rgba(255,140,80,.9), rgba(255,240,180,.95)); 
-        border-radius: 12px; 
-        box-shadow: 0 12px 40px rgba(0,0,0,.4); 
-        animation: skill-enter 1.6s cubic-bezier(.2,1,.2,1) forwards; 
+      .skill-overlay .label {
+        position: relative;
+        font-size: clamp(28px, 8vmin, 72px);
+        color: #fff;
+        font-weight: 900;
+        padding: 8px 18px;
+        letter-spacing: .1em;
+        text-shadow: 0 2px 0 #000, 0 0 18px rgba(255,120,60,.9), 0 0 36px rgba(255,180,120,.8);
+        -webkit-text-stroke: 2px rgba(0,0,0,.75);
+        background: linear-gradient(45deg, rgba(255,140,80,.9), rgba(255,240,180,.95));
+        border-radius: 12px;
+        box-shadow: 0 12px 40px rgba(0,0,0,.4);
+        animation: skill-enter 1.6s cubic-bezier(.2,1,.2,1) forwards;
       }
+
       @keyframes skill-enter { 
         0% { opacity:0; transform: scale(.2) rotate(-8deg); filter: blur(6px); } 
         20% { opacity:1; transform: scale(1.08) rotate(0deg); filter: blur(0); } 
@@ -277,7 +318,7 @@
           <button class="primary" @click="startGame" :disabled="gameActive">
             {{ hasStarted ? (gameActive ? '游戏进行中' : '再来一盘') : '开始' }}
           </button>
-          <button @click="toggleBgm" style="min-width:60px;">{{ bgmPlaying ? '音乐关' : '音乐开' }}</button>
+          <button @click="toggleBgm">{{ bgmPlaying ? '音乐关' : '音乐开' }}</button>
         </div>
       </header>
 
@@ -286,15 +327,6 @@
         <div class="skill-overlay" v-if="overlay.show" :key="overlay.key">
           <div class="burst"></div>
           <div class="label">{{ overlay.text }}</div>
-        </div>
-        <div id="player-black">
-          <player-panel
-            :player="playerBlack"
-            :is-active="!gameActive || currentPlayer===STONE.black"
-            :skills="unlockedSkills(playerBlack)"
-            :is-frozen="isJingRuZhiShuiActive && currentPlayer===STONE.white"
-            v-show="!isDiaoChengLiShanActive || currentPlayer===STONE.black"
-            @use-skill="useSkill(playerBlack, $event)" />
         </div>
         <div id="table">
           <div id="board" 
@@ -313,12 +345,25 @@
               :style="stoneStyle(s.x, s.y)" />
           </div>
         </div>
+        <div id="player-black">
+          <player-panel
+            :player="playerBlack"
+            :is-black="true"
+            :is-active="!gameActive || currentPlayer===STONE.black"
+            :skills="unlockedSkills(playerBlack)"
+            :is-frozen="isJingRuZhiShuiActive && currentPlayer===STONE.white"
+            :score="blackScore"
+            v-show="!isDiaoChengLiShanActive || currentPlayer===STONE.black"
+            @use-skill="useSkill(playerBlack, $event)" />
+        </div>
         <div id="player-white">
           <player-panel
             :player="playerWhite"
+            :is-black="false"
             :is-active="!gameActive || currentPlayer===STONE.white"
             :skills="unlockedSkills(playerWhite)"
             :is-frozen="isJingRuZhiShuiActive && currentPlayer===STONE.black"
+            :score="whiteScore"
             v-show="!isDiaoChengLiShanActive || currentPlayer===STONE.white"
             @use-skill="useSkill(playerWhite, $event)" />
         </div>
@@ -340,7 +385,14 @@
       createApp({
         components: {
           'player-panel': {
-            props: { player: { type: Object, required: true }, isActive: { type: Boolean, default: false }, skills: { type: Array, required: true }, isFrozen: { type: Boolean, default: false } },
+            props: { 
+              player: { type: Object, required: true },
+              isBlack: { type: Boolean, default: false },
+              isActive: { type: Boolean, default: false }, 
+              skills: { type: Array, required: true }, 
+              isFrozen: { type: Boolean, default: false },
+              score: { type: Number, default: 0 }
+            },
             emits: ['use-skill'],
             template: `
               <div class="player" :class="[isActive ? 'active' : 'inactive']">
@@ -348,7 +400,8 @@
                 <div class="head">
                   <div class="title">{{ player.title }}</div>
                   <div class="mp">MP: <strong>{{ player.MP }}</strong></div>
-                  <div class="meta">Level: {{ player.level < 3 ? player.level : 'MAX' }}</div>
+                  <div class="lv">Level: {{ player.level < 3 ? player.level : 'MAX' }}</div>
+                  <span class="score" :class="[isBlack ? 'score-black' : 'score-white']">{{ score }}</span>
                 </div>
                 <div class="xp">
                   <div class="bar">
@@ -372,8 +425,8 @@
                 props: { skill: { type: Object, required: true }, disabled: { type: Boolean, default: false } },
                 emits: ['use'],
                 template: `
-                  <button class="skill" :disabled="disabled" @click="$emit('use')" style="width:100%; text-align:left; display:block;">
-                    <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+                  <button class="skill" :disabled="disabled" @click="$emit('use')">
+                    <div class="head">
                       <span>{{ skill.name }}</span>
                       <span class="cost">MP {{ skill.mp }}</span>
                     </div>
@@ -399,6 +452,9 @@
 
           const playerBlack = reactive({ stone: STONE.black, title:'黑方', level:1, XP:0, MP:0 });
           const playerWhite = reactive({ stone: STONE.white, title:'白方', level:1, XP:0, MP:0 });
+          const blackScore = ref(0);
+          const whiteScore = ref(0);
+
           const isFeiShaZouShiActive = ref(false);
           const isJingRuZhiShuiActive = ref(false);
           const isLiBaShanXiActive = ref(false);
@@ -419,7 +475,7 @@
                 || stones.value.filter(s=>s.val !== p.stone).length === 0,
             },
             { 
-              name:'静如止水', mp:20, minLevel:1, description:'顾名思义，就是凝结时间，冻结空气！',
+              name:'静如止水', mp:10, minLevel:1, description:'顾名思义，就是凝结时间，冻结空气！',
               action: (p)=>{ 
                 if (!gameActive.value) return; 
                 isJingRuZhiShuiActive.value = true; 
@@ -438,6 +494,7 @@
               delayAction: ()=>{
                 animateBoardDrop(() => {
                   winner.value = currentPlayer.value;
+                  (winner.value === STONE.black ? blackScore : whiteScore).value += 1;
                   gameActive.value = false;
                   exchangeCurrentPlayer();
                 });
@@ -451,6 +508,9 @@
               name:'东山再起', mp:50, minLevel:1, description:'最终奥义，破解对手的超杀必胜技！',
               delayAction: (p)=>{
                 animateBoardRecover(() => {
+                  const fakeWinner = winner.value === STONE.black ? blackScore : whiteScore;
+                  if (fakeWinner.value > 0) fakeWinner.value -= 1;
+                  winner.value = null;
                   gameActive.value = true;
                   isLiBaShanXiActive.value = false;
                   exchangeCurrentPlayer();
@@ -470,6 +530,7 @@
               isDisabled: (p) => !gameActive.value 
                 || currentPlayer.value === p.stone
                 || (p.MP < 5)
+                || isJingRuZhiShuiActive.value
                 || !isFeiShaZouShiActive.value,
             },
             { 
@@ -492,18 +553,19 @@
               },
               delayAction: (p)=>{
                 animateBroomSweep(() => {
+                  const opponentStones = stones.value.filter(s=>s.val !== p.stone);
+                  const removalCount = Math.min(opponentStones.length, Math.floor(Math.random()*3)+2);
+                  opponentStones.sort(() => Math.random() - 0.5);
+                  for (let i=0; i<removalCount; i++) {
+                    const { x, y } = opponentStones[i];
+                    animateStoneFly(x, y);
+                    grid[y][x] = STONE.empty;
+                  }
+
                   isBaoJieShangMenActive.value = false;
                   exchangeCurrentPlayer();
                 });
-
-                const opponentStones = stones.value.filter(s=>s.val !== p.stone);
-                const removalCount = Math.min(opponentStones.length, Math.floor(Math.random()*3)+2);
-                opponentStones.sort(() => Math.random() - 0.5);
-                for (let i=0; i<removalCount; i++) {
-                  const { x, y } = opponentStones[i];
-                  animateStoneFly(x, y);
-                  grid[y][x] = STONE.empty;
-                }
+                
               },
               isDisabled: (p) => !gameActive.value 
                 || currentPlayer.value !== p.stone
@@ -600,22 +662,13 @@
 
           //Skills
           function useSkill(p, s) {
-            console.log('Use skill', p, s);
             if (!p || !s) return;
             if (s.mp > p.MP) return;
             boardEffect('shake');
             playSkillOverlay(s.name, () => {
-              try { 
-                if (typeof s.delayAction === 'function') s.delayAction(p); 
-              } catch (e) { 
-                console.error('Skill delayAction error', e); 
-              }
+              if (typeof s.delayAction === 'function') s.delayAction(p);
             });
-            try { 
-              if (typeof s.action === 'function') s.action(p); 
-            } catch (e) { 
-              console.error('Skill action error', e); 
-            }
+            if (typeof s.action === 'function') s.action(p);
             p.MP = Math.max(0, p.MP - s.mp);
             addXP(p, s.mp);
           }
@@ -626,6 +679,10 @@
               p.level++; 
               p.XP = p.XP - 100;
             } 
+          }
+          function addWinScore(winner) {
+            if (winner === STONE.black) blackScore.value++;
+            if (winner === STONE.white) whiteScore.value++;
           }
           function handleFeiShaZouShiClick(gx, gy) {
             if (!gameActive.value) return; 
@@ -759,8 +816,7 @@
 
           // Skill overlay + effects
           const overlay = reactive({ show:false, text:'', key:0 });
-          function boardEffect(type) { 
-            console.log('Board effect', type);
+          function boardEffect(type) {
             const el = boardEl.value; if(!el) return; 
             const cls = (type==='shake') ? 'effect-shake' : 'effect-pulse'; 
             const duration = (type==='shake') ? 450 : 700;
@@ -775,11 +831,7 @@
             overlay.show = true; 
             setTimeout(() => {
               overlay.show = false;
-              try {
-                if (typeof callback === 'function') callback();
-              } catch (e) {
-                console.error('Skill overlay callback error', e);
-              }
+              if (typeof callback === 'function') callback();
             }, 1600);
           }
 
@@ -825,6 +877,7 @@
                 winner.value = currentPlayer.value;
                 gameActive.value = false;
                 hint.show = false;
+                addWinScore(currentPlayer.value);
               }
               exchangeCurrentPlayer();
             }
@@ -922,6 +975,8 @@
             isDiaoChengLiShanActive,
             bgmPlaying,
             toggleBgm,
+            blackScore,
+            whiteScore,
           };
         }
       }).mount('#app');
