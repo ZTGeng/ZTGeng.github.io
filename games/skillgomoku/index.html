@@ -52,7 +52,7 @@
       button:disabled { opacity: .6; cursor: not-allowed; }
       button:active { transform: translateY(1px); }
 
-      .board-wrap { width: var(--board-size); height: var(--board-size); margin: 0 auto; position: relative; user-select: none; }
+      .board-wrap { width: var(--board-size); height: var(--board-size); margin: 0 auto; position: relative; user-select: none; overflow: hidden; }
       #table {
         width:100%;
         height:100%;
@@ -273,7 +273,7 @@
           box-shadow: 0 6px 24px 0 rgba(0,0,0,0.10);
         }
         55% {
-          transform: translateY(-60px) scaleX(1.12) scaleY(0.92) skewX(-2deg);
+          transform: translateY(-60px) scaleX(1.12) scaleY(1.12) skewX(0deg);
           box-shadow: 0 40px 60px 0 rgba(0,0,0,0.18);
         }
         70% {
@@ -290,19 +290,19 @@
         }
       }
       #board.board-drop-recover {
-        animation: board-drop-recover-anim 0.7s cubic-bezier(.7,0,1,1) forwards;
+        animation: board-drop-recover-anim 0.7s linear forwards;
       }
       @keyframes board-drop-recover-anim {
         0% {
-          transform: translateY(250px) scaleY(0.3) skewX(-16deg);
+          transform: translateY(250px) scaleX(1) scaleY(0.3) skewX(-16deg);
           box-shadow: 0 4px 12px 0 rgba(0,0,0,0.12);
         }
-        40% {
-          transform: translateY(120px) scaleY(1) skewX(0deg);
+        30% {
+          transform: translateY(80px) scaleX(1.12) scaleY(1.12) skewX(0deg);
           box-shadow: 0 24px 48px 0 rgba(0,0,0,0.10);
         }
-        85% {
-          transform: translateY(-80px);
+        90% {
+          transform: translateY(-20px) scaleX(1) scaleY(1);
           box-shadow: 0 6px 24px 0 rgba(0,0,0,0.10);
         }
         100% {
@@ -375,22 +375,22 @@
           <player-panel
             :player="playerBlack"
             :is-black="true"
-            :is-active="!gameActive || currentPlayer===STONE.black || !isQinNaSkillDisabled(playerBlack)"
+            :is-active="!gameActive || currentPlayer===playerBlack || !isQinNaSkillDisabled(playerBlack)"
             :skills="unlockedSkills(playerBlack)"
-            :is-frozen="isJingRuZhiShuiActive && currentPlayer===STONE.white"
-            :score="blackScore"
-            v-show="!isDiaoChengLiShanActive || currentPlayer===STONE.black"
+            :is-frozen="isJingRuZhiShuiActive && currentPlayer===playerWhite"
+            :score="playerBlack.score"
+            v-show="!isDiaoChengLiShanActive || currentPlayer===playerBlack"
             @use-skill="useSkill(playerBlack, $event)" />
         </div>
         <div id="player-white">
           <player-panel
             :player="playerWhite"
             :is-black="false"
-            :is-active="!gameActive || currentPlayer===STONE.white || !isQinNaSkillDisabled(playerWhite)"
+            :is-active="!gameActive || currentPlayer===playerWhite || !isQinNaSkillDisabled(playerWhite)"
             :skills="unlockedSkills(playerWhite)"
-            :is-frozen="isJingRuZhiShuiActive && currentPlayer===STONE.black"
-            :score="whiteScore"
-            v-show="!isDiaoChengLiShanActive || currentPlayer===STONE.white"
+            :is-frozen="isJingRuZhiShuiActive && currentPlayer===playerBlack"
+            :score="playerWhite.score"
+            v-show="!isDiaoChengLiShanActive || currentPlayer===playerWhite"
             @use-skill="useSkill(playerWhite, $event)" />
         </div>
         <div class="hint" v-show="hint.show" :style="hintStyle"></div>
@@ -398,7 +398,7 @@
       </div>
 
       <footer>
-        <div>{{ gameActive ? '当前：' + (currentPlayer===STONE.black? '黑棋':'白棋') : '' }}</div>
+        <div>{{ statusText }}</div>
         <div>© 2025 技能五子棋 by ZTGeng</div>
       </footer>
     </div>
@@ -471,15 +471,13 @@
           const wrapEl = ref(null);
           const boardEl = ref(null);
           const grid = reactive(Array.from({length:BOARD_SIZE},()=>Array(BOARD_SIZE).fill(STONE.empty)));
-          const currentPlayer = ref(STONE.black);
           const gameActive = ref(false);
           const hasStarted = ref(false);
+          
+          const playerBlack = reactive({ stone: STONE.black, title: '黑棋', isBlack: true, level: 3, XP: 0, MP: 50, score: 0 });
+          const playerWhite = reactive({ stone: STONE.white, title: '白棋', isBlack: false, level: 3, XP: 0, MP: 50, score: 0 });
+          const currentPlayer = ref(playerBlack);
           const winner = ref(null);
-
-          const playerBlack = reactive({ stone: STONE.black, title:'黑方', level:1, XP:0, MP:0 });
-          const playerWhite = reactive({ stone: STONE.white, title:'白方', level:1, XP:0, MP:0 });
-          const blackScore = ref(0);
-          const whiteScore = ref(0);
 
           const isFeiShaZouShiActive = ref(false);
           const isJingRuZhiShuiActive = ref(false);
@@ -493,9 +491,10 @@
               action: (p)=>{ 
                 if (!gameActive.value) return; 
                 isFeiShaZouShiActive.value = true; 
+                tempStatusText.value = `选择要移除的${(currentPlayer.value === playerBlack ? '白' : '黑')}棋棋子。`;
               },
               isDisabled: (p) => !gameActive.value 
-                || currentPlayer.value !== p.stone
+                || currentPlayer.value !== p
                 || (p.MP < 5)
                 || [isFeiShaZouShiActive, isLiBaShanXiActive, isDiaoChengLiShanActive, isBaoJieShangMenActive].some(s=>s.value)
                 || stones.value.filter(s=>s.val !== p.stone).length === 0,
@@ -507,8 +506,8 @@
                 isJingRuZhiShuiActive.value = true; 
               },
               isDisabled: (p) => !gameActive.value 
-                || currentPlayer.value !== p.stone
-                || (p.MP < 20)
+                || currentPlayer.value !== p
+                || (p.MP < 10)
                 || [isFeiShaZouShiActive, isJingRuZhiShuiActive, isLiBaShanXiActive, isDiaoChengLiShanActive, isBaoJieShangMenActive].some(s=>s.value),
             },
             { 
@@ -516,17 +515,19 @@
               action: (p)=>{
                 if (!gameActive.value) return; 
                 isLiBaShanXiActive.value = true;
+                tempStatusText.value = '超杀必胜技：力拔山兮！';
               },
               delayAction: ()=>{
                 animateBoardDrop(() => {
                   winner.value = currentPlayer.value;
-                  (winner.value === STONE.black ? blackScore : whiteScore).value += 1;
+                  winner.value.score += 1;
                   gameActive.value = false;
                   exchangeCurrentPlayer();
+                  tempStatusText.value = ``;
                 });
               },
               isDisabled: (p) => !gameActive.value 
-                || currentPlayer.value !== p.stone
+                || currentPlayer.value !== p
                 || (p.MP < 50)
                 || [isFeiShaZouShiActive, isJingRuZhiShuiActive, isLiBaShanXiActive, isDiaoChengLiShanActive, isBaoJieShangMenActive].some(s=>s.value),
             },
@@ -534,8 +535,10 @@
               name:'东山再起', mp:50, minLevel:1, description:'最终奥义，破解对手的超杀必胜技！',
               delayAction: (p)=>{
                 animateBoardRecover(() => {
-                  const fakeWinner = winner.value === STONE.black ? blackScore : whiteScore;
-                  if (fakeWinner.value > 0) fakeWinner.value -= 1;
+                  if (winner.value !== null && winner.value.score > 0) {
+                    tempStatusText.value = `${winner.value.title}没有胜利！`;
+                    winner.value.score -= 1;
+                  }
                   winner.value = null;
                   gameActive.value = true;
                   isLiBaShanXiActive.value = false;
@@ -552,6 +555,7 @@
                 if (!gameActive.value) return; 
                 isFeiShaZouShiActive.value = false;
                 exchangeCurrentPlayer();
+                tempStatusText.value = `${currentPlayer.value.title}使用擒拿破解了飞沙走石`;
               },
               isDisabled: isQinNaSkillDisabled,
             },
@@ -559,10 +563,11 @@
               name:'调呈离山', mp:30, minLevel:2, description:'顾名思义，就是调走张呈，离开山。东。',
               action: (p)=>{
                 if (!gameActive.value) return; 
-                isDiaoChengLiShanActive.value = true; 
+                isDiaoChengLiShanActive.value = true;
+                tempStatusText.value = `选择要移除的三颗${(currentPlayer.value === playerBlack ? '白' : '黑')}棋棋子`;
               },
               isDisabled: (p) => !gameActive.value 
-                || currentPlayer.value !== p.stone
+                || currentPlayer.value !== p
                 || (p.MP < 30)
                 || [isFeiShaZouShiActive, isLiBaShanXiActive, isDiaoChengLiShanActive, isBaoJieShangMenActive].some(s=>s.value)
                 || stones.value.filter(s=>s.val !== p.stone).length === 0,
@@ -586,11 +591,13 @@
 
                   isBaoJieShangMenActive.value = false;
                   exchangeCurrentPlayer();
+                  const removalCountText = removalCount === 2 ? '两' : removalCount === 3 ? '三' : removalCount === 4 ? '四' : removalCount;
+                  tempStatusText.value = `${currentPlayer.value.title}好像少了${removalCountText}颗棋子`;
                 });
                 
               },
               isDisabled: (p) => !gameActive.value 
-                || currentPlayer.value !== p.stone
+                || currentPlayer.value !== p
                 || (p.MP < 30)
                 || [isFeiShaZouShiActive, isLiBaShanXiActive, isDiaoChengLiShanActive, isBaoJieShangMenActive].some(s=>s.value)
                 || stones.value.filter(s=>s.val !== p.stone).length === 0,
@@ -611,7 +618,8 @@
           const unlockedSkills = (p)=>skills.filter(s=>p.level>=s.minLevel);
           function isQinNaSkillDisabled(p) {
             return !gameActive.value 
-              || currentPlayer.value === p.stone
+              || currentPlayer.value === p
+              || p.level < 2
               || (p.MP < 5)
               || isJingRuZhiShuiActive.value
               || !isFeiShaZouShiActive.value;
@@ -671,7 +679,7 @@
             if (!gameActive.value) return false; 
             if (gx < 0 || gx >= BOARD_SIZE || gy < 0 || gy >= BOARD_SIZE) return false; 
             if (grid[gy][gx] !== STONE.empty) return false; 
-            grid[gy][gx] = currentPlayer.value; 
+            grid[gy][gx] = currentPlayer.value.stone; 
             return true; 
           }
           const hint = reactive({ show: false, left: 0, top: 0 });
@@ -684,8 +692,8 @@
               } : {
                 left: hint.left + 'px', 
                 top: hint.top + 'px', 
-                background: currentPlayer.value === STONE.black ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.65)', 
-                border: currentPlayer.value === STONE.black ? '1px solid rgba(0,0,0,0.35)' : '1px solid rgba(0,0,0,0.15)'
+                background: currentPlayer.value === playerBlack ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.65)', 
+                border: currentPlayer.value === playerBlack ? '1px solid rgba(0,0,0,0.35)' : '1px solid rgba(0,0,0,0.15)'
               })
           );
 
@@ -709,36 +717,36 @@
               p.XP = p.XP - 100;
             } 
           }
-          function addWinScore(winner) {
-            if (winner === STONE.black) blackScore.value++;
-            if (winner === STONE.white) whiteScore.value++;
-          }
           function handleFeiShaZouShiClick(gx, gy) {
             if (!gameActive.value) return; 
             if (gx < 0 || gx >= BOARD_SIZE || gy < 0 || gy >= BOARD_SIZE) return; 
             if (grid[gy][gx] === STONE.empty) return; 
-            if (grid[gy][gx] === currentPlayer.value) return;
+            if (grid[gy][gx] === currentPlayer.value.stone) return;
             animateStoneRemoval(gx, gy);
             // Remove stone from board
             grid[gy][gx] = STONE.empty;
             isFeiShaZouShiActive.value = false;
+            tempStatusText.value = '';
             exchangeCurrentPlayer();
           }
           function handleDiaoChengLiShanClick(gx, gy) {
             if (!gameActive.value) return; 
             if (gx < 0 || gx >= BOARD_SIZE || gy < 0 || gy >= BOARD_SIZE) return; 
             if (grid[gy][gx] === STONE.empty) return; 
-            if (grid[gy][gx] === currentPlayer.value) return;
+            if (grid[gy][gx] === currentPlayer.value.stone) return;
             animateStoneRemoval(gx, gy);
             // Remove stone from board
             grid[gy][gx] = STONE.empty;
             diaoChengLiShanRemovalCount.value++;
             if (diaoChengLiShanRemovalCount.value >= 3
-              || stones.value.filter(s=>s.val !== currentPlayer.value).length === 0
+              || stones.value.filter(s=>s.val !== currentPlayer.value.stone).length === 0
             ) {
               isDiaoChengLiShanActive.value = false;
               diaoChengLiShanRemovalCount.value = 0;
               exchangeCurrentPlayer();
+              tempStatusText.value = '';
+            } else {
+              tempStatusText.value = `选择要移除的${diaoChengLiShanRemovalCount.value === 1 ? '两颗' : ''}${(currentPlayer.value === playerBlack ? '白' : '黑')}棋棋子`;
             }
           }
           function animateStoneRemoval(gx, gy) {
@@ -866,7 +874,7 @@
 
           // Game logic
           function exchangeCurrentPlayer() { 
-            currentPlayer.value = currentPlayer.value === STONE.black ? STONE.white : STONE.black;
+            currentPlayer.value = currentPlayer.value === playerBlack ? playerWhite : playerBlack;
             isJingRuZhiShuiActive.value = false;
           }
           function checkWinFrom(gx, gy) { 
@@ -898,17 +906,15 @@
               return;
             }
             if (placeStoneAt(gx, gy)) {
-              // playerBlack.MP = Math.min(playerBlack.MP + MP_DELTA, MP_MAX);
-              // playerWhite.MP = Math.min(playerWhite.MP + MP_DELTA, MP_MAX);
-              const currentP = currentPlayer.value === STONE.black ? playerBlack : playerWhite;
-              currentP.MP = Math.min(currentP.MP + MP_DELTA, MP_MAX);
+              currentPlayer.value.MP = Math.min(currentPlayer.value.MP + MP_DELTA, MP_MAX);
               if (checkWinFrom(gx, gy)) {
                 winner.value = currentPlayer.value;
                 gameActive.value = false;
                 hint.show = false;
-                addWinScore(currentPlayer.value);
+                currentPlayer.value.score += 1;
               }
               exchangeCurrentPlayer();
+              if (tempStatusText.value) tempStatusText.value = '';
             }
           }
           function handleBoardMove(evt) { 
@@ -920,7 +926,7 @@
               return; 
             }
             if (isFeiShaZouShiActive.value || isDiaoChengLiShanActive.value) { 
-              if (grid[gy][gx] === STONE.empty || grid[gy][gx] === currentPlayer.value) { 
+              if (grid[gy][gx] === STONE.empty || grid[gy][gx] === currentPlayer.value.stone) { 
                 hint.show = false; 
                 return; 
               } 
@@ -942,7 +948,7 @@
             for (let y = 0; y < BOARD_SIZE; y++) 
               for (let x = 0; x < BOARD_SIZE; x++) 
                 grid[y][x] = STONE.empty; 
-            currentPlayer.value = STONE.black; 
+            currentPlayer.value = playerBlack; 
             gameActive.value = true; 
             hasStarted.value = true;
             winner.value = null;
@@ -960,10 +966,12 @@
             }
           }
           function restartGame() { startGame(); }
-          const statusText = computed(() => { 
-            if (!hasStarted.value) return '点击“开始”开局，黑棋先行'; 
-            if (!gameActive.value && winner.value) return (winner.value === STONE.black ? '黑棋' : '白棋') + '胜利！'; 
-            return '轮到' + (currentPlayer.value === STONE.black ? '黑棋' : '白棋') + '落子'; 
+          const tempStatusText = ref('');
+          const statusText = computed(() => {
+            if (tempStatusText.value) return tempStatusText.value;
+            if (!hasStarted.value) return '点击“开始”开始'; 
+            if (!gameActive.value && winner.value) return (winner.value.title) + '胜利！'; 
+            return '轮到' + (currentPlayer.value.title); 
           });
           const bgmPlaying = ref(false);
           function toggleBgm() {
@@ -1004,8 +1012,6 @@
             isDiaoChengLiShanActive,
             bgmPlaying,
             toggleBgm,
-            blackScore,
-            whiteScore,
             isQinNaSkillDisabled,
           };
         }
