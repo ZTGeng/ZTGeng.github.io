@@ -491,7 +491,7 @@
               action: (p)=>{ 
                 if (!gameActive.value) return; 
                 isFeiShaZouShiActive.value = true; 
-                tempStatusText.value = `选择要移除的${(currentPlayer.value === playerBlack ? '白' : '黑')}棋棋子。`;
+                tempStatusText.value = `选择要移除的${(currentPlayer.value === playerBlack ? '白' : '黑')}棋棋子`;
               },
               isDisabled: (p) => !gameActive.value 
                 || currentPlayer.value !== p
