@@ -474,8 +474,8 @@
           const gameActive = ref(false);
           const hasStarted = ref(false);
           
-          const playerBlack = reactive({ stone: STONE.black, title: '黑棋', isBlack: true, level: 3, XP: 0, MP: 50, score: 0 });
-          const playerWhite = reactive({ stone: STONE.white, title: '白棋', isBlack: false, level: 3, XP: 0, MP: 50, score: 0 });
+          const playerBlack = reactive({ stone: STONE.black, title: '黑棋', isBlack: true, level: 1, XP: 0, MP: 0, score: 0 });
+          const playerWhite = reactive({ stone: STONE.white, title: '白棋', isBlack: false, level: 1, XP: 0, MP: 0, score: 0 });
           const currentPlayer = ref(playerBlack);
           const winner = ref(null);
 
