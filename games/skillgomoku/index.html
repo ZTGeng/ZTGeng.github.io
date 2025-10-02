@@ -16,6 +16,23 @@
         place-items: center;
         background: #f4f7f8;
       }
+      .breadcrumb {
+        width: 100%;
+        max-width: calc(var(--board-size) + 32px);
+        margin: 0 auto 8px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: var(--muted);
+        gap: 8px;
+      }
+      .breadcrumb a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .breadcrumb span {
+        margin: 0 4px;
+      }
       .app { width: 100%; max-width: calc(var(--board-size) + 32px); padding: 16px; display: grid; grid-template-columns: 1fr; gap: 12px; }
       header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
       .title { font-size: 1.25rem; font-weight: 700; }
@@ -311,6 +328,15 @@
     </style>
   </head>
   <body>
+    <!-- Breadcrumb navigation -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">首页</a>
+      <span>|</span>
+      <a href="/games/">游戏</a>
+      <span>|</span>
+      <span style="color:var(--text);font-weight:600;">技能五子棋</span>
+    </nav>
+
     <div id="app" class="app" v-cloak>
       <header>
         <div class="title">技能五子棋</div>
@@ -349,7 +375,7 @@
           <player-panel
             :player="playerBlack"
             :is-black="true"
-            :is-active="!gameActive || currentPlayer===STONE.black"
+            :is-active="!gameActive || currentPlayer===STONE.black || !isQinNaSkillDisabled(playerBlack)"
             :skills="unlockedSkills(playerBlack)"
             :is-frozen="isJingRuZhiShuiActive && currentPlayer===STONE.white"
             :score="blackScore"
@@ -360,7 +386,7 @@
           <player-panel
             :player="playerWhite"
             :is-black="false"
-            :is-active="!gameActive || currentPlayer===STONE.white"
+            :is-active="!gameActive || currentPlayer===STONE.white || !isQinNaSkillDisabled(playerWhite)"
             :skills="unlockedSkills(playerWhite)"
             :is-frozen="isJingRuZhiShuiActive && currentPlayer===STONE.black"
             :score="whiteScore"
@@ -372,8 +398,8 @@
       </div>
 
       <footer>
-        <div>规则：黑白轮流落子，五子连线即胜。</div>
         <div>{{ gameActive ? '当前：' + (currentPlayer===STONE.black? '黑棋':'白棋') : '' }}</div>
+        <div>© 2025 技能五子棋 by ZTGeng</div>
       </footer>
     </div>
 
@@ -527,11 +553,7 @@
                 isFeiShaZouShiActive.value = false;
                 exchangeCurrentPlayer();
               },
-              isDisabled: (p) => !gameActive.value 
-                || currentPlayer.value === p.stone
-                || (p.MP < 5)
-                || isJingRuZhiShuiActive.value
-                || !isFeiShaZouShiActive.value,
+              isDisabled: isQinNaSkillDisabled,
             },
             { 
               name:'调呈离山', mp:30, minLevel:2, description:'顾名思义，就是调走张呈，离开山。东。',
@@ -587,6 +609,13 @@
             },
           ];
           const unlockedSkills = (p)=>skills.filter(s=>p.level>=s.minLevel);
+          function isQinNaSkillDisabled(p) {
+            return !gameActive.value 
+              || currentPlayer.value === p.stone
+              || (p.MP < 5)
+              || isJingRuZhiShuiActive.value
+              || !isFeiShaZouShiActive.value;
+          };
 
           const MP_MAX = 50;
           const MP_DELTA = 5;
@@ -977,6 +1006,7 @@
             toggleBgm,
             blackScore,
             whiteScore,
+            isQinNaSkillDisabled,
           };
         }
       }).mount('#app');
