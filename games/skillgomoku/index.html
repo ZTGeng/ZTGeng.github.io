@@ -142,15 +142,29 @@
         box-shadow:0 4px 10px rgba(0,0,0,.05);
         transition: box-shadow .15s ease, transform .12s ease;
       }
+      .player.level-max {
+        background: linear-gradient(180deg, rgba(255,60,60,1) 0%, rgba(255,240,240,1) 100%);
+        box-shadow:
+          0 0 0 8px rgba(255,60,60,0.10) inset,
+          0 8px 32px 0 rgba(255,60,60,0.18),
+          0 2px 16px 0 rgba(0,0,0,0.22);
+        border: 1px solid #ff6060;
+        position: relative;
+      }
+      .player.level-max .skill {
+        box-shadow: 0 4px 18px 0 rgba(255,60,60,0.22), 0 4px 8px 0 rgba(0,0,0,0.42);
+        position: relative;
+        z-index: 2;
+      }
       .player:not(:hover) > :not(.head):not(.xp):not(.ice-overlay) { display:none; }
-      .player:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,.12); z-index:3; }
+      .player:hover { transform: translateY(-8px); box-shadow: 0 8px 18px rgba(0,0,0,.12); z-index:3; }
       .player.inactive { opacity: .55; filter: grayscale(.3); }
       .player.active { opacity: 1; filter: none; }
 
       .player .head { display: flex; align-items: center; justify-content: flex-start; margin-bottom: 6px; }
       .player .title { font-weight: 700; }
       .player .mp { font-size: 12px; color: #334; margin-left: 12px; }
-      .player .lv { margin-left: auto; color: #607075; font-size: 12px; }
+      .player .lv { margin-left: auto; color: #334; font-size: 12px; }
       .player .xp { margin: 6px 0 8px; }
       .player .xp .bar { height: 8px; background: #eef4f5; border-radius: 6px; overflow: hidden; }
       .player .xp .fill { height: 100%; background: #7bb4b0; width: 0%; transition: width .2s ease; }
@@ -178,6 +192,7 @@
       .skill .head { display: flex; align-items: center; justify-content: space-between; width: 100%; }
       .skill .cost { color: #666; }
       .skill .description { font-size: 10px; color: #888; margin-top: 2px; }
+      .skill.passive { pointer-events: none; cursor: default; opacity: 1; }
 
       /* Skill cinematic overlay */
       .skill-overlay { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; z-index: 4; }
@@ -421,7 +436,11 @@
             },
             emits: ['use-skill'],
             template: `
-              <div class="player" :class="[isActive ? 'active' : 'inactive']">
+              <div class="player"
+                :class="[
+                  isActive ? 'active' : 'inactive',
+                  player.level >= 3 ? 'level-max' : ''
+                ]">
                 <div v-if="isFrozen" class="ice-overlay"></div>
                 <div class="head">
                   <div class="title">{{ player.title }}</div>
@@ -451,7 +470,10 @@
                 props: { skill: { type: Object, required: true }, disabled: { type: Boolean, default: false } },
                 emits: ['use'],
                 template: `
-                  <button class="skill" :disabled="disabled" @click="$emit('use')">
+                  <button class="skill"
+                    :class="{ passive: skill.passive }"
+                    :disabled="disabled"
+                    @click="!skill.passive && !disabled && $emit('use')">
                     <div class="head">
                       <span>{{ skill.name }}</span>
                       <span class="cost">MP {{ skill.mp }}</span>
@@ -604,11 +626,13 @@
             },
             { 
               name:'拾金不昧（被动）', mp:0, minLevel:3, description:'？？？',
-              isDisabled: (p) => true
+              passive: true,
+              isDisabled: (p) => false
              },
             { 
               name:'水滴石穿（被动）', mp:0, minLevel:3, description:'？？？',
-              isDisabled: (p) => true
+              passive: true,
+              isDisabled: (p) => false
             },
             { 
               name:'两极反转', mp:50, minLevel:3, description:'？？？',
