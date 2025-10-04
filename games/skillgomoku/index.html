@@ -498,6 +498,7 @@
           
           const playerBlack = reactive({ stone: STONE.black, title: '黑棋', isBlack: true, level: 1, XP: 0, MP: 0, score: 0 });
           const playerWhite = reactive({ stone: STONE.white, title: '白棋', isBlack: false, level: 1, XP: 0, MP: 0, score: 0 });
+          const opponentOf = (p) => (p === playerBlack ? playerWhite : playerBlack);
           const currentPlayer = ref(playerBlack);
           const winner = ref(null);
 
@@ -511,9 +512,15 @@
             { 
               name:'飞沙走石', mp:5, minLevel:1, description:'顾名思义，就是把对手的棋子直接扔进：什刹海！', 
               action: (p)=>{ 
-                if (!gameActive.value) return; 
-                isFeiShaZouShiActive.value = true; 
-                tempStatusText.value = `选择要移除的${(currentPlayer.value === playerBlack ? '白' : '黑')}棋棋子`;
+                if (!gameActive.value) return;
+                tempStatusText.value = `选择要移除的${opponentOf(p).title}棋子`;
+              },
+              delayAction: (p)=>{
+                if (opponentOf(p).level >= 3) {
+                  useSkill(opponentOf(p), skills.find(s=>s.name === '拾金不昧'));
+                } else {
+                  isFeiShaZouShiActive.value = true; 
+                }
               },
               isDisabled: (p) => !gameActive.value 
                 || currentPlayer.value !== p
@@ -527,6 +534,11 @@
                 if (!gameActive.value) return; 
                 isJingRuZhiShuiActive.value = true; 
               },
+              delayAction: (p)=>{
+                if (opponentOf(p).level >= 3) {
+                  useSkill(opponentOf(p), skills.find(s=>s.name === '水滴石穿'));
+                }
+              },
               isDisabled: (p) => !gameActive.value 
                 || currentPlayer.value !== p
                 || (p.MP < 10)
@@ -539,9 +551,9 @@
                 isLiBaShanXiActive.value = true;
                 tempStatusText.value = '超杀必胜技：力拔山兮！';
               },
-              delayAction: ()=>{
+              delayAction: (p)=>{
                 animateBoardDrop(() => {
-                  winner.value = currentPlayer.value;
+                  winner.value = p;
                   winner.value.score += 1;
                   gameActive.value = false;
                   exchangeCurrentPlayer();
@@ -584,9 +596,9 @@
             { 
               name:'调呈离山', mp:30, minLevel:2, description:'顾名思义，就是调走张呈，离开山。东。',
               action: (p)=>{
-                if (!gameActive.value) return; 
+                if (!gameActive.value) return;
                 isDiaoChengLiShanActive.value = true;
-                tempStatusText.value = `选择要移除的三颗${(currentPlayer.value === playerBlack ? '白' : '黑')}棋棋子`;
+                tempStatusText.value = `选择要移除的三颗${opponentOf(p).title}棋子`;
               },
               isDisabled: (p) => !gameActive.value 
                 || currentPlayer.value !== p
@@ -614,7 +626,7 @@
                   isBaoJieShangMenActive.value = false;
                   exchangeCurrentPlayer();
                   const removalCountText = removalCount === 2 ? '两' : removalCount === 3 ? '三' : removalCount === 4 ? '四' : removalCount;
-                  tempStatusText.value = `${currentPlayer.value.title}好像少了${removalCountText}颗棋子`;
+                  tempStatusText.value = `${opponentOf(p).title}好像少了${removalCountText}颗棋子`;
                 });
                 
               },
@@ -625,13 +637,29 @@
                 || stones.value.filter(s=>s.val !== p.stone).length === 0,
             },
             { 
-              name:'拾金不昧（被动）', mp:0, minLevel:3, description:'？？？',
+              name:'拾金不昧', mp:0, minLevel:3, description:'被动技，克制飞沙走石',
               passive: true,
+              action: (p)=>{
+                if (!gameActive.value) return; 
+                isFeiShaZouShiActive.value = false;
+                tempStatusText.value = `${p.title}使用拾金不昧破解了飞沙走石`;
+              },
+              delayAction: (p)=>{
+                tempStatusText.value = ``;
+              },
               isDisabled: (p) => false
              },
             { 
-              name:'水滴石穿（被动）', mp:0, minLevel:3, description:'？？？',
+              name:'水滴石穿', mp:0, minLevel:3, description:'被动技，克制静如止水',
               passive: true,
+              action: (p)=>{
+                if (!gameActive.value) return;
+                isJingRuZhiShuiActive.value = false;
+                tempStatusText.value = `${p.title}使用水滴石穿破解了静如止水`;
+              },
+              delayAction: (p)=>{
+                tempStatusText.value = ``;
+              },
               isDisabled: (p) => false
             },
             { 
@@ -770,7 +798,7 @@
               exchangeCurrentPlayer();
               tempStatusText.value = '';
             } else {
-              tempStatusText.value = `选择要移除的${diaoChengLiShanRemovalCount.value === 1 ? '两颗' : ''}${(currentPlayer.value === playerBlack ? '白' : '黑')}棋棋子`;
+              tempStatusText.value = `选择要移除的${diaoChengLiShanRemovalCount.value === 1 ? '两颗' : ''}${(opponentOf(currentPlayer.value).title)}棋子`;
             }
           }
           function animateStoneRemoval(gx, gy) {
@@ -898,7 +926,7 @@
 
           // Game logic
           function exchangeCurrentPlayer() { 
-            currentPlayer.value = currentPlayer.value === playerBlack ? playerWhite : playerBlack;
+            currentPlayer.value = opponentOf(currentPlayer.value);
             isJingRuZhiShuiActive.value = false;
           }
           function checkWinFrom(gx, gy) { 
@@ -933,9 +961,9 @@
               currentPlayer.value.MP = Math.min(currentPlayer.value.MP + MP_DELTA, MP_MAX);
               if (checkWinFrom(gx, gy)) {
                 winner.value = currentPlayer.value;
+                winner.value.score += 1;
                 gameActive.value = false;
                 hint.show = false;
-                currentPlayer.value.score += 1;
               }
               exchangeCurrentPlayer();
               if (tempStatusText.value) tempStatusText.value = '';
