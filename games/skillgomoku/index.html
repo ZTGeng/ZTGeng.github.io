@@ -436,6 +436,7 @@
     </div>
 
     <audio id="bgm-audio" src="./assets/gomoku-bgm.mp3" loop preload="auto"></audio>
+    <audio id="hit-sound" src="./assets/baseball-hit.wav" preload="auto"></audio>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <script>
@@ -513,7 +514,7 @@
           const gameActive = ref(false);
           const hasStarted = ref(false);
           
-          const playerBlack = reactive({ stone: STONE.black, title: '黑棋', isBlack: true, level: 3, XP: 0, MP: 50, score: 0 });
+          const playerBlack = reactive({ stone: STONE.black, title: '黑棋', isBlack: true, level: 1, XP: 0, MP: 0, score: 0 });
           const playerWhite = reactive({ stone: STONE.white, title: '白棋', isBlack: false, level: 1, XP: 0, MP: 0, score: 0 });
           const opponentOf = (p) => (p === playerBlack ? playerWhite : playerBlack);
           const currentPlayer = ref(playerBlack);
@@ -791,12 +792,18 @@
             if (gx < 0 || gx >= BOARD_SIZE || gy < 0 || gy >= BOARD_SIZE) return; 
             if (grid[gy][gx] === STONE.empty) return; 
             if (grid[gy][gx] === currentPlayer.value.stone) return;
-            animateStoneRemoval(gx, gy, true);
+            const shouldBaseballHit = Math.random() < 0.5;
+            animateStoneRemoval(gx, gy, shouldBaseballHit);
             // Remove stone from board
             grid[gy][gx] = STONE.empty;
             isFeiShaZouShiActive.value = false;
-            tempStatusText.value = '';
-            exchangeCurrentPlayer();
+            
+            if (shouldBaseballHit) {
+              tempStatusText.value = '呀嘞呀嘞';
+            } else {
+              tempStatusText.value = '';
+              exchangeCurrentPlayer();
+            }
           }
           function handleDiaoChengLiShanClick(gx, gy) {
             if (!gameActive.value) return; 
@@ -854,9 +861,7 @@
                 floatStone.style.top = hitY + 'px';
                 floatStone.classList.add('stone-fx-baseball-hit');
 
-                const audio = document.createElement('audio');
-                audio.src = './assets/baseball-hit.mp3';
-                audio.volume = 0.7;
+                const audio = document.getElementById('hit-sound');
                 audio.play();
 
                 setTimeout(() => {
