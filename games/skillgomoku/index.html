@@ -792,14 +792,14 @@
             if (gx < 0 || gx >= BOARD_SIZE || gy < 0 || gy >= BOARD_SIZE) return; 
             if (grid[gy][gx] === STONE.empty) return; 
             if (grid[gy][gx] === currentPlayer.value.stone) return;
-            const shouldBaseballHit = Math.random() < 0.5;
+            const shouldBaseballHit = Math.random() < 0.1;
             animateStoneRemoval(gx, gy, shouldBaseballHit);
             // Remove stone from board
             grid[gy][gx] = STONE.empty;
             isFeiShaZouShiActive.value = false;
             
             if (shouldBaseballHit) {
-              tempStatusText.value = '呀嘞呀嘞';
+              tempStatusText.value = `呀嘞呀嘞（还是${currentPlayer.value.title}）`;
             } else {
               tempStatusText.value = '';
               exchangeCurrentPlayer();
