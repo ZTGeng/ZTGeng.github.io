@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
@@ -52,7 +52,7 @@
       button:disabled { opacity: .6; cursor: not-allowed; }
       button:active { transform: translateY(1px); }
 
-      .board-wrap { width: var(--board-size); height: var(--board-size); margin: 0 auto; position: relative; user-select: none; overflow: hidden; }
+      .board-wrap { width: var(--board-size); height: var(--board-size); margin: 0 auto; position: relative; user-select: none; }
       #table {
         width:100%;
         height:100%;
@@ -219,15 +219,15 @@
       }
 
       @keyframes skill-enter { 
-        0% { opacity:0; transform: scale(.2) rotate(-8deg); filter: blur(6px); } 
-        20% { opacity:1; transform: scale(1.08) rotate(0deg); filter: blur(0); } 
-        60% { transform: scale(1); } 
-        100% { opacity:0; transform: scale(1.12); } 
+        0% { opacity:0; transform: scaleX(.2) rotate(-8deg); filter: blur(6px); } 
+        20% { opacity:1; transform: scaleX(1.08) rotate(0deg); filter: blur(0); } 
+        60% { transform: scaleX(1); } 
+        100% { opacity:0; transform: scaleX(1.12); } 
       }
       @keyframes burst-fade { 
-        0% { opacity:.9; transform: scale(.6); } 
-        50% { opacity:.6; transform: scale(1.1);} 
-        100% { opacity:0; transform: scale(1.25);} 
+        0% { opacity:.9; transform: scaleX(.6); } 
+        50% { opacity:.6; transform: scaleX(1.1);} 
+        100% { opacity:0; transform: scaleX(1.25);} 
       }
       /* Board micro effects for skill actions */
       @keyframes shake { 
@@ -255,14 +255,31 @@
       }
       @keyframes stone-throw-anim {
         0% { transform: scale(1) translateX(0); opacity: 1; }
-        60% { transform: scale(3) translateX(-60px); opacity: 1; }
-        70% { transform: scale(3) translateX(160px); opacity: 1; }
-        100% { transform: scale(3) translateX(160px); opacity: 0; }
+        70% { transform: scale(3) translateX(-60px); }
+        90% { opacity: 1; }
+        100% { transform: scale(2) translateX(300px); opacity: 0; }
+      }
+      .stone-fx-baseball-hit {
+        animation: stone-baseball-hit-anim 0.5s cubic-bezier(0.2,1.2,.4,1) forwards;
+      }
+      @keyframes stone-baseball-hit-anim {
+        0% { transform: scale(2) translate(0, 0) rotate(0deg); opacity: 1; }
+        80% { opacity: 1; }
+        100% { transform: scale(2) translate(-500px, -250px) rotate(360deg); opacity: 0; }
       }
       @keyframes stone-fly-anim {
         0% { transform: translate(0,0) scale(1) rotate(0deg); opacity: 1; }
         80% { opacity: 1; }
         100% { transform: translate(var(--fly-x, 0px), var(--fly-y, -300px)) scale(1.1) rotate(360deg); opacity: 0; }
+      }
+      .baseball-bat-fx-swing {
+        animation: baseball-bat-swing-anim 0.3s cubic-bezier(0.2, 0.8, 0.4, 1) forwards;
+      }
+      @keyframes baseball-bat-swing-anim {
+        0% { opacity: 0; transform: rotate(-255deg) translateY(-100px); }
+        20% { opacity: 1; }
+        80% { opacity: 1; }
+        100% { opacity: 0; transform: rotate(35deg) translateY(0); }
       }
       .ice-overlay {
         position: absolute;
@@ -496,7 +513,7 @@
           const gameActive = ref(false);
           const hasStarted = ref(false);
           
-          const playerBlack = reactive({ stone: STONE.black, title: '黑棋', isBlack: true, level: 1, XP: 0, MP: 0, score: 0 });
+          const playerBlack = reactive({ stone: STONE.black, title: '黑棋', isBlack: true, level: 3, XP: 0, MP: 50, score: 0 });
           const playerWhite = reactive({ stone: STONE.white, title: '白棋', isBlack: false, level: 1, XP: 0, MP: 0, score: 0 });
           const opponentOf = (p) => (p === playerBlack ? playerWhite : playerBlack);
           const currentPlayer = ref(playerBlack);
@@ -774,7 +791,7 @@
             if (gx < 0 || gx >= BOARD_SIZE || gy < 0 || gy >= BOARD_SIZE) return; 
             if (grid[gy][gx] === STONE.empty) return; 
             if (grid[gy][gx] === currentPlayer.value.stone) return;
-            animateStoneRemoval(gx, gy);
+            animateStoneRemoval(gx, gy, true);
             // Remove stone from board
             grid[gy][gx] = STONE.empty;
             isFeiShaZouShiActive.value = false;
@@ -801,7 +818,7 @@
               tempStatusText.value = `选择要移除的${diaoChengLiShanRemovalCount.value === 1 ? '两颗' : ''}${(opponentOf(currentPlayer.value).title)}棋子`;
             }
           }
-          function animateStoneRemoval(gx, gy) {
+          function animateStoneRemoval(gx, gy, shouldAnimateBaseball=false) {
             const { rect, margin, step } = getMetrics();
             const { x: cx, y: cy } = gridToWrapXY(gx, gy);
             const stoneType = grid[gy][gx];
@@ -816,10 +833,40 @@
             floatStone.style.pointerEvents = 'none';
             floatStone.style.zIndex = 10;
             wrapEl.value.appendChild(floatStone);
-            // Remove after animation
+
             setTimeout(() => {
-              if (floatStone.parentNode) floatStone.parentNode.removeChild(floatStone);
-            }, 500);
+              if (shouldAnimateBaseball) {
+                const hitX = wrapEl.value.getBoundingClientRect().width - step;
+                const hitY = cy - step;
+
+                const bat = document.createElement('img');
+                bat.src = './assets/baseball-bat.png';
+                bat.className = 'baseball-bat-fx-swing';
+                bat.style.position = 'absolute';
+                bat.style.left = hitX + 'px';
+                bat.style.top = (hitY - 50) + 'px';
+                bat.style.zIndex = 20;
+                bat.style.pointerEvents = 'none';
+                wrapEl.value.appendChild(bat);
+
+                floatStone.classList.remove('stone-fx-throw');
+                floatStone.style.left = hitX + 'px';
+                floatStone.style.top = hitY + 'px';
+                floatStone.classList.add('stone-fx-baseball-hit');
+
+                const audio = document.createElement('audio');
+                audio.src = './assets/baseball-hit.mp3';
+                audio.volume = 0.7;
+                audio.play();
+
+                setTimeout(() => {
+                  if (floatStone.parentNode) floatStone.parentNode.removeChild(floatStone);
+                  if (bat.parentNode) bat.parentNode.removeChild(bat);
+                }, 500);
+              } else {
+                if (floatStone.parentNode) floatStone.parentNode.removeChild(floatStone);
+              }
+            }, 700);
           }
           function animateStoneFly(gx, gy) {
             const { rect, margin, step } = getMetrics();
