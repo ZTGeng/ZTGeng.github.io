@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Useless</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #dbe3ee;
+      --accent: #2f6fed;
+      --disabled: #9aa3b2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top, #eef4ff, var(--bg));
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: min(700px, 100%);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px; /* was 28 */
+      box-shadow: 0 10px 30px rgba(20, 34, 66, 0.08);
+    }
+
+    /* Header: title + cube in one compact block */
+    .header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 6px;
+    }
+    h1 { margin: 0; font-size: 42px; line-height: 1.05; }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.9;
+      flex: 0 0 auto;
+    }
+    .logo svg {
+      width: 108px;
+      height: 108px;
+      display: block;
+    }
+
+    .tagline {
+      margin: 6px 0 18px; /* tighter */
+      font-size: 20px;
+      color: var(--muted);
+    }
+
+    .section-title {
+      margin: 14px 0 8px; /* tighter + less “chapter-y” */
+      font-size: 14px;    /* was 16 */
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .links { display: grid; gap: 12px; margin-bottom: 18px; } /* tighter */
+
+    a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
+
+    .play {
+      display: grid;
+      grid-template-columns: 104px 1fr; /* was 128 */
+      gap: 14px;                        /* was 16 */
+      align-items: center;
+      padding: 12px;                    /* was 14 */
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fbfdff;
+    }
+    .play img {
+      width: 104px;   /* was 128 */
+      height: 104px;  /* was 128 */
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: white;
+      opacity: 0.5;
+      display: block;
+    }
+    .note {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .disabled-link {
+      color: var(--disabled);
+      cursor: default;
+      text-decoration: none;
+      font-weight: 600;
+      pointer-events: none;
+    }
+
+    .contact {
+      padding-top: 14px; /* tighter */
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .site-link {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted);
+      text-align: right;
+      margin-bottom: 0;
+    }
+    .site-link a {
+      color: var(--muted);
+      font-weight: 400;
+      text-decoration: none;
+    }
+    .site-link a:hover { text-decoration: underline; }
+
+    @media (max-width: 560px) {
+      h1 { font-size: 34px; }
+      .tagline { font-size: 18px; margin-bottom: 16px; }
+      .logo svg { width: 60px; height: 60px; }
+
+      .play {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+      }
+      .play img { width: 110px; height: 110px; }
+      .header { align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="header">
+      <h1>Useless</h1>
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" stroke="#222" stroke-width="1" stroke-linejoin="round" stroke-linecap="round">
+            <path d="M68.25,41.59C69.33,40.96 70.67,40.96 71.75,41.59L93.73,54.28C94.81,54.9 95.48,56.06 95.48,57.31V82.69C95.48,83.94 94.81,85.1 93.73,85.72L71.75,98.41C70.67,99.04 69.33,99.04 68.25,98.41L46.27,85.72C45.19,85.1 44.52,83.94 44.52,82.69V57.31C44.52,56.06 45.19,54.9 46.27,54.28L68.25,41.59Z"/>
+            <path d="M69.62,43.23C69.78,43.14 69.97,43.14 70.13,43.23L90.72,55.13C91.05,55.32 91.05,55.81 90.72,56L70.13,67.9C69.97,67.99 69.78,67.99 69.62,67.9L49.03,56C48.7,55.81 48.7,55.32 49.03,55.13L69.62,43.23Z"/>
+            <path d="M71.63,70.94C71.63,70.76 71.73,70.6 71.88,70.51L92.48,58.62C92.82,58.43 93.23,58.67 93.23,59.05L93.24,82.84C93.24,83.02 93.14,83.18 92.99,83.27L72.39,95.16C72.05,95.35 71.64,95.11 71.64,94.72L71.63,70.94Z"/>
+            <path d="M68.14,70.51C68.29,70.6 68.39,70.76 68.39,70.94L68.38,94.73C68.38,95.11 67.96,95.35 67.63,95.16L47.03,83.27C46.87,83.18 46.78,83.02 46.78,82.84L46.78,59.05C46.78,58.67 47.2,58.43 47.53,58.62L68.14,70.51Z"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <p class="tagline">A minimal interaction experiment.</p>
+
+    <p class="section-title">Google Play</p>
+    <section class="links">
+      <div class="play">
+        <img src="./fake_qr_code.png" alt="QR code for Google Play (coming soon)">
+        <div>
+          <span class="disabled-link">Google Play</span>
+          <div class="note">Coming soon. (Closed testing in progress.)</div>
+        </div>
+      </div>
+
+      <a href="./privacy-policy.html">Privacy Policy</a>
+    </section>
+
+    <p class="contact">Contact: <a href="mailto:zhtgeng@gmail.com">zhtgeng@gmail.com</a></p>
+    <p class="site-link"><a href="https://ztgeng.com">ztgeng.com</a></p>
+  </main>
+</body>
+</html>
