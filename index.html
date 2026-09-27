@@ -19,6 +19,7 @@
             <h5>Geng Zhitao</h5>
             <hr>
             <p id="my_intro" class="mb-3"></p>
+            <a id="cv_link" href="./cv.html" class="btn btn-outline-light w-100 mb-3">View my CV</a>
             <ul class="nav flex-column">
                 <li class="nav-item"><span class="me-2">&rtri;</span><a href="https://github.com/ZTGeng" target="_blank" class="text-white">Github</a></li>
                 <li class="nav-item"><span class="me-2">&rtri;</span><a href="https://www.linkedin.com/in/zhitao-geng-48766331/" target="_blank" class="text-white">LinkedIn</a></li>
@@ -74,6 +75,7 @@
         "en": {
             "web_title": "Geng's Website",
             "my_intro": "Welcome to my website! I'm Geng Zhitao, once a biology researcher and science editor in China, now an Android developer in Bay Area. This website is a playful collection of JavaScript games and Vue apps I've spun up along my learning journey, also where I spill my thoughts and discoveries in casual blog posts.",
+            "cv_link": "View my CV",
             "external_title": "Featured Projects",
             "external_items": [
                 {
@@ -138,6 +140,7 @@
         "zh": {
             "web_title": "小耿的网站",
             "my_intro": "欢迎光临我的网站！我是耿志涛，生物狗转行程序猿，坐标湾区。这个网站是我学习 JavaScript 和 Vue 的过程中随手做的一些小游戏和 Web 应用，以及一个手搓的 Markdown 解析器和它实现的博客。粗陋不堪，贻笑大方。",
+            "cv_link": "查看我的简历",
             "external_title": "项目展示",
             "external_items": [
                 {
@@ -263,6 +266,7 @@
             }
 
             document.title = translation["web_title"];
+            document.getElementById("cv_link").textContent = translation["cv_link"];
             document.getElementById("my_intro").textContent = translation["my_intro"];
             document.getElementById("nav_title").textContent = translation["web_title"];
             document.getElementById("externalTitle").textContent = translation["external_title"];
