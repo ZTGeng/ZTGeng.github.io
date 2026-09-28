@@ -213,11 +213,14 @@ def main():
                     for n in names(token):
                         part = person(n, sid, '嘉宾', '喜人好朋友')
                         person(n, sid, '演员')
-                        group = TEAM_ALIASES.get(clean(row[0]), clean(row[0]))
-                        if group not in part['groups']:
-                            part['groups'].append(group)
-                        if n not in groups[sid].setdefault(group, []):
-                            groups[sid][group].append(n)
+                        # Xi1 comedy friends only collaborated with a troupe; they were
+                        # not troupe members. Xi2 retains its existing source semantics.
+                        if sid == 'xi2':
+                            group = TEAM_ALIASES.get(clean(row[0]), clean(row[0]))
+                            if group not in part['groups']:
+                                part['groups'].append(group)
+                            if n not in groups[sid].setdefault(group, []):
+                                groups[sid][group].append(n)
 
         # Read only performance columns; never import writers or crew as cast.
         configs = {
@@ -271,7 +274,6 @@ def main():
                             resolve(prefix)
                             for n in names(inner):
                                 resolved[ALIASES.get(n, n)] = '个人署名'
-                            work['note'] = '百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。'
                         else:
                             resolve(inner.replace('主创', ''))
                         return
