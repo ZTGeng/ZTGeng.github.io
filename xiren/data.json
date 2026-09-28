@@ -2314,28 +2314,12 @@
           ],
           "works": [
             {
-              "workId": "xi1-3-4",
-              "creditType": "大团署名"
-            },
-            {
               "workId": "xi1-3-8",
               "creditType": "个人署名"
             },
             {
               "workId": "xi1-3-10",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "xi1-4-2",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-4-4",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-6-3",
-              "creditType": "大团署名"
             }
           ]
         },
@@ -2602,14 +2586,6 @@
             {
               "workId": "xi1-3-1",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "xi1-3-11",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-3-12",
-              "creditType": "大团署名"
             }
           ]
         },
@@ -3373,28 +3349,12 @@
           ],
           "works": [
             {
-              "workId": "xi1-3-3",
-              "creditType": "大团署名"
-            },
-            {
               "workId": "xi1-3-5",
               "creditType": "个人署名"
             },
             {
               "workId": "xi1-3-7",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "xi1-4-3",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-4-5",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-6-1",
-              "creditType": "大团署名"
             }
           ]
         }
@@ -3519,18 +3479,6 @@
             {
               "workId": "xi1-3-10",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "xi1-4-2",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-4-4",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-6-3",
-              "creditType": "大团署名"
             }
           ]
         },
@@ -3913,22 +3861,6 @@
             {
               "workId": "xi1-3-6",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "xi1-3-9",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-4-1",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-4-6",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-6-2",
-              "creditType": "大团署名"
             }
           ]
         },
@@ -4724,14 +4656,6 @@
           ],
           "works": [
             {
-              "workId": "xi1-3-1",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-3-11",
-              "creditType": "大团署名"
-            },
-            {
               "workId": "xi1-3-12",
               "creditType": "个人署名"
             }
@@ -4831,28 +4755,8 @@
           ],
           "works": [
             {
-              "workId": "xi1-3-3",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-3-5",
-              "creditType": "大团署名"
-            },
-            {
               "workId": "xi1-3-7",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "xi1-4-3",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-4-5",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-6-1",
-              "creditType": "大团署名"
             }
           ]
         },
@@ -9254,26 +9158,6 @@
             {
               "workId": "xi1-3-2",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "xi1-3-6",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-3-9",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-4-1",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-4-6",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-6-2",
-              "creditType": "大团署名"
             }
           ]
         }
@@ -9939,7 +9823,9 @@
             "喜人好朋友"
           ],
           "teams": [],
-          "groups": [],
+          "groups": [
+            "九条命"
+          ],
           "works": [
             {
               "workId": "xi1-3-8",
@@ -10381,28 +10267,8 @@
           ],
           "works": [
             {
-              "workId": "xi1-3-2",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-3-6",
-              "creditType": "大团署名"
-            },
-            {
               "workId": "xi1-3-9",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "xi1-4-1",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-4-6",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-6-2",
-              "creditType": "大团署名"
             }
           ]
         },
@@ -12885,18 +12751,6 @@
             {
               "workId": "xi1-3-7",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "xi1-4-3",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-4-5",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-6-1",
-              "creditType": "大团署名"
             }
           ]
         },
