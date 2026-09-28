@@ -271,7 +271,7 @@ def main():
                             resolve(prefix)
                             for n in names(inner):
                                 resolved[ALIASES.get(n, n)] = '个人署名'
-                            work['note'] = '百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。'
+                            work['note'] = '百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。'
                         else:
                             resolve(inner.replace('主创', ''))
                         return
@@ -338,7 +338,7 @@ def main():
     data = dict(schemaVersion=1, updatedAt=datetime.date.today().isoformat(), notes=[
         '以四季百度百科的节目表和嘉宾表为主，补充一喜、二喜各25组初舞台名单；百科并非完整片尾演职员表，未列出的助演和部分作品仍可能缺失。',
         '作品标注个人署名、小队署名或大团署名；团体署名按该季正式成员关联，不代表百科逐人确认出场。',
-        '喜一部分合作赛仅列出大团和嘉宾；按维护规则假设该大团全员参演，并以大团署名关联到个人。',
+        '喜一部分合作赛仅列出大团和嘉宾；导入时默认假设该大团全员参演，人工核实后可删除未参演者的作品关联。',
         '性别按维护者要求统一初始化为男，尚未核实。',
         '一喜小队名称及缺失初舞台补充自维基百科，二喜缺失初舞台补充自当贝市场节目单，补充作品均标明各自来源。',
     ], seasons=[{k: v for k, v in s.items() if k not in ('lemma', 'tables')} for s in SEASONS], people=sorted(people.values(), key=lambda p: p['name']), works=works, unresolvedCredits=audit)

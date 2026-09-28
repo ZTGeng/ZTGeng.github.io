@@ -45,6 +45,23 @@ function Avatar({ person, large = false }) {
   );
 }
 
+function ProfileLink({ url }) {
+  if (!url) return <small className="muted">暂无人物资料链接</small>;
+  let label = "人物资料";
+  try {
+    const host = new URL(url).hostname;
+    if (host.includes("baidu.com")) label = "百度百科";
+    if (host.includes("douban.com")) label = "豆瓣人物";
+  } catch {
+    // Keep the generic label for manually entered nonstandard URLs.
+  }
+  return (
+    <a className="baike-link" href={url} target="_blank" rel="noreferrer">
+      {label} ↗
+    </a>
+  );
+}
+
 function Chip({ active, children, onClick, className = "" }) {
   return (
     <button
@@ -61,6 +78,7 @@ function Chip({ active, children, onClick, className = "" }) {
 function Detail({ person, data, onClose }) {
   const ref = useRef(null);
   const closeRef = useRef(null);
+  const hasWorks = person.participations.some((part) => part.works.length > 0);
   const worksById = useMemo(
     () => new Map(data.works.map((w) => [w.id, w])),
     [data],
@@ -81,7 +99,7 @@ function Detail({ person, data, onClose }) {
         ].filter(
           (el) =>
             el.getClientRects().length > 0 &&
-            (!el.closest('details:not([open])') || el.tagName === 'SUMMARY'),
+            (!el.closest("details:not([open])") || el.tagName === "SUMMARY"),
         );
         const first = els[0],
           last = els.at(-1);
@@ -133,30 +151,19 @@ function Detail({ person, data, onClose }) {
                 <span key={t}>#{t}</span>
               ))}
             </div>
-            <p className="muted">
-              性别：{person.gender} <small>（初始数据待核实）</small>
-            </p>
-            {person.baike ? (
-              <a
-                className="baike-link"
-                href={person.baike}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                百度百科 ↗
-              </a>
-            ) : (
-              <small className="muted">暂无百度百科链接</small>
-            )}
+            <p className="muted">性别：{person.gender}</p>
+            <ProfileLink url={person.baike} />
           </div>
         </div>
         <div className="works-heading">
-          <h3>这些舞台，有 TA 在</h3>
+          <h3>TA 的喜人足迹</h3>
           <span>{person.participations.length} 季足迹</span>
         </div>
-        <p className="credit-note">
-          个人署名为来源直接列名；小队／大团署名按成员关联，可能不包含完整助演名单。
-        </p>
+        {hasWorks && (
+          <p className="credit-note">
+            作品关联综合节目表署名、小队／大团成员关系及实际上台情况整理；“助演”标记来自上台表演记录，主演和助演名单仍可能不完整。
+          </p>
+        )}
         {person.participations.map((part) => {
           const season = data.seasons.find((s) => s.id === part.seasonId);
           return (
@@ -177,18 +184,22 @@ function Detail({ person, data, onClose }) {
                   </small>
                 </div>
               </div>
-              <div className="affiliation">
-                <p>
-                  <span>小队</span>
-                  {part.teams.join("、") || "百科未列出"}
-                </p>
-                {part.groups.length > 0 && (
-                  <p>
-                    <span>大团</span>
-                    {part.groups.join("、")}
-                  </p>
-                )}
-              </div>
+              {(part.teams.length > 0 || part.groups.length > 0) && (
+                <div className="affiliation">
+                  {part.teams.length > 0 && (
+                    <p>
+                      <span>小队</span>
+                      {part.teams.join("、")}
+                    </p>
+                  )}
+                  {part.groups.length > 0 && (
+                    <p>
+                      <span>大团</span>
+                      {part.groups.join("、")}
+                    </p>
+                  )}
+                </div>
+              )}
               {part.additionalSources?.length > 0 && (
                 <div className="source-links muted">
                   {part.additionalSources.map((url, i) => (
@@ -204,7 +215,7 @@ function Detail({ person, data, onClose }) {
                   ))}
                 </div>
               )}
-              {part.works.length ? (
+              {part.works.length > 0 && (
                 <ul className="work-list">
                   {part.works.map((item) => {
                     const work = worksById.get(item.workId);
@@ -239,8 +250,6 @@ function Detail({ person, data, onClose }) {
                     ) : null;
                   })}
                 </ul>
-              ) : (
-                <p className="no-works">百科节目表暂无可关联的作品记录。</p>
               )}
             </section>
           );
@@ -258,6 +267,13 @@ function App() {
   const [filters, setFilters] = useState(initialFilters);
   const [selected, setSelected] = useState(null);
   const [sort, setSort] = useState("name");
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  useEffect(() => {
+    const updateBackToTop = () => setShowBackToTop(window.scrollY > 480);
+    updateBackToTop();
+    window.addEventListener("scroll", updateBackToTop, { passive: true });
+    return () => window.removeEventListener("scroll", updateBackToTop);
+  }, []);
   useEffect(() => {
     const controller = new AbortController();
     setError("");
@@ -292,6 +308,15 @@ function App() {
   const tags = useMemo(() => (data ? getTags(data.people) : []), [data]);
   const update = (key, value) => setFilters((f) => ({ ...f, [key]: value }));
   const reset = () => setFilters({ ...initialFilters, seasons: [] });
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+    document.querySelector(".brand")?.focus({ preventScroll: true });
+  };
   const activeCount =
     filters.seasons.length +
     ["role", "gender", "tag", "query"].filter((k) => filters[k]).length;
@@ -325,7 +350,7 @@ function App() {
                 </span>
               </h1>
               <p>
-                从一喜、二喜到喜人奇妙夜。
+                从一年一度喜剧大赛到喜人奇妙夜。
                 <br />
                 在这里认识喜人，找回那些让你笑过的舞台。
               </p>
@@ -357,62 +382,65 @@ function App() {
                 />
               </label>
             </div>
-            <div className="filter-row">
-              <span className="filter-label" id="season-mode-label">
-                节目模式
-              </span>
-              <div
-                className="mode-group"
-                role="group"
-                aria-labelledby="season-mode-label"
-              >
-                {modes.map(([id, name]) => (
-                  <Chip
-                    key={id}
-                    active={filters.mode === id}
-                    onClick={() => setFilters((f) => changeMode(f, id))}
-                  >
-                    {name}
-                  </Chip>
-                ))}
-              </div>
-              <span className="mode-hint">
-                {filters.mode === "single"
-                  ? "选择一季，看看都有谁"
-                  : filters.mode === "all"
-                    ? "同时参加所选的每一季"
-                    : "参加任意一个所选季即可"}
-              </span>
-            </div>
-            <div className="filter-row">
-              <span className="filter-label" id="season-label">
-                参加节目
-              </span>
-              <div
-                className="chips"
-                role="group"
-                aria-labelledby="season-label"
-              >
-                <Chip
-                  active={!filters.seasons.length}
-                  onClick={() => update("seasons", [])}
+            <fieldset className="season-filter-block">
+              <legend>节目筛选</legend>
+              <div className="filter-row mode-row">
+                <span className="filter-label" id="season-mode-label">
+                  筛选模式
+                </span>
+                <div
+                  className="mode-group"
+                  role="group"
+                  aria-labelledby="season-mode-label"
                 >
-                  全部节目
-                </Chip>
-                {data?.seasons.map((s, i) => (
-                  <Chip
-                    key={s.id}
-                    active={filters.seasons.includes(s.id)}
-                    className={`season-chip ${seasonColors[i]}`}
-                    onClick={() => setFilters((f) => toggleSeason(f, s.id))}
-                  >
-                    <span>{s.tag}</span>
-                    {s.name}
-                    <small>{s.year}</small>
-                  </Chip>
-                ))}
+                  {modes.map(([id, name]) => (
+                    <Chip
+                      key={id}
+                      active={filters.mode === id}
+                      onClick={() => setFilters((f) => changeMode(f, id))}
+                    >
+                      {name}
+                    </Chip>
+                  ))}
+                </div>
+                <span className="mode-hint">
+                  {filters.mode === "single"
+                    ? "选择一季，看看都有谁"
+                    : filters.mode === "all"
+                      ? "同时参加所选的每一季"
+                      : "参加任意一个所选季即可"}
+                </span>
               </div>
-            </div>
+              <div className="filter-row season-row">
+                <span className="filter-label" id="season-label">
+                  选择节目
+                </span>
+                <div
+                  className="chips"
+                  role="group"
+                  aria-labelledby="season-label"
+                >
+                  <Chip
+                    active={!filters.seasons.length}
+                    onClick={() => update("seasons", [])}
+                  >
+                    全部节目
+                  </Chip>
+                  {data?.seasons.map((s, i) => (
+                    <Chip
+                      key={s.id}
+                      active={filters.seasons.includes(s.id)}
+                      className={`season-chip ${seasonColors[i]}`}
+                      onClick={() => setFilters((f) => toggleSeason(f, s.id))}
+                    >
+                      <span>{s.tag}</span>
+                      {s.name}
+                      <small>{s.year}</small>
+                    </Chip>
+                  ))}
+                </div>
+              </div>
+            </fieldset>
             <div className="filter-split">
               <div className="filter-row">
                 <span className="filter-label" id="role-label">
@@ -465,12 +493,6 @@ function App() {
                     </Chip>
                   ))}
                 </div>
-                <span
-                  className="gender-note"
-                  title="按维护者要求，性别初始统一设置为男，待手动修改。"
-                >
-                  待校对
-                </span>
               </div>
             </div>
             <div className="filter-row tag-row">
@@ -599,7 +621,7 @@ function App() {
               <div className="empty">
                 <span>◡</span>
                 <h3>这个组合，还没有找到喜人</h3>
-                <p>试试减少筛选条件，或换个名字。性别数据尚待校对。</p>
+                <p>试试减少筛选条件，或换个名字。</p>
                 <button className="primary" onClick={reset}>
                   查看所有喜人
                 </button>
@@ -651,6 +673,17 @@ function App() {
           <span>献给每一个认真制造快乐的人。</span>
           <span className="footer-small">MADE FOR THE LOVE OF COMEDY</span>
         </footer>
+        <button
+          type="button"
+          className={`back-to-top ${showBackToTop ? "visible" : ""}`}
+          aria-label="回到顶部"
+          aria-hidden={!showBackToTop}
+          tabIndex={showBackToTop ? 0 : -1}
+          onClick={scrollToTop}
+        >
+          <span aria-hidden="true">↑</span>
+          <span>回到顶部</span>
+        </button>
       </div>
       {selected && (
         <Detail

@@ -174,19 +174,22 @@ test("source coverage includes all performance-table rows and supplemented openi
   assert.equal(xi1CollaborationWorks.length, 18);
   for (const work of xi1CollaborationWorks) {
     const group = work.sourceCredit.split("（")[0];
-    const members = data.people.filter((person) =>
-      person.participations.some(
-        (part) => part.seasonId === "xi1" && part.groups.includes(group),
+    const creditedMembers = data.people.filter((person) =>
+      person.participations.some((part) =>
+        part.works.some(
+          (item) => item.workId === work.id && item.creditType === "大团署名",
+        ),
       ),
     );
-    assert.ok(members.length > 0, `${work.title}: ${group}`);
-    for (const member of members) {
-      const credit = member.participations
-        .find((part) => part.seasonId === "xi1")
-        .works.find((item) => item.workId === work.id);
-      assert.ok(credit, `${work.title}: ${member.name}`);
-      if (!work.sourceCredit.includes(member.name))
-        assert.equal(credit.creditType, "大团署名");
+    assert.ok(creditedMembers.length > 0, `${work.title}: ${group}`);
+    for (const member of creditedMembers) {
+      const participation = member.participations.find(
+        (part) => part.seasonId === "xi1",
+      );
+      assert.ok(
+        participation.groups.includes(group),
+        `${work.title}: ${member.name}`,
+      );
     }
   }
 });

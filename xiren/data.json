@@ -4,8 +4,7 @@
   "notes": [
     "以四季百度百科的节目表和嘉宾表为主，补充一喜、二喜各25组初舞台名单；百科并非完整片尾演职员表，未列出的助演和部分作品仍可能缺失。",
     "作品标注个人署名、小队署名或大团署名；团体署名按该季正式成员关联，不代表百科逐人确认出场。",
-    "喜一部分合作赛仅列出大团和嘉宾；按维护规则假设该大团全员参演，并以大团署名关联到个人。",
-    "性别按维护者要求统一初始化为男，尚未核实。",
+    "喜一部分合作赛仅列出大团和嘉宾；导入时默认假设该大团全员参演，人工核实后可删除未参演者的作品关联。",
     "一喜小队名称及缺失初舞台补充自维基百科，二喜缺失初舞台补充自当贝市场节目单，补充作品均标明各自来源。"
   ],
   "seasons": [
@@ -74,14 +73,6 @@
             {
               "workId": "yixi-2-14",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "yixi-3-9",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "yixi-4-2",
-              "creditType": "大团署名"
             },
             {
               "workId": "yixi-6-3",
@@ -166,7 +157,7 @@
       "id": "p-于莎莎",
       "name": "于莎莎",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E4%BA%8E%E8%8E%8E%E8%8E%8E/658205",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/a044ad345982b2b7d0a2b2cda9f4dcef76094b362d3a?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -239,8 +230,11 @@
       "name": "仁科",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E4%BB%81%E7%A7%91/53277129",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/4e4a20a4462309f79052c6c8b7591bf3d7ca7acb78eb?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E4%BB%81%E7%A7%91/53277129"
+      },
       "tags": [
         "嘉宾",
         "一喜"
@@ -355,7 +349,7 @@
       "id": "p-傅首尔",
       "name": "傅首尔",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E5%82%85%E9%A6%96%E5%B0%94/20652127",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/4afbfbedab64034f78f03af7a09e6e310a55b219b7b7?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -425,8 +419,11 @@
       "name": "刘一君",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E5%88%98%E4%B8%80%E5%90%9B/24279986",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/42166d224f4a20a44623f904a1098f22720e0df37ae6?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E5%88%98%E4%B8%80%E5%90%9B/24279986"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -443,6 +440,18 @@
           ],
           "groups": [],
           "works": [
+            {
+              "workId": "erxi-2-5",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-2-9",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-3-8",
+              "creditType": "助演"
+            },
             {
               "workId": "erxi-supplement-29",
               "creditType": "个人署名"
@@ -557,8 +566,11 @@
       "name": "刘奕斐",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E5%88%98%E5%A5%95%E6%96%90/62589288",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/adaf2edda3cc7cd98d10eb104f58363fb80e7aec3bfa?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E5%88%98%E5%A5%95%E6%96%90/62589288"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -753,7 +765,9 @@
     {
       "id": "p-刘旸",
       "name": "刘旸",
-      "aliases": [],
+      "aliases": [
+        "教主"
+      ],
       "gender": "男",
       "baike": "https://baike.baidu.com/item/%E5%88%98%E6%97%B8/55697998",
       "avatar": {
@@ -764,7 +778,8 @@
         "演员",
         "二喜",
         "喜一",
-        "喜二"
+        "喜二",
+        "脱口秀演员"
       ],
       "participations": [
         {
@@ -801,6 +816,10 @@
             {
               "workId": "erxi-4-12",
               "creditType": "小队署名"
+            },
+            {
+              "workId": "erxi-5-3",
+              "creditType": "助演"
             }
           ]
         },
@@ -889,8 +908,11 @@
       "name": "刘洋",
       "aliases": [],
       "gender": "男",
-      "baike": "https://baike.baidu.com/item/%E5%88%98%E6%B4%8B/63845680",
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E5%88%98%E6%B4%8B/50843264",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/6159252dd42a2834349bad13d7fcdeea15ce36d311db?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E5%88%98%E6%B4%8B/50843264"
+      },
       "tags": [
         "演员",
         "喜一"
@@ -1005,7 +1027,7 @@
       "id": "p-刘胜瑛",
       "name": "刘胜瑛",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E5%88%98%E8%83%9C%E7%91%9B/23262052",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/cdbf6c81800a19d8bc3e269fcfb2958ba61ea8d3e85a?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -1124,7 +1146,7 @@
       "id": "p-单依纯",
       "name": "单依纯",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E5%8D%95%E4%BE%9D%E7%BA%AF/53548167",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/728da9773912b31bb0519a5e0844217adab44aed4b0d?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -1306,7 +1328,7 @@
       "id": "p-史策",
       "name": "史策",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E5%8F%B2%E7%AD%96/19419297",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/4ec2d5628535e5dde71103f0aa94b0efce1b9d16c4db?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -1340,6 +1362,18 @@
             {
               "workId": "yixi-2-1",
               "creditType": "个人署名"
+            },
+            {
+              "workId": "yixi-2-6",
+              "creditType": "助演"
+            },
+            {
+              "workId": "yixi-2-12",
+              "creditType": "助演"
+            },
+            {
+              "workId": "yixi-2-16",
+              "creditType": "助演"
             },
             {
               "workId": "yixi-3-1",
@@ -1443,6 +1477,14 @@
             {
               "workId": "yixi-1-18",
               "creditType": "个人署名"
+            },
+            {
+              "workId": "yixi-2-6",
+              "creditType": "助演"
+            },
+            {
+              "workId": "yixi-2-12",
+              "creditType": "助演"
             },
             {
               "workId": "yixi-2-16",
@@ -1576,6 +1618,10 @@
               "creditType": "个人署名"
             },
             {
+              "workId": "yixi-2-11",
+              "creditType": "助演"
+            },
+            {
               "workId": "yixi-3-2",
               "creditType": "个人署名"
             },
@@ -1594,10 +1640,6 @@
             {
               "workId": "yixi-6-4",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "yixi-7-3",
-              "creditType": "大团署名"
             }
           ],
           "additionalSources": [
@@ -1676,6 +1718,10 @@
               "creditType": "个人署名"
             },
             {
+              "workId": "yixi-2-10",
+              "creditType": "助演"
+            },
+            {
               "workId": "yixi-2-13",
               "creditType": "大团署名"
             },
@@ -1690,10 +1736,6 @@
             {
               "workId": "yixi-3-10",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "yixi-7-1",
-              "creditType": "大团署名"
             }
           ],
           "additionalSources": [
@@ -1818,8 +1860,11 @@
       "name": "吴亚衡",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E5%90%B4%E4%BA%9A%E8%A1%A1/13212063",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/eaf81a4c510fd9f9d72af6eaba7bc32a2834359b0ea3?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E5%90%B4%E4%BA%9A%E8%A1%A1/13212063"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -1852,8 +1897,11 @@
       "name": "周仕麒",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://www.douban.com/personage/35784824/",
+      "avatar": {
+        "url": "https://img3.doubanio.com/view/personage/m/public/4ea0dfdd16e09772f75b28b4a5473d88.jpg",
+        "sourceUrl": "https://www.douban.com/personage/35784824/"
+      },
       "tags": [
         "演员",
         "一喜",
@@ -2026,8 +2074,11 @@
       "name": "周易铎",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://www.douban.com/personage/35784834/",
+      "avatar": {
+        "url": "https://img3.doubanio.com/view/personage/m/public/98e8079bbbdb6753bab9337491b15838.jpg",
+        "sourceUrl": "https://www.douban.com/personage/35784834/"
+      },
       "tags": [
         "演员",
         "一喜"
@@ -2058,8 +2109,11 @@
       "name": "周泽平",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://www.douban.com/personage/35784847/",
+      "avatar": {
+        "url": "https://img2.doubanio.com/view/personage/m/public/bc9c48e8dadf92bd01a431929bcf6591.jpg",
+        "sourceUrl": "https://www.douban.com/personage/35784847/"
+      },
       "tags": [
         "演员",
         "一喜"
@@ -2089,7 +2143,7 @@
       "id": "p-周英俊",
       "name": "周英俊",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E5%91%A8%E8%8B%B1%E4%BF%8A/53446120",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/902397dda144ad34598280d8f2f71bf431adcbef2f6d?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -2171,6 +2225,10 @@
             {
               "workId": "yixi-1-17",
               "creditType": "个人署名"
+            },
+            {
+              "workId": "yixi-2-11",
+              "creditType": "助演"
             },
             {
               "workId": "yixi-2-15",
@@ -2310,7 +2368,8 @@
       },
       "tags": [
         "嘉宾",
-        "一喜"
+        "一喜",
+        "脱口秀演员"
       ],
       "participations": [
         {
@@ -2337,8 +2396,11 @@
       "name": "唐马鹿",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E5%94%90%E9%A9%AC%E9%B9%BF/57231072",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/cb8065380cd7912397dde6aca77a4e82b2b7d1a22a9f?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E5%94%90%E9%A9%AC%E9%B9%BF/57231072"
+      },
       "tags": [
         "演员",
         "一喜"
@@ -2367,7 +2429,9 @@
     {
       "id": "p-土豆",
       "name": "土豆",
-      "aliases": [],
+      "aliases": [
+        "郭洪泽"
+      ],
       "gender": "男",
       "baike": "https://baike.baidu.com/item/%E5%9C%9F%E8%B1%86/59946509",
       "avatar": {
@@ -2399,6 +2463,14 @@
             {
               "workId": "yixi-1-4",
               "creditType": "个人署名"
+            },
+            {
+              "workId": "yixi-2-9",
+              "creditType": "助演"
+            },
+            {
+              "workId": "yixi-2-10",
+              "creditType": "助演"
             },
             {
               "workId": "yixi-2-13",
@@ -2629,6 +2701,10 @@
               "creditType": "大团署名"
             },
             {
+              "workId": "yixi-2-18",
+              "creditType": "助演"
+            },
+            {
               "workId": "yixi-3-10",
               "creditType": "个人署名"
             },
@@ -2643,10 +2719,6 @@
             {
               "workId": "yixi-6-5",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "yixi-7-1",
-              "creditType": "大团署名"
             }
           ],
           "additionalSources": [
@@ -2710,7 +2782,7 @@
       "id": "p-姜牟远健",
       "name": "姜牟远健",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E5%A7%9C%E7%89%9F%E8%BF%9C%E5%81%A5/3546526",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/5bafa40f4bfbfbedab644ccdf3abe036afc37931b174?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -2792,7 +2864,7 @@
       "id": "p-孔令美",
       "name": "孔令美",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E5%AD%94%E4%BB%A4%E7%BE%8E/2286146",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/d788d43f8794a4c27d1ec105abad0cd5ad6eddc493de?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -2901,10 +2973,15 @@
     {
       "id": "p-孙书悦",
       "name": "孙书悦",
-      "aliases": [],
-      "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "aliases": [
+        "小美"
+      ],
+      "gender": "女",
+      "baike": "https://baike.baidu.com/item/%E5%AD%99%E4%B9%A6%E6%82%A6/62620530",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/9922720e0cf3d7ca7bcbacb97048a9096b63f72403fe?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E5%AD%99%E4%B9%A6%E6%82%A6/62620530"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -2991,6 +3068,10 @@
             {
               "workId": "yixi-2-13",
               "creditType": "大团署名"
+            },
+            {
+              "workId": "yixi-2-18",
+              "creditType": "助演"
             },
             {
               "workId": "yixi-3-8",
@@ -3089,7 +3170,7 @@
       "id": "p-孟子义",
       "name": "孟子义",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E5%AD%9F%E5%AD%90%E4%B9%89/19435533",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/b8014a90f603738da977edecaa43a751f819871846fe?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -3126,7 +3207,8 @@
       },
       "tags": [
         "嘉宾",
-        "喜一"
+        "喜一",
+        "相声演员"
       ],
       "participations": [
         {
@@ -3479,6 +3561,10 @@
               "creditType": "大团署名"
             },
             {
+              "workId": "yixi-2-18",
+              "creditType": "助演"
+            },
+            {
               "workId": "yixi-3-8",
               "creditType": "个人署名"
             },
@@ -3545,7 +3631,7 @@
       "id": "p-小艾",
       "name": "小艾",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": null,
       "avatar": null,
       "tags": [
@@ -3577,9 +3663,12 @@
       "id": "p-小鹿",
       "name": "小鹿",
       "aliases": [],
-      "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "gender": "女",
+      "baike": "https://baike.baidu.com/item/%E5%B0%8F%E9%B9%BF/55698009",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/c8177f3e6709c93d70cf90c36577efdcd100baa1fee6?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E5%B0%8F%E9%B9%BF/55698009"
+      },
       "tags": [
         "演员",
         "一喜"
@@ -3609,7 +3698,7 @@
       "id": "p-尹贝希",
       "name": "尹贝希",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E5%B0%B9%E8%B4%9D%E5%B8%8C/22090574",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/a08b87d6277f9e2f0708dd01167bfe24b899a901552c?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -3645,6 +3734,10 @@
             {
               "workId": "yixi-2-13",
               "creditType": "大团署名"
+            },
+            {
+              "workId": "yixi-2-18",
+              "creditType": "助演"
             },
             {
               "workId": "yixi-4-3",
@@ -3738,6 +3831,10 @@
             {
               "workId": "erxi-4-10",
               "creditType": "小队署名"
+            },
+            {
+              "workId": "erxi-5-1",
+              "creditType": "助演"
             },
             {
               "workId": "erxi-5-6",
@@ -3835,8 +3932,11 @@
       "name": "帕赛",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E5%B8%95%E8%B5%9B/59502217",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/7af40ad162d9f2d3572c2b0d7abb9d13632763d06683?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E5%B8%95%E8%B5%9B/59502217"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -3916,10 +4016,6 @@
             {
               "workId": "yixi-3-10",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "yixi-7-1",
-              "creditType": "大团署名"
             }
           ],
           "additionalSources": [
@@ -3950,8 +4046,11 @@
       "name": "庄园",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E5%BA%84%E5%9B%AD/62778288",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/242dd42a2834349b033be2f74bbc02ce36d3d5391030?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E5%BA%84%E5%9B%AD/62778288"
+      },
       "tags": [
         "演员",
         "一喜"
@@ -3982,8 +4081,11 @@
       "name": "庞达",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E5%BA%9E%E8%BE%BE/62589290",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/cefc1e178a82b9014a90d331b6dabe773912b31b4123?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E5%BA%9E%E8%BE%BE/62589290"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -4019,10 +4121,6 @@
             {
               "workId": "erxi-4-6",
               "creditType": "小队署名"
-            },
-            {
-              "workId": "erxi-4-9",
-              "creditType": "小队署名"
             }
           ]
         }
@@ -4032,7 +4130,7 @@
       "id": "p-张丹槟",
       "name": "张丹槟",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E5%BC%A0%E4%B8%B9%E6%A7%9F/2851431",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/c83d70cf3bc79f3d6e10f76dbfa1cd11738b29fd?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -4069,7 +4167,9 @@
     {
       "id": "p-张兴朝",
       "name": "张兴朝",
-      "aliases": [],
+      "aliases": [
+        "牛爷爷"
+      ],
       "gender": "男",
       "baike": "https://baike.baidu.com/item/%E5%BC%A0%E5%85%B4%E6%9C%9D/64563054",
       "avatar": {
@@ -4363,8 +4463,11 @@
       "name": "张大蹦",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E5%BC%A0%E5%A4%A7%E8%B9%A6/67327822",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/7a899e510fb30f2442a7efe150c9c643ad4bd013a587?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E5%BC%A0%E5%A4%A7%E8%B9%A6/67327822"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -4399,7 +4502,7 @@
       "aliases": [
         "娜娜"
       ],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E5%A8%9C%E5%A8%9C/64563061",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/0d338744ebf81a4c510f52f37f727759252dd42a08ca?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -4444,6 +4547,18 @@
           "groups": [],
           "works": [
             {
+              "workId": "erxi-2-3",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-2-9",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-2-15",
+              "creditType": "助演"
+            },
+            {
               "workId": "erxi-supplement-30",
               "creditType": "个人署名"
             }
@@ -4475,7 +4590,7 @@
       "id": "p-张小婉",
       "name": "张小婉",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E5%BC%A0%E5%B0%8F%E5%A9%89/3403418",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/dcc451da81cb39dbb6fd31fc8e4b1e24ab18972b9a5e?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -4508,15 +4623,15 @@
               "creditType": "小队署名"
             },
             {
+              "workId": "erxi-3-3",
+              "creditType": "助演"
+            },
+            {
               "workId": "erxi-3-7",
               "creditType": "小队署名"
             },
             {
               "workId": "erxi-3-12",
-              "creditType": "小队署名"
-            },
-            {
-              "workId": "erxi-4-4",
               "creditType": "小队署名"
             },
             {
@@ -4526,6 +4641,10 @@
             {
               "workId": "erxi-5-1",
               "creditType": "小队署名"
+            },
+            {
+              "workId": "erxi-5-6",
+              "creditType": "助演"
             }
           ]
         },
@@ -4593,6 +4712,10 @@
             {
               "workId": "yixi-1-12",
               "creditType": "个人署名"
+            },
+            {
+              "workId": "yixi-2-6",
+              "creditType": "助演"
             },
             {
               "workId": "yixi-2-12",
@@ -4701,8 +4824,11 @@
       "name": "张悦驰",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E5%BC%A0%E6%82%A6%E9%A9%B0/54735196",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/6c224f4a20a4462309f7e52b3578650e0cf3d7ca797d?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E5%BC%A0%E6%82%A6%E9%A9%B0/54735196"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -4720,6 +4846,10 @@
           "groups": [],
           "works": [
             {
+              "workId": "erxi-2-6",
+              "creditType": "助演"
+            },
+            {
               "workId": "erxi-supplement-28",
               "creditType": "个人署名"
             }
@@ -4734,7 +4864,7 @@
       "id": "p-张晔子",
       "name": "张晔子",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E5%BC%A0%E6%99%94%E5%AD%90/8390260",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/bd315c6034a85edf8db1474eb10e1e23dd54564edf11?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -4889,6 +5019,38 @@
             {
               "workId": "erxi-1-17",
               "creditType": "个人署名"
+            },
+            {
+              "workId": "erxi-2-5",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-2-7",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-2-16",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-3-2",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-3-12",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-4-8",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-4-11",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-5-2",
+              "creditType": "助演"
             }
           ]
         },
@@ -5108,6 +5270,10 @@
             {
               "workId": "erxi-2-8",
               "creditType": "小队署名"
+            },
+            {
+              "workId": "erxi-3-8",
+              "creditType": "助演"
             }
           ]
         }
@@ -5256,6 +5422,10 @@
             {
               "workId": "erxi-2-8",
               "creditType": "小队署名"
+            },
+            {
+              "workId": "erxi-3-8",
+              "creditType": "助演"
             }
           ]
         }
@@ -5265,7 +5435,7 @@
       "id": "p-张雨绮",
       "name": "张雨绮",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E5%BC%A0%E9%9B%A8%E7%BB%AE/8785636",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/c2fdfc039245d688d43fd881f2906a1ed21b0ef48ece?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -5329,6 +5499,10 @@
             {
               "workId": "yixi-2-13",
               "creditType": "大团署名"
+            },
+            {
+              "workId": "yixi-2-18",
+              "creditType": "助演"
             },
             {
               "workId": "yixi-3-8",
@@ -5442,7 +5616,8 @@
       },
       "tags": [
         "嘉宾",
-        "一喜"
+        "一喜",
+        "脱口秀演员"
       ],
       "participations": [
         {
@@ -5469,8 +5644,11 @@
       "name": "扈帷",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E6%89%88%E5%B8%B7/52352233",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/b999a9014c086e061d9528bfe6526cf40ad163d95db6?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E6%89%88%E5%B8%B7/52352233"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -5528,6 +5706,10 @@
             {
               "workId": "yixi-1-17",
               "creditType": "个人署名"
+            },
+            {
+              "workId": "yixi-2-11",
+              "creditType": "助演"
             },
             {
               "workId": "yixi-2-15",
@@ -5641,7 +5823,7 @@
       "id": "p-易立竞",
       "name": "易立竞",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E6%98%93%E7%AB%8B%E7%AB%9E/5272718",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/8ad4b31c8701a18b87d6dc369e72100828381f30500e?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -5676,8 +5858,11 @@
       "name": "易适雨",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E6%98%93%E9%80%82%E9%9B%A8/62589252",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/cefc1e178a82b9014a90d331b6dabe773912b31b4123?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E5%BA%9E%E8%BE%BE/62589290"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -5836,9 +6021,12 @@
       "id": "p-曾梦莎",
       "name": "曾梦莎",
       "aliases": [],
-      "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "gender": "女",
+      "baike": "https://baike.baidu.com/item/%E6%9B%BE%E6%A2%A6%E8%8E%8E/62589012",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/a2cc7cd98d1001e939017d62be526cec54e736d13910?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E6%9B%BE%E6%A2%A6%E8%8E%8E/62589012"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -5945,8 +6133,10 @@
     {
       "id": "p-朱美吉",
       "name": "朱美吉",
-      "aliases": [],
-      "gender": "男",
+      "aliases": [
+        "朱秀媛"
+      ],
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E6%9C%B1%E7%BE%8E%E5%90%89/60612683",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/9825bc315c6034a85edfd647e34e5e540923dc54d8fa?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -5970,6 +6160,14 @@
           ],
           "groups": [],
           "works": [
+            {
+              "workId": "erxi-2-9",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-2-15",
+              "creditType": "助演"
+            },
             {
               "workId": "erxi-supplement-27",
               "creditType": "个人署名"
@@ -6079,7 +6277,8 @@
       },
       "tags": [
         "演员",
-        "喜一"
+        "喜一",
+        "相声演员"
       ],
       "participations": [
         {
@@ -6324,8 +6523,16 @@
               "creditType": "个人署名"
             },
             {
+              "workId": "yixi-2-10",
+              "creditType": "助演"
+            },
+            {
               "workId": "yixi-2-13",
               "creditType": "大团署名"
+            },
+            {
+              "workId": "yixi-2-18",
+              "creditType": "助演"
             },
             {
               "workId": "yixi-3-3",
@@ -6354,7 +6561,7 @@
       "id": "p-李梓溪",
       "name": "李梓溪",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E6%9D%8E%E6%A2%93%E6%BA%AA/8857166",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/d31b0ef41bd5ad6eddc4fac7939c2edbb6fd526696dd?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -6562,6 +6769,10 @@
               "creditType": "个人署名"
             },
             {
+              "workId": "erxi-2-13",
+              "creditType": "助演"
+            },
+            {
               "workId": "erxi-2-18",
               "creditType": "小队署名"
             }
@@ -6574,8 +6785,11 @@
       "name": "李胜昔",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E6%9D%8E%E8%83%9C%E6%98%94/62589286",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/cefc1e178a82b9014a90d331b6dabe773912b31b4123?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E5%BA%9E%E8%BE%BE/62589290"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -6634,7 +6848,8 @@
         "嘉宾",
         "一喜",
         "二喜",
-        "喜二"
+        "喜二",
+        "脱口秀演员"
       ],
       "participations": [
         {
@@ -6679,7 +6894,7 @@
       "id": "p-李逗逗",
       "name": "李逗逗",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E6%9D%8E%E9%80%97%E9%80%97/56051525",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/f603918fa0ec08fa513d03b7abb72a6d55fbb2fb6cd3?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -6708,8 +6923,16 @@
               "creditType": "小队署名"
             },
             {
+              "workId": "erxi-1-10",
+              "creditType": "助演"
+            },
+            {
               "workId": "erxi-2-9",
               "creditType": "小队署名"
+            },
+            {
+              "workId": "erxi-2-16",
+              "creditType": "助演"
             },
             {
               "workId": "erxi-3-3",
@@ -6726,6 +6949,10 @@
             {
               "workId": "erxi-4-8",
               "creditType": "小队署名"
+            },
+            {
+              "workId": "erxi-5-6",
+              "creditType": "助演"
             }
           ]
         },
@@ -6841,7 +7068,7 @@
       "id": "p-李霖霏",
       "name": "李霖霏",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E6%9D%8E%E9%9C%96%E9%9C%8F/58915807",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/f7246b600c338744ebf8101e7656cef9d72a60590a02?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -6925,6 +7152,10 @@
             {
               "workId": "yixi-2-7",
               "creditType": "个人署名"
+            },
+            {
+              "workId": "yixi-2-11",
+              "creditType": "助演"
             },
             {
               "workId": "yixi-3-2",
@@ -7013,8 +7244,11 @@
       "name": "杜康",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E6%9D%9C%E5%BA%B7/65252933",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/1c950a7b02087bf40ad1724d088f402c11dfa9ec6158?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E6%9D%9C%E5%BA%B7/65252933"
+      },
       "tags": [
         "演员",
         "一喜"
@@ -7133,7 +7367,7 @@
       "name": "杨映宇",
       "aliases": [],
       "gender": "男",
-      "baike": null,
+      "baike": "https://baike.baidu.com/item/%E6%9D%A8%E6%98%A0%E5%AE%87/62351445",
       "avatar": null,
       "tags": [
         "演员",
@@ -7205,8 +7439,16 @@
               "creditType": "个人署名"
             },
             {
+              "workId": "yixi-2-9",
+              "creditType": "助演"
+            },
+            {
               "workId": "yixi-2-13",
               "creditType": "大团署名"
+            },
+            {
+              "workId": "yixi-2-18",
+              "creditType": "助演"
             },
             {
               "workId": "yixi-3-8",
@@ -7466,8 +7708,10 @@
     {
       "id": "p-林慧颖",
       "name": "林慧颖",
-      "aliases": [],
-      "gender": "男",
+      "aliases": [
+        "Summer"
+      ],
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E6%9E%97%E6%85%A7%E9%A2%96/64299196",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/4bed2e738bd4b31c870128a9f78e307f9e2f070852d2?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -7523,8 +7767,11 @@
       "name": "梦涵",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E6%A2%A6%E6%B6%B5/62813555",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/f3d3572c11dfa9ec8a130261cd86e003918fa0ec6b34?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E6%A2%A6%E6%B6%B5/62813555"
+      },
       "tags": [
         "演员",
         "一喜"
@@ -7583,6 +7830,14 @@
             {
               "workId": "yixi-2-5",
               "creditType": "个人署名"
+            },
+            {
+              "workId": "yixi-2-12",
+              "creditType": "助演"
+            },
+            {
+              "workId": "yixi-2-14",
+              "creditType": "助演"
             },
             {
               "workId": "yixi-3-1",
@@ -7779,8 +8034,11 @@
       "name": "沈驰",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E6%B2%88%E9%A9%B0/9123331",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/5ab5c9ea15ce36d3d539683c58bd2d87e950352a1b22?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E6%B2%88%E9%A9%B0/9123331"
+      },
       "tags": [
         "演员",
         "一喜"
@@ -7809,7 +8067,9 @@
     {
       "id": "p-泰维",
       "name": "泰维",
-      "aliases": [],
+      "aliases": [
+        "张泰维"
+      ],
       "gender": "男",
       "baike": "https://baike.baidu.com/item/%E6%B3%B0%E7%BB%B4/20366328",
       "avatar": {
@@ -7850,9 +8110,12 @@
       "id": "p-潘越",
       "name": "潘越",
       "aliases": [],
-      "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "gender": "女",
+      "baike": "https://baike.baidu.com/item/%E6%BD%98%E8%B6%8A/62990530",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/8b82b9014a90f603738d44adc644a41bb051f919479b?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E6%BD%98%E8%B6%8A/62990530"
+      },
       "tags": [
         "演员",
         "一喜"
@@ -7890,7 +8153,8 @@
       },
       "tags": [
         "嘉宾",
-        "二喜"
+        "二喜",
+        "相声演员"
       ],
       "participations": [
         {
@@ -7967,6 +8231,10 @@
             {
               "workId": "erxi-5-2",
               "creditType": "小队署名"
+            },
+            {
+              "workId": "erxi-5-3",
+              "creditType": "助演"
             }
           ]
         },
@@ -8333,10 +8601,6 @@
             {
               "workId": "yixi-2-2",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "yixi-7-3",
-              "creditType": "大团署名"
             }
           ],
           "additionalSources": [
@@ -8350,8 +8614,11 @@
       "name": "王森",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E7%8E%8B%E6%A3%AE/10109259",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/a8014c086e061d950a7bcd3543a11dd162d9f2d35c3a?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E7%8E%8B%E6%A3%AE/10109259"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -8383,7 +8650,7 @@
       "id": "p-王濛",
       "name": "王濛",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E7%8E%8B%E6%BF%9B/6555",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/9c16fdfaaf51f3deb48f493527b2e71f3a292df5d317?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -8418,7 +8685,7 @@
       "id": "p-王男",
       "name": "王男",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E7%8E%8B%E7%94%B7/62761833",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/a8ec8a13632762d0f703fa2f08ba1ffa513d2697685e?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -8535,6 +8802,18 @@
               "creditType": "个人署名"
             },
             {
+              "workId": "yixi-2-6",
+              "creditType": "助演"
+            },
+            {
+              "workId": "yixi-2-12",
+              "creditType": "助演"
+            },
+            {
+              "workId": "yixi-2-16",
+              "creditType": "助演"
+            },
+            {
               "workId": "yixi-3-1",
               "creditType": "个人署名"
             },
@@ -8648,9 +8927,12 @@
       "id": "p-璎宁",
       "name": "璎宁",
       "aliases": [],
-      "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "gender": "女",
+      "baike": "https://baike.baidu.com/item/%E7%92%8E%E5%AE%81/61963529",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/42166d224f4a20a4462309d7b1078f22720e0cf37adc?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E7%92%8E%E5%AE%81/61963529"
+      },
       "tags": [
         "演员",
         "一喜"
@@ -8772,7 +9054,7 @@
       "id": "p-管乐",
       "name": "管乐",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E7%AE%A1%E4%B9%90/23651441",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/1b4c510fd9f9d72a6059209ce5713f34349b023b0da5?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -8813,16 +9095,16 @@
               "creditType": "小队署名"
             },
             {
-              "workId": "erxi-4-4",
-              "creditType": "小队署名"
-            },
-            {
               "workId": "erxi-4-7",
               "creditType": "小队署名"
             },
             {
               "workId": "erxi-5-1",
               "creditType": "小队署名"
+            },
+            {
+              "workId": "erxi-5-6",
+              "creditType": "助演"
             }
           ]
         },
@@ -9001,6 +9283,14 @@
           ],
           "groups": [],
           "works": [
+            {
+              "workId": "erxi-2-5",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-2-15",
+              "creditType": "助演"
+            },
             {
               "workId": "erxi-supplement-31",
               "creditType": "个人署名"
@@ -9182,7 +9472,7 @@
       "id": "p-舒淇",
       "name": "舒淇",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E8%88%92%E6%B7%87/316282",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/42a98226cffc1e178a825d144ecae103738da97743d9?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -9331,8 +9621,11 @@
       "name": "茂涛",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E8%8C%82%E6%B6%9B/53571829",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/8644ebf81a4c510fd9f9e3bc6003322dd42a28340f59?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E8%8C%82%E6%B6%9B/53571829"
+      },
       "tags": [
         "嘉宾",
         "一喜"
@@ -9460,8 +9753,16 @@
               "creditType": "个人署名"
             },
             {
+              "workId": "yixi-2-10",
+              "creditType": "助演"
+            },
+            {
               "workId": "yixi-2-13",
               "creditType": "大团署名"
+            },
+            {
+              "workId": "yixi-2-18",
+              "creditType": "助演"
             },
             {
               "workId": "yixi-3-3",
@@ -9498,14 +9799,8 @@
             "喜人好朋友"
           ],
           "teams": [],
-          "groups": [
-            "九条命"
-          ],
+          "groups": [],
           "works": [
-            {
-              "workId": "xi1-3-4",
-              "creditType": "大团署名"
-            },
             {
               "workId": "xi1-3-8",
               "creditType": "个人署名"
@@ -9513,18 +9808,6 @@
             {
               "workId": "xi1-3-10",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "xi1-4-2",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-4-4",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-6-3",
-              "creditType": "大团署名"
             }
           ]
         },
@@ -9577,7 +9860,7 @@
       "id": "p-蒋诗萌",
       "name": "蒋诗萌",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E8%92%8B%E8%AF%97%E8%90%8C/8570225",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/d4628535e5dde71190ef76a5d7bad91b9d16fdfacb11?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -9611,6 +9894,10 @@
             {
               "workId": "yixi-2-8",
               "creditType": "个人署名"
+            },
+            {
+              "workId": "yixi-2-16",
+              "creditType": "助演"
             },
             {
               "workId": "yixi-3-4",
@@ -9814,7 +10101,7 @@
       "id": "p-蔡明",
       "name": "蔡明",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E8%94%A1%E6%98%8E/5462",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/42166d224f4a20a4462335b675088f22720e0cf37a35?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -10021,8 +10308,11 @@
       "name": "许远驰",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E8%AE%B8%E8%BF%9C%E9%A9%B0/62286700",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/63d9f2d3572c11dfa9ec88a46e7d75d0f703908f64b8?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E8%AE%B8%E8%BF%9C%E9%A9%B0/62286700"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -10054,7 +10344,7 @@
       "id": "p-谢楠",
       "name": "谢楠",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E8%B0%A2%E6%A5%A0/2844135",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/7af40ad162d9f2d3572cfb158ab19d13632763d06681?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -10209,7 +10499,7 @@
       "id": "p-贾玲",
       "name": "贾玲",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E8%B4%BE%E7%8E%B2/55854",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/d53f8794a4c27d1ed21b7923598dba6eddc450da9286?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -10238,7 +10528,7 @@
       "id": "p-辛芷蕾",
       "name": "辛芷蕾",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E8%BE%9B%E8%8A%B7%E8%95%BE/7315433",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/f3d3572c11dfa9ec8a13b5ac588ae003918fa0ec6b4f?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -10367,7 +10657,7 @@
       "id": "p-那英",
       "name": "那英",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E9%82%A3%E8%8B%B1/357092",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/95eef01f3a292df5e0fef1daaa7b4b6034a85fdfd5e0?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -10510,8 +10800,11 @@
       "name": "郝李英杰",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://www.douban.com/personage/36109565/",
+      "avatar": {
+        "url": "https://img3.doubanio.com/view/personage/m/public/624ba25ca1e123ec3968fcc129642127.jpg",
+        "sourceUrl": "https://www.douban.com/personage/36109565/"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -10585,8 +10878,11 @@
       "name": "郭嘉轩",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E9%83%AD%E5%98%89%E8%BD%A9/62765084",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/0e2442a7d933c895d143e033554a64f082025aafaa78?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E9%83%AD%E5%98%89%E8%BD%A9/62765084"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -10619,7 +10915,7 @@
       "id": "p-郭大宝",
       "name": "郭大宝",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E9%83%AD%E5%A4%A7%E5%AE%9D/394326",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/a5c27d1ed21b0ef41bd5948a5f9d46da81cb38db9094?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -10650,14 +10946,6 @@
             {
               "workId": "yixi-2-5",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "yixi-3-9",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "yixi-7-2",
-              "creditType": "大团署名"
             }
           ],
           "additionalSources": [
@@ -10701,34 +10989,6 @@
             {
               "workId": "xi1-2-13",
               "creditType": "小队署名"
-            },
-            {
-              "workId": "xi1-3-2",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-3-6",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-3-9",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-4-1",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-4-6",
-              "creditType": "大团署名"
-            },
-            {
-              "workId": "xi1-5-10",
-              "creditType": "小队署名"
-            },
-            {
-              "workId": "xi1-6-2",
-              "creditType": "大团署名"
             }
           ]
         }
@@ -10738,7 +10998,7 @@
       "id": "p-郭甲醛",
       "name": "郭甲醛",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E9%83%AD%E7%94%B2%E9%86%9B/50885985",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/b151f8198618367adab41f97b12a9cd4b31c87014f7d?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -10834,8 +11094,8 @@
       "id": "p-郭秦秀芝",
       "name": "郭秦秀芝",
       "aliases": [],
-      "gender": "男",
-      "baike": null,
+      "gender": "女",
+      "baike": "https://www.douban.com/personage/36105021/",
       "avatar": null,
       "tags": [
         "演员",
@@ -10853,6 +11113,14 @@
           ],
           "groups": [],
           "works": [
+            {
+              "workId": "erxi-2-9",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-2-15",
+              "creditType": "助演"
+            },
             {
               "workId": "erxi-supplement-27",
               "creditType": "个人署名"
@@ -10925,7 +11193,9 @@
     {
       "id": "p-酷酷的滕",
       "name": "酷酷的滕",
-      "aliases": [],
+      "aliases": [
+        "滕根"
+      ],
       "gender": "男",
       "baike": "https://baike.baidu.com/item/%E9%85%B7%E9%85%B7%E7%9A%84%E6%BB%95/23654063",
       "avatar": {
@@ -10977,6 +11247,10 @@
             {
               "workId": "erxi-5-2",
               "creditType": "小队署名"
+            },
+            {
+              "workId": "erxi-5-6",
+              "creditType": "助演"
             }
           ]
         },
@@ -11072,7 +11346,8 @@
       },
       "tags": [
         "演员",
-        "喜一"
+        "喜一",
+        "相声演员"
       ],
       "participations": [
         {
@@ -11098,7 +11373,7 @@
       "id": "p-金靖",
       "name": "金靖",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E9%87%91%E9%9D%96/22032457",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/b58f8c5494eef01f3a290ddabca88e25bc315c60d72c?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -11179,7 +11454,7 @@
       "id": "p-锤娜丽莎",
       "name": "锤娜丽莎",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E9%94%A4%E5%A8%9C%E4%B8%BD%E8%8E%8E/24319212",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/c9fcc3cec3fdfc03924593d5ba709094a4c27d1e8805?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -11248,10 +11523,6 @@
             {
               "workId": "yixi-2-11",
               "creditType": "个人署名"
-            },
-            {
-              "workId": "yixi-7-3",
-              "creditType": "大团署名"
             }
           ],
           "additionalSources": [
@@ -11272,6 +11543,62 @@
             {
               "workId": "erxi-1-17",
               "creditType": "个人署名"
+            },
+            {
+              "workId": "erxi-2-5",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-2-7",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-2-9",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-2-17",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-3-2",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-3-3",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-3-5",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-3-12",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-4-1",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-4-7",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-4-8",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-5-1",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-5-4",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-5-6",
+              "creditType": "助演"
             }
           ]
         },
@@ -11376,7 +11703,8 @@
       },
       "tags": [
         "演员",
-        "喜一"
+        "喜一",
+        "相声演员"
       ],
       "participations": [
         {
@@ -11469,6 +11797,10 @@
               "creditType": "个人署名"
             },
             {
+              "workId": "yixi-2-10",
+              "creditType": "助演"
+            },
+            {
               "workId": "yixi-2-13",
               "creditType": "大团署名"
             },
@@ -11507,7 +11839,8 @@
       },
       "tags": [
         "演员",
-        "喜一"
+        "喜一",
+        "相声演员"
       ],
       "participations": [
         {
@@ -11561,7 +11894,9 @@
     {
       "id": "p-陶宇杰",
       "name": "陶宇杰",
-      "aliases": [],
+      "aliases": [
+        "水王"
+      ],
       "gender": "男",
       "baike": "https://baike.baidu.com/item/%E9%99%B6%E5%AE%87%E6%9D%B0/58917039",
       "avatar": {
@@ -11597,7 +11932,7 @@
       "name": "隋鑫",
       "aliases": [],
       "gender": "男",
-      "baike": null,
+      "baike": "https://www.douban.com/personage/36125424/",
       "avatar": null,
       "tags": [
         "演员",
@@ -11615,6 +11950,30 @@
           ],
           "groups": [],
           "works": [
+            {
+              "workId": "erxi-2-6",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-2-7",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-3-8",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-5-2",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-5-3",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-5-4",
+              "creditType": "助演"
+            },
             {
               "workId": "erxi-supplement-25",
               "creditType": "个人署名"
@@ -11654,6 +12013,42 @@
           ],
           "groups": [],
           "works": [
+            {
+              "workId": "erxi-2-2",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-2-6",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-2-4",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-3-8",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-4-2",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-4-4",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-4-11",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-5-2",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-5-4",
+              "creditType": "助演"
+            },
             {
               "workId": "erxi-supplement-25",
               "creditType": "个人署名"
@@ -11759,9 +12154,12 @@
       "id": "p-韩晶如",
       "name": "韩晶如",
       "aliases": [],
-      "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "gender": "女",
+      "baike": "https://baike.baidu.com/item/%E9%9F%A9%E6%99%B6%E5%A6%82/65115765",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/0e2442a7d933c895d143038bf24864f082025bafaab2?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E9%9F%A9%E6%99%B6%E5%A6%82/65115765"
+      },
       "tags": [
         "演员",
         "一喜"
@@ -11791,7 +12189,7 @@
       "id": "p-项倩",
       "name": "项倩",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E9%A1%B9%E5%80%A9/66786010",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/55e736d12f2eb9389b504b64b33e9235e5dde611c1ab?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -11860,6 +12258,10 @@
               "creditType": "个人署名"
             },
             {
+              "workId": "yixi-2-6",
+              "creditType": "助演"
+            },
+            {
               "workId": "yixi-2-14",
               "creditType": "个人署名"
             },
@@ -11895,8 +12297,11 @@
       "name": "顿珠",
       "aliases": [],
       "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "baike": "https://baike.baidu.com/item/%E9%A1%BF%E7%8F%A0/65029331",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/4ec2d5628535e5dde7119887119ab0efce1b9d16c46d?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E9%A1%BF%E7%8F%A0/65029331"
+      },
       "tags": [
         "演员",
         "一喜"
@@ -11928,7 +12333,7 @@
       "id": "p-颜怡",
       "name": "颜怡",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E9%A2%9C%E6%80%A1/10460849",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/3b87e950352ac65c103804e60baba5119313b07e1c56?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -11936,7 +12341,8 @@
       },
       "tags": [
         "嘉宾",
-        "喜一"
+        "喜一",
+        "脱口秀演员"
       ],
       "participations": [
         {
@@ -11962,7 +12368,7 @@
       "id": "p-颜悦",
       "name": "颜悦",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E9%A2%9C%E6%82%A6/53485636",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/1c950a7b02087bf40ad17873028a402c11dfa8ec61ad?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -11970,7 +12376,8 @@
       },
       "tags": [
         "嘉宾",
-        "喜一"
+        "喜一",
+        "脱口秀演员"
       ],
       "participations": [
         {
@@ -12064,7 +12471,7 @@
       "id": "p-马丽",
       "name": "马丽",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E9%A9%AC%E4%B8%BD/2746652",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/0df431adcbef76094b365337728ab4cc7cd98d103059?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -12093,7 +12500,7 @@
       "id": "p-马伊琍",
       "name": "马伊琍",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E9%A9%AC%E4%BC%8A%E7%90%8D/5444261",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/8326cffc1e178a82b901929ce754648da977391242cd?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -12122,7 +12529,7 @@
       "id": "p-马卓君",
       "name": "马卓君",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E9%A9%AC%E5%8D%93%E5%90%9B/24154390",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/7af40ad162d9f2d342961392a6ec8a136227ccc3?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -12176,7 +12583,7 @@
       "id": "p-马思纯",
       "name": "马思纯",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E9%A9%AC%E6%80%9D%E7%BA%AF/3031049",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/4bed2e738bd4b31c87016f13ac8f307f9e2f0708525b?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -12237,6 +12644,34 @@
             {
               "workId": "erxi-2-1",
               "creditType": "小队署名"
+            },
+            {
+              "workId": "erxi-3-1",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-4-8",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-4-9",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-4-11",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-5-1",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-5-3",
+              "creditType": "助演"
+            },
+            {
+              "workId": "erxi-5-6",
+              "creditType": "助演"
             }
           ]
         },
@@ -12326,7 +12761,7 @@
       "id": "p-高圆圆",
       "name": "高圆圆",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E9%AB%98%E5%9C%86%E5%9C%86/261975",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/902397dda144ad34221757fcdda20cf431ad8525?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -12355,9 +12790,12 @@
       "id": "p-高奕然",
       "name": "高奕然",
       "aliases": [],
-      "gender": "男",
-      "baike": null,
-      "avatar": null,
+      "gender": "女",
+      "baike": "https://baike.baidu.com/item/%E9%AB%98%E5%A5%95%E7%84%B6/62144363",
+      "avatar": {
+        "url": "https://bkimg.cdn.bcebos.com/pic/63d9f2d3572c11dfa9ec0691e07275d0f703918f6471?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "sourceUrl": "https://baike.baidu.com/item/%E9%AB%98%E5%A5%95%E7%84%B6/62144363"
+      },
       "tags": [
         "演员",
         "二喜"
@@ -12666,7 +13104,7 @@
       "id": "p-高颖",
       "name": "高颖",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E9%AB%98%E9%A2%96/50826377",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/78310a55b319ebc4b745f4e4ae7dd8fc1e178a82b801?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -12931,7 +13369,7 @@
       "id": "p-黄龄",
       "name": "黄龄",
       "aliases": [],
-      "gender": "男",
+      "gender": "女",
       "baike": "https://baike.baidu.com/item/%E9%BB%84%E9%BE%84/3601629",
       "avatar": {
         "url": "https://bkimg.cdn.bcebos.com/pic/cc11728b4710b912c8fc32aa7db1eb039245d6888418?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
@@ -13717,7 +14155,7 @@
       "id": "erxi-1-1",
       "seasonId": "erxi",
       "title": "虎父无犬子",
-      "episode": "第一期第一期海报(6张)2022/9/23初舞台第一场",
+      "episode": "2022/9/23初舞台第一场",
       "sourceCredit": "松天硕、刘旸、宇文秋实（老师好）",
       "sourceTable": 1,
       "sourceRow": 1,
@@ -13727,7 +14165,7 @@
       "id": "erxi-1-2",
       "seasonId": "erxi",
       "title": "突突突突突围",
-      "episode": "第一期第一期海报(6张)2022/9/23初舞台第一场",
+      "episode": "2022/9/23初舞台第一场",
       "sourceCredit": "酷酷的滕、王天放（酷酷的天放）",
       "sourceTable": 1,
       "sourceRow": 2,
@@ -13737,7 +14175,7 @@
       "id": "erxi-1-3",
       "seasonId": "erxi",
       "title": "全民运动会",
-      "episode": "第一期第一期海报(6张)2022/9/23初舞台第一场",
+      "episode": "2022/9/23初舞台第一场",
       "sourceCredit": "朱毅、张丹槟、张大蹦（非扯不可）",
       "sourceTable": 1,
       "sourceRow": 3,
@@ -13747,7 +14185,7 @@
       "id": "erxi-1-4",
       "seasonId": "erxi",
       "title": "黑夜里的脆弱",
-      "episode": "第一期第一期海报(6张)2022/9/23初舞台第一场",
+      "episode": "2022/9/23初舞台第一场",
       "sourceCredit": "郭耘奇、谢泽成（阿奇与阿成）",
       "sourceTable": 1,
       "sourceRow": 4,
@@ -13757,7 +14195,7 @@
       "id": "erxi-1-5",
       "seasonId": "erxi",
       "title": "再见",
-      "episode": "第一期第一期海报(6张)2022/9/23初舞台第一场",
+      "episode": "2022/9/23初舞台第一场",
       "sourceCredit": "李逗逗（李逗逗）",
       "sourceTable": 1,
       "sourceRow": 5,
@@ -13767,7 +14205,7 @@
       "id": "erxi-1-6",
       "seasonId": "erxi",
       "title": "排练疯云",
-      "episode": "第一期第一期海报(6张)2022/9/23初舞台第一场",
+      "episode": "2022/9/23初舞台第一场",
       "sourceCredit": "张维伊、左凌峰、刘同（某某某）",
       "sourceTable": 1,
       "sourceRow": 6,
@@ -13777,7 +14215,7 @@
       "id": "erxi-1-7",
       "seasonId": "erxi",
       "title": "大放光彩",
-      "episode": "第二期第二期海报(8张)2022/9/30初舞台第二场",
+      "episode": "2022/9/30初舞台第二场",
       "sourceCredit": "张小婉、管乐（小婉管乐）",
       "sourceTable": 1,
       "sourceRow": 7,
@@ -13787,7 +14225,7 @@
       "id": "erxi-1-8",
       "seasonId": "erxi",
       "title": "热血乒乓",
-      "episode": "第二期第二期海报(8张)2022/9/30初舞台第二场",
+      "episode": "2022/9/30初舞台第二场",
       "sourceCredit": "李秋盟、郭嘉轩、郝李英杰（加盟送好礼）",
       "sourceTable": 1,
       "sourceRow": 8,
@@ -13797,7 +14235,7 @@
       "id": "erxi-1-9",
       "seasonId": "erxi",
       "title": "屋顶",
-      "episode": "第二期第二期海报(8张)2022/9/30初舞台第二场",
+      "episode": "2022/9/30初舞台第二场",
       "sourceCredit": "张晔子、魏嘉诚（嘉大晔大）",
       "sourceTable": 1,
       "sourceRow": 9,
@@ -13807,7 +14245,7 @@
       "id": "erxi-1-10",
       "seasonId": "erxi",
       "title": "少爷和我",
-      "episode": "第二期第二期海报(8张)2022/9/30初舞台第二场",
+      "episode": "2022/9/30初舞台第二场",
       "sourceCredit": "张哲华、鑫仔（詹鑫）（少爷和我）",
       "sourceTable": 1,
       "sourceRow": 10,
@@ -13817,7 +14255,7 @@
       "id": "erxi-1-11",
       "seasonId": "erxi",
       "title": "我不唱",
-      "episode": "第二期第二期海报(8张)2022/9/30初舞台第二场",
+      "episode": "2022/9/30初舞台第二场",
       "sourceCredit": "张铭轩、张艺文（张张包）",
       "sourceTable": 1,
       "sourceRow": 11,
@@ -13827,7 +14265,7 @@
       "id": "erxi-1-12",
       "seasonId": "erxi",
       "title": "代号大本钟",
-      "episode": "第二期第二期海报(8张)2022/9/30初舞台第二场",
+      "episode": "2022/9/30初舞台第二场",
       "sourceCredit": "土豆、吕严（胖达人2）",
       "sourceTable": 1,
       "sourceRow": 12,
@@ -13837,7 +14275,7 @@
       "id": "erxi-1-13",
       "seasonId": "erxi",
       "title": "小学生作文，有画面了",
-      "episode": "第三期第三期海报(8张)2022/10/7初舞台第三场",
+      "episode": "2022/10/7初舞台第三场",
       "sourceCredit": "马旭东、王子傲、卜宇鑫（马卜停蹄子）",
       "sourceTable": 1,
       "sourceRow": 13,
@@ -13847,7 +14285,7 @@
       "id": "erxi-1-14",
       "seasonId": "erxi",
       "title": "今天你要嫁给他",
-      "episode": "第三期第三期海报(8张)2022/10/7初舞台第三场",
+      "episode": "2022/10/7初舞台第三场",
       "sourceCredit": "苗若芃、张呈、罗圣灯（九口人）",
       "sourceTable": 1,
       "sourceRow": 14,
@@ -13857,7 +14295,7 @@
       "id": "erxi-1-15",
       "seasonId": "erxi",
       "title": "最好的房子",
-      "episode": "第三期第三期海报(8张)2022/10/7初舞台第三场",
+      "episode": "2022/10/7初舞台第三场",
       "sourceCredit": "周可人、周仕麒（仕可而止）",
       "sourceTable": 1,
       "sourceRow": 15,
@@ -13867,7 +14305,7 @@
       "id": "erxi-1-16",
       "seasonId": "erxi",
       "title": "妈妈的味道",
-      "episode": "第三期第三期海报(8张)2022/10/7初舞台第三场",
+      "episode": "2022/10/7初舞台第三场",
       "sourceCredit": "孙书悦、马卓君、姜牟远健（姐尽全力）",
       "sourceTable": 1,
       "sourceRow": 16,
@@ -13877,7 +14315,7 @@
       "id": "erxi-1-17",
       "seasonId": "erxi",
       "title": "别送我",
-      "episode": "第三期第三期海报(8张)2022/10/7初舞台第三场",
+      "episode": "2022/10/7初舞台第三场",
       "sourceCredit": "张祐维、闫佩伦（又一轮）",
       "sourceTable": 1,
       "sourceRow": 17,
@@ -13887,7 +14325,7 @@
       "id": "erxi-1-18",
       "seasonId": "erxi",
       "title": "男纸汉",
-      "episode": "第三期第三期海报(8张)2022/10/7初舞台第三场",
+      "episode": "2022/10/7初舞台第三场",
       "sourceCredit": "刘奕斐、易适雨、李胜昔、庞达、曾梦莎、高奕然（偶耶）",
       "sourceTable": 1,
       "sourceRow": 18,
@@ -13897,7 +14335,7 @@
       "id": "erxi-2-1",
       "seasonId": "erxi",
       "title": "一起去旅行",
-      "episode": "第四期第四期海报(9张)2022/10/14PK赛第一场",
+      "episode": "2022/10/14PK赛第一场",
       "sourceCredit": "马卜停蹄子",
       "sourceTable": 2,
       "sourceRow": 1,
@@ -13907,7 +14345,7 @@
       "id": "erxi-2-2",
       "seasonId": "erxi",
       "title": "心上人儿",
-      "episode": "第四期第四期海报(9张)2022/10/14PK赛第一场",
+      "episode": "2022/10/14PK赛第一场",
       "sourceCredit": "酷酷的天放",
       "sourceTable": 2,
       "sourceRow": 2,
@@ -13917,7 +14355,7 @@
       "id": "erxi-2-3",
       "seasonId": "erxi",
       "title": "老同学显摆大会",
-      "episode": "第四期第四期海报(9张)2022/10/14PK赛第一场",
+      "episode": "2022/10/14PK赛第一场",
       "sourceCredit": "飞扯不可",
       "sourceTable": 2,
       "sourceRow": 3,
@@ -13927,7 +14365,7 @@
       "id": "erxi-2-4",
       "seasonId": "erxi",
       "title": "两兄弟牛排店",
-      "episode": "第四期第四期海报(9张)2022/10/14PK赛第一场",
+      "episode": "2022/10/14PK赛第一场",
       "sourceCredit": "九口人",
       "sourceTable": 2,
       "sourceRow": 4,
@@ -13937,7 +14375,7 @@
       "id": "erxi-2-5",
       "seasonId": "erxi",
       "title": "进化论",
-      "episode": "第四期第四期海报(9张)2022/10/14PK赛第一场",
+      "episode": "2022/10/14PK赛第一场",
       "sourceCredit": "胖达人2",
       "sourceTable": 2,
       "sourceRow": 5,
@@ -13947,7 +14385,7 @@
       "id": "erxi-2-6",
       "seasonId": "erxi",
       "title": "没有学习的人不伤心",
-      "episode": "第四期第四期海报(9张)2022/10/14PK赛第一场",
+      "episode": "2022/10/14PK赛第一场",
       "sourceCredit": "老师好",
       "sourceTable": 2,
       "sourceRow": 6,
@@ -13957,7 +14395,7 @@
       "id": "erxi-2-7",
       "seasonId": "erxi",
       "title": "财神来敲我家门",
-      "episode": "第五期第五期海报(8张)2022/10/28PK赛第二场",
+      "episode": "2022/10/28PK赛第二场",
       "sourceCredit": "阿奇与阿成",
       "sourceTable": 2,
       "sourceRow": 7,
@@ -13967,7 +14405,7 @@
       "id": "erxi-2-8",
       "seasonId": "erxi",
       "title": "我不演",
-      "episode": "第五期第五期海报(8张)2022/10/28PK赛第二场",
+      "episode": "2022/10/28PK赛第二场",
       "sourceCredit": "张张包",
       "sourceTable": 2,
       "sourceRow": 8,
@@ -13977,7 +14415,7 @@
       "id": "erxi-2-9",
       "seasonId": "erxi",
       "title": "一个聚会",
-      "episode": "第五期第五期海报(8张)2022/10/28PK赛第二场",
+      "episode": "2022/10/28PK赛第二场",
       "sourceCredit": "李逗逗",
       "sourceTable": 2,
       "sourceRow": 9,
@@ -13987,7 +14425,7 @@
       "id": "erxi-2-10",
       "seasonId": "erxi",
       "title": "饭局往事",
-      "episode": "第五期第五期海报(8张)2022/10/28PK赛第二场",
+      "episode": "2022/10/28PK赛第二场",
       "sourceCredit": "某某某",
       "sourceTable": 2,
       "sourceRow": 10,
@@ -13997,7 +14435,7 @@
       "id": "erxi-2-11",
       "seasonId": "erxi",
       "title": "搬家疑云",
-      "episode": "第五期第五期海报(8张)2022/10/28PK赛第二场",
+      "episode": "2022/10/28PK赛第二场",
       "sourceCredit": "壮哈兄弟",
       "sourceTable": 2,
       "sourceRow": 11,
@@ -14007,7 +14445,7 @@
       "id": "erxi-2-12",
       "seasonId": "erxi",
       "title": "小猪·归归归",
-      "episode": "第五期第五期海报(8张)2022/10/28PK赛第二场",
+      "episode": "2022/10/28PK赛第二场",
       "sourceCredit": "偶耶",
       "sourceTable": 2,
       "sourceRow": 12,
@@ -14017,7 +14455,7 @@
       "id": "erxi-2-13",
       "seasonId": "erxi",
       "title": "伤心侦探",
-      "episode": "第六期第六期海报(6张)2022/11/4PK赛第三场",
+      "episode": "2022/11/4PK赛第三场",
       "sourceCredit": "仕可而止",
       "sourceTable": 2,
       "sourceRow": 13,
@@ -14027,7 +14465,7 @@
       "id": "erxi-2-14",
       "seasonId": "erxi",
       "title": "分手快乐",
-      "episode": "第六期第六期海报(6张)2022/11/4PK赛第三场",
+      "episode": "2022/11/4PK赛第三场",
       "sourceCredit": "嘉大晔大",
       "sourceTable": 2,
       "sourceRow": 14,
@@ -14037,7 +14475,7 @@
       "id": "erxi-2-15",
       "seasonId": "erxi",
       "title": "当一个女人决定退鞋",
-      "episode": "第六期第六期海报(6张)2022/11/4PK赛第三场",
+      "episode": "2022/11/4PK赛第三场",
       "sourceCredit": "姐尽全力",
       "sourceTable": 2,
       "sourceRow": 15,
@@ -14047,7 +14485,7 @@
       "id": "erxi-2-16",
       "seasonId": "erxi",
       "title": "警察和我",
-      "episode": "第六期第六期海报(6张)2022/11/4PK赛第三场",
+      "episode": "2022/11/4PK赛第三场",
       "sourceCredit": "少爷和我",
       "sourceTable": 2,
       "sourceRow": 16,
@@ -14057,7 +14495,7 @@
       "id": "erxi-2-17",
       "seasonId": "erxi",
       "title": "千年就一回",
-      "episode": "第六期第六期海报(6张)2022/11/4PK赛第三场",
+      "episode": "2022/11/4PK赛第三场",
       "sourceCredit": "小婉管乐",
       "sourceTable": 2,
       "sourceRow": 17,
@@ -14067,7 +14505,7 @@
       "id": "erxi-2-18",
       "seasonId": "erxi",
       "title": "小情鸽",
-      "episode": "第六期第六期海报(6张)2022/11/4PK赛第三场",
+      "episode": "2022/11/4PK赛第三场",
       "sourceCredit": "加盟送好礼",
       "sourceTable": 2,
       "sourceRow": 18,
@@ -14077,7 +14515,7 @@
       "id": "erxi-3-1",
       "seasonId": "erxi",
       "title": "德古拉和我",
-      "episode": "第七期第七期海报(13张)2022/11/10合作赛第一场",
+      "episode": "2022/11/10合作赛第一场",
       "sourceCredit": "少爷和我 / 姐尽全力",
       "sourceTable": 3,
       "sourceRow": 1,
@@ -14087,7 +14525,7 @@
       "id": "erxi-3-2",
       "seasonId": "erxi",
       "title": "开不了口",
-      "episode": "第七期第七期海报(13张)2022/11/10合作赛第一场",
+      "episode": "2022/11/10合作赛第一场",
       "sourceCredit": "阿奇与阿成 / 酷酷的天放",
       "sourceTable": 3,
       "sourceRow": 2,
@@ -14097,7 +14535,7 @@
       "id": "erxi-3-3",
       "seasonId": "erxi",
       "title": "胆小鬼",
-      "episode": "第七期第七期海报(13张)2022/11/10合作赛第一场",
+      "episode": "2022/11/10合作赛第一场",
       "sourceCredit": "李逗逗 / 老师好",
       "sourceTable": 3,
       "sourceRow": 3,
@@ -14107,7 +14545,7 @@
       "id": "erxi-3-4",
       "seasonId": "erxi",
       "title": "开工吧！雕塑家！",
-      "episode": "第七期第七期海报(13张)2022/11/10合作赛第一场",
+      "episode": "2022/11/10合作赛第一场",
       "sourceCredit": "仕可而止 / 偶耶",
       "sourceTable": 3,
       "sourceRow": 4,
@@ -14117,7 +14555,7 @@
       "id": "erxi-3-5",
       "seasonId": "erxi",
       "title": "天台告白",
-      "episode": "第七期第七期海报(13张)2022/11/10合作赛第一场",
+      "episode": "2022/11/10合作赛第一场",
       "sourceCredit": "胖达人2 / 九口人",
       "sourceTable": 3,
       "sourceRow": 5,
@@ -14127,7 +14565,7 @@
       "id": "erxi-3-6",
       "seasonId": "erxi",
       "title": "加油吧！小骨兵！",
-      "episode": "第七期第七期海报(13张)2022/11/10合作赛第一场",
+      "episode": "2022/11/10合作赛第一场",
       "sourceCredit": "老师好 / 李逗逗",
       "sourceTable": 3,
       "sourceRow": 6,
@@ -14137,7 +14575,7 @@
       "id": "erxi-3-7",
       "seasonId": "erxi",
       "title": "军师恋盟",
-      "episode": "第八期第八期海报(6张)2022/11/11合作赛第二场",
+      "episode": "2022/11/11合作赛第二场",
       "sourceCredit": "某某某 / 小婉管乐",
       "sourceTable": 3,
       "sourceRow": 7,
@@ -14147,7 +14585,7 @@
       "id": "erxi-3-8",
       "seasonId": "erxi",
       "title": "好兄台",
-      "episode": "第八期第八期海报(6张)2022/11/11合作赛第二场",
+      "episode": "2022/11/11合作赛第二场",
       "sourceCredit": "酷酷的天放 / 阿奇与阿成",
       "sourceTable": 3,
       "sourceRow": 8,
@@ -14157,7 +14595,7 @@
       "id": "erxi-3-9",
       "seasonId": "erxi",
       "title": "请赐教",
-      "episode": "第八期第八期海报(6张)2022/11/11合作赛第二场",
+      "episode": "2022/11/11合作赛第二场",
       "sourceCredit": "姐尽全力 / 少爷和我",
       "sourceTable": 3,
       "sourceRow": 9,
@@ -14167,7 +14605,7 @@
       "id": "erxi-3-10",
       "seasonId": "erxi",
       "title": "社恐指挥部",
-      "episode": "第八期第八期海报(6张)2022/11/11合作赛第二场",
+      "episode": "2022/11/11合作赛第二场",
       "sourceCredit": "九口人 / 胖达人2",
       "sourceTable": 3,
       "sourceRow": 10,
@@ -14177,7 +14615,7 @@
       "id": "erxi-3-11",
       "seasonId": "erxi",
       "title": "出神入画",
-      "episode": "第八期第八期海报(6张)2022/11/11合作赛第二场",
+      "episode": "2022/11/11合作赛第二场",
       "sourceCredit": "偶耶 / 仕可而止",
       "sourceTable": 3,
       "sourceRow": 11,
@@ -14187,7 +14625,7 @@
       "id": "erxi-3-12",
       "seasonId": "erxi",
       "title": "遇人不赎",
-      "episode": "第八期第八期海报(6张)2022/11/11合作赛第二场",
+      "episode": "2022/11/11合作赛第二场",
       "sourceCredit": "小婉管乐 / 某某某",
       "sourceTable": 3,
       "sourceRow": 12,
@@ -14197,7 +14635,7 @@
       "id": "erxi-4-1",
       "seasonId": "erxi",
       "title": "商战这件小事",
-      "episode": "第九期第九期海报(7张)2022/11/25合作赛第三场",
+      "episode": "2022/11/25合作赛第三场",
       "sourceCredit": "姐尽全力 / 阿奇与阿成 / 宋木子",
       "sourceTable": 4,
       "sourceRow": 1,
@@ -14207,7 +14645,7 @@
       "id": "erxi-4-2",
       "seasonId": "erxi",
       "title": "少爷和小姐",
-      "episode": "第九期第九期海报(7张)2022/11/25合作赛第三场",
+      "episode": "2022/11/25合作赛第三场",
       "sourceCredit": "李逗逗 / 少爷和我 / 蒋诗萌",
       "sourceTable": 4,
       "sourceRow": 2,
@@ -14217,7 +14655,7 @@
       "id": "erxi-4-3",
       "seasonId": "erxi",
       "title": "复活军团",
-      "episode": "第九期第九期海报(7张)2022/11/25合作赛第三场",
+      "episode": "2022/11/25合作赛第三场",
       "sourceCredit": "某某某 / 胖达人2 / 孙天宇",
       "sourceTable": 4,
       "sourceRow": 3,
@@ -14227,7 +14665,7 @@
       "id": "erxi-4-4",
       "seasonId": "erxi",
       "title": "将合租进行到底",
-      "episode": "第九期第九期海报(7张)2022/11/25合作赛第三场",
+      "episode": "2022/11/25合作赛第三场",
       "sourceCredit": "酷酷的天放 / 小婉管乐 / 史策",
       "sourceTable": 4,
       "sourceRow": 4,
@@ -14237,7 +14675,7 @@
       "id": "erxi-4-5",
       "seasonId": "erxi",
       "title": "这个杀手特别冷",
-      "episode": "第九期第九期海报(7张)2022/11/25合作赛第三场",
+      "episode": "2022/11/25合作赛第三场",
       "sourceCredit": "老师好 / 九口人 / 蒋龙",
       "sourceTable": 4,
       "sourceRow": 5,
@@ -14247,7 +14685,7 @@
       "id": "erxi-4-6",
       "seasonId": "erxi",
       "title": "难眠的夜晚",
-      "episode": "第九期第九期海报(7张)2022/11/25合作赛第三场",
+      "episode": "2022/11/25合作赛第三场",
       "sourceCredit": "偶耶 / 仕可而止 / 王皓",
       "sourceTable": 4,
       "sourceRow": 6,
@@ -14257,7 +14695,7 @@
       "id": "erxi-4-7",
       "seasonId": "erxi",
       "title": "我的伴娘",
-      "episode": "第十期第十期海报(12张)2022/12/9合作赛第四场",
+      "episode": "2022/12/9合作赛第四场",
       "sourceCredit": "小婉管乐 / 酷酷的天放 / 锤娜丽莎",
       "sourceTable": 4,
       "sourceRow": 7,
@@ -14267,7 +14705,7 @@
       "id": "erxi-4-8",
       "seasonId": "erxi",
       "title": "超快乐男孩",
-      "episode": "第十期第十期海报(12张)2022/12/9合作赛第四场",
+      "episode": "2022/12/9合作赛第四场",
       "sourceCredit": "少爷和我 / 李逗逗 / 张远",
       "sourceTable": 4,
       "sourceRow": 8,
@@ -14277,7 +14715,7 @@
       "id": "erxi-4-9",
       "seasonId": "erxi",
       "title": "音乐课最重要",
-      "episode": "第十期第十期海报(12张)2022/12/9合作赛第四场",
+      "episode": "2022/12/9合作赛第四场",
       "sourceCredit": "仕可而止 / 偶耶 / 臧鸿飞",
       "sourceTable": 4,
       "sourceRow": 9,
@@ -14287,7 +14725,7 @@
       "id": "erxi-4-10",
       "seasonId": "erxi",
       "title": "当一个龙虾人决定去",
-      "episode": "第十期第十期海报(12张)2022/12/9合作赛第四场",
+      "episode": "2022/12/9合作赛第四场",
       "sourceCredit": "胖达人2 / 某某某 / 谢楠",
       "sourceTable": 4,
       "sourceRow": 10,
@@ -14297,7 +14735,7 @@
       "id": "erxi-4-11",
       "seasonId": "erxi",
       "title": "我要当rapper",
-      "episode": "第十期第十期海报(12张)2022/12/9合作赛第四场",
+      "episode": "2022/12/9合作赛第四场",
       "sourceCredit": "阿奇与阿成 / 姐尽全力 / 董宝石",
       "sourceTable": 4,
       "sourceRow": 11,
@@ -14307,7 +14745,7 @@
       "id": "erxi-4-12",
       "seasonId": "erxi",
       "title": "大考结束那一天",
-      "episode": "第十期第十期海报(12张)2022/12/9合作赛第四场",
+      "episode": "2022/12/9合作赛第四场",
       "sourceCredit": "老师好 / 九口人 / 烧饼",
       "sourceTable": 4,
       "sourceRow": 12,
@@ -14317,7 +14755,7 @@
       "id": "erxi-5-1",
       "seasonId": "erxi",
       "title": "我的唯一",
-      "episode": "第十二期第十二期海报(12张)2022/12/17合作赛第四场",
+      "episode": "2022/12/17合作赛第四场",
       "sourceCredit": "小婉管乐",
       "sourceTable": 5,
       "sourceRow": 1,
@@ -14327,7 +14765,7 @@
       "id": "erxi-5-2",
       "seasonId": "erxi",
       "title": "兴安岭奇缘",
-      "episode": "第十二期第十二期海报(12张)2022/12/17合作赛第四场",
+      "episode": "2022/12/17合作赛第四场",
       "sourceCredit": "酷酷的天放",
       "sourceTable": 5,
       "sourceRow": 2,
@@ -14337,7 +14775,7 @@
       "id": "erxi-5-3",
       "seasonId": "erxi",
       "title": "警察和我之蛇我其谁",
-      "episode": "第十二期第十二期海报(12张)2022/12/17合作赛第四场",
+      "episode": "2022/12/17合作赛第四场",
       "sourceCredit": "少爷和我",
       "sourceTable": 5,
       "sourceRow": 3,
@@ -14347,7 +14785,7 @@
       "id": "erxi-5-4",
       "seasonId": "erxi",
       "title": "恐龙家族",
-      "episode": "第十二期第十二期海报(12张)2022/12/17合作赛第四场",
+      "episode": "2022/12/17合作赛第四场",
       "sourceCredit": "胖达人2",
       "sourceTable": 5,
       "sourceRow": 4,
@@ -14357,7 +14795,7 @@
       "id": "erxi-5-5",
       "seasonId": "erxi",
       "title": "三十而栗",
-      "episode": "第十二期第十二期海报(12张)2022/12/17合作赛第四场",
+      "episode": "2022/12/17合作赛第四场",
       "sourceCredit": "阿奇与阿成",
       "sourceTable": 5,
       "sourceRow": 5,
@@ -14367,7 +14805,7 @@
       "id": "erxi-5-6",
       "seasonId": "erxi",
       "title": "再见老张",
-      "episode": "第十二期第十二期海报(12张)2022/12/17合作赛第四场",
+      "episode": "2022/12/17合作赛第四场",
       "sourceCredit": "某某某",
       "sourceTable": 5,
       "sourceRow": 6,
@@ -14742,7 +15180,7 @@
       "sourceTable": 3,
       "sourceRow": 1,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-3-2",
@@ -14753,7 +15191,7 @@
       "sourceTable": 3,
       "sourceRow": 2,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-3-3",
@@ -14764,7 +15202,7 @@
       "sourceTable": 3,
       "sourceRow": 3,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-3-4",
@@ -14775,7 +15213,7 @@
       "sourceTable": 3,
       "sourceRow": 4,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-3-5",
@@ -14786,7 +15224,7 @@
       "sourceTable": 3,
       "sourceRow": 5,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-3-6",
@@ -14797,7 +15235,7 @@
       "sourceTable": 3,
       "sourceRow": 6,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-3-7",
@@ -14808,7 +15246,7 @@
       "sourceTable": 3,
       "sourceRow": 7,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-3-8",
@@ -14819,7 +15257,7 @@
       "sourceTable": 3,
       "sourceRow": 8,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-3-9",
@@ -14830,7 +15268,7 @@
       "sourceTable": 3,
       "sourceRow": 9,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-3-10",
@@ -14841,7 +15279,7 @@
       "sourceTable": 3,
       "sourceRow": 10,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-3-11",
@@ -14852,7 +15290,7 @@
       "sourceTable": 3,
       "sourceRow": 11,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-3-12",
@@ -14863,7 +15301,7 @@
       "sourceTable": 3,
       "sourceRow": 12,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-4-1",
@@ -14874,7 +15312,7 @@
       "sourceTable": 4,
       "sourceRow": 1,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-4-2",
@@ -14885,7 +15323,7 @@
       "sourceTable": 4,
       "sourceRow": 2,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-4-3",
@@ -14896,7 +15334,7 @@
       "sourceTable": 4,
       "sourceRow": 3,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-4-4",
@@ -14907,7 +15345,7 @@
       "sourceTable": 4,
       "sourceRow": 4,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-4-5",
@@ -14918,7 +15356,7 @@
       "sourceTable": 4,
       "sourceRow": 5,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-4-6",
@@ -14929,7 +15367,7 @@
       "sourceTable": 4,
       "sourceRow": 6,
       "sourceUrl": "https://baike.baidu.com/item/%E5%96%9C%E4%BA%BA%E5%A5%87%E5%A6%99%E5%A4%9C%E7%AC%AC%E4%B8%80%E5%AD%A3/66320554",
-      "note": "百科仅列出合作喜团及嘉宾；本数据按维护规则假设该大团全员参演。"
+      "note": "百科仅列出合作喜团及嘉宾；导入时默认按大团关联，人工核实的未参演者可从个人记录中排除。"
     },
     {
       "id": "xi1-5-1",

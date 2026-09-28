@@ -265,6 +265,31 @@ h1 {
   align-items: flex-start;
   margin: 17px 0;
 }
+.season-filter-block {
+  min-width: 0;
+  margin: 18px 0 20px;
+  padding: 6px 15px 7px;
+  border: 1px solid #e4e8dc;
+  border-radius: 11px;
+  background: #fafbf7;
+}
+.season-filter-block legend {
+  padding: 0 8px;
+  color: #53664a;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.season-filter-block .filter-row {
+  margin: 8px 0;
+}
+.season-filter-block .mode-row {
+  padding-bottom: 13px;
+  border-bottom: 1px dashed #e1e5d9;
+}
+.season-filter-block .season-row {
+  padding-top: 3px;
+}
 .filter-label {
   flex: 0 0 76px;
   font-size: 12px;
@@ -376,13 +401,6 @@ h1 {
 }
 .filter-split .filter-row:nth-child(2) .filter-label {
   flex-basis: 30px;
-}
-.gender-note {
-  font-size: 9px;
-  color: #a58a54;
-  border-bottom: 1px dotted #cabc96;
-  margin-top: 10px;
-  white-space: nowrap;
 }
 .tag-row {
   padding-top: 16px;
@@ -680,6 +698,50 @@ footer {
   font-size: 8px;
   letter-spacing: 1.5px;
 }
+.back-to-top {
+  position: fixed;
+  right: max(10px, calc((100vw - 1440px) / 2 + 10px));
+  bottom: 24px;
+  z-index: 20;
+  width: 42px;
+  min-height: 108px;
+  padding: 11px 8px;
+  border: 1px solid #d5dacb;
+  border-radius: 21px;
+  background: #fffefbf2;
+  box-shadow: 0 7px 20px #29372f1a;
+  color: #53664a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition:
+    opacity 0.18s,
+    transform 0.18s,
+    background 0.18s;
+}
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.back-to-top:hover {
+  background: #eef2e7;
+}
+.back-to-top span:first-child {
+  font-size: 16px;
+  line-height: 1;
+}
+.back-to-top span:last-child {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 2px;
+}
 .empty {
   text-align: center;
   padding: 65px 20px;
@@ -893,13 +955,6 @@ footer {
 .work-list details p {
   margin: 7px 0;
 }
-.no-works {
-  font-size: 11px;
-  color: #939d84;
-  background: #f5f7ef;
-  padding: 17px;
-  border-radius: 8px;
-}
 .drawer-foot {
   text-align: center;
   font-size: 11px;
@@ -932,10 +987,10 @@ footer {
 }
 @media (max-width: 1150px) {
   main {
-    padding: 0 36px;
+    padding: 0 64px 0 36px;
   }
   .topbar {
-    padding: 0 36px;
+    padding: 0 64px 0 36px;
   }
   .people-grid,
   .skeleton-grid {
@@ -952,7 +1007,7 @@ footer {
   }
   footer {
     padding-left: 36px;
-    padding-right: 36px;
+    padding-right: 64px;
   }
 }
 @media (max-width: 900px) {
@@ -987,11 +1042,11 @@ footer {
 }
 @media (max-width: 650px) {
   main {
-    padding: 0 18px;
+    padding: 0 58px 0 18px;
   }
   .topbar {
     height: 68px;
-    padding: 0 20px;
+    padding: 0 58px 0 20px;
   }
   .brand {
     font-size: 17px;
@@ -1071,6 +1126,20 @@ footer {
     gap: 10px;
     margin: 12px 0;
   }
+  .season-filter-block {
+    margin: 14px 0 16px;
+    padding: 5px 10px 6px;
+  }
+  .season-filter-block legend {
+    padding: 0 6px;
+    font-size: 10px;
+  }
+  .season-filter-block .filter-row {
+    margin: 7px 0;
+  }
+  .season-filter-block .mode-row {
+    padding-bottom: 11px;
+  }
   .filter-label {
     flex-basis: 59px;
     font-size: 10px;
@@ -1110,9 +1179,6 @@ footer {
   .tag-row .chip {
     font-size: 10px;
     padding: 6px 8px;
-  }
-  .gender-note {
-    font-size: 8px;
   }
   .filter-bottom {
     margin: 15px -16px 0;
@@ -1205,7 +1271,7 @@ footer {
     font-size: 11px;
   }
   footer {
-    padding: 24px 20px;
+    padding: 24px 58px 24px 20px;
     gap: 10px;
     flex-wrap: wrap;
     font-size: 9px;
@@ -1217,6 +1283,12 @@ footer {
     width: 100%;
     margin: 3px 0 0;
     font-size: 7px;
+  }
+  .back-to-top {
+    right: 8px;
+    bottom: 16px;
+    width: 40px;
+    min-height: 102px;
   }
   .drawer {
     padding: 18px 22px;
