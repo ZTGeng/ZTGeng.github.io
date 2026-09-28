@@ -77,6 +77,20 @@ catalogs:
       - lang: "zh"
         content: "组件"
     items:
+      - id: "xiren"
+        title:
+          - lang: "en"
+            content: "Comedy Performer Directory"
+          - lang: "zh"
+            content: "喜人演员资料库"
+        intro:
+          - lang: "en"
+            content: "Browse and filter performers and guests from four comedy competition seasons."
+          - lang: "zh"
+            content: "浏览并筛选四季喜人综艺中的演员、嘉宾及参演作品。"
+        src: "/xiren/"
+        imageSrc: "/tools/images/placeholder.jpg"
+
       - id: "novelfilter"
         title:
           - lang: "en"
