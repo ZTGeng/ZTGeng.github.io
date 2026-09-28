@@ -89,7 +89,7 @@ catalogs:
           - lang: "zh"
             content: "浏览并筛选四季喜人综艺中的演员、嘉宾及参演作品。"
         src: "/xiren/"
-        imageSrc: "/tools/images/placeholder.jpg"
+        imageSrc: "/tools/images/xiren.png"
 
       - id: "novelfilter"
         title:
