@@ -19,6 +19,7 @@ python -m http.server 8765 --bind 127.0.0.1
 - `styles.css`：响应式样式。
 - `filters.mjs`：纯筛选逻辑。
 - `data.json`：**页面实际加载的数据，请在这里手动修改性别、头像、自定义标签等。**
+- `avatars/`：随站点部署的人物头像，页面无需请求外站图片服务。
 - `sources.json`：四季百科的节目表、人员表文本快照，用于核对来源行。
 - `supplemental.json`：补齐一喜、二喜初舞台名单的事实记录及逐项来源。
 - `scripts/import_baike.py`：抓取并整理脚本，处理表格合并单元格、别名、节目署名。
@@ -53,7 +54,7 @@ python -m http.server 8765 --bind 127.0.0.1
 - `gender` 已人工校对，可改为“男”“女”或自定义值，筛选会自动读取。
 - `tags` 可以直接增删，标签栏会汇总所有人的标签。节目与身份匹配使用 `participations`，自定义标签筛选只使用 `tags`。
 - `baike` 是兼容已有数据的历史字段名，保存人物资料链接，可以是百度百科、豆瓣人物或其他网址；页面会按网址来源显示名称。
-- `avatar` 可为空、图片路径字符串，或 `{ "url": "图片路径", "sourceUrl": "图片来源页面" }`。当前使用人物资料页的照片 URL，图片加载失败自动显示笑脸占位图。
+- `avatar` 可为空、图片路径字符串，或 `{ "url": "图片路径", "sourceUrl": "图片来源页面", "originalUrl": "原始图片地址" }`。当前 `url` 使用 `./avatars/` 下的本地照片，保留来源页面和原始图片地址以便追溯；没有头像或图片加载失败时显示笑脸占位图。
 - `works` 顶层保存作品；每人每季通过 `workId` 关联。作品中保留原始署名、节目期数和来源网址。
 - `roles` 允许同季同时具有“演员”和“嘉宾”（例如回归助演的喜人）。主持人归在“嘉宾”，具体身份保存在 `roleDetails`。
 - `teams` / `groups` 是当季小队 / 大团，数组兼容多重归属。未列出的队名留空，不虚构名称。
@@ -82,6 +83,15 @@ python xiren/scripts/fill_missing_avatars.py
 ```
 
 导入脚本只写 `data.generated.json` 和 `sources.json`，**不会覆盖手工维护的 `data.json`**。对比、核对后再合并需要更新的字段。`--cached` 复用系统临时目录中的 HTML；`--portraits` 尝试从已关联的人物百科读取照片。`fill_missing_avatars.py` 只为 `data.json` 中已有资料链接但头像为空的人补充头像，保留现有头像和其他人工修改。网络失败或页面排版变更时，应核对输出。
+
+新增或更新外站头像后，运行以下命令将其保存到本站：
+
+```powershell
+python -m pip install Pillow
+python xiren/scripts/localize_avatars.py
+```
+
+脚本以最多 4 个并发请求下载，失败时有限重试，校验图片格式后按内容哈希命名，保留图片原始字节。所有下载成功后才更新 `data.json`；已使用本地路径的头像会跳过。提交时同时包含 `data.json` 和新增的 `avatars/` 文件。
 
 ## 修改页面与验证
 
