@@ -34,6 +34,8 @@ with standalone JavaScript games and browser tools.
 - `images/`, `fonts/`, `docs/`: Static assets, including a resume PDF.
 - `cocgame/`, `gamejam/`, `useless_app/`: Independent or historical project pages.
 - `cv.html`: Resume page.
+- `xiren/`: Standalone React comedy-performer directory with local React runtime,
+  editable JSON data, cross-season filters, and Baidu source-import scripts.
 
 ## Architectural Details
 
@@ -52,7 +54,9 @@ with standalone JavaScript games and browser tools.
 - `cocgame/coc-server.js` contains a standalone Node.js HTTP server; it is not
   the main site's backend.
 - The React adventure game linked from the homepage is a separate project;
-  React is not the framework for this main site.
+  React is not the framework for the main site. The independent `xiren/` page
+  uses React with a checked-in browser bundle; its optional esbuild command and
+  data refresh instructions are documented in `xiren/README.md`.
 
 Keep this summary aligned with architectural changes. Current source code is
 authoritative; this overview describes the local repository, not a verified
