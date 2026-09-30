@@ -880,6 +880,9 @@ footer {
   color: #959c8a;
   margin: 12px 0 24px;
 }
+.works-heading + .season-works {
+  margin-top: 24px;
+}
 .season-works {
   margin-bottom: 30px;
 }

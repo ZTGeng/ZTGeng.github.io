@@ -161,7 +161,7 @@ function Detail({ person, data, onClose }) {
         </div>
         {hasWorks && (
           <p className="credit-note">
-            作品关联综合节目表署名、小队／大团成员关系及实际上台情况整理；“助演”标记来自上台表演记录，主演和助演名单仍可能不完整。
+            作品关联依据节目署名、团队关系及上台记录整理；主演、助演名单可能不完整。
           </p>
         )}
         {person.participations.map((part) => {
