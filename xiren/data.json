@@ -563,6 +563,14 @@
               "creditType": "大团署名"
             },
             {
+              "workId": "xi2-5-5",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-8",
+              "creditType": "大团署名"
+            },
+            {
               "workId": "xi2-6-2",
               "creditType": "大团署名"
             }
@@ -784,6 +792,10 @@
             {
               "workId": "xi2-4-10",
               "creditType": "小队署名"
+            },
+            {
+              "workId": "xi2-5-2",
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-1",
@@ -1954,6 +1966,10 @@
               "creditType": "大团署名"
             },
             {
+              "workId": "xi2-5-7",
+              "creditType": "大团署名"
+            },
+            {
               "workId": "xi2-6-3",
               "creditType": "大团署名"
             }
@@ -2180,6 +2196,14 @@
             },
             {
               "workId": "xi2-4-11",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-5",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-8",
               "creditType": "大团署名"
             },
             {
@@ -2476,6 +2500,14 @@
               "creditType": "大团署名"
             },
             {
+              "workId": "xi2-5-5",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-8",
+              "creditType": "大团署名"
+            },
+            {
               "workId": "xi2-6-2",
               "creditType": "大团署名"
             }
@@ -2750,6 +2782,14 @@
             {
               "workId": "xi2-4-11",
               "creditType": "助演"
+            },
+            {
+              "workId": "xi2-5-3",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-7",
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-3",
@@ -3304,7 +3344,7 @@
             },
             {
               "workId": "xi2-5-7",
-              "creditType": "小队署名"
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-3",
@@ -4035,6 +4075,14 @@
               "creditType": "大团署名"
             },
             {
+              "workId": "xi2-5-5",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-8",
+              "creditType": "大团署名"
+            },
+            {
               "workId": "xi2-6-2",
               "creditType": "大团署名"
             }
@@ -4408,6 +4456,14 @@
               "creditType": "助演"
             },
             {
+              "workId": "xi2-5-3",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-7",
+              "creditType": "大团署名"
+            },
+            {
               "workId": "xi2-6-3",
               "creditType": "大团署名"
             }
@@ -4608,7 +4664,15 @@
             },
             {
               "workId": "xi2-5-2",
-              "creditType": "小队署名"
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-3",
+              "creditType": "助演"
+            },
+            {
+              "workId": "xi2-5-6",
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-1",
@@ -5025,6 +5089,10 @@
             {
               "workId": "xi2-3-15",
               "creditType": "助演"
+            },
+            {
+              "workId": "xi2-6-1",
+              "creditType": "助演"
             }
           ]
         }
@@ -5160,6 +5228,14 @@
             },
             {
               "workId": "xi2-2-7",
+              "creditType": "助演"
+            },
+            {
+              "workId": "xi2-6-2",
+              "creditType": "助演"
+            },
+            {
+              "workId": "xi2-6-4",
               "creditType": "助演"
             }
           ]
@@ -5429,10 +5505,6 @@
               "creditType": "小队署名"
             },
             {
-              "workId": "xi2-4-5",
-              "creditType": "助演"
-            },
-            {
               "workId": "erxi-4-10",
               "creditType": "小队署名"
             },
@@ -5472,11 +5544,23 @@
               "creditType": "助演"
             },
             {
+              "workId": "xi2-4-5",
+              "creditType": "助演"
+            },
+            {
               "workId": "xi2-4-7",
               "creditType": "大团署名"
             },
             {
               "workId": "xi2-4-11",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-5",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-8",
               "creditType": "大团署名"
             },
             {
@@ -6559,6 +6643,14 @@
               "creditType": "小队署名"
             },
             {
+              "workId": "xi2-5-2",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-6",
+              "creditType": "大团署名"
+            },
+            {
               "workId": "xi2-6-1",
               "creditType": "大团署名"
             }
@@ -6726,6 +6818,10 @@
               "creditType": "助演"
             },
             {
+              "workId": "xi2-5-3",
+              "creditType": "大团署名"
+            },
+            {
               "workId": "xi2-6-3",
               "creditType": "大团署名"
             }
@@ -6791,8 +6887,12 @@
               "creditType": "助演"
             },
             {
+              "workId": "xi2-5-1",
+              "creditType": "大团署名"
+            },
+            {
               "workId": "xi2-5-4",
-              "creditType": "小队署名"
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-4",
@@ -6865,7 +6965,7 @@
             },
             {
               "workId": "xi2-5-6",
-              "creditType": "小队署名"
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-1",
@@ -7026,6 +7126,14 @@
             },
             {
               "workId": "xi2-4-11",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-5",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-8",
               "creditType": "大团署名"
             },
             {
@@ -7538,7 +7646,11 @@
             },
             {
               "workId": "xi2-5-5",
-              "creditType": "小队署名"
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-8",
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-2",
@@ -7734,8 +7846,12 @@
               "creditType": "大团署名"
             },
             {
+              "workId": "xi2-5-5",
+              "creditType": "大团署名"
+            },
+            {
               "workId": "xi2-5-8",
-              "creditType": "小队署名"
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-2",
@@ -8150,8 +8266,12 @@
               "creditType": "助演"
             },
             {
+              "workId": "xi2-5-1",
+              "creditType": "大团署名"
+            },
+            {
               "workId": "xi2-5-4",
-              "creditType": "小队署名"
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-4",
@@ -8327,6 +8447,14 @@
             {
               "workId": "xi2-4-8",
               "creditType": "助演"
+            },
+            {
+              "workId": "xi2-5-2",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-6",
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-1",
@@ -8768,6 +8896,10 @@
             {
               "workId": "xi2-3-15",
               "creditType": "助演"
+            },
+            {
+              "workId": "xi2-6-4",
+              "creditType": "助演"
             }
           ]
         }
@@ -9013,6 +9145,14 @@
               "creditType": "助演"
             },
             {
+              "workId": "xi2-5-1",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-4",
+              "creditType": "大团署名"
+            },
+            {
               "workId": "xi2-6-4",
               "creditType": "大团署名"
             }
@@ -9198,7 +9338,11 @@
             },
             {
               "workId": "xi2-5-3",
-              "creditType": "小队署名"
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-7",
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-3",
@@ -9344,6 +9488,14 @@
             {
               "workId": "xi2-4-8",
               "creditType": "助演"
+            },
+            {
+              "workId": "xi2-5-2",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-6",
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-1",
@@ -9601,8 +9753,12 @@
               "creditType": "助演"
             },
             {
+              "workId": "xi2-5-2",
+              "creditType": "助演"
+            },
+            {
               "workId": "xi2-5-3",
-              "creditType": "小队署名"
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-3",
@@ -9792,7 +9948,7 @@
             },
             {
               "workId": "xi2-5-6",
-              "creditType": "小队署名"
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-1",
@@ -10387,6 +10543,18 @@
             {
               "workId": "xi2-4-8",
               "creditType": "助演"
+            },
+            {
+              "workId": "xi2-5-4",
+              "creditType": "助演"
+            },
+            {
+              "workId": "xi2-5-5",
+              "creditType": "助演"
+            },
+            {
+              "workId": "xi2-6-4",
+              "creditType": "助演"
             }
           ]
         }
@@ -10851,7 +11019,7 @@
             },
             {
               "workId": "xi2-5-7",
-              "creditType": "小队署名"
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-3",
@@ -11108,6 +11276,10 @@
             },
             {
               "workId": "xi2-3-15",
+              "creditType": "助演"
+            },
+            {
+              "workId": "xi2-6-1",
               "creditType": "助演"
             }
           ]
@@ -11430,6 +11602,14 @@
             {
               "workId": "xi2-2-7",
               "creditType": "助演"
+            },
+            {
+              "workId": "xi2-6-2",
+              "creditType": "助演"
+            },
+            {
+              "workId": "xi2-6-4",
+              "creditType": "助演"
             }
           ]
         }
@@ -11722,8 +11902,12 @@
               "creditType": "大团署名"
             },
             {
+              "workId": "xi2-5-5",
+              "creditType": "大团署名"
+            },
+            {
               "workId": "xi2-5-8",
-              "creditType": "小队署名"
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-2",
@@ -11896,6 +12080,10 @@
             {
               "workId": "xi2-4-12",
               "creditType": "小队署名"
+            },
+            {
+              "workId": "xi2-5-1",
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-4",
@@ -12539,6 +12727,14 @@
             {
               "workId": "xi2-4-12",
               "creditType": "助演"
+            },
+            {
+              "workId": "xi2-5-1",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-4",
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-4",
@@ -13442,7 +13638,11 @@
             },
             {
               "workId": "xi2-5-2",
-              "creditType": "小队署名"
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-6",
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-1",
@@ -14200,6 +14400,14 @@
             {
               "workId": "xi2-3-15",
               "creditType": "助演"
+            },
+            {
+              "workId": "xi2-6-2",
+              "creditType": "助演"
+            },
+            {
+              "workId": "xi2-6-4",
+              "creditType": "助演"
             }
           ]
         }
@@ -14348,7 +14556,11 @@
             },
             {
               "workId": "xi2-5-1",
-              "creditType": "小队署名"
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-4",
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-4",
@@ -14509,7 +14721,11 @@
             },
             {
               "workId": "xi2-5-1",
-              "creditType": "小队署名"
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-4",
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-4",
@@ -14593,6 +14809,14 @@
             {
               "workId": "xi2-1-19",
               "creditType": "小队署名"
+            },
+            {
+              "workId": "xi2-5-5",
+              "creditType": "助演"
+            },
+            {
+              "workId": "xi2-6-4",
+              "creditType": "助演"
             }
           ]
         }
@@ -14972,6 +15196,14 @@
             {
               "workId": "xi2-4-12",
               "creditType": "小队署名"
+            },
+            {
+              "workId": "xi2-5-1",
+              "creditType": "大团署名"
+            },
+            {
+              "workId": "xi2-5-4",
+              "creditType": "大团署名"
             },
             {
               "workId": "xi2-6-4",
