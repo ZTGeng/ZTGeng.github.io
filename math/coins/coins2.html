@@ -1,10 +1,11 @@
 ---
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bilingual="true">
 
 <head>
     <meta charset="utf-8">
+    <script src="/shared/site-ui.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -42,7 +43,7 @@
                     </div>
                     <div class="btn-group" id="round-box">
                         <button class="btn btn-primary" id="round" disabled>
-                            <span id="round-text" class="label label-primary">Round Left <span class="badge" id="round-num">3</span></span>
+                            <span id="round-text" class="label label-primary"><span id="round-label">Round Left </span><span class="badge" id="round-num">3</span><span id="round-suffix"></span></span>
                         </button>
                     </div>
                 </div>
@@ -89,30 +90,30 @@
         {% include footer.html %}
     </div>
 
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", () => {
-            let lang = navigator.language;
-            if (lang.slice(0, 2) === "zh") {
-                document.title = "称硬币";
-                document.getElementById("gameName").textContent = "称硬币";
-                document.getElementById("tip1").textContent = "将硬币拖动到天平上。点击称重。";
-                document.getElementById("tip2").textContent = "一共可以称重 3 次。";
-                document.getElementById("reset").textContent = "重新开始";
-                document.getElementById("weight").textContent = "称重";
-                document.getElementById("clear").textContent = "重置";
-                document.getElementById("round-text").innerHTML = '还可称重 <span class="badge" id="round-num">3</span> 次';
-                document.getElementById("answer1").textContent = "请回答：第";
-                document.getElementById("answer2").textContent = "号硬币";
-                document.getElementById("answer3").textContent = "比其他硬币";
-                document.getElementById("answer4").textContent = "";
-                document.getElementById("heavy_light_text").textContent = " 更重 ";
-                document.getElementById("heavy_light").dataset.heavierText = "更重";
-                document.getElementById("heavy_light").dataset.lighterText = "更轻";
-                document.getElementById("ok").textContent = " 确认 ";
-                document.getElementById("output-en").style.display = "none";
-            } else {
-                document.getElementById("output-zh").style.display = "none";
-            }
+    <script>
+        SiteUI.onLanguageChange(language => {
+            SiteUI.translate([
+                {"selector": "#gameName", "en": "Weight the Coins", "zh": "称硬币"},
+                {"selector": "#tip1", "en": "Drag Coins to Pans. Then click Weight.", "zh": "将硬币拖动到天平上。点击称重。"},
+                {"selector": "#tip2", "en": "You can Weight 3 Times.", "zh": "一共可以称重 3 次。"},
+                {"selector": "#reset", "en": "RESET", "zh": "重新开始"},
+                {"selector": "#weight", "en": " Weight ", "zh": "称重"},
+                {"selector": "#clear", "en": " Clear ", "zh": "重置"},
+                {"selector": "#answer1", "en": "Your guess: The Coin ", "zh": "请回答：第"},
+                {"selector": "#answer2", "en": "", "zh": "号硬币"},
+                {"selector": "#answer3", "en": " is ", "zh": "比其他硬币"},
+                {"selector": "#answer4", "en": " than the others!", "zh": ""},
+                {"selector": "#ok", "en": " OK ", "zh": " 确认 "},
+                {"selector": "title", "en": "Weight the Coins", "zh": "称硬币"},
+                {"selector": "#round-label", "en": "Round Left ", "zh": "还可称重 "},
+                {"selector": "#round-suffix", "en": "", "zh": " 次"},
+                {"selector": "#heavy_light", "attribute": "data-heavier-text", "en": "Heavier", "zh": "更重"},
+                {"selector": "#heavy_light", "attribute": "data-lighter-text", "en": "Lighter", "zh": "更轻"}
+            ], language);
+            document.getElementById("output-en").hidden = language === "zh";
+            document.getElementById("output-zh").hidden = language !== "zh";
+            const toggle = document.getElementById("heavy_light");
+            document.getElementById("heavy_light_text").textContent = toggle.classList.contains("heavier") ? toggle.dataset.heavierText : toggle.dataset.lighterText;
         });
     </script>
 </body>

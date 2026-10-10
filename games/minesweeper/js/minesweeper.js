@@ -1,3 +1,8 @@
+const setResultMessage = SiteUI.createMessage('#result', {
+    won: { en: 'You Win!', zh: '你赢了！' },
+    lost: { en: 'You Lose!', zh: '你输了！' }
+});
+
 /**
  * @version 0.2
  * @author Geng
@@ -62,7 +67,7 @@
     
     var checkWin = function() {
         if (gameSet.grid_num - $('.opened').length <= gameSet.mine_num) {
-            $('#result').text("You Win!");
+            setResultMessage('won');
             gameover();
         }
     }
@@ -88,7 +93,7 @@
         let number = grid.data('number');
         if (number === -1) {
             grid.addClass('mine').addClass('exploded');
-            $('#result').text("You Lose!");
+            setResultMessage('lost');
             gameover();
             return;
         }
@@ -163,7 +168,7 @@
     
         $('#mine-num').text(gameSet.mine_num);
         $('#time').text(0);
-        $('#result').text('');
+        setResultMessage(null);
         init();
         $('#field').one('mouseup', () => {
             timer = setInterval(() => {

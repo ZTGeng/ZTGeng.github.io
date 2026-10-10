@@ -101,12 +101,9 @@
             }
         };
 
-        if (window.navigator.language.startsWith("zh")) {
-            document.getElementById("list_title_en").setAttribute("hidden", "");
-            document.getElementById("list_title_zh").removeAttribute("hidden");
-        } else {
-            document.getElementById("list_title_en").removeAttribute("hidden");
-            document.getElementById("list_title_zh").setAttribute("hidden", "");
-        }
+        SiteUI.onLanguageChange(language => {
+            document.getElementById("list_title_en").hidden = language === "zh";
+            document.getElementById("list_title_zh").hidden = language !== "zh";
+        });
     })();
 </script>

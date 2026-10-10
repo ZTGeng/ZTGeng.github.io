@@ -1,10 +1,11 @@
 ---
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bilingual="true">
 
 <head>
     <meta charset="utf-8">
+    <script src="/shared/site-ui.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -69,19 +70,20 @@
         {% include footer.html %}
     </div>
 
-    <script type="text/javascript">
-        var lang = navigator.language;
-        if (lang.slice(0, 2) === "zh") {
-            $('#title').text("俄罗斯方块倒玩版");
-            $('#gameName').text("俄罗斯方块倒玩版");
-            $('#operations').text("移动：←，→；旋转：↑；增长：↓；消除：空格");
-            $('#hi-score-text').text("记录：");
-            $('#score-text').text("分数：");
-            $('#speed-text').text("速度：");
-            $('#remove-text').text("消行：");
-            $('#blocks-text').text("方块：");
-            $('#rise-text').text("上升：");
-        }
+    <script>
+        SiteUI.onLanguageChange(language => {
+            SiteUI.translate([
+                {"selector": "title", "en": "Tetris: Reverse Play", "zh": "俄罗斯方块倒玩版"},
+                {"selector": "#gameName", "en": "Tetris: Reverse Play", "zh": "俄罗斯方块倒玩版"},
+                {"selector": "#operations", "en": "Move: ←, →; rotate: ↑; growth: ↓; cut: space", "zh": "移动：←，→；旋转：↑；增长：↓；消除：空格"},
+                {"selector": "#hi-score-text", "en": "HI-SCORE:", "zh": "记录："},
+                {"selector": "#score-text", "en": "SCORE:", "zh": "分数："},
+                {"selector": "#speed-text", "en": "SPEED:", "zh": "速度："},
+                {"selector": "#remove-text", "en": "REMOVE:", "zh": "消行："},
+                {"selector": "#blocks-text", "en": "BLOCKS:", "zh": "方块："},
+                {"selector": "#rise-text", "en": "UP: ", "zh": "上升："}
+            ], language);
+        });
     </script>
 </body>
 

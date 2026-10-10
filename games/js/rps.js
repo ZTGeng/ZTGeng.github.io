@@ -7,7 +7,15 @@ var STATE = 0;
 var selection = 0;
 var TIMEDELTA = 400;
 var timeout;
-var iszh = navigator.language.slice(0, 2) === "zh";
+var resultMessage;
+function renderResultMessage() {
+    if (resultMessage) $('#result-text').text(resultMessage[SiteUI.getLanguage()]);
+}
+function setResultMessage(zh, en) {
+    resultMessage = { zh, en };
+    renderResultMessage();
+}
+SiteUI.onLanguageChange(renderResultMessage);
 
 function countdown(callback) {
     let modal = new bootstrap.Modal('#modal-fullscreen');
@@ -121,15 +129,15 @@ function result(result_num) {
         switch (is_win(result_num, selection)) {
             case 0:
             // console.log("Draw!");
-            $('#result-text').text(iszh ? "平局！" : "DRAW!");
+            setResultMessage("平局！", "DRAW!");
             break;
             case 1:
             // console.log("Computer wins!");
-            $('#result-text').text(iszh ? "你输了！" : "YOU LOSE!");
+            setResultMessage("你输了！", "YOU LOSE!");
             break;
             case 2:
             // console.log("You win!");
-            $('#result-text').text(iszh ? "你赢了！" : "YOU WIN!");
+            setResultMessage("你赢了！", "YOU WIN!");
             break;
         }
         $('#result-text').show();
@@ -143,6 +151,7 @@ function is_win(com_result, hum_result) {
 }
 
 function reset() {
+    resultMessage = null;
     STATE = 0;
     selection = 0;
     clearTimeout(timeout);

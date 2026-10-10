@@ -1,10 +1,11 @@
 ---
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bilingual="true">
 
 <head>
     <meta charset="utf-8">
+    <script src="/shared/site-ui.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -63,16 +64,17 @@
         {% include footer.html %}
     </div>
 
-    <script type="text/javascript">
-        var lang = navigator.language;
-        if (lang.slice(0, 2) === "zh") {
-            $('#title').text("扫雷：数字会说谎");
-            $('#gameName').text("扫雷：数字会说谎!");
-            $('#reset').text("重新开始");
-            $('#liar-label').text("谎数");
-            $('#live-label').text("命");
-            $('#rule').html("<li>小心！部分数字可能是错的。</li><li>右击可标记错的数字。</li><li>15 X 15以上的游戏可有多于一条命。</li>");
-        }
+    <script>
+        SiteUI.onLanguageChange(language => {
+            SiteUI.translate([
+                {"selector": "title", "en": "Minesweeper: Deceptive Digits", "zh": "扫雷：数字会说谎"},
+                {"selector": "#gameName", "en": "Minesweeper: Deceptive Digits", "zh": "扫雷：数字会说谎!"},
+                {"selector": "#reset", "en": "RESET", "zh": "重新开始"},
+                {"selector": "#liar-label", "en": "Liars:", "zh": "谎数"},
+                {"selector": "#live-label", "en": "Lives:", "zh": "命"},
+                {"selector": "#rule", "en": "<li>Some numbers may be wrong (liars).</li>\n            <li>Right click to mark wrong numbers.</li>\n            <li>More than 1 live when playing 15 X 15 or bigger.</li>", "zh": "<li>小心！部分数字可能是错的。</li><li>右击可标记错的数字。</li><li>15 X 15以上的游戏可有多于一条命。</li>", "html": true}
+            ], language);
+        });
     </script>
 </body>
 

@@ -4,6 +4,9 @@
  */
 
 var isBlack = true;
+const winMessage = { won: { en: 'WIN', zh: '胜' } };
+const setBlackResult = SiteUI.createMessage('#bwin', winMessage);
+const setWhiteResult = SiteUI.createMessage('#wwin', winMessage);
 var ta = document.createElement('audio');
 ta.setAttribute('src', 'sounds/ta.wav');
 
@@ -11,7 +14,8 @@ var reset = function() {
 	isBlack = true;
 	$('.inactive').removeClass('inactive');
 	$('.player').last().addClass('inactive');
-	$('#bwin, #wwin').text("");
+	setBlackResult(null);
+	setWhiteResult(null);
 
 	$('.black').removeClass('black');
 	$('.white').removeClass('white');
@@ -71,8 +75,8 @@ var place = function() {
 
 var end = function() {
 	$('.inactive').removeClass('inactive');
-	if (isBlack) $('#bwin').text("胜");
-	else $('#wwin').text("胜");
+	if (isBlack) setBlackResult('won');
+	else setWhiteResult('won');
 	$('.field').off();
 };
 

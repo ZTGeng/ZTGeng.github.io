@@ -1,10 +1,11 @@
 ---
 ---
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <title>Blog</title>
     <meta charset="utf-8">
+    <script src="/shared/site-ui.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/shared/bootstrap-5.3.2.min.css" rel="stylesheet">
     <script src="/shared/bootstrap-5.3.2.bundle.min.js" type="text/javascript"></script>
@@ -36,9 +37,9 @@
                 </div>
                 <nav aria-label="Page navigation" class="mt-2">
                     <ul class="pagination">
-                      <li class="page-item"><a class="page-link" href="javascript:void(0)"  @click="prevPage">Previous</a></li>
+                      <li class="page-item"><a class="page-link" href="javascript:void(0)"  @click="prevPage">{{ previousLabel }}</a></li>
                       <li v-for="i in Math.ceil(posts.length / listSize)" class="page-item"><a class="page-link" href="javascript:void(0)" @click="page = i - 1">{{ i }}</a></li>
-                      <li class="page-item"><a class="page-link" href="javascript:void(0)" @click="nextPage">Next</a></li>
+                      <li class="page-item"><a class="page-link" href="javascript:void(0)" @click="nextPage">{{ nextLabel }}</a></li>
                     </ul>
                 </nav>
             </div>
@@ -57,7 +58,10 @@
                     page: 0,
                     listSize: 10,
                     currentPost: "",
+                    postRequest: 0,
                     listTitle: "List",
+                    previousLabel: "Previous",
+                    nextLabel: "Next",
                     emptyPost: "empty"
                 }
             },
@@ -100,6 +104,7 @@
 
                 },
                 loadPost(id) {
+                    const request = ++this.postRequest;
                     const filename = 'posts/' + id + '.md'
                     fetch(filename)
                         .then(response => {
@@ -108,7 +113,7 @@
                         .then(response => response.text())
                         .then(data => {
                             // console.log(data)
-                            this.currentPost = data
+                            if (request === this.postRequest) this.currentPost = data
                         })
                 },
 
@@ -331,15 +336,21 @@
                     });
                 }
             },
+            beforeUnmount() {
+                this.unsubscribeLanguage();
+                window.removeEventListener('hashchange', this.loadPostFromHash);
+            },
             mounted() {
                 window.addEventListener('hashchange', this.loadPostFromHash);
-                var lang = navigator.language;
-                if (lang.slice(0, 2) === "zh") {
-                    this.listTitle = "文章列表";
-                    this.emptyPost = "empty-zh";
-                }
+                this.unsubscribeLanguage = SiteUI.onLanguageChange(language => {
+                    this.listTitle = language === 'zh' ? '文章列表' : 'List';
+                    this.previousLabel = language === 'zh' ? '上一页' : 'Previous';
+                    this.nextLabel = language === 'zh' ? '下一页' : 'Next';
+                    this.emptyPost = language === 'zh' ? 'empty-zh' : 'empty';
+                    if (!window.location.hash) this.loadPostFromHash();
+                });
                 this.loadPostList();
-                this.loadPostFromHash();
+                if (window.location.hash) this.loadPostFromHash();
             }
         })
 

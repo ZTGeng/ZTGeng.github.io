@@ -1,10 +1,11 @@
 ---
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bilingual="true">
 
 <head>
 	<meta charset="utf-8">
+    <script src="/shared/site-ui.js"></script>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -43,14 +44,15 @@
 		{% include footer.html %}
 	</div>
 
-	<script type="text/javascript">
-        var lang = navigator.language;
-		if (lang.slice(0, 2) === "zh") {
-			$('#title').text("抓猫原版");
-			$('#gameName').text("抓住这只猫！");
-			$('#reset').text("重新开始");
-            $('#rule').html("<li>点击格子将猫围住。</li><li>猫跑到边缘则游戏结束。</li>");
-		}
+	<script>
+        SiteUI.onLanguageChange(language => {
+            SiteUI.translate([
+                {"selector": "title", "en": "Catch Cat Original", "zh": "抓猫原版"},
+                {"selector": "#gameName", "en": "Catch the Cat!", "zh": "抓住这只猫！"},
+                {"selector": "#reset", "en": "RESET", "zh": "重新开始"},
+                {"selector": "#rule", "en": "<li>Click on tiles to trap the cat.</li>\n\t\t\t<li>Game over when the cat reaches the edge.</li>", "zh": "<li>点击格子将猫围住。</li><li>猫跑到边缘则游戏结束。</li>", "html": true}
+            ], language);
+        });
     </script>
 </body>
 

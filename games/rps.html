@@ -1,10 +1,11 @@
 ---
 ---
 <!DOCTYPE HTML>
-<html>
+<html lang="en" data-bilingual="true">
 
 <head>
     <meta charset="utf-8">
+    <script src="/shared/site-ui.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -118,24 +119,24 @@
         {% include footer.html %}
     </div>
 
-    <script type="text/javascript">
-        var lang = navigator.language;
-		if (lang.slice(0, 2) === "zh") {
-			$('#title').text("石头剪刀布");
-			$('#gameName').html("石头剪刀布 <small>人 vs 电脑</small>");
-			$('#rule1').text("电脑的选择由以下计算方法产生：");
-			$('#rule2').text("（0 = 石头；1 = 剪刀；2 = 布）");
-			$('#com-tag').text("电脑");
-			$('#hum-tag').text("你");
-            $('#reset').text('开始');
-            $('#prompt').text('快点>>>');
-            $('#random-1').attr('placeholder', '随机数1');
-            $('#random-2').attr('placeholder', '随机数2');
-            $('#mod-text').text('3的余数');
-            $('#odd-digits-text').text('奇数位');
-            $('#sqrt-text').text('开方');
-            $('#reverse-text').text('反转');
-		}
+    <script>
+        SiteUI.onLanguageChange(language => {
+            SiteUI.translate([
+                {"selector": "title", "en": "Rock Paper Scissors", "zh": "石头剪刀布"},
+                {"selector": "#gameName", "en": "Rock Paper Scissors <small>HUMAN vs COMPUTER</small>", "zh": "石头剪刀布 <small>人 vs 电脑</small>", "html": true},
+                {"selector": "#rule1", "en": "The selection of the computer will be calculated as below:", "zh": "电脑的选择由以下计算方法产生："},
+                {"selector": "#com-tag", "en": "COMPUTER", "zh": "电脑"},
+                {"selector": "#hum-tag", "en": "YOU", "zh": "你"},
+                {"selector": "#reset", "en": "PLAY", "zh": "开始"},
+                {"selector": "#prompt", "en": "CLICK>>>", "zh": "快点>>>"},
+                {"selector": "#mod-text", "en": "mod 3", "zh": "3的余数"},
+                {"selector": "#odd-digits-text", "en": "odd digits", "zh": "奇数位"},
+                {"selector": "#sqrt-text", "en": "sqrt", "zh": "开方"},
+                {"selector": "#reverse-text", "en": "reverse", "zh": "反转"},
+                {"selector": "#random-1", "en": "random1", "zh": "随机数1", "attribute": "placeholder"},
+                {"selector": "#random-2", "en": "random2", "zh": "随机数2", "attribute": "placeholder"}
+            ], language);
+        });
     </script>
 
 </body>

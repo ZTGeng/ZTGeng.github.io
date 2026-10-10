@@ -1,10 +1,11 @@
 ---
 ---
 <!DOCTYPE HTML>
-<html>
+<html lang="en" data-bilingual="true">
 
 <head>
     <meta charset="utf-8">
+    <script src="/shared/site-ui.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title id="webTitle"></title>
@@ -16,7 +17,7 @@
 
 <body>
     <div class="container">
-        {% include header.html active-tab=page.active-tab lang-enabled=page.lang-enabled callback-en='switchToEn' callback-zh='switchToZh' %}
+        {% include header.html active-tab=page.active-tab lang-enabled=page.lang-enabled %}
         <h1>
             <span id="title"></span><br>
             <small class="text-muted" id="greeting"></small>
@@ -142,24 +143,9 @@
                 document.getElementById("greeting").textContent = translations.greeting[lang] || translations.greeting["en"];
             }
 
-            function switchToZh() {
-                switchPageLanguage("zh");
-                switchCatalogsLanguage("zh");
-            }
-            window.switchToZh = switchToZh;
-
-            function switchToEn() {
-                switchPageLanguage("en");
-                switchCatalogsLanguage("en");
-            }
-            window.switchToEn = switchToEn;
-
-            document.addEventListener("DOMContentLoaded", () => {
-                const userLang = window.SiteUI.getLanguage();
-                const lang = userLang.slice(0, 2) || "en";
+            SiteUI.onLanguageChange(lang => {
                 switchPageLanguage(lang);
                 switchCatalogsLanguage(lang);
-
             });
         })();
     </script>

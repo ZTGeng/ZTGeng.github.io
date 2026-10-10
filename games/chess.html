@@ -1,10 +1,11 @@
 ---
 ---
 <!DOCTYPE HTML>
-<html>
+<html lang="en" data-bilingual="true">
 
 <head>
     <meta charset="utf-8">
+    <script src="/shared/site-ui.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,19 +63,20 @@
         {% include footer.html %}
     </div>
 
-    <script type="text/javascript">
-        var lang = navigator.language;
-		if (lang.slice(0, 2) === "zh") {
-			$('#title').text("国际象棋");
-			$('#gameName').text("国际象棋");
-            $('#pro-label').text("升变");
-			$('#blabel').text('黑方');
-			$('#wlabel').text('白方');
-			$('#wwin').text('胜');
-			$('#bwin').text('胜');
-            $('#reset').text('重新开始');
-            $('#resign').text("认输");
-		}
+    <script>
+        SiteUI.onLanguageChange(language => {
+            SiteUI.translate([
+                {"selector": "title", "en": "Chess", "zh": "国际象棋"},
+                {"selector": "#gameName", "en": "Chess", "zh": "国际象棋"},
+                {"selector": "#pro-label", "en": "Promotion: ", "zh": "升变"},
+                {"selector": "#blabel", "en": "BLACK", "zh": "黑方"},
+                {"selector": "#wlabel", "en": "WHITE", "zh": "白方"},
+                {"selector": "#wwin", "en": "WIN", "zh": "胜"},
+                {"selector": "#bwin", "en": "WIN", "zh": "胜"},
+                {"selector": "#reset", "en": "RESET", "zh": "重新开始"},
+                {"selector": "#resign", "en": "RESIGN", "zh": "认输"}
+            ], language);
+        });
     </script>
 
 </body>

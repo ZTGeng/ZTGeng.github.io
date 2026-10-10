@@ -1,10 +1,11 @@
 ---
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bilingual="true">
 
 <head>
     <meta charset="utf-8">
+    <script src="/shared/site-ui.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -48,10 +49,10 @@
                         <button class="choice btn btn-primary" id="right-heavier">Right Heavier</button>
                     </div>
                     <div class="btn-group" id="round-box">
-                        <button class="btn btn-primary" id="round" disabled><span id="round-en"></span></button>
+                        <button class="btn btn-primary" id="round" disabled><span id="round-en"></span><span id="round-zh"></span></button>
                     </div>
                 </div>
-                <h4 id="result"><span id="result-en"></span></h4>
+                <h4 id="result"><span id="result-en"></span><span id="result-zh"></span></h4>
             </div>
 
             <div>
@@ -66,27 +67,23 @@
         {% include comments.html id='page:/math/coins/coins.html' %}
         {% include footer.html %}
     </div>
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", () => {
-            let lang = navigator.language;
-            if (lang.slice(0, 2) === "zh") {
-                document.title = "称硬币";
-                document.getElementById("gameName").textContent = "电脑称硬币";
-                document.getElementById("howToPlay").textContent = "玩法：";
-                document.getElementById("start").textContent = "开始游戏";
-                document.getElementById("reset").textContent = "重新开始";
-                document.getElementById("left-heavier").textContent = "左边较重";
-                document.getElementById("same-heavy").textContent = "一样重";
-                document.getElementById("right-heavier").textContent = "右边较重";
-                document.getElementById("round").innerHTML = '<span id="round-zh"></span>';
-                document.getElementById("result").innerHTML = '<span id="result-zh"></span>';
-                let str = '<li>在心里默默选择：<strong>第几号</strong>硬币与其他硬币重量不同；';
-                str += '该硬币比其他硬币<strong>较轻</strong>还是<strong>较重</strong>。';
-                str += '选好之后不得更换。不要将你的选择告诉计算机。</li>';
-                str += '<li>点击“开始游戏”，根据天平上的硬币编号，选择该情况下天平的正确偏转方向。</li>';
-                str += '<li>三轮称重之后，计算机将猜出你开始时的选择。</li>'
-                document.getElementById("rule").innerHTML = str;
-            }
+    <script>
+        SiteUI.onLanguageChange(language => {
+            SiteUI.translate([
+                {"selector": "#gameName", "en": "Computer Coin Scale Challenge", "zh": "电脑称硬币"},
+                {"selector": "#howToPlay", "en": "How to Play:", "zh": "玩法："},
+                {"selector": "#start", "en": "START", "zh": "开始游戏"},
+                {"selector": "#reset", "en": "RESET", "zh": "重新开始"},
+                {"selector": "#left-heavier", "en": "Left Heavier", "zh": "左边较重"},
+                {"selector": "#same-heavy", "en": "Same Heavy", "zh": "一样重"},
+                {"selector": "#right-heavier", "en": "Right Heavier", "zh": "右边较重"},
+                {"selector": "title", "en": "Weight the Coins", "zh": "称硬币"},
+                {"selector": "#rule", "en": "<li>\n                Silently choose in your mind: <strong>which number</strong> coin has a different weight from the others;\n                whether that coin is <strong>lighter</strong> or <strong>heavier</strong> than the others.\n                Once chosen, you cannot change your selection. Do not reveal your choice to the computer.\n            </li>\n            <li>Click \"Start Game\", and based on the coin numbers on the scale, choose the correct direction of tilt for the scale under that scenario.</li>\n            <li>After three rounds of weighing, the computer will guess your initial choice.</li>", "zh": "<li>在心里默默选择：<strong>第几号</strong>硬币与其他硬币重量不同；该硬币比其他硬币<strong>较轻</strong>还是<strong>较重</strong>。选好之后不得更换。不要将你的选择告诉计算机。</li><li>点击“开始游戏”，根据天平上的硬币编号，选择该情况下天平的正确偏转方向。</li><li>三轮称重之后，计算机将猜出你开始时的选择。</li>", "html": true}
+            ], language);
+            ["round", "result"].forEach(id => {
+                document.getElementById(id + "-en").hidden = language === "zh";
+                document.getElementById(id + "-zh").hidden = language !== "zh";
+            });
         });
     </script>
 </body>

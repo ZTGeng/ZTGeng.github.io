@@ -1,10 +1,11 @@
 ---
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bilingual="true">
 
 <head>
     <meta charset="utf-8">
+    <script src="/shared/site-ui.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -56,13 +57,14 @@
         {% include footer.html %}
     </div>
 
-    <script type="text/javascript">
-        var lang = navigator.language;
-        if (lang.slice(0, 2) === "zh") {
-            $('#title').text("扫雷原版");
-            $('#gameName').text("扫雷");
-            $('#reset').text("重新开始");
-        }
+    <script>
+        SiteUI.onLanguageChange(language => {
+            SiteUI.translate([
+                {"selector": "title", "en": "Minesweeper", "zh": "扫雷原版"},
+                {"selector": "#gameName", "en": "Minesweeper", "zh": "扫雷"},
+                {"selector": "#reset", "en": "RESET", "zh": "重新开始"}
+            ], language);
+        });
     </script>
 </body>
 

@@ -1,10 +1,11 @@
 ---
 ---
 <!DOCTYPE HTML>
-<html>
+<html lang="en" data-bilingual="true">
 
 <head>
     <meta charset="utf-8">
+    <script src="/shared/site-ui.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Matching Card EX</title>
@@ -37,7 +38,7 @@
             <div id="board" class="lead"></div>
             <div id="panel">
                 <h3>
-                    <span id="steps" class="label label-info">Unnecessary Opens: <span id="count">0</span></span>
+                    <span id="steps" class="label label-info"><span id="steps-label">Unnecessary Opens: </span><span id="count">0</span><span id="steps-suffix"></span></span>
                 </h3>
                 <label for="buttons" class="me-2">New Game: </label>
                 <div id="buttons" class="btn-group btn-group-toggle" role="group" data-toggle="buttons">
@@ -58,21 +59,21 @@
         {% include footer.html %}
     </div>
 
-    <script type="text/javascript">
-		var lang = navigator.language;
-		if (lang.slice(0, 2) === "zh") {
-			$('#title').text("记忆翻牌超难版");
-			$('#gameName').text("记忆翻牌超难版");
-            $('#record').html('最好成绩：');
-            $('#best-en').hide();
-			$('#steps').html('不匹配点击：<span id="count">0</span>次');
-			$('#rule').html(
-                '<li>需连续点开两个图案及颜色相同的格子。</li><li>点击半数格子前不会出现相同图案及颜色。</li><li>从点击数为格子数一半时开始，记录不匹配的点击数。</li>'
-            );
-		} else {
-            $('#best-zh').hide();
-        }
-		</script>
+    <script>
+        SiteUI.onLanguageChange(language => {
+            SiteUI.translate([
+                {"selector": "title", "en": "Matching Card EX", "zh": "记忆翻牌超难版"},
+                {"selector": "#gameName", "en": "Matching Card EX", "zh": "记忆翻牌超难版"},
+                {"selector": "#record", "en": "Your Best: ", "zh": "最好成绩：", "html": true},
+                {"selector": "#rule", "en": "<li>Match two grids with the same picture and color.</li>\n            <li>Matching will not happen before half of the grids are clicked.</li>\n            <li>Matched opening and necessary checking at the beginning are not counted.</li>", "zh": "<li>需连续点开两个图案及颜色相同的格子。</li><li>点击半数格子前不会出现相同图案及颜色。</li><li>从点击数为格子数一半时开始，记录不匹配的点击数。</li>", "html": true},
+                {"selector": "#steps-label", "en": "Unnecessary Opens: ", "zh": "不匹配点击："},
+                {"selector": "#steps-suffix", "en": "", "zh": "次"},
+                {"selector": "label[for=\"buttons\"]", "en": "New Game: ", "zh": "新游戏："}
+            ], language);
+            document.getElementById("best-en").hidden = language === "zh";
+            document.getElementById("best-zh").hidden = language !== "zh";
+        });
+    </script>
 </body>
 
 </html>

@@ -17,27 +17,66 @@ nav_section: games
 breadcrumb_en: Chess
 breadcrumb_zh: 国际象棋
 bilingual: true
-callback_en: switchToEn
-callback_zh: switchToZh
 ---
 ```
 
-Set `bilingual: true` only when the page supports switching its content. Existing
+Set `bilingual: true` only when the page supports switching its content. Standalone
+HTML pages can use `<html lang="en" data-bilingual="true">` instead. Fixed Chinese
+pages retain `<html lang="zh-CN">`; posts default to `zh-CN` and can override it with
+`content_lang`. All shared headers offer Auto / English / 中文, including fixed-language
+pages: changing the preference translates shared UI, never untranslated content. Existing
 include arguments (`active-tab`, `breadcrumb-page`, `breadcrumb-page-zh`,
 `lang-enabled`, `callback-en`, `callback-zh`) remain supported. Wrap Vue template
 content in Liquid `raw` blocks; keep Jekyll includes outside those blocks.
 
-`shared/site-ui.js` exposes `SiteUI.getLanguage()` and `SiteUI.setLanguage(lang)`.
-It remembers explicit choices in `site-language` local storage and falls back to
-the browser language. It emits `site:languagechange` with `detail.language`.
-Only bilingual headers update the document language; fixed-language pages retain
-their own document language. The homepage listens to the event separately.
-Pages with only a footer can load the script explicitly if they need this API.
+Load `/shared/site-ui.js` after the charset declaration and before application
+scripts. The header also loads it as a fallback; repeated loading is guarded.
+Independent apps can load it without using the header. The shared API is:
+
+- `SiteUI.getLanguage()`: effective `zh` or `en`.
+- `SiteUI.getLanguagePreference()`: `auto`, `zh`, or `en`.
+- `SiteUI.setLanguage(preference)`: switches immediately; `auto` removes the saved
+  choice. Existing saved `site-language` values remain compatible. Blocked storage
+  keeps the choice in memory for the current page.
+- `SiteUI.onLanguageChange(callback)`: immediately calls `callback(language)` and
+  subscribes to updates; returns an unsubscribe function for Vue/React cleanup.
+- `SiteUI.translate(entries, language)`: applies page-local `{selector, en, zh}`
+  entries. Optional `attribute` translates attributes; `html: true` is only for
+  trusted author-written markup without live inputs or state.
+- `SiteUI.createMessage(selector, messages)`: returns a setter for a dynamic
+  message key and optional parameters. Switching language renders that message
+  again; passing `null` clears it. Entries have `en`/`zh` strings or parameter functions.
+
+Auto mode uses `navigator.language` (`zh-*` maps to Simplified Chinese, all other
+languages to English), and responds to browser `languagechange`. Explicit choices
+override browser settings. Same-origin tabs synchronize via `storage` events.
+The compatibility event `site:languagechange` contains `detail.language` and
+`detail.preference`. Page code must use this service rather than browser language.
+
+```js
+const unsubscribe = SiteUI.onLanguageChange(language => {
+    SiteUI.translate([
+        { selector: '#reset', en: 'Reset', zh: '重新开始' }
+    ], language);
+});
+```
+
+Keep game state, numeric counters, user input, and article text outside translated
+containers. Vue pages update reactive copy without remounting. Fixed Chinese tools
+and the current blog editor keep their original content; blog article text is not
+translated. The homepage, catalogs, existing bilingual games/math tools, Venn tool,
+digital-number demo, legacy blog UI, shared navigation, and comments use this service.
 
 When editing shared UI, check a catalog, a bilingual demo, a fixed-language tool,
 a blog editor, and the homepage. Verify mobile collapse targets, unique IDs,
 breadcrumbs, language persistence, unavailable storage, and basic navigation
 without JavaScript. Run a Jekyll build before deployment.
+Run the dependency-free language regression tests with
+`node --test tests/site-language.test.cjs`.
+Optional browser integration checks run with `node tests/site-language.browser.cjs`
+when Playwright is installed (or set `PLAYWRIGHT_MODULE` to its package path).
+Windows defaults to Edge; other platforms use Playwright Chromium. These tests use
+lightweight include fixtures and sample catalog data, not a full Jekyll build.
 
 ## Comments
 

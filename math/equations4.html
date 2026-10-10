@@ -1,10 +1,11 @@
 ---
 ---
 <!DOCTYPE HTML>
-<html>
+<html lang="en" data-bilingual="true">
 
 <head>
     <meta charset="utf-8">
+    <script src="/shared/site-ui.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Linear System</title>
@@ -112,18 +113,17 @@
         {% include footer.html %}
     </div>
 
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function() {
-            let lang = navigator.language;
-            if (lang.slice(0, 2) === "zh") {
-                document.title = "四元一次方程组";
-                document.getElementById("problem-name").innerHTML = "四元一次方程组 <small>所有系数为1</small>";
-                document.getElementById("two-v-span").textContent = "二元一次方程组";
-                document.getElementById("three-v-span").textContent = "三元一次方程组";
-                document.getElementById("four-v-span").textContent = "四元一次方程组";
-            }
+    <script>
+        SiteUI.onLanguageChange(language => {
+            SiteUI.translate([
+                {"selector": "#problem-name", "en": "System of Linear Equations <small>coefficients = 1</small>", "zh": "四元一次方程组 <small>所有系数为1</small>", "html": true},
+                {"selector": "#two-v-span", "en": "Two Variables", "zh": "二元一次方程组"},
+                {"selector": "#three-v-span", "en": "Three Variable", "zh": "三元一次方程组"},
+                {"selector": "#four-v-span", "en": "Four Variables", "zh": "四元一次方程组"},
+                {"selector": "title", "en": "Linear System", "zh": "四元一次方程组"}
+            ], language);
         });
-	</script>
+    </script>
 </body>
 
 </html>

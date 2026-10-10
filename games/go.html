@@ -1,10 +1,11 @@
 ---
 ---
 <!DOCTYPE HTML>
-<html>
+<html lang="en" data-bilingual="true">
 
 <head>
     <meta charset="utf-8">
+    <script src="/shared/site-ui.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -69,21 +70,20 @@
         {% include footer.html %}
     </div>
 
-    <script type="text/javascript">
-        var lang = navigator.language;
-		if (lang.slice(0, 2) === "zh") {
-			$('#title').text("围棋");
-			$('#gameName').text("围棋");
-			$('#blabel').text('黑方');
-			$('#wlabel').text('白方');
-			$('#alter-span').text('交替落子');
-			$('#black-span').text('黑方布子');
-			$('#white-span').text('白方布子');
-            $('#reset').text('重新开始');
-            $('#show-number').text("显示顺序");
-            $('#show-number').data("on-text", "显示顺序");
-            $('#show-number').data("off-text", "隐藏顺序");
-		}
+    <script>
+        SiteUI.onLanguageChange(language => {
+            SiteUI.translate([
+                {"selector": "title", "en": "Go", "zh": "围棋"},
+                {"selector": "#gameName", "en": "Go", "zh": "围棋"},
+                {"selector": "#blabel", "en": "BLACK", "zh": "黑方"},
+                {"selector": "#wlabel", "en": "WHITE", "zh": "白方"},
+                {"selector": "#alter-span", "en": "Alternately", "zh": "交替落子"},
+                {"selector": "#black-span", "en": "Black Only", "zh": "黑方布子"},
+                {"selector": "#white-span", "en": "White Only", "zh": "白方布子"},
+                {"selector": "#reset", "en": "RESET", "zh": "重新开始"},
+                {"selector": "#show-number", "en": "\n                        Show Number\n                    ", "zh": "显示顺序"}
+            ], language);
+        });
     </script>
 
 </body>

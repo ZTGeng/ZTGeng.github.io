@@ -1,3 +1,8 @@
+const setResultMessage = SiteUI.createMessage('#result', {
+    won: { en: 'You Win!', zh: '你赢了！' },
+    lost: { en: 'You Lose!', zh: '你输了！' }
+});
+
 /**
  * @version 0.1
  * @author Geng
@@ -96,7 +101,7 @@
     var checkWin = function() {
         // Covered grids num <= remaining mines num
         if (gameSet.grid_num - $('.opened').length <= gameSet.mine_num - $('.exploded').length) {
-            $('#result').text("You Win!");
+            setResultMessage('won');
             gameover();
         }
     }
@@ -252,7 +257,7 @@
             grid.addClass('mine').addClass('exploded');
             if (lives === 0) {
                 // All lives gone. Really gameover.
-                $('#result').text("You Lose!");
+                setResultMessage('lost');
                 gameover();
             } else {
                 // Lost one live. Continue.
@@ -361,7 +366,7 @@
         $('#live-num').text(gameSet.live_num);
         $('#ghost-num').text(0);
         $('#time').text(0);
-        $('#result').text('');
+        setResultMessage(null);
         $('.ghost-cursor').remove();
         init();
         $('#field')

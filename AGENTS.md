@@ -47,8 +47,12 @@ with standalone JavaScript games and browser tools.
   `shared/catalog-scroll.js`; they do not use Bootstrap Carousel pagination.
 - Shared headers and footers use Jekyll includes at build time. Navigation data
   lives in `_data/navigation.yml`; `shared/site-ui.js` manages navigation language,
-  saved preferences, and bilingual page callbacks. Independent apps may retain
-  their own page shell.
+  Auto/English/中文 preferences, browser-language changes, cross-tab synchronization,
+  and immediate page subscriptions. Existing bilingual games and tools use this
+  service rather than reading browser language themselves. Dynamic game messages
+  rerender without resetting state. Fixed Chinese content retains its language;
+  posts default to `zh-CN` with a `content_lang` override. Independent apps may
+  retain their own page shell.
 - Most games and tools are independent pages with their own scripts and styles.
   Dependencies and implementation patterns vary by project.
 - The current blog uses Jekyll and `_posts/`. The legacy `blog/index-v1.html`

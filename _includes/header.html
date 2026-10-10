@@ -3,10 +3,10 @@
 {% assign breadcrumb_zh = include.breadcrumb-page-zh | default: page.breadcrumb_zh | default: breadcrumb %}
 {% assign bilingual = include.lang-enabled | default: page.bilingual %}
 <header id="site-header" lang="en" data-bilingual="{% if bilingual %}true{% else %}false{% endif %}" data-callback-en="{{ include.callback-en | default: page.callback_en | escape }}" data-callback-zh="{{ include.callback-zh | default: page.callback_zh | escape }}">
-    <nav class="navbar navbar-expand-lg bg-body-secondary" aria-label="Main navigation">
+    <nav class="navbar navbar-expand-lg bg-body-secondary" aria-label="Main navigation" data-ui-aria-en="Main navigation" data-ui-aria-zh="主导航">
         <div class="container-fluid">
             <a class="navbar-brand" href="/" data-ui-en="Home" data-ui-zh="首页">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#site-navbar" aria-controls="site-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#site-navbar" aria-controls="site-navbar" aria-expanded="false" aria-label="Toggle navigation" data-ui-aria-en="Toggle navigation" data-ui-aria-zh="展开或收起导航">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="site-navbar">
@@ -15,16 +15,15 @@
                     <li class="nav-item"><a class="nav-link{% if section == item.id %} active{% endif %}"{% if section == item.id %} aria-current="{% if breadcrumb %}true{% else %}page{% endif %}"{% endif %} href="{{ item.url | escape }}" data-ui-en="{{ item.en | escape }}" data-ui-zh="{{ item.zh | escape }}">{{ item.en | escape }}</a></li>
                     {% endfor %}
                 </ul>
-                {% if bilingual %}
-                <div class="d-flex gap-2 small" role="group" aria-label="Language">
+                <div class="d-flex gap-2 small" role="group" aria-label="Language" data-ui-aria-en="Language" data-ui-aria-zh="语言">
+                    <button type="button" class="btn btn-link btn-sm" data-site-language="auto" data-ui-en="Auto" data-ui-zh="跟随浏览器" hidden>Auto</button>
                     <button type="button" class="btn btn-link btn-sm" data-site-language="en" hidden>English</button>
                     <button type="button" class="btn btn-link btn-sm" data-site-language="zh" hidden>中文</button>
                 </div>
-                {% endif %}
             </div>
         </div>
     </nav>
-    <nav aria-label="Breadcrumb" style="--bs-breadcrumb-divider: '|';">
+    <nav aria-label="Breadcrumb" data-ui-aria-en="Breadcrumb" data-ui-aria-zh="当前位置" style="--bs-breadcrumb-divider: '|';">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/" data-ui-en="Home" data-ui-zh="首页">Home</a></li>
             {% for item in site.data.navigation %}

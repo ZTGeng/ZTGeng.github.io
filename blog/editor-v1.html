@@ -1,10 +1,11 @@
 ---
 ---
 <!DOCTYPE html>
-<html>
+<html lang="en" data-bilingual="true">
 <head>
     <title>Blog</title>
     <meta charset="utf-8">
+    <script src="/shared/site-ui.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/shared/bootstrap-5.3.2.min.css" rel="stylesheet">
     <script type="text/javascript" src="/shared/bootstrap-5.3.2.bundle.min.js"></script>
@@ -317,13 +318,14 @@
                     });
                 }
             },
+            beforeUnmount() { this.unsubscribeLanguage(); },
             mounted() {
-                var lang = navigator.language;
-                if (lang.slice(0, 2) === "zh") {
-                    this.previewButton = "预览";
-                    this.saveButton = "保存为..."
-                    this.titleHint = "请输入标题";
-                }
+                this.unsubscribeLanguage = SiteUI.onLanguageChange(language => {
+                    const zh = language === 'zh';
+                    this.previewButton = zh ? '预览' : 'Preview';
+                    this.saveButton = zh ? '保存为...' : 'Save As...';
+                    this.titleHint = zh ? '请输入标题' : 'Title';
+                });
             }
         })
         app.mount('#app')

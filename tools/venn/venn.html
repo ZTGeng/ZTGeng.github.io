@@ -1,7 +1,7 @@
 ---
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bilingual="true">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -188,11 +188,8 @@
 
     <script>
         const { createApp } = Vue
-        const app = createApp({
-            data() {
-                var lang = navigator.language;
-                const strings = lang.slice(0, 2) === "zh" ?
-                {
+        const translations = {
+            zh: {
                     page_title: '文氏图（维恩图）制作',
                     descriptions: [
                         '为各个区域输入文字。可以换行输入。',
@@ -216,7 +213,8 @@
                     area_text_placeholder_abc: '交集 ABC',
 
                     pic_title_placeholder: '图片标题（可空白）',
-                } : {
+                },
+            en: {
                     page_title: 'Venn Diagram Maker',
                     descriptions: [
                         'Put texts to circles and their overlaps. Multiple lines are supported.',
@@ -240,7 +238,10 @@
                     area_text_placeholder_abc: 'Area ABC',
 
                     pic_title_placeholder: 'Pic title (optional)',
-                };
+                }
+        };
+        const app = createApp({
+            data() {
                 const props =
                 {
                     pic_title: { text: '', size: '24px', centered: false },
@@ -258,7 +259,33 @@
                     circle_color_c: '#0000ff',
                     all_text_color: '#ffffff',
                 };
-                return {...strings, ...props};
+                return { language: SiteUI.getLanguage(), ...props };
+            },
+            mounted() {
+                this.unsubscribeLanguage = SiteUI.onLanguageChange(language => {
+                    this.language = language;
+                    document.title = translations[language].page_title;
+                });
+            },
+            beforeUnmount() { this.unsubscribeLanguage(); },
+            computed: {
+                page_title() { return translations[this.language].page_title; },
+                descriptions() { return translations[this.language].descriptions; },
+                text_label() { return translations[this.language].text_label; },
+                text_center_button() { return translations[this.language].text_center_button; },
+                text_reset_button() { return translations[this.language].text_reset_button; },
+                text_choose_text_color() { return translations[this.language].text_choose_text_color; },
+                text_choose_area_a_color() { return translations[this.language].text_choose_area_a_color; },
+                text_choose_area_b_color() { return translations[this.language].text_choose_area_b_color; },
+                text_choose_area_c_color() { return translations[this.language].text_choose_area_c_color; },
+                area_text_placeholder_a() { return translations[this.language].area_text_placeholder_a; },
+                area_text_placeholder_b() { return translations[this.language].area_text_placeholder_b; },
+                area_text_placeholder_c() { return translations[this.language].area_text_placeholder_c; },
+                area_text_placeholder_ab() { return translations[this.language].area_text_placeholder_ab; },
+                area_text_placeholder_ac() { return translations[this.language].area_text_placeholder_ac; },
+                area_text_placeholder_bc() { return translations[this.language].area_text_placeholder_bc; },
+                area_text_placeholder_abc() { return translations[this.language].area_text_placeholder_abc; },
+                pic_title_placeholder() { return translations[this.language].pic_title_placeholder; },
             },
             methods: {
                 resetColor() {

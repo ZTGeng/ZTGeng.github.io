@@ -128,8 +128,8 @@ var main = function () {
     };
 
     var nextRound = function () {
-        $('#round-en').html('ROUND <span class="badge" id="round-num">' + (round + 1) + '</span>');
-        $('#round-zh').html('第 <span class="badge" id="round-num">' + (round + 1) + '</span> 轮');
+        $('#round-en').html('ROUND <span class="badge round-num">' + (round + 1) + '</span>');
+        $('#round-zh').html('第 <span class="badge round-num">' + (round + 1) + '</span> 轮');
         // enable 3 buttons
         $('.choice').prop('disabled', false);
         for (var i = 0; i < 4; i++) {
@@ -161,9 +161,9 @@ var main = function () {
                 $('#result-en').text('It seems you didn\'t click on the correct button(s). Please try again.');
                 $('#result-zh').text('您可能点击了错误的按钮。请重试。');
             } else {
-                $('#result-en').html('The Coin <span id="result-number" class="label label-danger"></span> is <span id="result-heavier-en" class="label label-danger"></span> Than the Others!');
-                $('#result-zh').html('第 <span id="result-number" class="label label-danger"></span> 号硬币比其他硬币较<span id="result-heavier-zh" class="label label-danger"></span>！');
-                $('#result-number').text(mask[result[0] - 1]);
+                $('#result-en').html('The Coin <span class="result-number label label-danger"></span> is <span id="result-heavier-en" class="label label-danger"></span> Than the Others!');
+                $('#result-zh').html('第 <span class="result-number label label-danger"></span> 号硬币比其他硬币较<span id="result-heavier-zh" class="label label-danger"></span>！');
+                $('.result-number').text(mask[result[0] - 1]);
                 $('#result-heavier-en').text(result[1]);
                 $('#result-heavier-zh').text(result[2]);
             }

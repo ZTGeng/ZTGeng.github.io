@@ -1,10 +1,11 @@
 ---
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bilingual="true">
 
 <head>
     <meta charset="utf-8">
+    <script src="/shared/site-ui.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -63,16 +64,17 @@
         {% include footer.html %}
     </div>
 
-    <script type="text/javascript">
-        var lang = navigator.language;
-        if (lang.slice(0, 2) === "zh") {
-            $('#title').text("幽灵扫雷");
-            $('#gameName').text("幽灵扫雷");
-            $('#reset').text("重新开始");
-            $('#live-label').text("命");
-            $('#ghost-label').text("幽灵");
-            $('#rule').html("<li>死亡后，雷区与计时都会回归起始状态并产生幽灵。</li><li>幽灵会重复踩雷之前的所有操作。</li>");
-        }
+    <script>
+        SiteUI.onLanguageChange(language => {
+            SiteUI.translate([
+                {"selector": "title", "en": "Minesweeper: Ghost", "zh": "幽灵扫雷"},
+                {"selector": "#gameName", "en": "Minesweeper: Ghost", "zh": "幽灵扫雷"},
+                {"selector": "#reset", "en": "RESET", "zh": "重新开始"},
+                {"selector": "#live-label", "en": "Lives:", "zh": "命"},
+                {"selector": "#ghost-label", "en": "Ghosts:", "zh": "幽灵"},
+                {"selector": "#rule", "en": "<li>Once dead, mines and timer go back to the initial state and ghosts come.</li>\n            <li>Your ghosts will repeat what you did before dying.</li>", "zh": "<li>死亡后，雷区与计时都会回归起始状态并产生幽灵。</li><li>幽灵会重复踩雷之前的所有操作。</li>", "html": true}
+            ], language);
+        });
     </script>
 </body>
 

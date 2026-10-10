@@ -1,3 +1,8 @@
+const setResultMessage = SiteUI.createMessage('#result', {
+    won: { en: 'You Win!', zh: '你赢了！' },
+    lost: { en: 'You Lose!', zh: '你输了！' }
+});
+
 /**
  * @version 0.3
  * @author Geng
@@ -75,7 +80,7 @@
     var checkWin = function() {
         // Covered grids num <= remaining mines num
         if (gameSet.grid_num - $('.opened').length <= gameSet.mine_num - $('.exploded').length) {
-            $('#result').text("You Win!");
+            setResultMessage('won');
             gameover();
         }
     }
@@ -104,7 +109,7 @@
             lives--;
             $('#live-num').text(lives);
             if (lives === 0) {
-                $('#result').text("You Lose!");
+                setResultMessage('lost');
                 gameover();
             } else {
                 $('#mine-num').text(gameSet.mine_num - $('.marked').length - $('.mine').length);
@@ -204,7 +209,7 @@
         $('#liar-num').text(gameSet.liar_num);
         $('#live-num').text(gameSet.live_num);
         $('#time').text(0);
-        $('#result').text('');
+        setResultMessage(null);
         init();
         $('#field').one('mouseup', () => {
             timer = setInterval(() => {

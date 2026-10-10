@@ -1,6 +1,13 @@
 
 var numVariable = 4;
-var UNUSABLE = navigator.language.slice(0, 2) === "zh" ? "不可用" : "Unusable";
+function unusableText() {
+    return SiteUI.getLanguage() === 'zh' ? '不可用' : 'Unusable';
+}
+SiteUI.onLanguageChange(() => {
+    document.querySelectorAll('input[placeholder="Unusable"], input[placeholder="不可用"]').forEach(input => {
+        input.placeholder = unusableText();
+    });
+});
 var constants = {
     "a-add-b": { object: null, used: false, inferred: false, value: NaN },
     "a-sub-b": { object: null, used: false, inferred: false, value: NaN },
@@ -84,7 +91,7 @@ var inference = {
 var inactive = function (id) {
     // isUsed[id] = false;
     $('#equation-' + id).removeClass("text-primary").addClass("text-muted");
-    constants[id].object.prop("disabled", true).prop("placeholder", UNUSABLE).val("");
+    constants[id].object.prop("disabled", true).prop("placeholder", unusableText()).val("");
 };
 
 var active = function (id) {

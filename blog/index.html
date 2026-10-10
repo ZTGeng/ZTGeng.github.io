@@ -1,10 +1,11 @@
 ---
 ---
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <title>Blog</title>
     <meta charset="utf-8">
+    <script src="/shared/site-ui.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/shared/bootstrap-5.3.2.min.css" rel="stylesheet">
     <script src="/shared/bootstrap-5.3.2.bundle.min.js" type="text/javascript"></script>
@@ -15,7 +16,7 @@
         {% include header.html active-tab='blog' %}
 
         <div class="d-flex">
-            <a href="/blog/editor.html" class="btn btn-outline-secondary me-auto">Editor</a>
+            <a href="/blog/editor.html" class="btn btn-outline-secondary me-auto" data-ui-en="Editor" data-ui-zh="编辑器">Editor</a>
             <a href="/blog/index-v1.html">&rarr; Blog v1 </a>
         </div>
         <div id="post">
