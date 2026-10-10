@@ -10,6 +10,9 @@
     <title id="webTitle"></title>
     <link href="/shared/bootstrap-5.3.2.min.css" rel="stylesheet">
     <script src="/shared/bootstrap-5.3.2.bundle.min.js" type="text/javascript"></script>
+    <style>
+        .catalog-pagination[hidden] { display: none !important; }
+    </style>
 </head>
 
 <body>
@@ -25,7 +28,7 @@
             {% for catalog in page.catalogs %}
             <div id="catalog-{{ catalog.id }}">
                 <h4 id="catalog-title-{{ catalog.id }}">{{ catalog.title[0].content }}</h4>
-                <div id="carousel-{{ catalog.id }}" class="carousel carousel-dark slide mb-4">
+                <div id="carousel-{{ catalog.id }}" class="carousel mb-4" data-bs-wrap="false" data-bs-interval="false">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="carousel-item-inner row row-cols-4 justify-content-center g-4">
@@ -45,14 +48,15 @@
                             </div>
                         </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ catalog.id }}" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" style="background-color: #000000; border-radius: 10%" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ catalog.id }}" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" style="background-color: #000000; border-radius: 10%" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+                    <div class="catalog-pagination d-flex justify-content-center align-items-center gap-3 mt-3" hidden>
+                        <button class="btn btn-outline-secondary px-3" style="min-height: 44px" type="button" data-bs-target="#carousel-{{ catalog.id }}" data-bs-slide="prev" aria-controls="carousel-{{ catalog.id }}">
+                            <span aria-hidden="true">←</span> <span data-page-label="prev">Previous</span>
+                        </button>
+                        <span class="text-body-secondary text-nowrap" data-page-status role="status" aria-live="polite" aria-atomic="true"></span>
+                        <button class="btn btn-outline-secondary px-3" style="min-height: 44px" type="button" data-bs-target="#carousel-{{ catalog.id }}" data-bs-slide="next" aria-controls="carousel-{{ catalog.id }}">
+                            <span data-page-label="next">Next</span> <span aria-hidden="true">→</span>
+                        </button>
+                    </div>
                 </div>
             </div>
             {% endfor %}
@@ -128,6 +132,21 @@
                 }
             }
 
+            function updatePagination(carousel) {
+                const pages = Array.from(carousel.querySelectorAll('.carousel-item'));
+                const current = Math.max(0, pages.findIndex(page => page.classList.contains('active')));
+                const controls = carousel.querySelector('.catalog-pagination');
+                const zh = window.SiteUI.getLanguage() === 'zh';
+                controls.hidden = pages.length <= 1;
+                controls.querySelector('[data-page-label="prev"]').textContent = zh ? '上一页' : 'Previous';
+                controls.querySelector('[data-page-label="next"]').textContent = zh ? '下一页' : 'Next';
+                controls.querySelector('[data-page-status]').textContent = zh
+                    ? '第 ' + (current + 1) + ' / ' + pages.length + ' 页'
+                    : (current + 1) + ' / ' + pages.length;
+                controls.querySelector('[data-bs-slide="prev"]').disabled = current === 0;
+                controls.querySelector('[data-bs-slide="next"]').disabled = current >= pages.length - 1;
+            }
+
             function reorganizeCarousel(carousel) {
                 const carouselInner = carousel.getElementsByClassName("carousel-inner")[0];
                 if (!carouselInner) {
@@ -144,13 +163,19 @@
                         items.push(item);
                     }
                 }
+                // Keep the first visible card on screen when the column count changes.
+                const activePage = carouselInner.querySelector('.carousel-item.active');
+                const firstVisible = activePage && activePage.querySelector('.carousel-item-inner').firstElementChild;
+                const anchorIndex = Math.max(0, items.indexOf(firstVisible));
+                const instance = bootstrap.Carousel.getInstance(carousel);
+                if (instance) instance.dispose();
                 carouselInner.innerHTML = "";
 
                 const itemOnPage = getItemNumForWidth();
                 for (let i = 0; i < items.length; i += itemOnPage) {
                     const carouselItem = document.createElement("div");
                     carouselItem.className = "carousel-item";
-                    if (i === 0) {
+                    if (i === Math.floor(anchorIndex / itemOnPage) * itemOnPage) {
                         carouselItem.classList.add("active");
                     }
                     const carouselItemInner = document.createElement("div");
@@ -163,6 +188,8 @@
                 }
 
                 carousel.dataset.itemOnPage = itemOnPage;
+                new bootstrap.Carousel(carousel, { interval: false, wrap: false });
+                updatePagination(carousel);
             }
 
             function checkAndReorganizeCarousels() {
@@ -178,8 +205,8 @@
             }
 
             function listenToResize(intervel = 200) {
+                let inThrottle = false;
                 window.addEventListener("resize", () => {
-                    let inThrottle;
                     if (!inThrottle) {
                         inThrottle = true;
                         setTimeout(function() {
@@ -243,6 +270,13 @@
                 switchPageLanguage(lang);
                 switchCatalogsLanguage(lang);
                 checkAndReorganizeCarousels();
+                for (const catalog of catalogs) {
+                    const carousel = document.getElementById(carouselIdPrefix + catalog.id);
+                    carousel.addEventListener('slid.bs.carousel', () => updatePagination(carousel));
+                }
+                document.addEventListener('site:languagechange', () => {
+                    for (const catalog of catalogs) updatePagination(document.getElementById(carouselIdPrefix + catalog.id));
+                });
                 listenToResize();
             });
         })();

@@ -50,8 +50,10 @@ with standalone JavaScript games and browser tools.
   Dependencies and implementation patterns vary by project.
 - The current blog uses Jekyll and `_posts/`. The legacy `blog/index-v1.html`
   loads a JSON index and Markdown articles from `blog/posts/` with Vue.
-- `math/index.html` and `math/index.md` both exist. Check their generated output
-  paths when changing that catalog.
+- `math/index.md` is the sole source for `/math/index.html`. The three legacy
+  catalog URLs (`games/index-v1.html`, `tools/index-v1.html`, `math/index-v1.html`)
+  are lightweight redirects to their current catalogs; they contain no catalog
+  data or application scripts.
 - `cocgame/coc-server.js` contains a standalone Node.js HTTP server; it is not
   the main site's backend.
 - The React adventure game linked from the homepage is a separate project;
