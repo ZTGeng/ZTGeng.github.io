@@ -42,9 +42,10 @@ with standalone JavaScript games and browser tools.
 - Catalog entries and bilingual text are primarily defined in the YAML front
   matter of `games/index.md`, `tools/index.md`, and `math/index.md`, then rendered
   through `_layouts/subindex.html`.
-- Shared UI has two implementations: Jekyll pages use Liquid includes at build
-  time, while some standalone HTML pages fetch header/footer fragments through
-  `shared/loadSharedUI.js` in the browser.
+- Shared headers and footers use Jekyll includes at build time. Navigation data
+  lives in `_data/navigation.yml`; `shared/site-ui.js` manages navigation language,
+  saved preferences, and bilingual page callbacks. Independent apps may retain
+  their own page shell.
 - Most games and tools are independent pages with their own scripts and styles.
   Dependencies and implementation patterns vary by project.
 - The current blog uses Jekyll and `_posts/`. The legacy `blog/index-v1.html`

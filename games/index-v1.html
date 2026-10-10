@@ -267,7 +267,7 @@
                         src: "/games/rps.html"
                     }
                 ]
-            },        
+            },
         ];
         const translations = {
             "en": {
@@ -284,7 +284,7 @@
 
         function switchPageLanguage(lang) {
             const translation = translations[lang] || translations["en"];
-            
+
             document.title = translation.web_title;
             document.getElementById("title").textContent = translation.title;
             document.getElementById("greeting").textContent = translation.greeting;
@@ -299,7 +299,7 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            const userLang = navigator.language || navigator.userLanguage;
+            const userLang = window.SiteUI.getLanguage();
             const lang = userLang.slice(0, 2) || "en";
             switchPageLanguage(lang);
 

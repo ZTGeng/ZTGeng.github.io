@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,11 +67,11 @@
         </div>
     </div>
 
-    <div id="footer"></div>
+    {% include footer.html %}
 </div>
 
 <script src="/shared/bootstrap-5.3.2.bundle.min.js"></script>
-<script src="/shared/loadSharedUI.js"></script>
+<script src="/shared/site-ui.js"></script>
 <script>
     const translations = {
         "en": {
@@ -251,6 +253,7 @@
         const langEn = document.getElementById("lang_en");
         const langZh = document.getElementById("lang_zh");
         function switchLanguage(lang) {
+            document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
             const translation = translations[lang] || translations["en"];
 
             if (lang === "zh") {
@@ -283,11 +286,12 @@
             });
         }
 
-        const userLang = navigator.language || navigator.userLanguage;
+        document.addEventListener("site:languagechange", event => switchLanguage(event.detail.language));
+        const userLang = window.SiteUI.getLanguage();
         const lang = userLang.slice(0, 2) || "en";
         switchLanguage(lang);
-        langEn.addEventListener("click", () => switchLanguage("en"));
-        langZh.addEventListener("click", () => switchLanguage("zh"));
+        langEn.addEventListener("click", () => window.SiteUI.setLanguage("en"));
+        langZh.addEventListener("click", () => window.SiteUI.setLanguage("zh"));
     }
 
     window.onload = main;

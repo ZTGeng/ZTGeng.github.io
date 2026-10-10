@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +13,8 @@
 
 <body>
     <div class="container">
-        <div id="header"></div>
+        {% include header.html active-tab='blog' breadcrumb-page='Edit' breadcrumb-page-zh='编辑' %}
+        {% raw %}
 
         <div id="app">
             <div class="form-group">
@@ -20,7 +23,7 @@
                     <textarea id="textInput" v-model="input" class="form-control mb-2 col" rows="10"></textarea>
                     <div id="preview" class="col-sm-12 col-md-6" v-html="inputHtml" v-if="showPreview"></div>
                 </div>
-                
+
                 <div class="d-flex justify-content-end">
                     <button id="preview" class="btn btn-primary" type="button" data-bs-toggle="button" @click="showPreview = !showPreview">{{ previewButton }}</button>
                     <button id="save" class="btn btn-primary ms-2" @click="save">{{ saveButton }}.</button>
@@ -28,10 +31,12 @@
             </div>
         </div>
 
-        <div id="footer"></div>
+        {% endraw %}
+        {% include footer.html %}
+        {% raw %}
     </div>
 
-    <script src="/shared/loadSharedUI.js" data-active-tab="blog" data-breadcrumb-page="Edit" data-breadcrumb-page-zh="编辑"></script>
+
     <script type="text/javascript">
         const { createApp } = Vue
         const app = createApp({
@@ -323,6 +328,7 @@
         })
         app.mount('#app')
     </script>
-    
+
 </body>
+{% endraw %}
 </html>

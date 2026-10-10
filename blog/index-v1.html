@@ -17,7 +17,7 @@
     </script>
     {% raw %}
     <div class="container">
-        <div id="header"></div>
+        {% endraw %}{% include header.html active-tab='blog' %}{% raw %}
 
         <div class="row" id="app">
             <div class="col-sm-12 col-md-9" id="post">
@@ -44,10 +44,10 @@
             </div>
         </div>
 
-        <div id="footer"></div>
+        {% endraw %}{% include footer.html %}{% raw %}
     </div>
 
-    <script type="text/javascript" src="/shared/loadSharedUI.js" data-active-tab="blog"></script>
+
     <script type="text/javascript">
         const { createApp } = Vue
         const app = createApp({
@@ -97,7 +97,7 @@
                     } else {
                         this.loadPost(this.emptyPost);
                     }
-                    
+
                 },
                 loadPost(id) {
                     const filename = 'posts/' + id + '.md'
@@ -344,7 +344,7 @@
         })
 
         app.mount('#app')
-        
+
     </script>
     {% endraw %}
 </body>

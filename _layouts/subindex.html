@@ -190,7 +190,7 @@
                 });
             }
 
-            function switchCatalogsLanguage(lang) {    
+            function switchCatalogsLanguage(lang) {
                 for (let catalog of catalogs) {
                     const catalogTitle = document.getElementById(catalogTitleIdPrefix + catalog.id);
                     if (catalogTitle) {
@@ -238,7 +238,7 @@
             window.switchToEn = switchToEn;
 
             document.addEventListener("DOMContentLoaded", () => {
-                const userLang = navigator.language || navigator.userLanguage;
+                const userLang = window.SiteUI.getLanguage();
                 const lang = userLang.slice(0, 2) || "en";
                 switchPageLanguage(lang);
                 switchCatalogsLanguage(lang);

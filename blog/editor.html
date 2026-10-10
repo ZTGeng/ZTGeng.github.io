@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +13,8 @@
 
 <body>
     <div class="container">
-        <div id="header"></div>
+        {% include header.html active-tab='blog' breadcrumb-page='Edit' breadcrumb-page-zh='编辑' %}
+        {% raw %}
 
         <div id="app">
             <div class="form-group">
@@ -119,21 +122,21 @@
                 <div class="mb-2">
                     <input id="titleInput" v-model="title" type="text" class="form-control mb-2" :placeholder="titleHint">
                 </div>
-                
+
                 <div class="input-group">
-                    <textarea 
-                        id="textInput" 
+                    <textarea
+                        id="textInput"
                         ref="textInputRef"
-                        v-model="input" 
-                        class="form-control mb-2 col" 
-                        rows="10" 
+                        v-model="input"
+                        class="form-control mb-2 col"
+                        rows="10"
                         @select="updateCursorPosition"
                         @mouseup="updateCursorPosition"
                         @keyup="updateCursorPosition"></textarea>
                     <div id="preview" class="col-sm-12 col-md-6 ms-2" v-html="inputHtml" v-if="showPreview"></div>
                 </div>
                 <div hidden>{{ selectionStart }} - {{ selectionEnd }} : {{ input.slice(selectionStart, selectionEnd) }}</div>
-                
+
                 <div class="d-flex justify-content-end">
                     <button id="preview" class="btn btn-primary" type="button" data-bs-toggle="button" @click="showPreview = !showPreview">{{ previewButton }}</button>
                     <button id="save" class="btn btn-primary ms-2" @click="save">{{ saveButton }}.</button>
@@ -159,10 +162,12 @@
             </div>
         </div>
 
-        <div id="footer"></div>
+        {% endraw %}
+        {% include footer.html %}
+        {% raw %}
     </div>
 
-    <script src="/shared/loadSharedUI.js" data-active-tab="blog" data-breadcrumb-page="Edit" data-breadcrumb-page-zh="编辑"></script>
+
     <script type="text/javascript">
         const { createApp } = Vue
         const app = createApp({
@@ -460,7 +465,7 @@
                             this.input = this.input.slice(0, this.selectionStart).concat(`**${selectText}**`).concat(this.input.slice(this.selectionEnd));
                             this.selectionEnd += 4;
                         }
-                        
+
                     }
                     this.recoverTextAreaFocus();
                 },
@@ -673,7 +678,7 @@
                             }
                         } // else rFlag = false
                     }
-                    
+
                     if (lFlag || rFlag) {
                         this.input = this.input.slice(0, this.selectionStart).concat(hrText).concat(this.input.slice(this.selectionEnd));
                         this.selectionStart += hrText.length;
@@ -704,7 +709,7 @@
                     this.recoverTextAreaFocus();
                 },
                 onAddExcerpt() {
-                    if (this.selectionStart === this.selectionEnd 
+                    if (this.selectionStart === this.selectionEnd
                         && (this.selectionStart === 0 || this.input[this.selectionStart - 1] === '\n')
                         && (this.selectionEnd === this.input.length || this.input[this.selectionEnd] === '\n')) {
                         this.input = this.input.slice(0, this.selectionStart).concat("<!--more-->\n").concat(this.input.slice(this.selectionEnd));
@@ -805,6 +810,7 @@
         })
         app.mount('#app')
     </script>
-    
+
 </body>
+{% endraw %}
 </html>

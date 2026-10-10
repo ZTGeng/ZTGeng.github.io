@@ -173,7 +173,7 @@
                         <label class="btn btn-outline-dark" for="dark-theme" id="dark-theme-label">Dark</label>
                     </div>
                 </div>
-                
+
                 <textarea type="text" class="form-control" placeholder="Custom Text" rows="3" id="textBox"></textarea>
             </div>
             <div class="col-9 mb-2">
@@ -184,7 +184,7 @@
             <pre class="bg-dark text-white p-3"><code id="customized-code">&lt;div id="customized" class="digital-numbers-js p-3 bg-light text-dark" data-dn-dynamic="true"&gt;
     ...
 &lt;/div&gt;</code></pre>
-                
+
         </div>
         <br>
 
@@ -299,7 +299,7 @@
             document.getElementById("light-theme-label").innerText = "浅色";
             document.getElementById("dark-theme-label").innerText = "深色";
         }
-        if ((navigator.language || navigator.userLanguage).startsWith("zh")) {
+        if ((window.SiteUI.getLanguage()).startsWith("zh")) {
             switchToZh();
         }
     </script>

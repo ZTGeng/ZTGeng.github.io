@@ -1,0 +1,16 @@
+- id: games
+  url: /games/
+  en: Games
+  zh: 游戏
+- id: tools
+  url: /tools/
+  en: Tools
+  zh: 应用
+- id: math
+  url: /math/
+  en: Math
+  zh: 数学
+- id: blog
+  url: /blog/
+  en: Blog
+  zh: 文章
