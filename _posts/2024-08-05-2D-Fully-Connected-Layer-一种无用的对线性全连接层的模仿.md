@@ -1,4 +1,5 @@
 ---
+comments_id: "post:2024-08-05-2D-Fully-Connected-Layer-一种无用的对线性全连接层的模仿"
 layout: post
 title: 2D Fully Connected Layer：一种无用的对线性全连接层的模仿
 date: 2024-08-05 13:08:01

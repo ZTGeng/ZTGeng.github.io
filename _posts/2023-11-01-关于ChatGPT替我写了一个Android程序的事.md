@@ -1,4 +1,5 @@
 ---
+comments_id: "post:2023-11-01-关于ChatGPT替我写了一个Android程序的事"
 layout: post
 title: 关于ChatGPT替我写了一个Android程序的事
 date: 2023-11-01 19:30:25

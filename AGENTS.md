@@ -53,6 +53,12 @@ with standalone JavaScript games and browser tools.
   Dependencies and implementation patterns vary by project.
 - The current blog uses Jekyll and `_posts/`. The legacy `blog/index-v1.html`
   loads a JSON index and Markdown articles from `blog/posts/` with Vue.
+- Catalog child pages and current blog posts explicitly include the shared giscus
+  component (`_includes/comments.html`, `shared/comments.js`, and
+  `shared/comments.css`). Public repository/category settings live in
+  `_data/giscus.yml`; permanent terms isolate each page/post's Discussion.
+  The homepage, catalogs, blog lists/editors, legacy blog, and `xiren/` have no
+  comments. Keep comment containers outside Vue mount roots.
 - `math/index.md` is the sole source for `/math/index.html`. The three legacy
   catalog URLs (`games/index-v1.html`, `tools/index-v1.html`, `math/index-v1.html`)
   are lightweight redirects to their current catalogs; they contain no catalog

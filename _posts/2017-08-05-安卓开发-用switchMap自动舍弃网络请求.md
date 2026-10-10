@@ -1,4 +1,5 @@
 ---
+comments_id: "post:2017-08-05-安卓开发-用switchMap自动舍弃网络请求"
 layout: post
 title: 安卓开发：用switchMap自动舍弃网络请求
 date: 2017-08-05 02:54:14

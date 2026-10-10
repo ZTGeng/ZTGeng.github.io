@@ -1,0 +1,20 @@
+{% assign comments_id = include.id | default: page.comments_id %}
+{% unless comments_id %}
+    {% assign comments_id = page.url | prepend: 'post:' %}
+{% endunless %}
+<link rel="stylesheet" href="{{ '/shared/comments.css' | relative_url }}">
+<section id="site-comments" class="site-comments" aria-labelledby="comments-heading"
+         data-comment-id="{{ comments_id | escape }}"
+         data-repo="{{ site.data.giscus.repo | escape }}"
+         data-repo-id="{{ site.data.giscus.repo_id | escape }}"
+         data-category="{{ site.data.giscus.category | escape }}"
+         data-category-id="{{ site.data.giscus.category_id | escape }}"
+         data-theme="{{ site.data.giscus.theme | escape }}">
+    <h2 id="comments-heading">评论 / Comments</h2>
+    <p class="site-comments-note" data-comments-note>登录自己的 GitHub 账号即可发表评论。 / Sign in with your GitHub account to comment.</p>
+    <p role="status" data-comments-status>正在加载评论…… / Loading comments…</p>
+    <div id="comments" class="giscus"></div>
+    <p><a data-comments-link href="https://github.com/{{ site.data.giscus.repo | escape }}/discussions" target="_blank" rel="noopener noreferrer">GitHub Discussions</a></p>
+    <noscript><p>请启用 JavaScript 加载评论，也可以前往 GitHub Discussions 阅读和参与讨论。 / Enable JavaScript to load comments, or visit GitHub Discussions.</p></noscript>
+</section>
+<script src="{{ '/shared/comments.js' | relative_url }}" defer></script>

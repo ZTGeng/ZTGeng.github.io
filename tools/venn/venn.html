@@ -179,9 +179,13 @@
         </div>
         
         {% endraw %}
-        {% include footer.html %}
     </div>
     
+    <div class="container">
+        {% include comments.html id='page:/tools/venn/venn.html' %}
+        {% include footer.html %}
+    </div>
+
     <script>
         const { createApp } = Vue
         const app = createApp({

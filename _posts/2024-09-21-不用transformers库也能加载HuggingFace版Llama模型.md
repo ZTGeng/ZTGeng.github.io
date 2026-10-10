@@ -1,4 +1,5 @@
 ---
+comments_id: "post:2024-09-21-不用transformers库也能加载HuggingFace版Llama模型"
 layout: post
 title: 不用transformers库也能加载HuggingFace版Llama模型
 date: 2024-09-21 00:33:12

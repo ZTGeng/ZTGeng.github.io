@@ -1,0 +1,11 @@
+.site-comments {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #dee2e6;
+    min-width: 0;
+}
+
+.site-comments h2 { font-size: 1.5rem; }
+.site-comments-note, .site-comments [role="status"] { color: #6c757d; }
+.site-comments .giscus, .site-comments .giscus-frame { width: 100%; }
+.site-comments [hidden] { display: none !important; }

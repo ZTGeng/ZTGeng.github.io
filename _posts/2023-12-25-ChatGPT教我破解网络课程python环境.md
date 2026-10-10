@@ -1,4 +1,5 @@
 ---
+comments_id: "post:2023-12-25-ChatGPT教我破解网络课程python环境"
 layout: post
 title: ChatGPT教我破解网络课程python环境
 date: 2023-12-25 01:18:58

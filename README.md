@@ -38,3 +38,31 @@ When editing shared UI, check a catalog, a bilingual demo, a fixed-language tool
 a blog editor, and the homepage. Verify mobile collapse targets, unique IDs,
 breadcrumbs, language persistence, unavailable storage, and basic navigation
 without JavaScript. Run a Jekyll build before deployment.
+
+## Comments
+
+Catalog child pages explicitly include `{% include comments.html id='page:/path.html' %}`
+before the footer. Posts use the include in `_layouts/post.html`, with a permanent
+`comments_id` in their front matter. Keep an existing ID when renaming or moving a
+page or post; use a new, unique ID for new content. New posts without an explicit
+ID fall back to `post:` plus their Jekyll URL. Place comments outside Vue mount
+roots and Liquid `raw` blocks (see `tools/venn/venn.html`).
+
+Public giscus configuration lives in `_data/giscus.yml`. The public repository
+must enable Discussions, have the giscus GitHub App installed, and have a
+`Comments` category using the Announcement format. Obtain the repository and
+category IDs at <https://giscus.app>. Never put a GitHub token in site files.
+
+The widget loads on page opening and uses a specific term with strict matching.
+Readers can view comments without signing in; posting requires their own GitHub
+account and giscus authorization. Discussions are created on the first comment
+or reaction. Language follows `SiteUI`; theme follows the system color scheme.
+Script/network failures show a fallback link to GitHub Discussions. Metadata
+updates this link to the individual discussion once one exists.
+
+The homepage, catalogs, blog lists/editors, legacy blog (`blog/index-v1.html`),
+and `xiren/` do not include comments. Adding a new catalog entry requires adding
+the comment include to its child page. Verify coverage and widget behavior with
+`node --test test/comments.test.cjs`, then build with Jekyll and check the rendered
+pages before deploying. A live smoke test should confirm GitHub sign-in, initial
+thread creation, comment persistence after refresh, and isolation between pages.

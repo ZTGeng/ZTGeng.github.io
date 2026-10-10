@@ -1,4 +1,5 @@
 ---
+comments_id: "post:2017-05-04-安卓开发-Crash-Fast"
 layout: post
 title: 安卓开发：Crash Fast
 date: 2017-05-04 01:31:42

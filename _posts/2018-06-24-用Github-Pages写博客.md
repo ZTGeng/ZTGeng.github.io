@@ -1,4 +1,5 @@
 ---
+comments_id: "post:2018-06-24-用Github-Pages写博客"
 layout: post
 title: 用Github Pages写博客
 date: 2018-06-24 19:55:20
