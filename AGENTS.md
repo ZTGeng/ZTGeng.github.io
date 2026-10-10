@@ -42,6 +42,9 @@ with standalone JavaScript games and browser tools.
 - Catalog entries and bilingual text are primarily defined in the YAML front
   matter of `games/index.md`, `tools/index.md`, and `math/index.md`, then rendered
   through `_layouts/subindex.html`.
+- Catalog cards use native horizontal scrolling, with responsive sizing in
+  `shared/catalog.css` and optional arrow/keyboard controls in
+  `shared/catalog-scroll.js`; they do not use Bootstrap Carousel pagination.
 - Shared headers and footers use Jekyll includes at build time. Navigation data
   lives in `_data/navigation.yml`; `shared/site-ui.js` manages navigation language,
   saved preferences, and bilingual page callbacks. Independent apps may retain

@@ -10,9 +10,8 @@
     <title id="webTitle"></title>
     <link href="/shared/bootstrap-5.3.2.min.css" rel="stylesheet">
     <script src="/shared/bootstrap-5.3.2.bundle.min.js" type="text/javascript"></script>
-    <style>
-        .catalog-pagination[hidden] { display: none !important; }
-    </style>
+    <link href="/shared/catalog.css" rel="stylesheet">
+    <script src="/shared/catalog-scroll.js" defer></script>
 </head>
 
 <body>
@@ -26,39 +25,30 @@
 
         <div id="portfolio">
             {% for catalog in page.catalogs %}
-            <div id="catalog-{{ catalog.id }}">
-                <h4 id="catalog-title-{{ catalog.id }}">{{ catalog.title[0].content }}</h4>
-                <div id="carousel-{{ catalog.id }}" class="carousel mb-4" data-bs-wrap="false" data-bs-interval="false">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="carousel-item-inner row row-cols-4 justify-content-center g-4">
-                                {% for item in catalog.items %}
-                                <div id="item-{{ item.id }}" class="col">
-                                    <a href="{{ item.src }}" class="card h-100 text-decoration-none">
-                                        <div class="px-3 pt-3">
-                                            <img src="{{ item.imageSrc }}" class="card-img-top shadow rounded">
-                                        </div>
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ item.title[0].content }}</h5>
-                                            <p class="card-text">{{ item.intro[0].content }}</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="catalog-pagination d-flex justify-content-center align-items-center gap-3 mt-3" hidden>
-                        <button class="btn btn-outline-secondary px-3" style="min-height: 44px" type="button" data-bs-target="#carousel-{{ catalog.id }}" data-bs-slide="prev" aria-controls="carousel-{{ catalog.id }}">
-                            <span aria-hidden="true">←</span> <span data-page-label="prev">Previous</span>
-                        </button>
-                        <span class="text-body-secondary text-nowrap" data-page-status role="status" aria-live="polite" aria-atomic="true"></span>
-                        <button class="btn btn-outline-secondary px-3" style="min-height: 44px" type="button" data-bs-target="#carousel-{{ catalog.id }}" data-bs-slide="next" aria-controls="carousel-{{ catalog.id }}">
-                            <span data-page-label="next">Next</span> <span aria-hidden="true">→</span>
-                        </button>
+            <section id="catalog-{{ catalog.id }}" class="catalog-section mb-4" aria-labelledby="catalog-title-{{ catalog.id }}">
+                <div class="d-flex align-items-center justify-content-between gap-3 mb-2">
+                    <h4 class="mb-0" id="catalog-title-{{ catalog.id }}">{{ catalog.title[0].content }}</h4>
+                    <div class="catalog-scroll-controls" hidden>
+                        <button class="btn btn-outline-secondary" type="button" data-scroll-direction="-1" aria-controls="catalog-track-{{ catalog.id }}" aria-label="Scroll left"><span aria-hidden="true">←</span></button>
+                        <button class="btn btn-outline-secondary" type="button" data-scroll-direction="1" aria-controls="catalog-track-{{ catalog.id }}" aria-label="Scroll right"><span aria-hidden="true">→</span></button>
                     </div>
                 </div>
-            </div>
+                <ul id="catalog-track-{{ catalog.id }}" class="catalog-track" tabindex="0" aria-labelledby="catalog-title-{{ catalog.id }}">
+                    {% for item in catalog.items %}
+                    <li id="item-{{ item.id }}" class="catalog-card">
+                        <a href="{{ item.src }}" class="card h-100 text-decoration-none">
+                            <div class="px-3 pt-3">
+                                <img src="{{ item.imageSrc }}" class="card-img-top shadow rounded" alt="{{ item.title[0].content | escape }}" draggable="false">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.title[0].content }}</h5>
+                                <p class="card-text">{{ item.intro[0].content }}</p>
+                            </div>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </section>
             {% endfor %}
         </div>
 
@@ -116,107 +106,7 @@
             };
 
             const itemIdPrefix = "item-";
-            const catalogIdPrefix = "catalog-";
             const catalogTitleIdPrefix = "catalog-title-";
-            const carouselIdPrefix = "carousel-";
-            // let lastItemNumber = catalogs.map(catalog => catalog.items.length).reduce((a, b) => Math.max(a, b), 0);
-
-            function getItemNumForWidth() {
-                const screenWidth = window.innerWidth;
-                if (screenWidth < 768) {
-                    return 2;
-                } else if (screenWidth < 992) {
-                    return 3;
-                } else {
-                    return 4;
-                }
-            }
-
-            function updatePagination(carousel) {
-                const pages = Array.from(carousel.querySelectorAll('.carousel-item'));
-                const current = Math.max(0, pages.findIndex(page => page.classList.contains('active')));
-                const controls = carousel.querySelector('.catalog-pagination');
-                const zh = window.SiteUI.getLanguage() === 'zh';
-                controls.hidden = pages.length <= 1;
-                controls.querySelector('[data-page-label="prev"]').textContent = zh ? '上一页' : 'Previous';
-                controls.querySelector('[data-page-label="next"]').textContent = zh ? '下一页' : 'Next';
-                controls.querySelector('[data-page-status]').textContent = zh
-                    ? '第 ' + (current + 1) + ' / ' + pages.length + ' 页'
-                    : (current + 1) + ' / ' + pages.length;
-                controls.querySelector('[data-bs-slide="prev"]').disabled = current === 0;
-                controls.querySelector('[data-bs-slide="next"]').disabled = current >= pages.length - 1;
-            }
-
-            function reorganizeCarousel(carousel) {
-                const carouselInner = carousel.getElementsByClassName("carousel-inner")[0];
-                if (!carouselInner) {
-                    return;
-                }
-                const carouselItems = carouselInner.getElementsByClassName("carousel-item");
-                const items = [];
-                for (let carouselItem of carouselItems) {
-                    const carouselItemInner = carouselItem.querySelector(".carousel-item-inner");
-                    if (!carouselItemInner) {
-                        continue;
-                    }
-                    for (let item of carouselItemInner.children) {
-                        items.push(item);
-                    }
-                }
-                // Keep the first visible card on screen when the column count changes.
-                const activePage = carouselInner.querySelector('.carousel-item.active');
-                const firstVisible = activePage && activePage.querySelector('.carousel-item-inner').firstElementChild;
-                const anchorIndex = Math.max(0, items.indexOf(firstVisible));
-                const instance = bootstrap.Carousel.getInstance(carousel);
-                if (instance) instance.dispose();
-                carouselInner.innerHTML = "";
-
-                const itemOnPage = getItemNumForWidth();
-                for (let i = 0; i < items.length; i += itemOnPage) {
-                    const carouselItem = document.createElement("div");
-                    carouselItem.className = "carousel-item";
-                    if (i === Math.floor(anchorIndex / itemOnPage) * itemOnPage) {
-                        carouselItem.classList.add("active");
-                    }
-                    const carouselItemInner = document.createElement("div");
-                    carouselItemInner.className = "carousel-item-inner row row-cols-" + itemOnPage + " justify-content-center g-4";
-                    for (let j = i; j < i + itemOnPage && j < items.length; j++) {
-                        carouselItemInner.appendChild(items[j]);
-                    }
-                    carouselItem.appendChild(carouselItemInner);
-                    carouselInner.appendChild(carouselItem);
-                }
-
-                carousel.dataset.itemOnPage = itemOnPage;
-                new bootstrap.Carousel(carousel, { interval: false, wrap: false });
-                updatePagination(carousel);
-            }
-
-            function checkAndReorganizeCarousels() {
-                for (let catalog of catalogs) {
-                    const carousel = document.getElementById(carouselIdPrefix + catalog.id);
-                    if (carousel) {
-                        const itemOnPage = parseInt(carousel.dataset.itemOnPage);
-                        if (itemOnPage !== getItemNumForWidth()) {
-                            reorganizeCarousel(carousel);
-                        }
-                    }
-                }
-            }
-
-            function listenToResize(intervel = 200) {
-                let inThrottle = false;
-                window.addEventListener("resize", () => {
-                    if (!inThrottle) {
-                        inThrottle = true;
-                        setTimeout(function() {
-                            inThrottle = false;
-                            checkAndReorganizeCarousels();
-                        }, intervel);
-                    }
-                });
-            }
-
             function switchCatalogsLanguage(lang) {
                 for (let catalog of catalogs) {
                     const catalogTitle = document.getElementById(catalogTitleIdPrefix + catalog.id);
@@ -269,15 +159,7 @@
                 const lang = userLang.slice(0, 2) || "en";
                 switchPageLanguage(lang);
                 switchCatalogsLanguage(lang);
-                checkAndReorganizeCarousels();
-                for (const catalog of catalogs) {
-                    const carousel = document.getElementById(carouselIdPrefix + catalog.id);
-                    carousel.addEventListener('slid.bs.carousel', () => updatePagination(carousel));
-                }
-                document.addEventListener('site:languagechange', () => {
-                    for (const catalog of catalogs) updatePagination(document.getElementById(carouselIdPrefix + catalog.id));
-                });
-                listenToResize();
+
             });
         })();
     </script>

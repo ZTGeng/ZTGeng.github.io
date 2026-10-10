@@ -1,0 +1,37 @@
+.catalog-track {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 4px 4px 12px;
+}
+
+.catalog-card {
+    flex: 0 0 82%;
+    min-width: 0;
+    scroll-snap-align: start;
+}
+
+.catalog-scroll-controls {
+    display: flex;
+    gap: .5rem;
+    flex-shrink: 0;
+}
+
+.catalog-scroll-controls[hidden] { display: none; }
+.catalog-scroll-controls button { min-width: 44px; min-height: 44px; }
+.catalog-track:focus-visible { outline: 2px solid #0d6efd; outline-offset: 2px; }
+.catalog-card .card:focus-visible { outline: 3px solid #0d6efd; outline-offset: 1px; }
+
+@media (min-width: 576px) {
+    .catalog-card { flex-basis: calc((100% - 1rem) / 2); }
+}
+@media (min-width: 768px) {
+    .catalog-card { flex-basis: calc((100% - 2rem) / 3); }
+}
+@media (min-width: 992px) {
+    .catalog-card { flex-basis: calc((100% - 3rem) / 4); }
+}
