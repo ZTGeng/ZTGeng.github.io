@@ -36,7 +36,7 @@
 
 保留现有 `/games/gomoku.html` 的本地双人玩法。在 `games/index.md` 增加独立在线游戏入口；沿用站点导航、页脚和 `SiteUI.onLanguageChange`，切换语言不重置对局。
 
-大厅不使用 giscus。后续复用游戏登录实现简易留言区，方案见 [大厅留言功能方案](online-gomoku-comments-plan.md)，当前尚未实现。
+大厅不使用 giscus。已复用游戏登录实现独立 Discussion #6 留言区，包含分页、纯文本发表、删除和未确认发表查证，详见 [大厅留言功能方案](online-gomoku-comments-plan.md)。
 
 ## 3. 外部配置与第一阶段验证
 

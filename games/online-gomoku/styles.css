@@ -33,6 +33,11 @@ main { max-width: 1100px; margin: 1.5rem auto 3rem; }
 .player-name { overflow-wrap: anywhere; }
 #room-title .player-avatar { width: 28px; height: 28px; }
 .quota-info { font-size: .75rem; overflow-wrap: anywhere; }
+.lobby-messages { border-top: 1px solid #d6dce3; padding-top: 1.5rem; }
+.message-item { padding: 1rem 0; border-bottom: 1px solid #e3e6eb; }
+.message-header { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.message-body { white-space: pre-wrap; overflow-wrap: anywhere; margin: .6rem 0 0; }
+.message-delete { margin-left: auto; }
 .room-card .date { font-size: .75rem; color: #6c757d; }
 .board-wrap { position: relative; max-width: 650px; }
 .board-overlay { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column;

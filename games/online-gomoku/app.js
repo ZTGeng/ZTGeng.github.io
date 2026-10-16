@@ -1,7 +1,8 @@
 import { login, logout, savedToken, watchLogout } from "./auth.js";
 import { GitHub } from "./github.js";
 import { GameClient } from "./client.js";
-import { gameConfig } from "./config.js";
+import { gameConfig, messageConfig } from "./config.js";
+import { MessagePanel } from "./messages.js";
 import { roleOf, prefix, cleanupGroups, ownEntry } from "./protocol.js";
 import { SIZE } from "./rules.js";
 import { Poller } from "./sync.js";
@@ -10,7 +11,7 @@ const $ = id => document.getElementById(id);
 let language = SiteUI.getLanguage();
 const t = (zh, en) => language === "zh" ? zh : en;
 const s = { api: null, client: null, user: null, quota: null, selection: null, current: null,
-  busy: false, synced: false, lastSync: null, count: gameConfig.pageSize,
+  busy: false, synced: false, lastSync: null, count: gameConfig.pageSize, messages: null,
   message: null, failed: false, cleanup: [], session: 0,
   loading: true, loadError: false, submitting: false, resultNotice: null, notified: new Set() };
 const errors = {
@@ -115,21 +116,29 @@ async function writeLock(action) {
 
 async function connect(token) {
   s.loading = true; s.loadError = false; render();
-  const api = new GitHub(token, quota => { if (s.api === api) s.quota = quota; });
+  const api = new GitHub(token, quota => { if (s.api === api) { s.quota = quota; renderQuota(); } });
   s.api = api;
   try {
     s.user = await api.identity();
     let storage = null;
     try { storage = sessionStorage; } catch { /* In-memory pending state remains available. */ }
     s.client = new GameClient(api, s.user, storage);
+    s.messages = new MessagePanel($("lobby-messages"), {
+      api, user: s.user, target: messageConfig, storage,
+      canRun: () => !!s.client && !s.selection && !s.busy && !s.loading && !s.loadError,
+      runWrite: action => task(() => writeLock(action)),
+      onUnauthorized: () => { if (s.api === api) task(() => { throw new Error("unauthorized"); }); }
+    });
     await lobby(true);
   } catch (error) {
+    s.messages?.dispose(); s.messages = null;
     api.close(); s.api = s.user = s.client = null;
     throw error;
   }
 }
 async function endSession(notifyOthers = true) {
   s.session++;
+  s.messages?.dispose(); s.messages = null;
   poller.stop(); s.api?.close();
   s.api = s.client = s.user = s.selection = s.current = s.quota = null;
   s.cleanup = []; s.synced = false;
@@ -390,6 +399,11 @@ function renderGame() {
   $("leave").disabled = s.busy || Boolean(s.client.pending);
   renderBoard();
 }
+function renderQuota() {
+  $("quota").textContent = s.quota ? t(
+    `GitHub 额度：${s.quota.remaining}/${s.quota.limit}，本次读取 ${s.quota.cost} 点；重置于 ${new Date(s.quota.resetAt).toLocaleString("zh-CN")}`,
+    `GitHub quota: ${s.quota.remaining}/${s.quota.limit}; last query ${s.quota.cost} points; resets ${new Date(s.quota.resetAt).toLocaleString("en-US")}`) : "";
+}
 function render() {
   document.title = t("在线五子棋", "Online Gomoku");
   if (s.resultNotice) {
@@ -410,12 +424,11 @@ function render() {
   $("account").hidden = loading || !s.user;
   $("identity").replaceChildren(...(s.user ? [player({ ...s.user, login: `@${s.user.login}` })] : []));
   $("login").disabled = s.busy || !$("consent").checked;
+  s.messages?.update({ visible: !loading && !!s.user && !s.selection, busy: s.busy, language });
   for (const id of ["logout", "refresh-lobby", "back", "refresh-game", "preview-cleanup", "more", "resolve-write"]) $(id).disabled = s.busy;
   if (!s.client || !s.user) return;
   $("pending-write").hidden = !s.client.pending;
-  $("quota").textContent = s.quota ? t(
-    `GitHub 额度：${s.quota.remaining}/${s.quota.limit}，本次读取 ${s.quota.cost} 点；重置于 ${new Date(s.quota.resetAt).toLocaleString("zh-CN")}`,
-    `GitHub quota: ${s.quota.remaining}/${s.quota.limit}; last query ${s.quota.cost} points; resets ${new Date(s.quota.resetAt).toLocaleString("en-US")}`) : "";
+  renderQuota();
   $("create").disabled = s.busy || Boolean(s.client.pending) || s.client.activeRooms().length > 0;
   $("admin").hidden = !isAdmin() || Boolean(s.selection);
   $("execute-cleanup").disabled = s.busy || !s.cleanup.length || Boolean(s.client.pending);

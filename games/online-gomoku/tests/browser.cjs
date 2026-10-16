@@ -9,6 +9,11 @@ const users = { black: { id: "MDQ6VXNlcjY1OTEyNTc=", login: "black-player" },
 for (const [name, user] of Object.entries(users)) user.avatarUrl = `https://avatars.githubusercontent.com/test-${name}`;
 let serial = 0;
 const writes = { black: 0, white: 0, watch: 0 };
+const messages = new Map();
+for (let i=1;i<=25;i++) messages.set(`M_${i}`, {id:`M_${i}`,body:`Message ${i}`,author:users.white,
+  createdAt:new Date(Date.UTC(2026,0,1,0,i)).toISOString(),discussion:{id:"D_messages"},url:`https://github.com/test#M_${i}`});
+const messageReads = {black:0,white:0,watch:0};
+let messageSerial=25, messageWrites=0, ambiguousMessage=false, failMessageRead=false;
 const pageErrors = [];
 const plain = c => c && JSON.parse(JSON.stringify(c));
 let holdMove = false, releaseMove;
@@ -56,11 +61,34 @@ let holdAcknowledgement = false, releaseAcknowledgement;
           return route.fulfill({status:401,contentType:"application/json",body:'{"message":"Bad credentials"}'});
         }
         const user = users[name];
-        const view = c => c && { ...plain(c), viewerCanUpdate: c.author.id === user.id,
-          viewerCanDelete: c.author.id === user.id || name === "black" };
+        const view = c => c && { ...plain(c), viewerCanUpdate: c.author?.id === user.id,
+          viewerCanDelete: c.author?.id === user.id || name === "black" };
         const rateLimit = {cost:1,remaining:4999,limit:5000,resetAt:new Date(Date.now()+3600000).toISOString()};
         let data;
-        if (query.includes("addDiscussionComment")) {
+        if (query.includes("query MessagePage")) {
+          assert.equal(v.number,6); messageReads[name]++;
+          if (failMessageRead) {
+            failMessageRead=false;
+            return route.fulfill({status:503,contentType:"application/json",body:'{"message":"message read failure"}'});
+          }
+          const all=[...messages.values()].sort((a,b)=>a.createdAt.localeCompare(b.createdAt));
+          const end=v.before ? all.findIndex(c=>c.id===v.before) : all.length;
+          const start=Math.max(0,end-v.size);
+          data={repository:{discussion:{id:"D_messages",title:"Messages",url:"https://github.com/test/discussions/6",locked:false,
+            comments:{nodes:all.slice(start,end).map(view),pageInfo:{startCursor:all[start]?.id || null,hasPreviousPage:start>0}}}},rateLimit};
+        } else if (query.includes("query MessageComment")) {
+          data={nodes:v.ids.map(id=>view(messages.get(id)) || null),rateLimit};
+        } else if (query.includes("mutation AddMessage")) {
+          assert.equal(v.id,"D_messages"); messageWrites++;
+          const id=`M_${++messageSerial}`;
+          const c={id,body:v.body,author:user,createdAt:new Date().toISOString(),discussion:{id:"D_messages"},url:`https://github.com/test#${id}`};
+          messages.set(id,c);
+          if(ambiguousMessage) {
+            ambiguousMessage=false;
+            return route.fulfill({status:503,contentType:"application/json",body:'{"message":"response lost after commit"}'});
+          }
+          data={addDiscussionComment:{comment:view(c)}};
+        } else if (query.includes("addDiscussionComment")) {
           writes[name]++;
           const id=`C_${++serial}`;
           const createdAt = new Date(Date.now() + serial).toISOString();
@@ -84,7 +112,9 @@ let holdAcknowledgement = false, releaseAcknowledgement;
           const c={...db.get(v.id),body:v.body,updatedAt:new Date(Date.now()+ ++serial).toISOString()};
           db.set(v.id,c); data={updateDiscussionComment:{comment:view(c)}};
         } else if (query.includes("deleteDiscussionComment")) {
-          writes[name]++; db.delete(v.id); data={deleteDiscussionComment:{clientMutationId:null}};
+          if(messages.has(v.id)) messages.delete(v.id);
+          else {writes[name]++; db.delete(v.id);}
+          data={deleteDiscussionComment:{clientMutationId:null}};
         } else if (query.includes("nodes(ids:")) {
           data={nodes:v.ids.map(id=>view(db.get(id)) || null),rateLimit};
         } else if (query.includes("repository(owner:")) {
@@ -148,6 +178,35 @@ let holdAcknowledgement = false, releaseAcknowledgement;
     assert.equal(await remembered.page.evaluate(() => localStorage.getItem("online-gomoku-github-app-token-v2")),null);
     await remembered.context.close();
     const black=await open("black",undefined,{legacy:true}); await settled(black.page);
+    await black.page.waitForFunction(()=>document.querySelectorAll('.message-item').length===20);
+    assert.equal(await black.page.locator('.message-body').first().textContent(),'Message 25');
+    await black.page.locator('[data-message="older"]').click();
+    await black.page.waitForFunction(()=>document.querySelectorAll('.message-item').length===25);
+    await black.page.locator('#message-draft').fill('<img src=x onerror=alert(1)> hello');
+    await black.page.locator('[data-message="send"]').click(); await settled(black.page);
+    assert.equal(await black.page.locator('.message-body').first().textContent(),'<img src=x onerror=alert(1)> hello');
+    assert.equal(await black.page.locator('.message-body img').count(),0);
+    assert.equal(messageWrites,1);
+    ambiguousMessage=true;
+    await black.page.locator('#message-draft').fill('uncertain message');
+    await black.page.locator('[data-message="send"]').click(); await settled(black.page);
+    assert.equal(await black.page.locator('[data-message="pending"]').isVisible(),true);
+    assert.equal(await black.page.locator('[data-message="send"]').isDisabled(),true);
+    await black.page.reload(); await black.page.locator('#session-panel').waitFor({state:'visible'}); await settled(black.page);
+    await black.page.locator('[data-message="pending"]').waitFor({state:'visible'});
+    assert.equal(await black.page.locator('#message-draft').inputValue(),'uncertain message');
+    await black.page.locator('[data-message="check"]').click();
+    await black.page.waitForFunction(()=>document.querySelector('[data-message="pending"]').hidden);
+    assert.equal(messageWrites,2);
+    await black.page.locator('.message-delete').first().click(); await settled(black.page);
+    assert.equal(messages.size,26);
+    failMessageRead=true;
+    await black.page.locator('[data-message="refresh"]').click();
+    await black.page.waitForFunction(()=>document.querySelector('[data-message="status"]').classList.contains('text-danger'));
+    assert.equal(await black.page.locator('#create').isDisabled(),false);
+    await black.page.locator('[data-message="refresh"]').click();
+    await black.page.waitForFunction(()=>!document.querySelector('[data-message="refresh"]').disabled);
+    if (process.env.GOMOKU_MESSAGE_SCREENSHOT) await black.page.screenshot({path:process.env.GOMOKU_MESSAGE_SCREENSHOT,fullPage:true});
     await black.page.locator("#create").click();
     assert.equal(await black.page.locator("#create-dialog").isVisible(),true);
     await black.page.locator("#forbidden").check();
@@ -198,6 +257,11 @@ let holdAcknowledgement = false, releaseAcknowledgement;
     await black.page.keyboard.press("Enter"); await settled(black.page);
     db.delete("legacy-own");
     const white=await open("white"); await settled(white.page);
+    await white.page.waitForFunction(()=>document.querySelectorAll('.message-item').length===20);
+    const blackMessage=[...messages.values()].find(c=>c.author.id===users.black.id).id;
+    assert.equal(await white.page.locator(`[data-message-id="${blackMessage}"] .message-delete`).count(),0);
+    await white.page.locator('[data-message-id="M_25"] .message-delete').click(); await settled(white.page);
+    assert.equal(messages.has('M_25'),false);
     await white.page.locator("#more").click();
     assert.equal(await white.page.locator('.room-card[data-action="join"]').count()>0,true);
     assert.equal(await white.page.locator('.room-playing').getAttribute("data-action"),"watch");
@@ -307,6 +371,7 @@ let holdAcknowledgement = false, releaseAcknowledgement;
     await black.page.locator("#leave").click(); await settled(black.page); assert.equal(db.has(cancelled),false);
     if (process.env.GOMOKU_SCREENSHOT) await watcher.page.screenshot({path:process.env.GOMOKU_SCREENSHOT,fullPage:true});
     assert.deepEqual(pageErrors,[]);
-    console.log("PASS: terminal acknowledgements, nonblocking receiver-only result dialogs, player navigation locks, resignation stays on board, ended games hidden, own-data cleanup in either deletion order, cancellation deletes data; previous lobby/loading/spinner/multiplayer checks also passed. Mocked services only.");
+    assert.equal(messages.has(blackMessage),true);
+    console.log("PASS: message pagination, text safety, permissions, ambiguous send/reload/reconcile, failure isolation and game cleanup isolation; authentication, lobby, multiplayer and terminal lifecycle checks also passed. Mocked services only.");
   } finally { await browser.close(); }
 })().catch(error=>{console.error(error);process.exitCode=1;});

@@ -22,3 +22,8 @@ export const gameConfig = {
   pageSize: 12,
   retentionDays: 30
 };
+
+export const messageConfig = {
+  owner: "ZTGeng", name: "ZTGeng.github.io", number: 6,
+  pageSize: 20, maxLength: 1000
+};

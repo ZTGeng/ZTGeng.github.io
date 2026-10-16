@@ -20,7 +20,8 @@ node games/online-gomoku/dev-server.cjs
 
 ## 使用
 
-- 大厅不使用 giscus。复用游戏登录的自有留言功能尚未实现，方案见 `../../docs/online-gomoku-comments-plan.md`。
+- 大厅不使用 giscus。留言区复用游戏登录，独立保存于 Discussion #6：最新 20 条、加载更早、手动刷新、纯文本发表（最多 1000 字符）、按 GitHub 实际权限删除。没有编辑、嵌套回复和自动轮询。留言保留，不受棋局清理影响。普通失败仅影响留言区，登录失效统一重新授权。
+- 留言读取在大厅空闲时开始，游戏操作开始时取消；留言写入复用游戏的写锁和 API 限流。返回大厅复用已加载列表，刷新才重置分页。发表评论遇到超时或响应错误，不自动重发；未确认提交按用户和帖子保存于 sessionStorage，刷新后可继续逐页核对 UUID；核对后才可明确放弃。离开登录会话丢弃普通草稿及列表，保留未确认发表供本人下次登录查证。
 - 所有读写包括旁观均需登录。默认 token 保存于 sessionStorage，勾选记住登录后使用 localStorage；存储失败时仅保存在页面内存。新缓存键为 `online-gomoku-github-app-token-v2`，启动移除两种存储中的旧 `online-gomoku-token-v1`，但保留未确认棋局写入数据。仅接受 GitHub App 用户 token，恢复后重新查询 GitHub 验证身份。token 默认约 8 小时过期，401 后退出、重新授权并恢复棋局；Firebase 身份或 Firebase token 刷新不代替 GitHub token。未加载 Analytics。
 - 初始化、恢复会话与大厅刷新先显示加载页，根据结果进入登录、大厅或恢复的对局；网络失败显示重新加载入口，不闪现登录表单。
 - 大厅读取并分页扫描完整评论，本人的等待/进行中棋局优先并高亮，其余按最后活动时间排序，显示前 12 局并可展开。大厅不显示已确认结束或已取消的棋局；对方已确认、己方未确认时，本人仍会看到待同步棋局并自动恢复。大厅手动刷新。有唯一未结束的本人有效对局时自动进入；有多局时在大厅选择。
@@ -43,6 +44,8 @@ node games/online-gomoku/dev-server.cjs
 
 `rules.js`：规则纯函数；`protocol.js`：解析、聚合、配对、清理筛选；`github.js`：分页、按 ID 读写、额度和 HTTP/GraphQL 错误；`client.js`：写入和异常查证；`sync.js`：轮询；`auth.js`：登录与会话；`app.js`：双语界面和页面状态。
 
+留言状态模块为 `../../shared/discussion-comments.js`，通过传入 API、用户和目标帖子复用，不引用游戏代码。`messages.js` 为双语界面与生命周期适配，`messageConfig` 指定帖子；GitHub 适配器拒绝把留言写进棋谱 Discussion #5。详情见 `../../docs/online-gomoku-comments-plan.md`。
+
 ## 点数
 
 每次读取一并取得额度，不额外发送额度查询。稳定对局和等待房间通常一次轮询一次 query；若单次 cost 为 1，持续 5 秒轮询约 720 点/小时。分页、配对确认、提交前读取、写入和同账号其他应用另计。显示的是最近读取响应的额度，不是精确实时账单。主额度耗尽等待 resetAt；次级限流至少等 60 秒，尊重 Retry-After 并指数退避。
@@ -50,7 +53,7 @@ node games/online-gomoku/dev-server.cjs
 ## 自动验证
 
 ```powershell
-node --experimental-default-type=module --test games/online-gomoku/tests/game.test.mjs
+node --experimental-default-type=module --test games/online-gomoku/tests/game.test.mjs games/online-gomoku/tests/messages.test.mjs
 ```
 
 可选浏览器测试：需环境中可用的 Playwright 包及 Edge（或通过 `PLAYWRIGHT_CHANNEL` 指定已安装浏览器）。先启动本地预览，再运行 `node games/online-gomoku/tests/browser.cjs`。此测试模拟 Firebase 和 GitHub，验证按钮流程、多人同步、获胜、刷新恢复、旁观、手机宽度和语言切换；不会写入真实 Discussion。
@@ -74,4 +77,4 @@ node --experimental-default-type=module --test games/online-gomoku/tests/game.te
 - 本地规则/协议/API/恢复/终局清理测试，以及模拟服务的浏览器多人流程已通过，包括双方确认、缺一方补清理、确认失败重试、认负留在棋盘和接收方非阻塞弹窗。用户随后确认新的终局规则已验证；模拟测试与用户实际验收分别记录。
 - 迁移后 30 项核心测试及浏览器流程通过，新增覆盖：不调用 `addScope`、拒绝 OAuth App token、旧 token 缓存清理、记住登录与刷新恢复、401 清除凭据及重新登录。浏览器测试使用模拟 token，不代替迁移后的真实游戏验收。
 - 两个实际测试账号是否均为非仓库协作者未单独确认。第三人真实旁观、线上浏览器 token 恢复、管理员删除其他用户评论仍待验证。
-- 原版游戏已提交推送。此次 GitHub App 迁移尚未提交推送；用户已用主账号及另一账号完成真实 App token 登录和评论创建、编辑、删除。迁移后的完整真实双人对局及过期重新授权仍待验收。未使用用户的真实 token 自动创建游戏或执行清理。
+- GitHub App 迁移和 UI 调整已提交为 `af0a573`，尚未推送；当前留言实现为后续未提交改动。用户已用主账号及另一账号完成真实 App token 登录和评论 CRUD。迁移后的完整真实双人对局、过期重新授权及 Discussion #6 的真实留言仍待验收。未使用用户的真实 token 自动创建游戏、发送留言或执行清理。

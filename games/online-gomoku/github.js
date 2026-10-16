@@ -17,17 +17,18 @@ export class GitHub {
     this.limitFailures = 0;
   }
   close() { this.controller.abort(); }
-  async request(query, variables = {}, { allowMissing = false } = {}) {
+  async request(query, variables = {}, { allowMissing = false, signal } = {}) {
     if (Date.now() < this.blockedUntil) throw new ApiError("rateLimited", this.blockedUntil);
     const response = await this.fetcher("https://api.github.com/graphql", {
       method: "POST", headers: { Authorization: `Bearer ${this.token}`, "Content-Type": "application/json" },
       body: JSON.stringify({ query, variables }),
-      signal: AbortSignal.any([this.controller.signal, AbortSignal.timeout(20000)])
+      signal: AbortSignal.any([this.controller.signal, AbortSignal.timeout(20000), ...(signal ? [signal] : [])])
     });
     if (response.status === 401) throw new ApiError("unauthorized");
     let result;
     try { result = await response.json(); } catch { throw new ApiError("network"); }
     this.controller.signal.throwIfAborted();
+    signal?.throwIfAborted();
     const rate = result.data?.rateLimit;
     if (rate) this.onQuota(rate);
     const remaining = response.headers.get("x-ratelimit-remaining");
@@ -113,5 +114,31 @@ export class GitHub {
   }
   async delete(id) {
     await this.write(`mutation($id:ID!) { deleteDiscussionComment(input:{id:$id}) { clientMutationId } }`, { id });
+  }
+  async messagePage(target, before = null, size = 20, signal) {
+    const data = await this.request(`query MessagePage($owner:String!, $name:String!, $number:Int!, $before:String, $size:Int!) {
+      repository(owner:$owner,name:$name) { discussion(number:$number) {
+        id title url locked comments(last:$size,before:$before) {
+          nodes { ${FIELDS} } pageInfo { startCursor hasPreviousPage }
+        }
+      } } rateLimit { cost remaining limit resetAt }
+    }`, { owner: target.owner, name: target.name, number: target.number, before, size }, { signal });
+    const discussion = data.repository?.discussion;
+    if (!discussion || discussion.id === gameConfig.discussionId) throw new ApiError("messageDiscussion");
+    return discussion;
+  }
+  async addMessage(discussionId, body) {
+    if (!discussionId || discussionId === gameConfig.discussionId) throw new ApiError("messageDiscussion");
+    const data = await this.write(`mutation AddMessage($id:ID!, $body:String!) {
+      addDiscussionComment(input:{discussionId:$id,body:$body}) { comment { ${FIELDS} } }
+    }`, { id: discussionId, body });
+    return data.addDiscussionComment.comment;
+  }
+  async messageComment(id) {
+    const data = await this.request(`query MessageComment($ids:[ID!]!) {
+      nodes(ids:$ids) { ... on DiscussionComment { ${FIELDS} discussion { id } } }
+      rateLimit { cost remaining limit resetAt }
+    }`, { ids: [id] }, { allowMissing: true });
+    return data.nodes[0];
   }
 }

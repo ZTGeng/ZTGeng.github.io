@@ -65,8 +65,11 @@ with standalone JavaScript games and browser tools.
   viewer's eligible records, while result dialogs are non-blocking UI for receivers.
   It uses native ES modules, shared SiteUI, optional black forbidden moves,
   visibility-aware polling, and manual administrator cleanup. There is no game
-  backend or giscus component. A custom lobby message board reusing game login is
-  planned in `docs/online-gomoku-comments-plan.md`, but not implemented.
+  backend or giscus component. The lobby message board reuses game login and a
+  separate Discussion #6, with manual pagination and no polling. Framework-independent
+  state lives in `shared/discussion-comments.js`; `messages.js` mounts the view with
+  injected transport, identity and write scheduling. Pending message sends are stored
+  separately from pending game writes and are reconciled before any retry.
   `verify.html` remains a standalone Chinese
   diagnostic page whose tokens stay in memory. The game optionally stores tokens
   in sessionStorage/localStorage; public configuration is in `config.js`.
