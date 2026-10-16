@@ -1,7 +1,10 @@
 main { max-width: 1100px; margin: 1.5rem auto 3rem; }
 [hidden] { display: none !important; }
 .heading, .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem; }
-.heading { justify-content: space-between; }
+.heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; }
+#account { display: flex; align-items: center; gap: .4rem; max-width: 55vw; }
+#identity { min-width: 0; }
+#logout { flex-shrink: 0; }
 .panel { padding: 1.4rem; }
 #notice { min-height: 1.5rem; overflow-wrap: anywhere; }
 .rooms { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1rem; }
@@ -21,6 +24,15 @@ main { max-width: 1100px; margin: 1.5rem auto 3rem; }
 .room-card h3, .room-card p { margin: 0; overflow-wrap: anywhere; }
 .room-card canvas { width: 100%; max-width: 210px; aspect-ratio: 1; align-self: center; }
 .room-card .players { font-size: .9rem; }
+.players { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
+.player-label { display: inline-flex; align-items: center; gap: .3rem; min-width: 0; }
+.player-color { display: inline-block; width: .7rem; height: .7rem; box-sizing: border-box;
+  border: 1.5px solid currentColor; border-radius: 50%; flex-shrink: 0; }
+.player-color-black { background: currentColor; }
+.player-avatar { width: 24px; height: 24px; flex-shrink: 0; border-radius: 50%; object-fit: cover; }
+.player-name { overflow-wrap: anywhere; }
+#room-title .player-avatar { width: 28px; height: 28px; }
+.quota-info { font-size: .75rem; overflow-wrap: anywhere; }
 .room-card .date { font-size: .75rem; color: #6c757d; }
 .board-wrap { position: relative; max-width: 650px; }
 .board-overlay { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column;

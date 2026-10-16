@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <title>在线五子棋 · 连接验证</title>
+  <title>在线五子棋 · GitHub App 连接验证</title>
   <link rel="stylesheet" href="/shared/bootstrap-5.3.2.min.css">
   <style>
     main { max-width: 850px; margin: 2rem auto; padding: 0 1rem; }
@@ -15,15 +15,15 @@
 </head>
 <body>
 <main>
-  <h1>在线五子棋 · 连接验证</h1>
-  <p>验证 Firebase 登录和 GitHub Discussions 读写。此页尚无游戏功能。</p>
+  <h1>在线五子棋 · GitHub App 连接验证</h1>
+  <p>验证 Firebase 能否返回 GitHub App 用户 token，以及它能否读写 GitHub Discussions。此页尚无游戏功能。</p>
   <div class="alert alert-warning">
-    <p>登录将申请 <code>public_repo</code> 权限。这项权限覆盖你有权操作的公共仓库，并非仅限本游戏仓库。
+    <p>此页不主动申请 <code>public_repo</code> 或其他 OAuth scopes；GitHub App 的权限由应用注册设置决定，请检查授权弹窗。
       此页仅向 <a href="https://github.com/ZTGeng/ZTGeng.github.io/discussions/5" target="_blank" rel="noopener noreferrer">Discussion #5</a>
       写入公开的测试评论，不加载 Analytics，也不保存 token 到本地存储。</p>
     <p class="mb-0">刷新或关闭页面后需要重新登录。可在
       <a href="https://github.com/settings/applications" target="_blank" rel="noopener noreferrer">GitHub 应用设置</a>
-      中撤销 OAuth 授权。请勿分享 token。</p>
+      中撤销应用授权。连接信息仅显示 token 类型，不显示 token 本身。请勿分享 token。</p>
   </div>
   <p><label><input type="checkbox" id="consent"> 我理解权限范围，并同意进行连接测试</label></p>
   <div>

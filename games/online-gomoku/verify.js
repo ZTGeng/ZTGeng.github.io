@@ -8,7 +8,7 @@ import { firebaseConfig, discussionConfig } from "./config.js";
 const el = id => document.getElementById(id);
 const auth = getAuth(initializeApp(firebaseConfig));
 const provider = new GithubAuthProvider();
-provider.addScope("public_repo");
+// GitHub App permissions come from its registration, not OAuth App scopes.
 const marker = `gomoku-connection-test:${crypto.randomUUID()}`;
 let token = null;
 let viewer = null;
@@ -102,7 +102,11 @@ async function readConnection() {
   viewer = data.viewer;
   discussion = data.repository?.discussion;
   if (!discussion) throw new Error("找不到 Discussion #5，请检查配置和账号权限。");
-  el("summary").textContent = JSON.stringify({ viewer, rateLimit: data.rateLimit,
+  el("summary").textContent = JSON.stringify({
+    authentication: {
+      tokenType: token.startsWith("ghu_") ? "GitHub App user access token" : "Other GitHub access token",
+      requestedOAuthScopes: []
+    }, viewer, rateLimit: data.rateLimit,
     discussion: { id: discussion.id, title: discussion.title, locked: discussion.locked },
     totalComments: discussion.comments.totalCount }, null, 2);
   el("comments").textContent = JSON.stringify(discussion.comments.nodes, null, 2);

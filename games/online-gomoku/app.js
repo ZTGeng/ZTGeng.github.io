@@ -14,6 +14,7 @@ const s = { api: null, client: null, user: null, quota: null, selection: null, c
   message: null, failed: false, cleanup: [], session: 0,
   loading: true, loadError: false, submitting: false, resultNotice: null, notified: new Set() };
 const errors = {
+  wrongTokenType: ["登录未返回 GitHub App 用户凭据，请检查 Firebase 的 GitHub App 配置后重试。", "Sign-in did not return a GitHub App user token. Check the Firebase GitHub App configuration and retry."],
   unauthorized: ["登录凭据已失效，请重新登录。", "Your token expired. Please sign in again."],
   permission: ["GitHub 拒绝此操作，请检查授权与评论权限。", "GitHub denied this operation. Check authorization and comment permissions."],
   network: ["网络连接失败，请手动同步后再操作。", "Connection failed. Sync again before playing."],
@@ -249,6 +250,29 @@ function miniature(canvas, moves) {
     if (i === moves.length - 1) { ctx.fillStyle = "#d33"; ctx.fillRect(12 + x * 13, 12 + y * 13, 4, 4); }
   });
 }
+function player(author, color = null) {
+  const label = node("span", "player-label");
+  if (color) {
+    const marker = node("span", `player-color player-color-${color}`);
+    marker.setAttribute("role", "img");
+    marker.setAttribute("aria-label", colorName(color));
+    label.append(marker);
+  }
+  if (author?.avatarUrl) {
+    const avatar = node("img", "player-avatar");
+    avatar.src = author.avatarUrl;
+    avatar.alt = ""; avatar.width = avatar.height = 24;
+    avatar.loading = "lazy"; avatar.decoding = "async";
+    avatar.addEventListener("error", () => { avatar.hidden = true; }, { once: true });
+    label.append(avatar);
+  }
+  label.append(node("span", "player-name", author?.login || "—"));
+  return label;
+}
+function renderPlayers(container, room) {
+  container.replaceChildren(player(room.host.author, "black"), node("span", "player-divider", "/"), player(room.white?.author, "white"));
+  container.classList.add("players");
+}
 function renderRooms() {
   $("rooms").replaceChildren();
   const rooms = [...(s.client?.lobbyRooms() || [])].sort((a, b) => Number(isOwnActive(b)) - Number(isOwnActive(a)));
@@ -285,8 +309,11 @@ function renderRooms() {
     const canvas = node("canvas"); canvas.setAttribute("role", "img");
     canvas.setAttribute("aria-label", t(`棋盘缩略图，共 ${room.moves.length} 手`, `Board thumbnail, ${room.moves.length} moves`));
     card.append(canvas); miniature(canvas, room.moves);
-    card.append(node("h3", "h6", `${room.host.author.login} · ${statusText(room)}`));
-    card.append(node("p", "players", `● ${room.host.author.login} / ○ ${room.white?.author.login || "—"}`));
+    const heading = node("h3", "h6 players");
+    heading.append(player(room.host.author), node("span", "", ` · ${statusText(room)}`));
+    const participants = node("p", "players");
+    renderPlayers(participants, room);
+    card.append(heading, participants);
     card.append(node("p", "small", room.host.record.forbidden ? t("黑方有禁手", "Black forbidden moves") : t("无禁手", "Freestyle")));
     card.append(node("p", "date", new Date(room.updatedAt).toLocaleString(language === "zh" ? "zh-CN" : "en-US")));
     card.append(node("p", "room-action", `${label} →`)); $("rooms").append(card);
@@ -349,7 +376,7 @@ function renderGame() {
   $("back").hidden = !canReturn();
   $("game-phase").textContent = phaseText(room);
   $("game-phase").className = `game-phase phase-${room.status}`;
-  $("room-title").textContent = `● ${room.host.author.login} / ○ ${room.white?.author.login || "—"}`;
+  renderPlayers($("room-title"), room);
   let status = statusText(room);
   if (pendingJoin() && room.status === "waiting") status = t("等待房主确认加入；房主需保持页面打开。", "Waiting for the host to accept. The host must keep their page open.");
   else if (room.status === "waiting" && role === "black") status = t("等待玩家加入，请保持此页面打开。", "Waiting for a player. Keep this page open.");
@@ -381,7 +408,7 @@ function render() {
   $("login-panel").hidden = loading || Boolean(s.user);
   $("session-panel").hidden = loading || !s.user || !s.client;
   $("account").hidden = loading || !s.user;
-  $("identity").textContent = s.user ? `@${s.user.login}` : "";
+  $("identity").replaceChildren(...(s.user ? [player({ ...s.user, login: `@${s.user.login}` })] : []));
   $("login").disabled = s.busy || !$("consent").checked;
   for (const id of ["logout", "refresh-lobby", "back", "refresh-game", "preview-cleanup", "more", "resolve-write"]) $(id).disabled = s.busy;
   if (!s.client || !s.user) return;
@@ -450,7 +477,7 @@ $("retry-load").addEventListener("click", () => task(async () => {
   }
 }));
 $("leave").addEventListener("click", () => {
-  const prompt = s.current?.status === "playing" ? t("确认认负？对局结束后将留在棋盘。", "Resign? You will stay on the final board.") :
+  const prompt = s.current?.status === "playing" ? t("确认认负？", "Resign?") :
     ownRole() === "black" ? t("确认取消等待并删除此房间？", "Cancel waiting and delete this room?") : t("确认撤回并删除加入申请？", "Withdraw and delete this application?");
   if (!confirm(prompt)) return;
   task(async () => {

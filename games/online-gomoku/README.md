@@ -1,6 +1,8 @@
 # 在线五子棋
 
-GitHub Pages 静态页面 + Firebase GitHub OAuth + 玩家 token 直连 GitHub GraphQL。无自有生产服务器、云函数、代理或 Firebase 数据库；游戏数据存于仓库 Discussion #5。Firebase public config 在 `config.js`；GitHub OAuth Client secret 仅存于 Firebase 控制台，不写入源码。
+GitHub Pages 静态页面 + Firebase 托管 GitHub App 用户授权 + 玩家 token 直连 GitHub GraphQL。不申请 `public_repo`；App 仅配置 Discussions 读写及必需 Metadata 只读，安装到本站仓库。无自有生产服务器、云函数、代理或 Firebase 数据库；游戏数据存于仓库 Discussion #5。Firebase public config 在 `config.js`；GitHub App Client secret 仅存于 Firebase 控制台，私钥不进入仓库或前端。
+
+GitHub App 为公开的 `ztgeng-online-gomoku`（App ID `5341603`，Client ID `Iv23ct8v5Ck2bBxEOt8B`）；公开可见性允许普通玩家授权，不要求玩家安装。Firebase 继续使用原项目 `ztgeng-online-gomoku` 和原回调地址，配置已由用户切换。
 
 ## 运行
 
@@ -18,7 +20,8 @@ node games/online-gomoku/dev-server.cjs
 
 ## 使用
 
-- 所有读写包括旁观均需登录。默认 token 保存于 sessionStorage，勾选记住登录后使用 localStorage；存储失败时仅保存在页面内存。Firebase 身份不代替 GitHub token，恢复后重新查询 GitHub 验证身份。未加载 Analytics。
+- 大厅不使用 giscus。复用游戏登录的自有留言功能尚未实现，方案见 `../../docs/online-gomoku-comments-plan.md`。
+- 所有读写包括旁观均需登录。默认 token 保存于 sessionStorage，勾选记住登录后使用 localStorage；存储失败时仅保存在页面内存。新缓存键为 `online-gomoku-github-app-token-v2`，启动移除两种存储中的旧 `online-gomoku-token-v1`，但保留未确认棋局写入数据。仅接受 GitHub App 用户 token，恢复后重新查询 GitHub 验证身份。token 默认约 8 小时过期，401 后退出、重新授权并恢复棋局；Firebase 身份或 Firebase token 刷新不代替 GitHub token。未加载 Analytics。
 - 初始化、恢复会话与大厅刷新先显示加载页，根据结果进入登录、大厅或恢复的对局；网络失败显示重新加载入口，不闪现登录表单。
 - 大厅读取并分页扫描完整评论，本人的等待/进行中棋局优先并高亮，其余按最后活动时间排序，显示前 12 局并可展开。大厅不显示已确认结束或已取消的棋局；对方已确认、己方未确认时，本人仍会看到待同步棋局并自动恢复。大厅手动刷新。有唯一未结束的本人有效对局时自动进入；有多局时在大厅选择。
 - 卡片按等待、进行中和结束显示不同背景，每张卡片只有一个操作，整张可点击或用 Enter/空格打开。有未结束的本人棋局时，本人棋局为“进入”，其他为“旁观”；没有时，等待房间为“加入”，其他为“旁观”。
@@ -54,7 +57,7 @@ node --experimental-default-type=module --test games/online-gomoku/tests/game.te
 
 ## 原始诊断页验证
 
-1. 阅读授权说明，勾选同意，点击 GitHub 登录。确认弹窗显示预期 OAuth App。
+1. 阅读授权说明，勾选同意，点击 GitHub 登录。确认弹窗显示预期 GitHub App。
 2. 检查 `viewer.login`、`viewer.id`、Discussion 标题、额度。登录后自动读取一次，可以手动再次读取。
 3. 点击创建测试评论，检查页面与 Discussion #5 中的评论。
 4. 点击编辑，确认正文追加编辑验证时间。
@@ -63,11 +66,12 @@ node --experimental-default-type=module --test games/online-gomoku/tests/game.te
 
 诊断页不自动轮询，不保存 token，不加载 Analytics，不发起真实游戏。每次页面会话仅允许一次创建尝试，遇到超时先在 GitHub 核查，避免重复写入。错误信息可用于诊断，但不要分享浏览器网络请求中的 Authorization。
 
-GitHub SDK 授权请求 `public_repo`；默认 Firebase 认证所需 scope 也可能出现在授权页面中。GitHub API 直接使用当前玩家的 provider access token，不使用 Firebase ID token。
+游戏和诊断页均不主动申请 OAuth scopes，权限由 GitHub App 注册配置决定。诊断页仅显示 token 类型、不显示其值。GitHub API 直接使用当前玩家的 provider access token，不使用 Firebase ID token。普通玩家不必安装 App；若其他账号授权时出现 404，应检查 App 是否设为 public。旧 OAuth App 授权不会因清除浏览器缓存自动撤销，用户可在 GitHub 应用设置中单独撤销旧授权。
 
 ## 已验证与待验证
 
 - 用户已用当前账号完成真实 Firebase 登录、GitHub 身份/额度读取、Discussion #5 测试评论创建、编辑、删除，以及游戏创建、刷新恢复、取消；并已用第二个授权账号完成一局真实对局。
 - 本地规则/协议/API/恢复/终局清理测试，以及模拟服务的浏览器多人流程已通过，包括双方确认、缺一方补清理、确认失败重试、认负留在棋盘和接收方非阻塞弹窗。用户随后确认新的终局规则已验证；模拟测试与用户实际验收分别记录。
+- 迁移后 30 项核心测试及浏览器流程通过，新增覆盖：不调用 `addScope`、拒绝 OAuth App token、旧 token 缓存清理、记住登录与刷新恢复、401 清除凭据及重新登录。浏览器测试使用模拟 token，不代替迁移后的真实游戏验收。
 - 两个实际测试账号是否均为非仓库协作者未单独确认。第三人真实旁观、线上浏览器 token 恢复、管理员删除其他用户评论仍待验证。
-- 尚未提交、推送或发布；未使用用户的真实 token 自动创建游戏或执行清理。
+- 原版游戏已提交推送。此次 GitHub App 迁移尚未提交推送；用户已用主账号及另一账号完成真实 App token 登录和评论创建、编辑、删除。迁移后的完整真实双人对局及过期重新授权仍待验收。未使用用户的真实 token 自动创建游戏或执行清理。

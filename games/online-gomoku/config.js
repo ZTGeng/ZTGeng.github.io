@@ -1,4 +1,4 @@
-// Firebase Web configuration is public. Never put OAuth secrets or user tokens here.
+// Firebase Web configuration is public. GitHub App secrets stay in Firebase, never here.
 export const firebaseConfig = {
   apiKey: "AIzaSyBc0ECxXQNZBgDvGjNf_EEURZs8GJfcj2o",
   authDomain: "ztgeng-online-gomoku.firebaseapp.com",

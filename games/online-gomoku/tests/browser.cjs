@@ -6,6 +6,7 @@ const url = process.env.GOMOKU_TEST_URL || "http://localhost:8766/games/online-g
 const db = new Map();
 const users = { black: { id: "MDQ6VXNlcjY1OTEyNTc=", login: "black-player" },
   white: { id: "U_white", login: "white-player" }, watch: { id: "U_watch", login: "watcher" } };
+for (const [name, user] of Object.entries(users)) user.avatarUrl = `https://avatars.githubusercontent.com/test-${name}`;
 let serial = 0;
 const writes = { black: 0, white: 0, watch: 0 };
 const pageErrors = [];
@@ -13,33 +14,46 @@ const plain = c => c && JSON.parse(JSON.stringify(c));
 let holdMove = false, releaseMove;
 let holdIdentity = false, releaseIdentity;
 let failWatchIdentity = false;
+let expireWatchIdentity = false;
 let failWhiteMove = false;
 let holdAcknowledgement = false, releaseAcknowledgement;
 
 (async () => {
   const browser = await chromium.launch({ channel: process.env.PLAYWRIGHT_CHANNEL || "msedge", headless: true });
   try {
-    async function open(name, viewport = { width: 1100, height: 900 }) {
+    async function open(name, viewport = { width: 1100, height: 900 }, { legacy = false, remember = false, invalidToken = false } = {}) {
       const context = await browser.newContext({ viewport });
       await context.addInitScript(() => localStorage.setItem("site-language", "zh"));
+      await context.route("https://avatars.githubusercontent.com/**", route => route.fulfill({
+        contentType:"image/svg+xml",body:'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><circle cx="12" cy="12" r="12" fill="#678"/></svg>'
+      }));
+      if (legacy) await context.addInitScript(() => {
+        sessionStorage.setItem("online-gomoku-token-v1", "gho_old-session");
+        localStorage.setItem("online-gomoku-token-v1", "gho_old-persistent");
+        sessionStorage.setItem("migration-pending-sentinel", "keep");
+      });
       await context.route("https://www.gstatic.com/firebasejs/**", route => {
         const auth = `export const inMemoryPersistence={}; export const getAuth=()=>({});
           export const setPersistence=async()=>{}; export const signOut=async()=>{};
           export const signInWithPopup=async()=>({});
-          export class GithubAuthProvider { addScope(){} static credentialFromResult(){return {accessToken:'mock-${name}'};} }`;
+          export class GithubAuthProvider { addScope(){throw new Error('Unexpected OAuth scope');} static credentialFromResult(){return {accessToken:'${invalidToken ? "gho" : "ghu"}_mock-${name}'};} }`;
         return route.fulfill({ contentType: "text/javascript", body: route.request().url().endsWith("firebase-app.js") ? "export const initializeApp=()=>({});" : auth });
       });
       await context.route("https://api.github.com/graphql", async route => {
         const request = route.request();
-        assert.equal(request.headers().authorization, `Bearer mock-${name}`);
+        assert.equal(request.headers().authorization, `Bearer ghu_mock-${name}`);
         const { query, variables: v } = request.postDataJSON();
-        if (name === "black" && holdIdentity && query.includes("viewer { id login }")) {
+        if (name === "black" && holdIdentity && query.includes("viewer { id login")) {
           holdIdentity = false;
           await new Promise(resolve => { releaseIdentity = resolve; });
         }
-        if (name === "watch" && failWatchIdentity && query.includes("viewer { id login }")) {
+        if (name === "watch" && failWatchIdentity && query.includes("viewer { id login")) {
           failWatchIdentity = false;
           return route.fulfill({status:503,contentType:"application/json",body:'{"message":"test failure"}'});
+        }
+        if (name === "watch" && expireWatchIdentity && query.includes("viewer { id login")) {
+          expireWatchIdentity = false;
+          return route.fulfill({status:401,contentType:"application/json",body:'{"message":"Bad credentials"}'});
         }
         const user = users[name];
         const view = c => c && { ...plain(c), viewerCanUpdate: c.author.id === user.id,
@@ -90,8 +104,20 @@ let holdAcknowledgement = false, releaseAcknowledgement;
       await page.goto(url);
       assert.equal(await page.locator("body").evaluate(el=>el.innerText.includes("{% include")),false);
       assert.equal(await page.locator("body").evaluate(el=>el.innerText.trim().startsWith("---")),false);
+      await page.locator("#login-panel").waitFor({state:"visible"});
+      if (legacy) {
+        assert.deepEqual(await page.evaluate(() => [sessionStorage.getItem("online-gomoku-token-v1"), localStorage.getItem("online-gomoku-token-v1")]),[null,null]);
+        assert.equal(await page.evaluate(() => sessionStorage.getItem("migration-pending-sentinel")),"keep");
+      }
       await page.locator("#consent").check();
+      if (remember) await page.locator("#remember").check();
       await page.locator("#login").click();
+      if (invalidToken) {
+        await page.waitForFunction(() => document.getElementById("notice").textContent.includes("GitHub App"));
+        assert.equal(await page.locator("#session-panel").isVisible(),false);
+        assert.equal(await page.evaluate(() => sessionStorage.getItem("online-gomoku-github-app-token-v2")),null);
+        return {page,context};
+      }
       try { await page.locator("#session-panel").waitFor({state:"visible",timeout:10000}); }
       catch(error) { console.error("Sign-in diagnostic:",await page.locator("#notice").textContent(),pageErrors); throw error; }
       return {page,context};
@@ -107,7 +133,21 @@ let holdAcknowledgement = false, releaseAcknowledgement;
       await page.waitForFunction(index=>document.querySelector(`[data-index="${index}"]`)?.getAttribute("aria-disabled")==="false",y*15+x);
       await point.click(); await settled(page);
     }
-    const black=await open("black"); await settled(black.page);
+    const rejected=await open("watch",undefined,{invalidToken:true}); await rejected.context.close();
+    const remembered=await open("watch",undefined,{remember:true}); await settled(remembered.page);
+    assert.equal(await remembered.page.evaluate(() => localStorage.getItem("online-gomoku-github-app-token-v2")),"ghu_mock-watch");
+    await remembered.page.reload(); await remembered.page.locator("#session-panel").waitFor({state:"visible"}); await settled(remembered.page);
+    expireWatchIdentity = true;
+    await remembered.page.reload(); await remembered.page.locator("#login-panel").waitFor({state:"visible"});
+    assert.match(await remembered.page.locator("#notice").textContent(),/失效/);
+    assert.equal(await remembered.page.evaluate(() => localStorage.getItem("online-gomoku-github-app-token-v2")),null);
+    await remembered.page.locator("#consent").check();
+    await remembered.page.locator("#remember").check();
+    await remembered.page.locator("#login").click(); await remembered.page.locator("#session-panel").waitFor({state:"visible"}); await settled(remembered.page);
+    await remembered.page.locator("#logout").click(); await remembered.page.locator("#login-panel").waitFor({state:"visible"});
+    assert.equal(await remembered.page.evaluate(() => localStorage.getItem("online-gomoku-github-app-token-v2")),null);
+    await remembered.context.close();
+    const black=await open("black",undefined,{legacy:true}); await settled(black.page);
     await black.page.locator("#create").click();
     assert.equal(await black.page.locator("#create-dialog").isVisible(),true);
     await black.page.locator("#forbidden").check();
@@ -117,6 +157,9 @@ let holdAcknowledgement = false, releaseAcknowledgement;
     assert.equal(await black.page.locator("#forbidden").isChecked(),false);
     await black.page.locator('#create-form button[type="submit"]').click(); await settled(black.page);
     assert.match(await black.page.locator("#game-status").textContent(),/等待玩家加入/);
+    assert.equal(await black.page.locator("#room-title .player-avatar").count(),1);
+    assert.equal(await black.page.locator("#room-title .player-avatar").getAttribute("src"),users.black.avatarUrl);
+    assert.equal(await black.page.locator("#quota").evaluate(el => el.previousElementSibling.id),"game");
     assert.equal(await black.page.locator("#game-phase").textContent(),"等待中");
     assert.equal(await black.page.locator("#admin").isVisible(),false);
     const hostId=[...db.keys()][0];
@@ -160,6 +203,7 @@ let holdAcknowledgement = false, releaseAcknowledgement;
     assert.equal(await white.page.locator('.room-playing').getAttribute("data-action"),"watch");
     await white.page.locator(`.room-card[data-room-id="${hostId}"]`).click(); await settled(white.page);
     await sync(black.page); await sync(white.page);
+    assert.equal(await black.page.locator("#room-title .player-avatar").count(),2);
     assert.equal(await black.page.locator("#game-phase").textContent(),"进行中");
     assert.equal(await black.page.locator("#back").isVisible(),false);
     assert.equal(await white.page.locator("#back").isVisible(),false);

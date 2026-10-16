@@ -1,7 +1,7 @@
 import { discussionConfig, gameConfig } from "./config.js";
 
 export const FIELDS = `id body createdAt updatedAt url viewerCanUpdate viewerCanDelete
-  author { login ... on User { id } }`;
+  author { login avatarUrl ... on User { id } }`;
 export class ApiError extends Error {
   constructor(code, retryAt = 0) { super(code); this.retryAt = retryAt; }
 }
@@ -54,7 +54,7 @@ export class GitHub {
     return result.data;
   }
   async identity() {
-    return (await this.request(`query { viewer { id login } rateLimit { cost remaining limit resetAt } }`)).viewer;
+    return (await this.request(`query { viewer { id login avatarUrl } rateLimit { cost remaining limit resetAt } }`)).viewer;
   }
   async scan(after = null, hostId = null) {
     const comments = [];

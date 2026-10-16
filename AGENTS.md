@@ -55,14 +55,19 @@ with standalone JavaScript games and browser tools.
   retain their own page shell.
 - Most games and tools are independent pages with their own scripts and styles.
   Dependencies and implementation patterns vary by project.
-- `games/online-gomoku/` is an experimental multiplayer game using Firebase GitHub
-  OAuth and each player's token to call GitHub GraphQL directly. Discussion #5
+- `games/online-gomoku/` is an experimental multiplayer game using Firebase-mediated
+  GitHub App user authorization and each player's token to call GitHub GraphQL directly.
+  It requests no OAuth scopes; the public App has Discussions read/write access and
+  is installed on the site repository. Legacy OAuth tokens are discarded on restore.
+  Discussion #5
   stores paired player comments; `protocol.js` merges complete move snapshots.
   Terminal records persist acknowledged/winner/reason; lobby loads clean only the
   viewer's eligible records, while result dialogs are non-blocking UI for receivers.
   It uses native ES modules, shared SiteUI, optional black forbidden moves,
   visibility-aware polling, and manual administrator cleanup. There is no game
-  backend or ordinary giscus component. `verify.html` remains a standalone Chinese
+  backend or giscus component. A custom lobby message board reusing game login is
+  planned in `docs/online-gomoku-comments-plan.md`, but not implemented.
+  `verify.html` remains a standalone Chinese
   diagnostic page whose tokens stay in memory. The game optionally stores tokens
   in sessionStorage/localStorage; public configuration is in `config.js`.
   `dev-server.cjs` is only a localhost preview helper, not production infrastructure.

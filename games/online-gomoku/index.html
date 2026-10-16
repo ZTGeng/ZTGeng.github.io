@@ -16,10 +16,10 @@
   {% include header.html active-tab='games' breadcrumb-page='Online Gomoku' breadcrumb-page-zh='在线五子棋' lang-enabled=true %}
   <main>
     <div class="heading">
-      <div><h1 data-ui-en="Online Gomoku" data-ui-zh="在线五子棋">Online Gomoku</h1>
-        <p class="text-secondary" data-ui-en="An experiment in playing through GitHub Discussions." data-ui-zh="用 GitHub Discussions 同步对局的多人游戏实验。"></p></div>
+      <h1 data-ui-en="Online Gomoku" data-ui-zh="在线五子棋">Online Gomoku</h1>
       <div id="account" hidden><span id="identity"></span> <button id="logout" class="btn btn-outline-secondary btn-sm" data-ui-en="Sign out" data-ui-zh="退出"></button></div>
     </div>
+    <p class="text-secondary" data-ui-en="An experimental multiplayer game exploring whether a static website can support online play without a game server of its own, using GitHub Discussions to store and sync moves. Updates may take a few seconds." data-ui-zh="这是一个实验性的多人在线游戏，旨在验证：静态网站能否在无需自建游戏服务器的情况下，通过 GitHub Discussions 存储、同步棋局，实现在线对战。局面同步可能需要几秒钟。"></p>
     <p id="notice" role="status" aria-live="polite"></p>
     <section id="loading-panel" class="panel loading-panel" aria-live="polite" aria-busy="true">
       <span id="loading-spinner" class="spinner-border text-primary" aria-hidden="true"></span>
@@ -28,8 +28,8 @@
     </section>
     <section id="login-panel" class="card panel" hidden>
       <h2 class="h4" data-ui-en="Sign in to play or watch" data-ui-zh="登录后对战或旁观"></h2>
-      <p data-ui-en="Firebase handles GitHub sign-in. Your own GitHub token reads and writes game data, using your API quota. All games are public in the repository discussion." data-ui-zh="Firebase 负责 GitHub 登录；网页使用你自己的 GitHub token 读写棋局，消耗你的 API 额度。所有棋局数据在仓库讨论中公开。"></p>
-      <p data-ui-en="The public_repo permission covers public repositories you can access, not only this game. This experimental page trusts its players. Keep your token private." data-ui-zh="public_repo 权限覆盖你有权操作的公共仓库，并非仅限本游戏。实验项目基于玩家互信，请保密你的 token。"></p>
+      <p data-ui-en="Firebase handles sign-in to our GitHub App. Your own GitHub user token reads and writes game data, using your API quota. All games are public in the repository discussion." data-ui-zh="Firebase 负责 GitHub App 登录；网页使用你自己的 GitHub 用户 token 读写棋局，消耗你的 API 额度。所有棋局数据在仓库讨论中公开。"></p>
+      <p data-ui-en="Authorization lets the game read and write discussion comments on your behalf. Tokens normally expire after 8 hours; sign in again to continue. Keep your token private." data-ui-zh="授权后，游戏可代表你读取、发表和更新讨论评论。token 通常在 8 小时后失效，届时重新登录即可继续。请保密你的 token。"></p>
       <p><a href="https://github.com/settings/applications" target="_blank" rel="noopener noreferrer" data-ui-en="Revoke GitHub authorization" data-ui-zh="在 GitHub 撤销授权"></a> ·
         <a href="https://github.com/ZTGeng/ZTGeng.github.io/discussions/5" target="_blank" rel="noopener noreferrer" data-ui-en="Public game data" data-ui-zh="查看公开棋局数据"></a></p>
       <label><input id="consent" type="checkbox"> <span data-ui-en="I understand and agree to authorize this experiment." data-ui-zh="我理解权限范围并同意授权此实验。"></span></label>
@@ -37,7 +37,6 @@
       <button id="login" class="btn btn-primary align-self-start mt-3" disabled data-ui-en="Sign in with GitHub" data-ui-zh="使用 GitHub 登录"></button>
     </section>
     <section id="session-panel" hidden>
-      <p id="quota" class="small text-secondary"></p>
       <div id="pending-write" class="alert alert-warning" hidden>
         <p data-ui-en="A previous write is unconfirmed. Check the public discussion before abandoning it; it may already have been saved." data-ui-zh="上次写入结果尚未确认。放弃前请核对公开 Discussion，该提交可能已保存。"></p>
         <button id="resolve-write" class="btn btn-outline-secondary" data-ui-en="Check unconfirmed write" data-ui-zh="核对未确认提交"></button>
@@ -78,6 +77,7 @@
         </div>
         <p id="sync-status" class="small text-secondary mt-2"></p>
       </section>
+      <p id="quota" class="quota-info text-secondary mt-4 mb-0"></p>
     </section>
     <dialog id="create-dialog" aria-labelledby="create-title">
       <form id="create-form">

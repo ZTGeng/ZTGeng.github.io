@@ -1,6 +1,6 @@
 # 在线五子棋实施方案
 
-状态：首版已实现，用户已用两个授权账户完成一局真实对局。Firebase 项目 `ztgeng-online-gomoku`、GitHub OAuth App、授权域名和 Discussion #5 已配置；当前账号的真实登录、身份/额度读取、测试评论创建/编辑/删除，以及创建棋局、刷新恢复、取消棋局均已由用户验证。两个测试账号是否均为非仓库协作者未单独确认；第三人旁观和跨用户管理员清理等验收仍待进行。
+状态：首版已实现，用户已用两个授权账户完成一局真实对局。Firebase 项目 `ztgeng-online-gomoku` 已由用户改配 GitHub App（原为 OAuth App），主账号及另一账号的 App 登录及评论 CRUD 验证成功；正式游戏认证代码已迁移。迁移后完整真实对局、第三人旁观和跨用户管理员清理等验收仍待进行。详见 [GitHub App 迁移研究](online-gomoku-github-app-research.md)。
 
 ## 1. 目标与首版范围
 
@@ -36,14 +36,14 @@
 
 保留现有 `/games/gomoku.html` 的本地双人玩法。在 `games/index.md` 增加独立在线游戏入口；沿用站点导航、页脚和 `SiteUI.onLanguageChange`，切换语言不重置对局。
 
-此页面不添加普通 giscus 评论组件。
+大厅不使用 giscus。后续复用游戏登录实现简易留言区，方案见 [大厅留言功能方案](online-gomoku-comments-plan.md)，当前尚未实现。
 
 ## 3. 外部配置与第一阶段验证
 
 需要在平台控制台完成：
 
 1. 创建 Firebase 项目和 Web App，仅启用 Authentication 的 GitHub provider。
-2. 注册 GitHub OAuth App，将 Firebase 提供的回调 URL 填入 GitHub。
+2. 注册公开的 GitHub App，将 Firebase 提供的回调 URL 填入 GitHub；授予 Discussions 读写并仅安装到本站仓库。私有 App 会阻止其他账号授权。
 3. 将 GitHub Client ID / Client Secret 填入 Firebase 控制台，secret 不进入仓库。
 4. Firebase 授权域名加入 `ztgeng.com`、需要使用的 GitHub Pages 域名和本地联调域名。
 5. 使用允许普通用户评论的 Discussion 分类，创建专用游戏数据 Discussion；不复用文章评论线程。
@@ -51,7 +51,7 @@
 
 先做真实浏览器的最小验证页，再做完整 UI：
 
-- 普通账号通过 Firebase 弹窗授权，取得 GitHub provider token，请求 `public_repo` scope。
+- 普通账号通过 Firebase 弹窗授权，取得 GitHub App 用户 token，不请求 `public_repo` 或其他 OAuth scopes。主账号及另一账号的真实登录和评论 CRUD 已通过；正式游戏代码现已迁移，完整游戏需再验收。
 - 查询 `viewer { id login }`，确认返回的是当前 GitHub 用户。
 - 非仓库协作者能读取游戏 Discussion、创建自己的评论、编辑并删除自己的测试评论。
 - 第二个普通账号能读取第一人的记录并创建自己的记录，但不能编辑对方记录。
@@ -62,8 +62,9 @@
 
 ## 4. 登录与会话
 
-- 登录页先解释实验目的、Firebase 认证角色、公共棋局可见性、`public_repo` 的实际授权范围，以及在 GitHub 撤销授权的方法。
+- 登录页先解释实验目的、Firebase 认证角色、公共棋局可见性、GitHub App 的 Discussions 权限、token 过期后重新登录，以及在 GitHub 撤销授权的方法。
 - GitHub token 默认保存在 `sessionStorage`；提供可选“记住登录”时改用 `localStorage`。页面配置和日志都不得包含 token。
+- 迁移后使用新 token 缓存键，移除旧 OAuth token，但保留按 GitHub user ID 存储的未确认写入信息，以便重新登录后查证。此操作不会撤销 GitHub 端旧 OAuth App 授权。
 - 存储访问失败时退回内存会话，并提示关闭页面后需要重新登录。
 - Firebase 登录状态不代替 GitHub token。恢复会话后先验证 GitHub 身份，失败则重新授权。
 - 首版不实现 provider refresh token 轮换；GitHub token 失效时重新授权。
