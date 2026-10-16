@@ -1,0 +1,47 @@
+main { max-width: 1100px; margin: 1.5rem auto 3rem; }
+[hidden] { display: none !important; }
+.heading, .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem; }
+.heading { justify-content: space-between; }
+.panel { padding: 1.4rem; }
+#notice { min-height: 1.5rem; overflow-wrap: anywhere; }
+.rooms { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1rem; }
+.room-card { padding: 1rem; gap: .55rem; border: 2px solid transparent; transition: box-shadow .15s, border-color .15s; }
+.room-waiting, .phase-waiting { background: #fff5dc; color: #735209; }
+.room-playing, .phase-playing { background: #e8f5ed; color: #235a38; }
+.room-finished, .room-cancelled, .phase-finished, .phase-cancelled { background: #eef0f4; color: #495364; }
+.room-error, .phase-error { background: #fcebed; color: #842029; }
+.room-card.room-mine { background: #e5efff; border-color: #2768c9; color: #153f7e; box-shadow: 0 0 0 2px #2768c91a; }
+.room-card[aria-disabled="false"] { cursor: pointer; }
+.room-card[aria-disabled="false"]:hover { border-color: #547aa5; box-shadow: 0 4px 14px #163a5c20; }
+.room-card:focus-visible { outline: 3px solid #1766b6; outline-offset: 3px; }
+.room-card[aria-disabled="true"] { cursor: default; }
+.room-phase, .game-phase { font-size: .85rem; font-weight: 600; }
+.game-phase { display: inline-block; padding: .3rem .7rem; border-radius: 1rem; }
+.room-action { font-weight: 600; padding-top: .4rem; margin-top: auto !important; }
+.room-card h3, .room-card p { margin: 0; overflow-wrap: anywhere; }
+.room-card canvas { width: 100%; max-width: 210px; aspect-ratio: 1; align-self: center; }
+.room-card .players { font-size: .9rem; }
+.room-card .date { font-size: .75rem; color: #6c757d; }
+.board-wrap { position: relative; max-width: 650px; }
+.board-overlay { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: .8rem; background: #fff9; border-radius: .6rem; font-weight: 600; }
+.loading-panel { text-align: center; padding: 4rem 1rem; }
+#create-dialog, #result-dialog { width: min(92vw, 400px); border: 1px solid #d6dce3; border-radius: .8rem; padding: 1.5rem; box-shadow: 0 12px 48px #0003; }
+#create-dialog::backdrop, #result-dialog::backdrop { background: #15203066; }
+.board { display: grid; grid-template-columns: repeat(15, minmax(0, 1fr)); background: #dfba7f;
+  padding: 2%; border-radius: .6rem; border: 1px solid #b89157; touch-action: manipulation; }
+.intersection { position: relative; border: 0; padding: 0; min-width: 0; aspect-ratio: 1; border-radius: 0;
+  background: linear-gradient(#907344, #907344) center / 100% 1px no-repeat,
+    linear-gradient(#907344, #907344) center / 1px 100% no-repeat; }
+.intersection:disabled { opacity: 1; }
+.intersection[aria-disabled="false"] { cursor: crosshair; }
+.intersection[aria-disabled="false"]:hover { background-color: #ffffff48; }
+.intersection:focus-visible { outline: 3px solid #1766b6; outline-offset: -2px; z-index: 2; }
+.stone { position: absolute; inset: 8%; border-radius: 50%; pointer-events: none; box-shadow: 1px 2px 3px #0005; }
+.stone.black { background: radial-gradient(circle at 35% 25%, #555, #111 65%); }
+.stone.white { background: radial-gradient(circle at 35% 25%, #fff, #ddd); border: 1px solid #aaa; }
+.stone.last::after { content: ''; position: absolute; inset: 36%; background: #dc3545; border-radius: 50%; }
+.intersection.star::after { content: ''; position: absolute; width: 13%; height: 13%; border-radius: 50%; background: #907344; left: 43.5%; top: 43.5%; pointer-events: none; }
+.intersection.star:has(.stone)::after { display: none; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 480px) { .panel { padding: 1rem; } .toolbar { gap: .5rem; } .rooms { grid-template-columns: 1fr; } }

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>在线五子棋 · 连接验证</title>
+  <link rel="stylesheet" href="/shared/bootstrap-5.3.2.min.css">
+  <style>
+    main { max-width: 850px; margin: 2rem auto; padding: 0 1rem; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; background: #f5f6f8; padding: 1rem; }
+    button { margin: .25rem .25rem .25rem 0; }
+    #status { min-height: 2rem; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>在线五子棋 · 连接验证</h1>
+  <p>验证 Firebase 登录和 GitHub Discussions 读写。此页尚无游戏功能。</p>
+  <div class="alert alert-warning">
+    <p>登录将申请 <code>public_repo</code> 权限。这项权限覆盖你有权操作的公共仓库，并非仅限本游戏仓库。
+      此页仅向 <a href="https://github.com/ZTGeng/ZTGeng.github.io/discussions/5" target="_blank" rel="noopener noreferrer">Discussion #5</a>
+      写入公开的测试评论，不加载 Analytics，也不保存 token 到本地存储。</p>
+    <p class="mb-0">刷新或关闭页面后需要重新登录。可在
+      <a href="https://github.com/settings/applications" target="_blank" rel="noopener noreferrer">GitHub 应用设置</a>
+      中撤销 OAuth 授权。请勿分享 token。</p>
+  </div>
+  <p><label><input type="checkbox" id="consent"> 我理解权限范围，并同意进行连接测试</label></p>
+  <div>
+    <button id="login" class="btn btn-primary" disabled>1. 使用 GitHub 登录</button>
+    <button id="logout" class="btn btn-outline-secondary" disabled>退出</button>
+    <button id="read" class="btn btn-outline-primary" disabled>2. 读取身份、额度和评论</button>
+  </div>
+  <p id="status" role="status" aria-live="polite">正在加载认证 SDK……</p>
+  <h2 class="h5">连接信息</h2>
+  <pre id="summary">尚未登录</pre>
+  <h2 class="h5">测试评论</h2>
+  <p>每次写操作后至少等待一秒。先创建，再编辑，再删除；每一步都会重新读取确认结果。</p>
+  <div>
+    <button id="create" class="btn btn-success" disabled>3. 创建测试评论</button>
+    <button id="edit" class="btn btn-outline-primary" disabled>4. 编辑测试评论</button>
+    <button id="delete" class="btn btn-outline-danger" disabled>5. 删除测试评论</button>
+  </div>
+  <p><a id="comment-link" hidden target="_blank" rel="noopener noreferrer">在 GitHub 查看本次测试评论</a></p>
+  <pre id="comment">尚未创建</pre>
+  <h2 class="h5">最近 20 条顶层评论</h2>
+  <p>可供第二个账号检查测试评论及其编辑、删除权限。此页不提供修改其他账号评论的操作。</p>
+  <pre id="comments">尚未读取</pre>
+  <noscript>请启用 JavaScript。</noscript>
+</main>
+<script type="module">
+  import('./verify.js').catch(() => {
+    const status = document.getElementById('status');
+    status.textContent = '认证 SDK 加载失败。请通过 HTTP/HTTPS 打开此页，并检查是否能访问 www.gstatic.com。';
+    status.className = 'text-danger';
+  });
+</script>
+</body>
+</html>

@@ -56,6 +56,20 @@ catalogs:
         imageSrc: "/games/images/skillgomoku.png"
         src: "/games/skillgomoku/index.html"
 
+      - id: "onlinegomoku"
+        title:
+          - lang: "en"
+            content: "Online Gomoku"
+          - lang: "zh"
+            content: "在线五子棋"
+        intro:
+          - lang: "en"
+            content: "Sign in with GitHub to play or watch. Game data lives in Discussions."
+          - lang: "zh"
+            content: "使用 GitHub 登录对战或旁观，对局数据保存在 Discussions。"
+        imageSrc: "/games/images/gomoku.png"
+        src: "/games/online-gomoku/"
+
       - id: "go"
         title:
           - lang: "en"

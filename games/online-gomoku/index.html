@@ -1,0 +1,112 @@
+---
+---
+<!doctype html>
+<html lang="en" data-bilingual="true">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Online Gomoku</title>
+  <script src="/shared/site-ui.js"></script>
+  <link rel="stylesheet" href="/shared/bootstrap-5.3.2.min.css">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="/shared/bootstrap-5.3.2.bundle.min.js" defer></script>
+</head>
+<body>
+<div class="container">
+  {% include header.html active-tab='games' breadcrumb-page='Online Gomoku' breadcrumb-page-zh='在线五子棋' lang-enabled=true %}
+  <main>
+    <div class="heading">
+      <div><h1 data-ui-en="Online Gomoku" data-ui-zh="在线五子棋">Online Gomoku</h1>
+        <p class="text-secondary" data-ui-en="An experiment in playing through GitHub Discussions." data-ui-zh="用 GitHub Discussions 同步对局的多人游戏实验。"></p></div>
+      <div id="account" hidden><span id="identity"></span> <button id="logout" class="btn btn-outline-secondary btn-sm" data-ui-en="Sign out" data-ui-zh="退出"></button></div>
+    </div>
+    <p id="notice" role="status" aria-live="polite"></p>
+    <section id="loading-panel" class="panel loading-panel" aria-live="polite" aria-busy="true">
+      <span id="loading-spinner" class="spinner-border text-primary" aria-hidden="true"></span>
+      <p id="loading-label" class="mt-3" data-ui-en="Loading…" data-ui-zh="加载中……">Loading…</p>
+      <button id="retry-load" class="btn btn-outline-primary" hidden data-ui-en="Retry" data-ui-zh="重新加载"></button>
+    </section>
+    <section id="login-panel" class="card panel" hidden>
+      <h2 class="h4" data-ui-en="Sign in to play or watch" data-ui-zh="登录后对战或旁观"></h2>
+      <p data-ui-en="Firebase handles GitHub sign-in. Your own GitHub token reads and writes game data, using your API quota. All games are public in the repository discussion." data-ui-zh="Firebase 负责 GitHub 登录；网页使用你自己的 GitHub token 读写棋局，消耗你的 API 额度。所有棋局数据在仓库讨论中公开。"></p>
+      <p data-ui-en="The public_repo permission covers public repositories you can access, not only this game. This experimental page trusts its players. Keep your token private." data-ui-zh="public_repo 权限覆盖你有权操作的公共仓库，并非仅限本游戏。实验项目基于玩家互信，请保密你的 token。"></p>
+      <p><a href="https://github.com/settings/applications" target="_blank" rel="noopener noreferrer" data-ui-en="Revoke GitHub authorization" data-ui-zh="在 GitHub 撤销授权"></a> ·
+        <a href="https://github.com/ZTGeng/ZTGeng.github.io/discussions/5" target="_blank" rel="noopener noreferrer" data-ui-en="Public game data" data-ui-zh="查看公开棋局数据"></a></p>
+      <label><input id="consent" type="checkbox"> <span data-ui-en="I understand and agree to authorize this experiment." data-ui-zh="我理解权限范围并同意授权此实验。"></span></label>
+      <label class="mt-2"><input id="remember" type="checkbox"> <span data-ui-en="Remember my token on this device (otherwise this browser session only)." data-ui-zh="在此设备记住 token（否则仅保存于本次浏览器会话）。"></span></label>
+      <button id="login" class="btn btn-primary align-self-start mt-3" disabled data-ui-en="Sign in with GitHub" data-ui-zh="使用 GitHub 登录"></button>
+    </section>
+    <section id="session-panel" hidden>
+      <p id="quota" class="small text-secondary"></p>
+      <div id="pending-write" class="alert alert-warning" hidden>
+        <p data-ui-en="A previous write is unconfirmed. Check the public discussion before abandoning it; it may already have been saved." data-ui-zh="上次写入结果尚未确认。放弃前请核对公开 Discussion，该提交可能已保存。"></p>
+        <button id="resolve-write" class="btn btn-outline-secondary" data-ui-en="Check unconfirmed write" data-ui-zh="核对未确认提交"></button>
+      </div>
+      <section id="lobby">
+        <div class="toolbar">
+          <h2 class="h4 mb-0" data-ui-en="Lobby" data-ui-zh="游戏大厅"></h2>
+          <button id="refresh-lobby" class="btn btn-outline-primary" data-ui-en="Refresh lobby" data-ui-zh="刷新大厅"></button>
+          <button id="create" class="btn btn-primary" data-ui-en="Create game" data-ui-zh="创建棋局"></button>
+        </div>
+        <p class="text-secondary small" data-ui-en="Lobby refresh is manual. A host must keep their game open to accept a challenger. Both players should use one tab per game." data-ui-zh="大厅手动刷新。房主需保持对局页面打开才能确认加入。每名玩家请只用一个标签页操作同一对局。"></p>
+        <div id="rooms" class="rooms"></div>
+        <button id="more" class="btn btn-outline-secondary mt-3" hidden data-ui-en="Show more" data-ui-zh="显示更多"></button>
+        <section id="admin" class="card panel mt-4" hidden>
+          <h2 class="h5" data-ui-en="Administrator cleanup" data-ui-zh="管理员清理"></h2>
+          <p data-ui-en="Preview mutually confirmed results, safe leftover records, and games inactive for over 30 days." data-ui-zh="预览双方已确认的终局、安全可删的残留数据，以及超过 30 天未活动的记录。"></p>
+          <div><button id="preview-cleanup" class="btn btn-outline-secondary" data-ui-en="Preview cleanup" data-ui-zh="预览清理"></button>
+            <button id="execute-cleanup" class="btn btn-outline-danger" disabled data-ui-en="Delete previewed records" data-ui-zh="删除预览记录"></button></div>
+          <pre id="cleanup-output" class="mt-2 mb-0"></pre>
+        </section>
+      </section>
+      <section id="game" hidden>
+        <div class="toolbar">
+          <button id="back" class="btn btn-outline-secondary" data-ui-en="Lobby" data-ui-zh="返回大厅"></button>
+          <button id="refresh-game" class="btn btn-outline-primary" data-ui-en="Sync now" data-ui-zh="立即同步"></button>
+          <button id="leave" class="btn btn-outline-danger"></button>
+        </div>
+        <h2 id="room-title" class="h4 mt-3"></h2>
+        <p><span id="game-phase" class="game-phase"></span></p>
+        <p id="game-status" role="status" aria-live="polite"></p>
+        <p id="game-detail" class="text-secondary small"></p>
+        <div class="board-wrap">
+          <div id="board" class="board" role="group"></div>
+          <div id="board-overlay" class="board-overlay" role="status" aria-live="polite" hidden>
+            <span class="spinner-border text-primary" aria-hidden="true"></span>
+            <span data-ui-en="Submitting move…" data-ui-zh="正在提交落子……"></span>
+          </div>
+        </div>
+        <p id="sync-status" class="small text-secondary mt-2"></p>
+      </section>
+    </section>
+    <dialog id="create-dialog" aria-labelledby="create-title">
+      <form id="create-form">
+        <h2 id="create-title" class="h5" data-ui-en="Create game" data-ui-zh="创建棋局"></h2>
+        <label class="my-3"><input id="forbidden" type="checkbox"> <span data-ui-en="Black forbidden moves" data-ui-zh="黑方有禁手"></span></label>
+        <div class="d-flex justify-content-end gap-2">
+          <button id="cancel-create" type="button" class="btn btn-outline-secondary" data-ui-en="Cancel" data-ui-zh="取消"></button>
+          <button type="submit" class="btn btn-primary" data-ui-en="Confirm" data-ui-zh="确定"></button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="result-dialog" aria-labelledby="result-title">
+      <form method="dialog">
+        <h2 id="result-title" class="h5" data-ui-en="Game ended" data-ui-zh="对局结束"></h2>
+        <p id="result-message" class="my-3"></p>
+        <div class="d-flex justify-content-end"><button class="btn btn-primary" data-ui-en="OK" data-ui-zh="知道了"></button></div>
+      </form>
+    </dialog>
+    <noscript>Please enable JavaScript. 请启用 JavaScript。</noscript>
+  </main>
+  {% include footer.html %}
+</div>
+<script type="module">
+  import('./app.js').catch(() => {
+    document.getElementById('loading-panel').hidden = true;
+    document.getElementById('notice').textContent = window.SiteUI?.getLanguage() === 'zh'
+      ? '加载失败，请检查网络及 Firebase SDK 是否可访问，然后刷新页面。'
+      : 'Could not load the app. Check your network and access to the Firebase SDK, then reload.';
+  });
+</script>
+</body>
+</html>
