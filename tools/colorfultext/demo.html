@@ -77,11 +77,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         <br>
 
         <h5>4 动态内容 + 自适应宽度：</h5>
-        <textarea style="width:100%" oninput="document.getElementById('text-output').innerHTML=value">在此行继续输入...</textarea>
-        <p id="text-output" class="colorful-text-js" style="display:inline-block" data-color-left="#dd0033" data-color-right="deepskyblue">在此行继续输入...</p>
+        <textarea style="width:100%" oninput="document.getElementById('text-output').textContent=value">在此行继续输入...</textarea>
+        <p id="text-output" class="colorful-text-js" style="display:inline-block; white-space: pre-wrap" data-color-left="#dd0033" data-color-right="deepskyblue">在此行继续输入...</p>
         <pre class="bg-dark text-white p-3"><code>
-    &lt;textarea style="width:100%" oninput="document.getElementById('text-output').innerHTML=value"&gt;在此行继续输入...&lt;/textarea&gt;
-    &lt;p id="text-output" class="colorful-text-js" style="display:inline-block" data-color-left="#dd0033" data-color-right="deepskyblue"&gt;在此行继续输入...&lt;/p&gt;
+    &lt;textarea style="width:100%" oninput="document.getElementById('text-output').textContent=value"&gt;在此行继续输入...&lt;/textarea&gt;
+    &lt;p id="text-output" class="colorful-text-js" style="display:inline-block; white-space: pre-wrap" data-color-left="#dd0033" data-color-right="deepskyblue"&gt;在此行继续输入...&lt;/p&gt;
         </code></pre>
         <br>
 

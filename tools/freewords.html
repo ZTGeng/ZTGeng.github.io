@@ -106,7 +106,7 @@
                         <button type="button" class="btn btn-outline-dark" v-on:click="copyToClipboard()">拷贝到剪贴板</button>
                         <span class="ms-2 text-danger">{{ clipboardErrorMessage }}</span>
                     </div>
-                    <div class="border p-2" v-html="textOutput.replace(/\n/g, '<br>')"></div>
+                    <div class="border p-2" style="white-space: pre-wrap" v-text="textOutput"></div>
                 </div>
             </div>
         </div>

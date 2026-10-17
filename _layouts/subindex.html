@@ -26,24 +26,24 @@
 
         <div id="portfolio">
             {% for catalog in page.catalogs %}
-            <section id="catalog-{{ catalog.id }}" class="catalog-section mb-4" aria-labelledby="catalog-title-{{ catalog.id }}">
+            <section id="catalog-{{ catalog.id | escape }}" class="catalog-section mb-4" aria-labelledby="catalog-title-{{ catalog.id | escape }}">
                 <div class="d-flex align-items-center justify-content-between gap-3 mb-2">
-                    <h4 class="mb-0" id="catalog-title-{{ catalog.id }}">{{ catalog.title[0].content }}</h4>
+                    <h4 class="mb-0" id="catalog-title-{{ catalog.id | escape }}">{{ catalog.title[0].content | escape }}</h4>
                     <div class="catalog-scroll-controls" hidden>
-                        <button class="btn btn-outline-secondary" type="button" data-scroll-direction="-1" aria-controls="catalog-track-{{ catalog.id }}" aria-label="Scroll left"><span aria-hidden="true">←</span></button>
-                        <button class="btn btn-outline-secondary" type="button" data-scroll-direction="1" aria-controls="catalog-track-{{ catalog.id }}" aria-label="Scroll right"><span aria-hidden="true">→</span></button>
+                        <button class="btn btn-outline-secondary" type="button" data-scroll-direction="-1" aria-controls="catalog-track-{{ catalog.id | escape }}" aria-label="Scroll left"><span aria-hidden="true">←</span></button>
+                        <button class="btn btn-outline-secondary" type="button" data-scroll-direction="1" aria-controls="catalog-track-{{ catalog.id | escape }}" aria-label="Scroll right"><span aria-hidden="true">→</span></button>
                     </div>
                 </div>
-                <ul id="catalog-track-{{ catalog.id }}" class="catalog-track" tabindex="0" aria-labelledby="catalog-title-{{ catalog.id }}">
+                <ul id="catalog-track-{{ catalog.id | escape }}" class="catalog-track" tabindex="0" aria-labelledby="catalog-title-{{ catalog.id | escape }}">
                     {% for item in catalog.items %}
-                    <li id="item-{{ item.id }}" class="catalog-card">
-                        <a href="{{ item.src }}" class="card h-100 text-decoration-none">
+                    <li id="item-{{ item.id | escape }}" class="catalog-card">
+                        <a href="{{ item.src | escape }}" class="card h-100 text-decoration-none">
                             <div class="px-3 pt-3">
-                                <img src="{{ item.imageSrc }}" class="card-img-top shadow rounded" alt="{{ item.title[0].content | escape }}" draggable="false">
+                                <img src="{{ item.imageSrc | escape }}" class="card-img-top shadow rounded" alt="{{ item.title[0].content | escape }}" draggable="false">
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">{{ item.title[0].content }}</h5>
-                                <p class="card-text">{{ item.intro[0].content }}</p>
+                                <h5 class="card-title">{{ item.title[0].content | escape }}</h5>
+                                <p class="card-text">{{ item.intro[0].content | escape }}</p>
                             </div>
                         </a>
                     </li>
@@ -55,33 +55,35 @@
 
         {% include footer.html %}
     </div>
+    {% capture script_less_than %}\u003c{% endcapture %}
     <script type="text/javascript">
         (function() {
+            // Serialize first, then escape '<' to keep data inside this script element.
             const catalogs = [
                 {% for catalog in page.catalogs %}
                 {
-                    id: "{{ catalog.id }}",
+                    id: {{ catalog.id | jsonify | replace: '<', script_less_than }},
                     title: {
                         {% for local-title in catalog.title %}
-                        "{{ local-title.lang }}": "{{ local-title.content }}",
+                        {{ local-title.lang | jsonify | replace: '<', script_less_than }}: {{ local-title.content | jsonify | replace: '<', script_less_than }},
                         {% endfor %}
                     },
                     items: [
                         {% for item in catalog.items %}
                         {
-                            id: "{{ item.id }}",
+                            id: {{ item.id | jsonify | replace: '<', script_less_than }},
                             title: {
                                 {% for local-title in item.title %}
-                                "{{ local-title.lang }}": "{{ local-title.content }}",
+                                {{ local-title.lang | jsonify | replace: '<', script_less_than }}: {{ local-title.content | jsonify | replace: '<', script_less_than }},
                                 {% endfor %}
                             },
                             intro: {
                                 {% for local-intro in item.intro %}
-                                "{{ local-intro.lang }}": "{{ local-intro.content }}",
+                                {{ local-intro.lang | jsonify | replace: '<', script_less_than }}: {{ local-intro.content | jsonify | replace: '<', script_less_than }},
                                 {% endfor %}
                             },
-                            src: "{{ item.src }}",
-                            imageSrc: "{{ item.imageSrc }}",
+                            src: {{ item.src | jsonify | replace: '<', script_less_than }},
+                            imageSrc: {{ item.imageSrc | jsonify | replace: '<', script_less_than }},
                         },
                         {% endfor %}
                     ]
@@ -91,17 +93,17 @@
             const translations = {
                 "web_title": {
                     {% for local-web-title in page.web-title %}
-                    "{{ local-web-title.lang }}": "{{ local-web-title.content }}",
+                    {{ local-web-title.lang | jsonify | replace: '<', script_less_than }}: {{ local-web-title.content | jsonify | replace: '<', script_less_than }},
                     {% endfor %}
                 },
                 "title": {
                     {% for local-title in page.title %}
-                    "{{ local-title.lang }}": "{{ local-title.content }}",
+                    {{ local-title.lang | jsonify | replace: '<', script_less_than }}: {{ local-title.content | jsonify | replace: '<', script_less_than }},
                     {% endfor %}
                 },
                 "greeting": {
                     {% for local-greeting in page.greeting %}
-                    "{{ local-greeting.lang }}": "{{ local-greeting.content }}",
+                    {{ local-greeting.lang | jsonify | replace: '<', script_less_than }}: {{ local-greeting.content | jsonify | replace: '<', script_less_than }},
                     {% endfor %}
                 },
             };

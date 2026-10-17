@@ -5,15 +5,26 @@
 
 (function() {
     let toSpans = function(div) {
-        let newHtml = "";
-        let _element = document.createElement("div");
-        div.innerHTML.split(/<br\s*\/?>/).forEach(html => {
-            _element.innerHTML = html;
-            let text = _element.innerText;
-            newHtml += ("<span>" + text.split("").join("</span><span>") + "</span><br>");
-        });
-        _element.remove();
-        div.innerHTML = newHtml.slice(0, -4);
+        const fragment = document.createDocumentFragment();
+        function appendText(node) {
+            if (node.nodeType === Node.TEXT_NODE) {
+                for (const character of node.textContent) {
+                    const span = document.createElement("span");
+                    span.textContent = character;
+                    fragment.appendChild(span);
+                }
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                if (node.tagName === "BR") {
+                    fragment.appendChild(document.createElement("br"));
+                } else {
+                    node.childNodes.forEach(appendText);
+                }
+            }
+        }
+        div.childNodes.forEach(appendText);
+        // Build character nodes without interpreting any text as HTML.
+        div.textContent = "";
+        div.appendChild(fragment);
     }
 
     let setColor = function(element, color) {
@@ -73,16 +84,11 @@
                 // Set gradient colors
                 onTextChange();
         
-                let flip_flag = false;
                 new MutationObserver((mutations, obs) => {
-                    if (flip_flag) {
-                        flip_flag = false;
-                        return;
-                    }
-                    
-                    flip_flag = true;
                     onTextChange();
-                }).observe(div, {attributes: false, childList: true, subtree: false});
+                    // Discard our own DOM updates without skipping later input.
+                    obs.takeRecords();
+                }).observe(div, {attributes: false, childList: true, characterData: true, subtree: true});
                 
                 let divWidth = div.scrollWidth;
                 new ResizeObserver(entries => {

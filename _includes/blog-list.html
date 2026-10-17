@@ -7,12 +7,12 @@
         {% for post in site.posts limit: include.list_size %}
             {% assign mod = forloop.index | modulo: 2 %}
             {% if mod == 1 %}
-            <a href="{{ post.url }}" class="list-group-item list-group-item-action list-group-item-primary">
+            <a href="{{ post.url | escape }}" class="list-group-item list-group-item-action list-group-item-primary">
             {% else %}
-            <a href="{{ post.url }}" class="list-group-item list-group-item-action">
+            <a href="{{ post.url | escape }}" class="list-group-item list-group-item-action">
             {% endif %}
-                <h6 class="mb-1">{{ post.title }}</h6>
-                <small class="mb-1">{{ post.date | date: "%Y-%m-%d %H:%M" }}</small>
+                <h6 class="mb-1">{{ post.title | escape }}</h6>
+                <small class="mb-1">{{ post.date | date: "%Y-%m-%d %H:%M" | escape }}</small>
             </a>
         {% endfor %}
     </div>
@@ -34,15 +34,21 @@
     </nav>
 </div>
 
+{% capture script_less_than %}\u003c{% endcapture %}
 <script type="text/javascript">
     (function() {
+        // Serialize first, then escape '<' to keep data inside this script element.
         const posts = [
             {% for post in site.posts %}
-                { title: "{{ post.title }}", date: "{{ post.date | date: "%Y-%m-%d %H:%M" }}", url: "{{ post.url }}" },
+                {
+                    title: {{ post.title | jsonify | replace: '<', script_less_than }},
+                    date: {{ post.date | date: "%Y-%m-%d %H:%M" | jsonify | replace: '<', script_less_than }},
+                    url: {{ post.url | jsonify | replace: '<', script_less_than }},
+                },
             {% endfor %}
         ];
-        const listSize = {{ include.list_size }};
-        const totalPage = {{ total_page }};
+        const listSize = {{ include.list_size | jsonify }};
+        const totalPage = {{ total_page | jsonify }};
         var currentPage = 1;
 
         document.getElementById("btn-to-previous-page").onclick = function() {
@@ -76,10 +82,10 @@
                 a.className = "list-group-item list-group-item-action" + (i % 2 === 0 ? " list-group-item-primary" : "");
                 const h6 = document.createElement("h6");
                 h6.className = "mb-1";
-                h6.innerText = post.title;
+                h6.textContent = post.title;
                 const small = document.createElement("small");
                 small.className = "mb-1";
-                small.innerText = post.date;
+                small.textContent = post.date;
                 a.appendChild(h6);
                 a.appendChild(small);
                 list.appendChild(a);
