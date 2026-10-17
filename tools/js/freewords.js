@@ -13,6 +13,7 @@ var app = new Vue({
         textIndex: 0,
 
         isMouseDown: false,
+        activePointerId: null,
         rStart: 0,
         cStart: 0,
         sentenceStack: [],
@@ -107,6 +108,13 @@ var app = new Vue({
             ]
         ]
     },
+    mounted: function() {
+        window.addEventListener('blur', this.cancelDrawing);
+    },
+    beforeDestroy: function() {
+        this.cancelDrawing();
+        window.removeEventListener('blur', this.cancelDrawing);
+    },
     computed: {
         textTrimmed: function() { return this.textInput.replace(/[\r\n]/g, ''); },
         textOutput: function() {
@@ -124,6 +132,55 @@ var app = new Vue({
         }
     },
     methods: {
+        cellAtPointer: function(event) {
+            // Pointer capture keeps the event target on the table, so hit-test
+            // the current position instead (also works over a cell's span).
+            var element = document.elementFromPoint(event.clientX, event.clientY);
+            var cell = element && element.closest('td[data-row][data-col]');
+            return cell && this.$refs.canvas.contains(cell) ? cell : null;
+        },
+        pointerDown: function(event) {
+            if (this.activePointerId !== null || !event.isPrimary || event.button !== 0) { return; }
+            var cell = this.cellAtPointer(event);
+            if (!cell || this.canvasUsed[Number(cell.dataset.row)][Number(cell.dataset.col)]) { return; }
+            event.preventDefault();
+            this.activePointerId = event.pointerId;
+            this.$refs.canvas.setPointerCapture(event.pointerId);
+            this.mouseDown(Number(cell.dataset.row), Number(cell.dataset.col));
+        },
+        pointerMove: function(event) {
+            if (event.pointerId !== this.activePointerId) { return; }
+            var cell = this.cellAtPointer(event);
+            if (cell) {
+                this.mouseEnter(Number(cell.dataset.row), Number(cell.dataset.col));
+            }
+        },
+        pointerUp: function(event) {
+            if (event.pointerId !== this.activePointerId) { return; }
+            this.pointerMove(event);
+            this.mouseUp();
+            this.releasePointer();
+        },
+        pointerCancel: function(event) {
+            if (event.pointerId === this.activePointerId) {
+                this.cancelDrawing();
+            }
+        },
+        releasePointer: function() {
+            var pointerId = this.activePointerId;
+            this.activePointerId = null;
+            if (pointerId !== null && this.$refs.canvas.hasPointerCapture(pointerId)) {
+                this.$refs.canvas.releasePointerCapture(pointerId);
+            }
+        },
+        cancelDrawing: function() {
+            if (this.tempSentence) {
+                this.undoSentence(this.tempSentence);
+                this.tempSentence = undefined;
+            }
+            this.isMouseDown = false;
+            this.releasePointer();
+        },
         mouseDown: function(r, c) {
             if (this.isMouseDown || this.canvasUsed[r][c]) { return; }
             this.isMouseDown = true;
@@ -172,7 +229,7 @@ var app = new Vue({
                 length = cDeltaAbs + 1;
             }
             for (var i = 0, ri = rFrom, ci = cFrom; i < length; i++, ri += rStep, ci += cStep) {
-                if (this.canvasUsed[ri][ci]) {
+                if (ri < 0 || ci < 0 || ri >= this.canvas.length || ci >= COL_NUM || this.canvasUsed[ri][ci]) {
                     length = i;
                     break;
                 }
@@ -235,6 +292,7 @@ var app = new Vue({
             }
         },
         clearCanvas: function() {
+            this.cancelDrawing();
             this.canvas = new Array(ROW_NUM).fill(0).map(() => new Array(COL_NUM).fill(emsp));
             this.canvasEmoji = new Array(ROW_NUM).fill(0).map(() => new Array(COL_NUM).fill(undefined));
             this.canvasUsed = new Array(ROW_NUM).fill(0).map(() => new Array(COL_NUM).fill(false));
@@ -265,6 +323,7 @@ var app = new Vue({
             this.textIndex -= sentence.textLength;
         },
         undoLast: function() {
+            this.cancelDrawing();
             if (this.sentenceStack.length === 0) { return; }
             this.undoSentence(this.sentenceStack.pop());
         },

@@ -28,6 +28,23 @@
             -ms-user-select: none;
             user-select: none;
         }
+
+        #left-area, #right-area {
+            min-width: 0;
+        }
+
+        #canvas {
+            table-layout: fixed;
+            touch-action: none;
+            cursor: crosshair;
+            font-size: clamp(10px, 2.6vw, 16px);
+        }
+
+        #canvas tbody td {
+            padding: 0;
+            height: clamp(22px, 4vw, 32px);
+            white-space: nowrap;
+        }
     </style>
 </head>
 
@@ -40,7 +57,7 @@
             <li>宽度暂时设置为23字，长度不限，会自动向下扩张。</li>
             <li>建议从左上角第一格开始排版。微博会删除第一个字符之前的空格与回车。</li>
             <li>英文字符和数字可能会破坏其右边的排版，建议避免在同一行右侧出现其他文字。</li>
-            <li>暂不支持手机操作。</li>
+            <li>在网格中按住鼠标或手指划动，松开即可确认排版。可沿横向、纵向或斜向划线；触屏时请在网格外滑动页面。</li>
             <li>微博转发和评论会强制合并为一行，因而无法使用。只能用于原创微博。</li>
             <li>【NEW】增加了基础表情支持。表情宽度略大于汉字，在同一行使用多个表情可能会破坏其右边的排版。</li>
         </ul>
@@ -51,7 +68,7 @@
             <div class="row mt-1">
                 <button type="button" class="col-auto me-1 btn btn-outline-dark" v-on:click="textInput = ''">全部删除</button>
                 <div class="col dropdown me-auto">
-                    <button type="button" class="btn btn-outline-dark dropdown-toggle" id="emoji-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-outline-dark dropdown-toggle" id="emoji-button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         表情
                     </button>
                     <div class="dropdown-menu ps-2 pe-2" aria-labelledby="emoji-button">
@@ -70,12 +87,18 @@
             </div>
             <br>
             <div class="row">
-                <div class="col" id="left-area">
+                <div class="col-12 col-lg-6 col-xl-8" id="left-area">
                     <div class="mb-2">
                         <button type="button" class="btn btn-outline-dark" v-on:click="clearCanvas()">清除</button>
                         <button type="button" class="btn btn-outline-dark" v-on:click="undoLast()">后退</button>
                     </div>
-                    <table class="table table-bordered unselectable" id="canvas" style="cursor: default">
+                    <table class="table table-bordered unselectable" id="canvas" ref="canvas"
+                        v-on:pointerdown="pointerDown($event)"
+                        v-on:pointermove="pointerMove($event)"
+                        v-on:pointerup="pointerUp($event)"
+                        v-on:pointercancel="pointerCancel($event)"
+                        v-on:lostpointercapture="pointerCancel($event)"
+                        v-on:contextmenu.prevent>
                         <thead>
                             <tr>
                                 <td class="small p-0 text-end" v-for="col, c in canvas[0]">{{ c + 1 }}</td>
@@ -84,13 +107,11 @@
                         <tbody class="text-center">
                             <tr class="" v-for="row, r in canvas">
                                 <td
-                                    class="p-1" 
                                     style="background-size: 75%; background-repeat: no-repeat; background-position: center;"
                                     v-for="col, c in row" 
                                     v-bind:style="{ 'background-image': canvasEmoji[r][c] }"
-                                    v-on:mousedown.left="mouseDown(r, c)" 
-                                    v-on:mouseenter.left="mouseEnter(r, c)" 
-                                    v-on:mouseup.left="mouseUp(r, c)">
+                                    v-bind:data-row="r"
+                                    v-bind:data-col="c">
                                     <span 
                                         v-if="!canvasEmoji[r][c]" 
                                         v-bind:class="{ 'text-dark': canvasUsed[r][c], 'text-secondary': !canvasUsed[r][c] }">
@@ -101,7 +122,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-xl col-lg-6 col-md-12" id="right-area">
+                <div class="col-12 col-lg-6 col-xl-4" id="right-area">
                     <div class="mb-2">
                         <button type="button" class="btn btn-outline-dark" v-on:click="copyToClipboard()">拷贝到剪贴板</button>
                         <span class="ms-2 text-danger">{{ clipboardErrorMessage }}</span>
