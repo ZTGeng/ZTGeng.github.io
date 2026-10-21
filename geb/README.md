@@ -1,0 +1,126 @@
+# G.E.B. Shadow Sculpture
+
+独立的纯前端 Three.js 互动。一个固定的木雕网格，在两个互相垂直的墙面和地面上，分别投出 G、E、B。拖动只旋转木雕；相机、灯光和接影面始终固定。
+
+## 本地开发
+
+需要 Node.js 20 或更新版本和 npm。本项目的 Vite 独立于主站，命令都在 `geb/` 中执行：
+
+```powershell
+cd geb
+npm install
+npm run dev
+```
+
+打开终端显示的地址，默认是 <http://127.0.0.1:5173/geb/>。依赖版本由 `package-lock.json` 锁定，也可用 `npm ci` 安装。当前使用 Three.js 0.186.1 和兼容本地 Node.js 20 的 Vite 6.4.5。
+
+## 构建和静态发布
+
+```powershell
+npm test
+npm run build
+npm run preview
+```
+
+生产预览默认是 <http://127.0.0.1:4173/geb/>。
+
+`build` 先重新生成模型，再由 Vite 输出 `dist/`，最后把生成的 `index.html` 和 `assets/app/` 复制到项目根目录。**请编辑 `src/index.html`，不要手工修改生成的 `geb/index.html`。**
+
+这是为了兼容本仓库现有的 GitHub Pages/Jekyll 部署：将 `geb/index.html` 和 `geb/assets/app/` 连同源码提交，即可继续由现有站点直接托管，无需线上 Node.js、额外工作流或服务器。构建只复制这些产物，不清空项目目录或未来章节。
+
+也可把 `dist/` 的内容发布到静态站点的 `/geb/` 路径下。资源的 base 固定为 `/geb/`。若部署到其他路径，修改 `vite.config.js` 的 `base` 和章节链接后重新构建。
+
+此前的静态预览服务器 <http://127.0.0.1:8767/geb/> 也能直接预览构建产物；源码修改后的热更新请使用 Vite 开发地址。
+
+## 几何构造
+
+`scripts/volume.js` 自行定义三个粗笔画、带切角的二维字形轮廓，不依赖操作系统字体或书籍插图。以 96³ 体素采样三个正交拉伸体的交集：
+
+```text
+M(x,y,z) = G(-z,y) ∧ E(x,y) ∧ B(x,-z)
+         = ExtrudeX(G) ∩ ExtrudeZ(E) ∩ ExtrudeY(B)
+```
+
+这里沿 Y 投出 B（地面），沿 X 投出 G（左墙），沿 Z 投出 E（右墙）。字形的横向和纵向符号与实际墙面的可读方向一致。
+
+任意三个字形求交并不保证投影完整。本项目使用相容的粗笔画及支撑区域：G/E 的上下笔画、两者的左竖笔画和 B 的竖笔画/横向笔画提供彼此所需的贯通射线。生成器会检查实际投影，而非假设交集自动成立。
+
+随后删除内部面，贪心合并相邻共面的体素表面矩形，得到一个具有外向法线的固定网格。模型尺寸为 2.6，中心位于原点。目前输出：
+
+- 379,776 个实心体素；六邻接检查为 **1 个连通体**，不是靠角点接触的散件。
+- **1,696 个三角形**，没有逐体素绘制。
+- G/E/B 三个方向在采样分辨率下的轮廓覆盖率均为 **100%**，额外投影像素为零。
+
+```powershell
+npm run geometry
+```
+
+输出 `assets/model/sculpture.json`、`report.json` 及三个 `projection-*.svg`。SVG 是开发时查看正交投影的诊断文件，**页面不加载它们**。运行时仅加载预计算网格，拖动期间不重新构造几何。
+
+`npm test` 除体素投影外，还会独立光栅化导出的三角形并核对字形，检查网格绕序及有向体积，确保最终绘制的网格与计算结果一致。
+
+## 三路实时阴影
+
+三块接影面位于 `x=-3.15`、`z=-3.15`、`y=-3.15`，法线分别为 +X、+Z、+Y。三盏 `DirectionalLight` 分别位于 `(8,0,0)`、`(0,0,8)`、`(0,8,0)`，指向原点：
+
+| 灯光方向 | 接影面 | 初始投影 | 字形坐标 |
+| --- | --- | --- | --- |
+| −X | 左墙 | G | 水平 −Z，竖直 +Y |
+| −Z | 右墙 | E | 水平 +X，竖直 +Y |
+| −Y | 地面 | B | 水平 +X，竖直 −Z |
+
+每块平面只受到对应轴向光的正面漫反射；其他两盏灯与它的法线垂直，不会把正确字母阴影照亮。平面采用高粗糙度材质，不添加会破坏此关系的扰动法线。无需额外投影相机或自制合成字母图层。
+
+使用 Three.js 原生 WebGL 阴影映射和 `PCFShadowMap`。桌面使用三张 2048² 阴影图，窄屏初次加载时使用 1024²。阴影正交范围为 ±2.65，覆盖雕塑在任意旋转下的包围球；near/far、bias、normalBias 和适度 PCF 半径在 `src/scene.js` 中统一配置。木雕会自投影，接影面不会向其他面投影。适量暖色环境光让暗部仍可辨认。
+
+没有在木雕上画字母，没有预渲染阴影，没有根据观察角度切换模型。木纹只是基于模型局部坐标的程序化材质，随木雕一起转动，不参与阴影生成。
+
+## 操作与渲染
+
+- 左键拖动或单指拖动：围绕固定相机的上/右向量旋转木雕，支持水平和竖直方向。
+- 放开即停，不自动旋转，无惯性，无缩放或平移。
+- **Reset**：520ms quaternion slerp 回到精确的单位四元数；开启减少动态效果时立即复位。
+- 也可聚焦画布后用方向键旋转，没有额外可见控件。
+- 使用 pointer capture，处理取消和失去捕获；忽略额外触点和非左键。
+- 仅在拖动、复位、尺寸变化和恢复显示时申请绘制，静止时不持续占用渲染循环。
+- 限制 pixel ratio 为 1.75，监听容器尺寸；离屏/后台暂停，返回后刷新，退出时释放 GPU 资源。
+
+## 文件结构
+
+```text
+geb/
+├── index.html                 # 生成的 GitHub Pages 入口
+├── index.js                   # 原有姓名展开与版权年份
+├── package.json / package-lock.json
+├── vite.config.js
+├── README.md / MEMORY.md / THIRD_PARTY_NOTICES.md
+├── src/
+│   ├── index.html             # 首页 HTML 源码
+│   ├── main.js / style.css    # 初始化与场景布局
+│   ├── scene.js               # 固定相机、接影面、灯光与按需绘制
+│   ├── framing.js             # 响应式相机构图
+│   ├── geometry.js            # 加载预计算网格
+│   ├── wood.js                # 程序化木纹
+│   └── interaction.js         # 拖动和 Reset
+├── shared/geb.css             # 首页共用深色样式
+├── scripts/
+│   ├── volume.js              # 字形、交集、连通性检查、网格化
+│   ├── generate-geometry.js   # 离线生成与诊断报告
+│   └── publish-static.js      # 复制可提交的静态产物
+├── tests/                     # 几何与交互回归测试
+├── assets/
+│   ├── model/                 # 原始网格、报告、诊断投影
+│   └── app/                   # 生成的 JS/CSS/网格及 Three.js bundle
+└── dist/                      # Vite 产物，不提交
+```
+
+## 已知边界
+
+- 模型为原创的块状 G/E/B 视觉壳，不是原封面木雕的精确复制；切角有细微体素台阶，没有圆滑倒角。
+- 投影测试的 100% 指 96×96 离散轮廓及导出的网格。屏幕上仍会有正常的透视压缩、PCF 边缘和少量木雕自身遮挡。
+- 除初始/复位位置外，任意旋转后的影子通常不会继续像字母，这正是本互动要展示的现象。
+- 需要 WebGL 2。资源均本地提供；无法创建图形上下文时显示文字提示。
+- 目标是现代桌面流畅交互，尚未跨设备实测 60 FPS；移动端图形性能取决于设备。
+- 第一章 `chapters/01-mu/` 尚未开发，保留首页已有的下一章入口。
+
+参考实现文档：[Three.js WebGLRenderer](https://threejs.org/docs/pages/WebGLRenderer)、[DirectionalLight](https://threejs.org/docs/pages/DirectionalLight)、[LightShadow](https://threejs.org/docs/pages/LightShadow)。

@@ -1,0 +1,27 @@
+{
+  "occupied": 379776,
+  "components": [
+    379776
+  ],
+  "coverage": {
+    "G": {
+      "expected": 6390,
+      "actual": 6390,
+      "extra": 0,
+      "ratio": 1
+    },
+    "E": {
+      "expected": 6508,
+      "actual": 6508,
+      "extra": 0,
+      "ratio": 1
+    },
+    "B": {
+      "expected": 6974,
+      "actual": 6974,
+      "extra": 0,
+      "ratio": 1
+    }
+  },
+  "triangles": 1696
+}

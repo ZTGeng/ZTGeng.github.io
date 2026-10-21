@@ -12,9 +12,9 @@ with standalone JavaScript games and browser tools.
   most shared layout and UI components.
 - Many games use jQuery; some pages also use jQuery UI.
 - Individual applications use Vue 2 or Vue 3 loaded directly from CDNs.
-- The repository has no unified npm build pipeline or main-site backend. No
-  `package.json`, Gemfile, or custom GitHub Actions workflow was found during
-  the initial review.
+- The main site has no unified npm build pipeline or backend. `geb/` has its own
+  Vite/Three.js package and commits generated static assets for GitHub Pages;
+  it does not introduce a main-site build requirement.
 
 ## Main Structure
 
@@ -34,6 +34,11 @@ with standalone JavaScript games and browser tools.
 - `images/`, `fonts/`, `docs/`: Static assets, including a resume PDF.
 - `cocgame/`, `gamejam/`, `useless_app/`: Independent or historical project pages.
 - `cv.html`: Resume page.
+- `geb/`: Independent GEB interactive project. Its homepage has a fixed wooden
+  visual-hull sculpture with three real orthogonal letter shadows. Vite sources
+  live in `geb/src/`; `npm run build` updates the committed `geb/index.html` and
+  `geb/assets/app/`. Geometry generation, projection tests and setup are documented
+  in `geb/README.md`; `geb/MEMORY.md` records project decisions.
 - `xiren/`: Standalone React comedy-performer directory with local React runtime,
   editable JSON data, cross-season filters, and Baidu source-import scripts.
 

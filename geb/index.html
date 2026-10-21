@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="旋转一件木质雕塑，观察由真实几何投下的 G、E、B 三种影子。">
+  <title>G.E.B. · Gödel, Escher, Bach</title>
+  <script type="module" crossorigin src="/geb/assets/app/geb.js"></script>
+  <link rel="modulepreload" crossorigin href="/geb/assets/app/three.js">
+  <link rel="stylesheet" crossorigin href="/geb/assets/app/index.css">
+</head>
+<body>
+  <main>
+    <section class="introduction" aria-label="Gödel, Escher, Bach">
+      <h1 class="title" aria-label="Gödel, Escher, Bach">
+        <button class="name name-godel" type="button" aria-label="Gödel" aria-expanded="false"><span class="initial">G</span><span class="name-rest" aria-hidden="true"><span>ödel</span></span><span class="period" aria-hidden="true">.</span></button>
+        <button class="name name-escher" type="button" aria-label="Escher" aria-expanded="false"><span class="initial">E</span><span class="name-rest" aria-hidden="true"><span>scher</span></span><span class="period" aria-hidden="true">.</span></button>
+        <button class="name name-bach" type="button" aria-label="Bach" aria-expanded="false"><span class="initial">B</span><span class="name-rest" aria-hidden="true"><span>ach</span></span><span class="period" aria-hidden="true">.</span></button>
+      </h1>
+      <div class="biographies">
+        <p><span class="person">Gödel</span><span>哥德尔，数学家、逻辑学家、哲学家</span></p>
+        <p><span class="person">Escher</span><span>埃舍尔，版画艺术家</span></p>
+        <p><span class="person">Bach</span><span>巴赫，作曲家，管风琴、大键琴、小提琴演奏家</span></p>
+      </div>
+    </section>
+    <section id="model-stage" aria-label="GEB 三维投影雕塑">
+      <canvas id="sculpture-canvas" tabindex="0" aria-label="拖动旋转木质雕塑，观察 G、E、B 的实时阴影。也可使用方向键旋转。" aria-describedby="sculpture-hint"></canvas>
+      <p id="scene-status" role="status">正在布置光与影…</p>
+      <p id="sculpture-hint">拖动木雕，观察光与影</p>
+      <button id="reset" type="button" disabled>Reset</button>
+    </section>
+    <nav class="chapter-navigation" aria-label="章节导航">
+      <a class="next-chapter" href="/geb/chapters/01-mu/"><span>下一章</span><span>WU 谜题 <span aria-hidden="true">→</span></span></a>
+    </nav>
+  </main>
+  <footer>© 2014–<span id="copyright-year">2026</span> <a href="/">@ztgeng</a>. All rights reserved.</footer>
+</body>
+</html>
