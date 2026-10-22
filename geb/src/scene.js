@@ -1,10 +1,11 @@
 import {
-  AmbientLight, Color, DirectionalLight, Group, Mesh, MeshStandardMaterial,
+  AmbientLight, Color, DirectionalLight, Group, Mesh,
   PCFShadowMap, PerspectiveCamera, PlaneGeometry, Scene, SRGBColorSpace,
   ACESFilmicToneMapping, WebGLRenderer,
 } from 'three';
 import { loadSculptureGeometry } from './geometry.js';
 import { makeWoodMaterial } from './wood.js';
+import { makeReceiverMaterial } from './receiver.js';
 import { attachSculptureInteraction } from './interaction.js';
 import { fitCamera, ROOM_HALF_SIZE } from './framing.js';
 
@@ -40,7 +41,7 @@ export async function createSculptureScene(stage) {
   function receiver(name, color, position, rotation) {
     // Perfectly planar normals matter: the other two directional lights are
     // tangent to this face and therefore contribute no diffuse illumination.
-    const material = new MeshStandardMaterial({ color, roughness: 1, metalness: 0 });
+    const material = makeReceiverMaterial(color);
     const plane = new Mesh(planeGeometry, material);
     plane.name = name;
     plane.position.set(...position);
@@ -49,9 +50,9 @@ export async function createSculptureScene(stage) {
     plane.castShadow = false;
     room.add(plane);
   }
-  receiver('G / x=-3.15 / normal +X', 0xe2d4bb, [-extent,0,0], [0,Math.PI/2,0]);
-  receiver('E / z=-3.15 / normal +Z', 0xece0ca, [0,0,-extent], [0,0,0]);
-  receiver('B / y=-3.15 / normal +Y', 0xdbceb5, [0,-extent,0], [-Math.PI/2,0,0]);
+  receiver('G / normal +X', 0xe2d4bb, [-extent,0,0], [0,Math.PI/2,0]);
+  receiver('E / normal +Z', 0xece0ca, [0,0,-extent], [0,0,0]);
+  receiver('B / normal +Y', 0xdbceb5, [0,-extent,0], [-Math.PI/2,0,0]);
   scene.add(room);
   scene.add(new AmbientLight(0xffe8cb, .28));
 
