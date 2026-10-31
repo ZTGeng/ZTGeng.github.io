@@ -62,12 +62,13 @@ function ProfileLink({ url }) {
   );
 }
 
-function Chip({ active, children, onClick, className = "" }) {
+function Chip({ active, children, onClick, className = "", disabled = false }) {
   return (
     <button
       type="button"
       className={`chip ${active ? "selected" : ""} ${className}`}
       aria-pressed={active}
+      disabled={disabled}
       onClick={onClick}
     >
       {children}
@@ -438,6 +439,10 @@ function App() {
                       <small>{s.year}</small>
                     </Chip>
                   ))}
+                  <Chip active={false} disabled className="season-chip upcoming-season">
+                    <span>喜三</span>
+                    喜人奇妙夜3（未播出）
+                  </Chip>
                 </div>
               </div>
             </fieldset>

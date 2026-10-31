@@ -392,6 +392,14 @@ h1 {
   font-size: 9px;
   opacity: 0.65;
 }
+.upcoming-season:disabled {
+  --tone: #7c8076;
+  --tint: #eceee7;
+  color: #7c8076;
+  background: #f2f3ee;
+  border-color: #e6e9df;
+  cursor: not-allowed;
+}
 .filter-split {
   display: flex;
   gap: 45px;

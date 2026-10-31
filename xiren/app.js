@@ -76,13 +76,14 @@
     }
     return /* @__PURE__ */ React.createElement("a", { className: "baike-link", href: url, target: "_blank", rel: "noreferrer" }, label, " \u2197");
   }
-  function Chip({ active, children, onClick, className = "" }) {
+  function Chip({ active, children, onClick, className = "", disabled = false }) {
     return /* @__PURE__ */ React.createElement(
       "button",
       {
         type: "button",
         className: `chip ${active ? "selected" : ""} ${className}`,
         "aria-pressed": active,
+        disabled,
         onClick
       },
       children
@@ -291,7 +292,8 @@
         /* @__PURE__ */ React.createElement("span", null, s.tag),
         s.name,
         /* @__PURE__ */ React.createElement("small", null, s.year)
-      ))
+      )),
+      /* @__PURE__ */ React.createElement(Chip, { active: false, disabled: true, className: "season-chip upcoming-season" }, /* @__PURE__ */ React.createElement("span", null, "\u559C\u4E09"), "\u559C\u4EBA\u5947\u5999\u591C3\uFF08\u672A\u64AD\u51FA\uFF09")
     ))), /* @__PURE__ */ React.createElement("div", { className: "filter-split" }, /* @__PURE__ */ React.createElement("div", { className: "filter-row" }, /* @__PURE__ */ React.createElement("span", { className: "filter-label", id: "role-label" }, "\u4EBA\u7269\u8EAB\u4EFD"), /* @__PURE__ */ React.createElement(
       "div",
       {
