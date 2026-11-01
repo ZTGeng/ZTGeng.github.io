@@ -1,0 +1,71 @@
+.godel-lesson {
+  padding: 32px 0 48px;
+  line-height: 1.9;
+  font-size: 15px;
+}
+
+.godel-lesson p { margin: 12px 0 0; color: var(--muted); }
+.godel-lesson h3, .godel-lesson h4, .godel-lesson h5 { margin: 0; font-weight: 500; line-height: 1.6; }
+.godel-lesson h3 { font-size: clamp(24px, 4vw, 32px); }
+.godel-lesson h4 { font-size: 20px; }
+.godel-lesson h5 { font-size: 16px; }
+.godel-lesson strong { color: var(--ink); font-weight: 600; }
+.godel-lesson .lesson-eyebrow { margin: 0 0 10px; color: var(--person-color); font-size: 12px; letter-spacing: 0.1em; }
+.lesson-heading { max-width: 740px; }
+.system-setup { margin: 32px 0; }
+.system-wishes { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 22px 0; }
+.system-wishes > div { border-left: 2px solid #575042; padding-left: 18px; }
+.system-wishes h5 span { display: block; margin-top: 3px; color: var(--person-color); font-size: 13px; }
+.system-wishes p { margin-top: 8px; }
+.godel-lesson .setup-note, .godel-lesson .statement-note { font-size: 13px; }
+
+.godel-lab { padding: 32px; border: 1px solid #514939; border-radius: 8px; background: #1d1e21; }
+.godel-statement { display: flex; align-items: center; gap: 24px; }
+.statement-symbol { color: var(--person-color); font: italic 76px/1 Georgia, serif; }
+.godel-statement blockquote { margin: 0; font-size: clamp(19px, 3vw, 25px); line-height: 1.7; }
+.godel-lab > h4 { margin-top: 30px; }
+.godel-lesson .choice-hint { margin-top: 6px; font-size: 13px; }
+.proof-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 22px 0; }
+.proof-choice { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 15px 10px; border: 1px solid #686050; border-radius: 4px; color: var(--ink); background: transparent; font: inherit; cursor: pointer; }
+.proof-choice span { color: var(--person-color); }
+.proof-choice:hover { background: #2c2923; border-color: var(--person-color); }
+.proof-choice[aria-pressed="true"] { background: #383126; border-color: var(--person-color); color: #f2d5a0; }
+.proof-choice:focus-visible, .godel-lesson summary:focus-visible, .godel-lesson a:focus-visible { outline: 2px solid var(--person-color); outline-offset: 4px; }
+.proof-result-area { min-height: 370px; border-top: 1px solid #3d3c39; padding-top: 24px; }
+.godel-lesson .proof-prompt { text-align: center; padding-block: 110px; }
+.proof-result[hidden], .proof-prompt[hidden] { display: none; }
+.proof-result h5 { color: var(--person-color); font-size: 18px; }
+.proof-steps { margin: 20px 0; padding-left: 26px; }
+.proof-steps li { padding-left: 8px; margin-top: 16px; }
+.proof-steps li::marker { color: var(--person-color); font-family: Georgia, serif; }
+.proof-steps p { margin-top: 4px; }
+.godel-lesson .branch-conclusion { color: var(--ink); border-left: 2px solid var(--person-color); padding-left: 16px; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+.theorem-conclusion { margin-top: 40px; }
+.theorem-conclusion > h4 { color: var(--person-color); font-size: clamp(20px, 3vw, 25px); line-height: 1.8; }
+.godel-lesson details { margin-top: 24px; font-size: 13px; }
+.godel-lesson summary { width: fit-content; cursor: pointer; color: var(--person-color); text-underline-offset: 4px; }
+.godel-lesson summary:hover { text-decoration: underline; }
+.precision-note > div { border-left: 1px solid #514939; padding-left: 20px; }
+.godel-meaning { margin-top: 40px; padding-top: 32px; border-top: 1px solid #3d3c39; }
+.meaning-item { display: flex; align-items: baseline; gap: 20px; margin-top: 24px; }
+.meaning-item > span { color: var(--person-color); font: 18px/1 Georgia, serif; }
+.meaning-item p { margin-top: 6px; }
+.godel-sources a { color: var(--muted); overflow-wrap: anywhere; text-underline-offset: 3px; }
+.godel-sources a:hover { color: var(--ink); }
+.godel-sources ul { padding-left: 20px; }
+.godel-sources li + li { margin-top: 10px; }
+
+@media (max-width: 540px) {
+  .godel-lesson { padding-top: 20px; }
+  .godel-lab { padding: 24px 16px; }
+  .godel-statement { align-items: flex-start; gap: 16px; }
+  .statement-symbol { font-size: 52px; }
+  .godel-statement .lesson-eyebrow { letter-spacing: 0; }
+  .system-wishes { grid-template-columns: 1fr; gap: 20px; }
+  .proof-choices { gap: 10px; }
+  .proof-choice { gap: 6px; font-size: 14px; padding-inline: 4px; }
+  .proof-result-area { min-height: 540px; }
+  .meaning-item { gap: 14px; }
+}

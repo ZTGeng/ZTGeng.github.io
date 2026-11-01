@@ -1,0 +1,90 @@
+.intro-page {
+  width: min(960px, 100%);
+  margin-inline: auto;
+  padding: 36px 32px 0;
+}
+
+.chapter-heading { margin-bottom: 36px; }
+
+.home-link {
+  color: var(--muted);
+  font-family: Georgia, serif;
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+}
+
+.home-link:hover { color: var(--ink); }
+
+.chapter-number {
+  margin: 32px 0 12px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+}
+
+.chapter-heading h1 {
+  margin: 0;
+  font-size: clamp(26px, 4.5vw, 40px);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.chapter-lead { margin: 14px 0 0; color: var(--muted); line-height: 1.8; }
+
+[data-person="godel"] { --person-color: #d8b77b; }
+[data-person="escher"] { --person-color: #98bbb0; }
+[data-person="bach"] { --person-color: #b8a4cf; }
+
+.person-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-bottom: 1px solid #45464b;
+}
+
+.person-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px 10px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tab-initial { font: 38px/1 Georgia, serif; }
+.person-tab small { display: block; margin-top: 4px; font-size: 12px; }
+.person-tab:hover { background: #202227; color: var(--person-color); }
+.person-tab[aria-selected="true"] { border-bottom-color: var(--person-color); color: var(--person-color); }
+
+.person-tab:focus-visible,
+.home-link:focus-visible,
+.person-panel:focus-visible { outline: 2px solid var(--person-color, #98bbb0); outline-offset: 4px; }
+
+.person-panel { padding-top: 32px; }
+.person-panel[hidden] { display: none; }
+.person-introduction { max-width: 760px; min-height: 180px; }
+.person-meta { margin: 0 0 12px; color: var(--person-color); font-size: 12px; line-height: 1.8; }
+.person-introduction h2 { margin: 0; font-size: 23px; font-weight: 500; line-height: 1.6; }
+.person-introduction h2 span { display: block; color: var(--muted); font: 16px/1.8 Georgia, serif; }
+.person-introduction > p:last-child { margin: 16px 0 0; color: var(--muted); font-size: 15px; line-height: 1.95; }
+
+/* 保留尚未实现的互动主体空间；已实现的内容自然撑开。 */
+.person-stage { min-height: clamp(240px, 36vh, 440px); }
+
+.intro-page .chapter-navigation { margin-top: auto; }
+
+@media (max-width: 540px) {
+  .intro-page { padding: 24px 20px 0; }
+  .chapter-heading { margin-bottom: 24px; }
+  .person-tab { gap: 8px; padding: 16px 4px; font-size: 14px; }
+  .tab-initial { font-size: 30px; }
+  .person-introduction h2 { font-size: 21px; }
+  .person-introduction { min-height: 240px; }
+}

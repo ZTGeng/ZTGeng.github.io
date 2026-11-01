@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { BufferAttribute, BufferGeometry, DoubleSide, Mesh, MeshBasicMaterial, PerspectiveCamera, Raycaster, Vector2, Vector3 } from 'three';
-import { fitCamera, ROOM_HALF_SIZE } from '../src/framing.js';
+import { fitCamera, ROOM_HALF_SIZE } from '../src/home/framing.js';
 import { makeVolume } from '../scripts/volume.js';
 
 for (const [width,height] of [[320,440],[375,600],[430,650],[768,880],[1280,720],[1280,500]]) {

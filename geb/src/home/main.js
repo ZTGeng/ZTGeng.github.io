@@ -1,6 +1,6 @@
-import '../shared/geb.css';
+import '../../shared/geb.css';
 import './style.css';
-import '../index.js';
+import './names.js';
 import { createSculptureScene } from './scene.js';
 
 const stage = document.getElementById('model-stage');

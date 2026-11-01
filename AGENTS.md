@@ -34,6 +34,10 @@ with standalone JavaScript games and browser tools.
 - `images/`, `fonts/`, `docs/`: Static assets, including a resume PDF.
 - `cocgame/`, `gamejam/`, `useless_app/`: Independent or historical project pages.
 - `cv.html`: Resume page.
+- `geb/`: GEB interactive project with an isolated Vite multipage build. Page sources
+  live in `src/` (homepage modules in `src/home/`, chapters in `src/chapters/`);
+  generated `index.html`, `chapters/`, and `assets/app/` are committed for GitHub
+  Pages. Edit sources and rebuild; see `geb/README.md` and `geb/MEMORY.md`.
 - `geb/`: Independent GEB interactive project. Its homepage has a fixed wooden
   visual-hull sculpture with three real orthogonal letter shadows. Vite sources
   live in `geb/src/`; `npm run build` updates the committed `geb/index.html` and

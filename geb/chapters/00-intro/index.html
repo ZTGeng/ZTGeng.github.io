@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="认识数学家哥德尔、版画艺术家埃舍尔与作曲家巴赫。">
+  <title>哥德尔 埃舍尔 巴赫 · G.E.B.</title>
+  <script type="module" crossorigin src="/geb/assets/app/00-intro.js"></script>
+  <link rel="modulepreload" crossorigin href="/geb/assets/app/geb2.js">
+  <link rel="stylesheet" crossorigin href="/geb/assets/app/geb2.css">
+  <link rel="stylesheet" crossorigin href="/geb/assets/app/00-intro.css">
+</head>
+<body>
+  <main class="intro-page">
+    <header class="chapter-heading">
+      <a class="home-link" href="/geb/" aria-label="返回 G.E.B. 首页">G.E.B.</a>
+      <p class="chapter-number">序章 · 00</p>
+      <h1>哥德尔、埃舍尔、巴赫</h1>
+      <p class="chapter-lead">从数学、图像与音乐，认识三个人。</p>
+    </header>
+
+    <div class="person-tabs" role="tablist" aria-label="选择人物">
+      <button id="tab-godel" class="person-tab" type="button" role="tab" aria-selected="true" aria-controls="panel-godel" data-person="godel"><span class="tab-initial" aria-hidden="true">G</span><span>哥德尔<small>Gödel</small></span></button>
+      <button id="tab-escher" class="person-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-escher" tabindex="-1" data-person="escher"><span class="tab-initial" aria-hidden="true">E</span><span>埃舍尔<small>Escher</small></span></button>
+      <button id="tab-bach" class="person-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-bach" tabindex="-1" data-person="bach"><span class="tab-initial" aria-hidden="true">B</span><span>巴赫<small>Bach</small></span></button>
+    </div>
+
+    <section id="panel-godel" class="person-panel" role="tabpanel" aria-labelledby="tab-godel" tabindex="0" data-person="godel">
+      <header class="person-introduction">
+        <p class="person-meta">1906—1978 · 数学家、逻辑学家、哲学家</p>
+        <h2>库尔特·哥德尔 <span lang="de">Kurt Gödel</span></h2>
+        <p>哥德尔研究数学证明的边界。他在 1931 年提出的不完备性定理揭示：任何一致、可有效公理化且足以表达基本算术的形式系统，都有它无法判定的命题。</p>
+      </header>
+      <article id="godel-experiment" class="person-stage godel-lesson" aria-labelledby="godel-title">
+        <header class="lesson-heading">
+          <p class="lesson-eyebrow">逻辑 · 证明的边界</p>
+          <h3 id="godel-title">哥德尔第一不完备性定理</h3>
+          <p>即使证明规则明确、系统不会自相矛盾，也仍有它无法证明的算术真命题。</p>
+        </header>
+
+        <section class="system-setup" aria-labelledby="system-title">
+          <h4 id="system-title">先约定一个数学证明系统</h4>
+          <p>它从公理出发，按规则一步步推导。公理可以由算法列举，每份证明都能机械核查；它还足以表达基本的自然数算术，包括加法、乘法，并能用数字编码自己的语句与证明。</p>
+          <div class="system-wishes">
+            <div><h5>可靠性 <span>不证明错的</span></h5><p>只证明在通常的自然数中为真的命题。</p></div>
+            <div><h5>涵盖全部真理 <span>不漏掉对的</span></h5><p>希望所有算术真命题，都能在系统内证明。</p></div>
+          </div>
+          <p class="setup-note">可靠性蕴含自洽性。<strong>自洽</strong>只要求：不能既证明一个命题，又证明它的否定。下面先假定系统自洽，看看证明的边界在哪里。</p>
+        </section>
+
+        <section class="godel-lab" aria-labelledby="godel-question">
+          <div class="godel-statement">
+            <span class="statement-symbol" aria-hidden="true">G</span>
+            <div><p class="lesson-eyebrow">一个谈论自身证明的算术命题</p><blockquote>“命题 G 无法在这个系统中被证明。”</blockquote></div>
+          </div>
+          <p class="statement-note">G 说的是“我没有证明”，不是“我是假的”。这句话是数学编码后含义的通俗转述。</p>
+          <h4 id="godel-question">那么，G 能在这个系统中被证明吗？</h4>
+          <p class="choice-hint">试试两种假设，沿着推理走下去。</p>
+          <div class="proof-choices" role="group" aria-labelledby="godel-question">
+            <button type="button" class="proof-choice" id="choose-provable" data-proof-case="provable" aria-pressed="false" aria-controls="proof-provable"><span aria-hidden="true">↙</span> G 能被证明</button>
+            <button type="button" class="proof-choice" id="choose-unprovable" data-proof-case="unprovable" aria-pressed="false" aria-controls="proof-unprovable">G 不能被证明 <span aria-hidden="true">↘</span></button>
+          </div>
+          <div class="proof-result-area">
+            <p id="proof-prompt" class="proof-prompt">选择一个假设，查看它会带来什么。</p>
+            <section id="proof-provable" class="proof-result" aria-labelledby="provable-title" hidden>
+              <h5 id="provable-title">这条路会违背自洽性</h5>
+              <ol class="proof-steps">
+                <li><strong>假设系统证明了 G。</strong><p>那么，确实存在一份 G 的有限证明，可以给它编上一个自然数号码。</p></li>
+                <li><strong>系统也能核查这份证明。</strong><p>因此，它能推出“G 有证明”。但它刚证明的 G，表达的恰恰是“G 没有证明”。</p></li>
+                <li><strong>“有证明”与“没有证明”同时出现。</strong><p>系统推出了互相否定的两个命题，这与我们假定的自洽性矛盾。</p></li>
+              </ol>
+              <p class="branch-conclusion">所以：如果系统自洽，它就不能证明 G。</p>
+            </section>
+            <section id="proof-unprovable" class="proof-result" aria-labelledby="unprovable-title" hidden>
+              <h5 id="unprovable-title">这条路留下了一个无法证明的真命题</h5>
+              <ol class="proof-steps">
+                <li><strong>假设系统不能证明 G。</strong><p>也就是：没有任何自然数，编码了一份这个系统认可的 G 的证明。</p></li>
+                <li><strong>再读一遍 G。</strong><p>它说的正是“我在这个系统中没有证明”。于是，从系统外看，G 在通常的自然数中为真。</p></li>
+                <li><strong>真，却无法在系统内证明。</strong><p>“涵盖全部算术真理”的愿望落空了。这里没有产生逻辑矛盾，而是发现了证明能力的边界。</p></li>
+              </ol>
+              <p class="branch-conclusion">所以：系统内的可证明性，无法囊括全部算术真理。</p>
+            </section>
+          </div>
+          <p id="proof-announcement" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
+          <noscript><p>启用 JavaScript 后可操作两种假设。核心推理是：证明 G 会破坏自洽性；不能证明 G，则 G 所说的“没有证明”为真。</p></noscript>
+        </section>
+
+        <section class="theorem-conclusion" aria-labelledby="theorem-conclusion-title">
+          <p class="lesson-eyebrow">两条路，一个边界</p>
+          <h4 id="theorem-conclusion-title">规则能机械执行，又足以表达基本算术：<br>这样的系统，如果自洽，就不完备。</h4>
+          <p>准确地说，总有一个算术命题，系统既不能证明它，也不能证明它的否定。这是第一不完备性定理的现代形式（含罗瑟的加强）。</p>
+          <details class="precision-note">
+            <summary>直观推演与完整定理，还有什么区别？</summary>
+            <div>
+              <p>上面的演示说明：在自洽的前提下，标准哥德尔句 G 不可证明，并在通常的自然数中为真。我们在系统外，借助对系统自洽性的假设得出这一结论；这不是系统内部的一份 G 的证明。</p>
+              <p>逻辑学中的“完备”通常指：每个语句，系统都能证明它或它的否定。仅凭上面对 G 的推演，还没有排除系统证明 G 的否定。哥德尔原来的论证用更强的“ω-自洽性”排除这一情形；罗瑟后来改造了所构造的语句，使普通自洽性就足以保证两边都不可证明。</p>
+              <p>自然语言中的自我指涉本身不是证明。严格论证通过哥德尔编码与对角引理，构造一个真正的算术语句，使系统内可证明“G 等价于 G 没有系统内证明”。这里的“真”，始终指通常的自然数解释。</p>
+            </div>
+          </details>
+        </section>
+
+        <section class="godel-meaning" aria-labelledby="meaning-title">
+          <h4 id="meaning-title">这为什么重要？</h4>
+          <div class="meaning-item"><span aria-hidden="true">01</span><div><h5>真理与证明，是两个层次</h5><p>“是真的”与“能从这套公理推出”并不等同。无法在一个系统中证明，也不意味着永远无法证明：换用更强的公理，有时就能继续前进。</p></div></div>
+          <div class="meaning-item"><span aria-hidden="true">02</span><div><h5>没有一套规则能包办全部算术真理</h5><p>可以扩充公理，但只要新的系统仍然自洽、可有效公理化且足够强，不完备性就仍然适用。它揭示的是每一套这类固定规则的边界，而不是数学推理失去了价值。</p></div></div>
+          <div class="meaning-item"><span aria-hidden="true">03</span><div><h5>算法也有原则性的边界</h5><p>图灵证明，不存在一个总能给出正确答案的通用算法，判断任意程序在给定输入下是否会停止。这种与自我指涉有关的限制，与不完备性密切相连；它不只是“计算太慢”。</p></div></div>
+        </section>
+
+        <details class="godel-sources">
+          <summary>延伸阅读与核对来源</summary>
+          <ul>
+            <li><a href="https://virtualmath1.stanford.edu/~feferman/papers/Godel-IAS.pdf" lang="en">Solomon Feferman · The nature and significance of Gödel’s incompleteness theorems（PDF）</a></li>
+            <li><a href="https://ocw.mit.edu/courses/6-080-great-ideas-in-theoretical-computer-science-spring-2008/2941b1c3c81ee47665e6819c772f82a9_lec5.pdf" lang="en">MIT · Great Ideas in Theoretical Computer Science, Lecture 5（PDF）</a></li>
+          </ul>
+        </details>
+      </article>
+    </section>
+
+    <section id="panel-escher" class="person-panel" role="tabpanel" aria-labelledby="tab-escher" tabindex="0" data-person="escher" hidden>
+      <header class="person-introduction">
+        <p class="person-meta">1898—1972 · 版画艺术家</p>
+        <h2>毛里茨·科内利斯·埃舍尔 <span lang="nl">M. C. Escher</span></h2>
+        <p>埃舍尔用版画探索对称、无穷与不可能的空间。在《瀑布》中，水沿着看似合理的水渠流动，却又回到高处，形成一个令人困惑的循环。</p>
+      </header>
+      <div id="escher-experiment" class="person-stage"><!-- 后续：用 HTML 重建《瀑布》主体，并添加水流动画。 --></div>
+    </section>
+
+    <section id="panel-bach" class="person-panel" role="tabpanel" aria-labelledby="tab-bach" tabindex="0" data-person="bach" hidden>
+      <header class="person-introduction">
+        <p class="person-meta">1685—1750 · 作曲家、管风琴演奏家</p>
+        <h2>约翰·塞巴斯蒂安·巴赫 <span lang="de">Johann Sebastian Bach</span></h2>
+        <p>巴赫的音乐将严密的结构与丰富的表达融为一体。在卡农中，一个声部先奏出旋律，另一个声部随后模仿；同一条旋律在不同时间相遇，交织成音乐。</p>
+      </header>
+      <div id="bach-experiment" class="person-stage"><!-- 后续：卡农音乐播放控制与声部展示。 --></div>
+    </section>
+
+    <nav class="chapter-navigation" aria-label="章节导航">
+      <a class="next-chapter" href="/geb/chapters/01-mu/"><span>下一章</span><span>MU 谜题 <span aria-hidden="true">→</span></span></a>
+    </nav>
+  </main>
+  <footer>© 2014–<span id="copyright-year">2026</span> <a href="/">@ztgeng</a>. All rights reserved.</footer>
+</body>
+</html>

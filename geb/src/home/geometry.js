@@ -1,7 +1,7 @@
 import { BufferAttribute, BufferGeometry } from 'three';
 
 export async function loadSculptureGeometry() {
-  const response = await fetch(new URL('../assets/model/sculpture.json', import.meta.url));
+  const response = await fetch(new URL('../../assets/model/sculpture.json', import.meta.url));
   if (!response.ok) throw new Error(`Sculpture mesh: HTTP ${response.status}`);
   const mesh = await response.json();
   const geometry = new BufferGeometry();

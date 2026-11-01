@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Object3D, PerspectiveCamera, Quaternion } from 'three';
-import { attachSculptureInteraction } from '../src/interaction.js';
+import { attachSculptureInteraction } from '../src/home/interaction.js';
 
 class Canvas extends EventTarget {
   clientWidth = 800;

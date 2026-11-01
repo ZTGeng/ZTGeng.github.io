@@ -1,6 +1,6 @@
-# G.E.B. Shadow Sculpture
+# G.E.B. 互动项目
 
-独立的纯前端 Three.js 互动。一个固定的木雕网格，在两个互相垂直的墙面和地面上，分别投出 G、E、B。拖动只旋转木雕；相机、灯光和接影面始终固定。
+采用 Vite 多页面构建，每章一个独立页面。首页是纯前端 Three.js 互动。一个固定的木雕网格，在两个互相垂直的墙面和地面上，分别投出 G、E、B。拖动只旋转木雕；相机、灯光和接影面始终固定。
 
 ## 本地开发
 
@@ -24,9 +24,9 @@ npm run preview
 
 生产预览默认是 <http://127.0.0.1:4173/geb/>。
 
-`build` 先重新生成模型，再由 Vite 输出 `dist/`，最后把生成的 `index.html` 和 `assets/app/` 复制到项目根目录。**请编辑 `src/index.html`，不要手工修改生成的 `geb/index.html`。**
+`build` 先重新生成模型，再由 Vite 输出 `dist/`，最后把生成的 `index.html`、`chapters/` 和 `assets/app/` 复制到项目根目录。**请编辑 `src/index.html`，不要手工修改生成的 `geb/index.html`。**
 
-这是为了兼容本仓库现有的 GitHub Pages/Jekyll 部署：将 `geb/index.html` 和 `geb/assets/app/` 连同源码提交，即可继续由现有站点直接托管，无需线上 Node.js、额外工作流或服务器。构建只复制这些产物，不清空项目目录或未来章节。
+这是为了兼容本仓库现有的 GitHub Pages/Jekyll 部署：将 `geb/index.html`、`geb/chapters/` 和 `geb/assets/app/` 连同源码提交，即可继续由现有站点直接托管，无需线上 Node.js、额外工作流或服务器。构建只复制这些产物，不清空项目目录或未来章节。
 
 也可把 `dist/` 的内容发布到静态站点的 `/geb/` 路径下。资源的 base 固定为 `/geb/`。若部署到其他路径，修改 `vite.config.js` 的 `base` 和章节链接后重新构建。
 
@@ -71,9 +71,9 @@ npm run geometry
 
 每块平面只受到对应轴向光的正面漫反射；其他两盏灯与它的法线垂直，不会把正确字母阴影照亮。平面采用高粗糙度材质，不添加会破坏此关系的扰动法线。无需额外投影相机或自制合成字母图层。
 
-`src/receiver.js` 为黑色接影面增加圆形入射光范围：在平面的局部坐标中，仅衰减直接光照，`smoothstep(0.50, 8.0, radius)` 形成宽幅柔和渐变，再乘以 `1.0 - 1.0 * min(radius² / 64.0, 1.0)` 加深外围衰减；64.0 是外半径 8.0 的平方。当前墙面交界距离中心 4.4，直接光仍保留约 33%，三面光晕自然连通，参考原书封面的大面积光晕。圆形在透视画面中自然呈椭圆；其范围覆盖木雕在任意旋转下的投影包围球。间接光在墙面上大幅减弱，让字母影子与未照亮的墙面均保持深色。这个 shader **只模拟光束范围，不生成或替换阴影**；字母及旋转后的所有影子仍由原生阴影映射得到。保留平行光可避免有限距离聚光灯引起投影变形。
+`src/home/receiver.js` 为黑色接影面增加圆形入射光范围：在平面的局部坐标中，仅衰减直接光照，`smoothstep(0.50, 8.0, radius)` 形成宽幅柔和渐变，再乘以 `1.0 - 1.0 * min(radius² / 64.0, 1.0)` 加深外围衰减；64.0 是外半径 8.0 的平方。当前墙面交界距离中心 4.4，直接光仍保留约 33%，三面光晕自然连通，参考原书封面的大面积光晕。圆形在透视画面中自然呈椭圆；其范围覆盖木雕在任意旋转下的投影包围球。间接光在墙面上大幅减弱，让字母影子与未照亮的墙面均保持深色。这个 shader **只模拟光束范围，不生成或替换阴影**；字母及旋转后的所有影子仍由原生阴影映射得到。保留平行光可避免有限距离聚光灯引起投影变形。
 
-使用 Three.js 原生 WebGL 阴影映射和 `PCFShadowMap`。桌面使用三张 2048² 阴影图，窄屏初次加载时使用 1024²。阴影正交范围为 ±2.65，覆盖雕塑在任意旋转下的包围球；near/far、bias、normalBias 和适度 PCF 半径在 `src/scene.js` 中统一配置。木雕会自投影，接影面不会向其他面投影。适量暖色环境光让暗部仍可辨认。
+使用 Three.js 原生 WebGL 阴影映射和 `PCFShadowMap`。桌面使用三张 2048² 阴影图，窄屏初次加载时使用 1024²。阴影正交范围为 ±2.65，覆盖雕塑在任意旋转下的包围球；near/far、bias、normalBias 和适度 PCF 半径在 `src/home/scene.js` 中统一配置。木雕会自投影，接影面不会向其他面投影。适量暖色环境光让暗部仍可辨认。
 
 没有在木雕上画字母，没有预渲染阴影，没有根据观察角度切换模型。木纹只是基于模型局部坐标的程序化材质，随木雕一起转动，不参与阴影生成。
 
@@ -91,31 +91,30 @@ npm run geometry
 
 ```text
 geb/
-├── index.html                 # 生成的 GitHub Pages 入口
-├── index.js                   # 原有姓名展开与版权年份
+├── src/
+│   ├── index.html                 # 首页源码
+│   ├── home/                      # 首页脚本、样式和木雕场景
+│   └── chapters/00-intro/
+│       ├── index.html             # 人物介绍与三分页框架
+│       ├── main.js
+│       └── style.css
+├── shared/geb.css                 # 通用主题、基础布局和导航
+├── assets/model/                  # 模型与诊断文件
+├── assets/app/                    # 生成的浏览器资源
+├── scripts/
+├── tests/
 ├── package.json / package-lock.json
 ├── vite.config.js
-├── README.md / MEMORY.md / THIRD_PARTY_NOTICES.md
-├── src/
-│   ├── index.html             # 首页 HTML 源码
-│   ├── main.js / style.css    # 初始化与场景布局
-│   ├── scene.js               # 固定相机、接影面、灯光与按需绘制
-│   ├── framing.js             # 响应式相机构图
-│   ├── geometry.js            # 加载预计算网格
-│   ├── wood.js                # 程序化木纹
-│   ├── receiver.js            # 黑墙与圆形入射光范围
-│   └── interaction.js         # 拖动和 Reset
-├── shared/geb.css             # 首页共用深色样式
-├── scripts/
-│   ├── volume.js              # 字形、交集、连通性检查、网格化
-│   ├── generate-geometry.js   # 离线生成与诊断报告
-│   └── publish-static.js      # 复制可提交的静态产物
-├── tests/                     # 几何与交互回归测试
-├── assets/
-│   ├── model/                 # 原始网格、报告、诊断投影
-│   └── app/                   # 生成的 JS/CSS/网格及 Three.js bundle
-└── dist/                      # Vite 产物，不提交
+├── index.html                     # 生成的首页
+├── chapters/00-intro/index.html    # 生成的章节页
+└── dist/                          # 完整构建结果，不提交
 ```
+
+只编辑 src/ 中的页面；首页专用模块在 src/home/，章节源码在 src/chapters/<编号-名称>/，每章包含 index.html、main.js 和 style.css。Vite 自动发现各章 HTML 入口，发布脚本同步首页、chapters/ 和 assets/app/；这些静态产物随源码提交。dist/ 包含所有已实现页面，可独立预览整个项目。发布脚本不自动清理历史产物，删除或改名页面时需检查旧发布文件。
+
+第三方依赖统一使用 npm 和 package-lock.json 管理，由 Vite 打包为本地静态资源，不另建手动 vendor/。每章只导入自身所需依赖；shared/ 保留自行编写的跨页面代码，首页专用样式已移到 src/home/style.css。素材按需添加，记录来源与授权。
+
+
 
 ## 已知边界
 
@@ -124,6 +123,6 @@ geb/
 - 除初始/复位位置外，任意旋转后的影子通常不会继续像字母，这正是本互动要展示的现象。
 - 需要 WebGL 2。资源均本地提供；无法创建图形上下文时显示文字提示。
 - 目标是现代桌面流畅交互，尚未跨设备实测 60 FPS；移动端图形性能取决于设备。
-- 第一章 `chapters/01-mu/` 尚未开发，保留首页已有的下一章入口。
+- 首页下一章指向 `/geb/chapters/00-intro/`，已实现三个人物分页与简介；哥德尔分页含第一不完备性定理双分支互动、准确性说明与意义讲解，埃舍尔与巴赫主体暂留空；下一章链接指向尚未开发的 01-mu。
 
 参考实现文档：[Three.js WebGLRenderer](https://threejs.org/docs/pages/WebGLRenderer)、[DirectionalLight](https://threejs.org/docs/pages/DirectionalLight)、[LightShadow](https://threejs.org/docs/pages/LightShadow)。
