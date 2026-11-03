@@ -1,6 +1,7 @@
 import '../../../shared/geb.css';
 import './style.css';
 import './godel.js';
+import './escher/index.js';
 
 const tabs = [...document.querySelectorAll('[role="tab"]')];
 const panels = [...document.querySelectorAll('[role="tabpanel"]')];
