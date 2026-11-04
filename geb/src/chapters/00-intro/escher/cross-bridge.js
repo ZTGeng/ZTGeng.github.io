@@ -46,7 +46,7 @@ const houseDepth=(backV-frontV)*1.08*1.15;
 const square=squareFootprint(houseDepth/(2*squareFootprint(1).halfDepth));
 const houseCenterV=(frontV+backV)/2;
 export const crossBridgeLayout={recedingSlope:channel4Slope,platformLift,referenceGround,origin,platformOrigin,slide,platformEnd:150,frontV,backV,previousFrontV,platformDrop,start:0,end:150,deck:-scene.brickCourseHeight,ground,
-  edgeHeight:scene.brickCourseHeight,edgeThickness:6,archStart:0,archHeight:56,
+  wallBottom:2*ground,edgeHeight:scene.brickCourseHeight,edgeThickness:6,archStart:0,archHeight:56,
   houseMinV:houseCenterV-houseDepth/2,houseMaxV:houseCenterV+houseDepth/2,
   houseWidth:2*square.halfWidth,houseRoof:6,houseBottom:-420,houseLeftShift:8,houseLift:12,houseScreenOffset:[14,-40],
   cornerStep:{height:scene.brickCourseHeight/2,width:channelBrickLength/Math.hypot(1,channel4Slope),run:12},
@@ -95,7 +95,7 @@ export function crossBridge() {
           [0,c.cornerStep.width],[c.cornerStep.run,0],c.cornerStep.height,1)}
       </g>
       ${edge(c.frontV,c.frontV+c.edgeThickness,'stone-light wall-facing',false)}
-      ${polygon([p(0,c.frontV,z+c.edgeHeight),p(c.end,c.frontV,z+c.edgeHeight),p(c.end,c.frontV,g),p(0,c.frontV,g)],'stone-light wall-facing bridge-front-wall')}
+      ${polygon([p(0,c.frontV,z+c.edgeHeight),p(c.end,c.frontV,z+c.edgeHeight),p(c.end,c.frontV,c.wallBottom),p(0,c.frontV,c.wallBottom)],'stone-light wall-facing bridge-front-wall')}
       <g id="escher-bridge-arch">${archDoor(p,c.archStart,c.frontV,g,28,c.archHeight)}
         ${path(`M${p(c.archStart+4,c.frontV,g)}L${p(c.archStart+4,c.frontV,g+c.archHeight*.60)}Q${p(c.archStart+16,c.frontV,g+c.archHeight*1.27)} ${p(c.archStart+28,c.frontV,g+c.archHeight*.60)}`,'bridge-arch-intrados')}
       </g>

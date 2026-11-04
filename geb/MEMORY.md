@@ -489,3 +489,5 @@ geb/
 - 水车offsetX -10→-8，严格向右回移2；左下方柱右立面添加轴心承座（双椭圆），x=左柱中心x+halfWidth=右立面横向中央，y=scene.wheel.centerY。瀑布新增仅绘制用waterfallVisualShiftX=-5，水帘直落段及水花相对上一轮左移5，不牵动水池/水道等几何。出水口起点sourceX=lipX-fallRouteX抵消整组偏移，保持出水口锚点；上端Q改为C曲线，控制点先向左伸出再向下进入原直落段（曲线调整不再改变本轮左移后的落点）。剪裁与12条水线/17条细线共用fallLine，保持45宽。94项测试及构建通过，浏览器验收escher-wheel-axle-fall-arc.png；快照.verification/escher-before-wheel-axle-fall-arc.json。
 
 - 水车轴心承座单独下移8：y=scene.wheel.centerY+8，水车、方柱和瀑布保持。构建通过。
+
+- 桥身正立面向下加倍：独立wallBottom=2*ground=-144替代原底边-72，上边deck+edgeHeight=0不动，拱门与窗户仍使用原g/deck坐标，平台/楼梯锚点继续原ground不变。94项测试、构建和浏览器检查通过，验收escher-double-bridge-wall.png；快照.verification/escher-before-double-bridge-wall.json。
