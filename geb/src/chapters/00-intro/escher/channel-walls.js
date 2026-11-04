@@ -9,6 +9,7 @@ const subdivisions = 24;
 export const sampleEdge = (a, b) => Array.from({ length: subdivisions + 1 }, (_, i) => mix(a, b, i / subdivisions));
 
 export const brickCourseHeight = 4;
+export const channelBrickLength = 29;
 export const wallStepStations = [1/3,2/3];
 
 function station(segment, point) {
@@ -115,8 +116,8 @@ export function channelWall(run, height) {
   spans.forEach((length, i) => {
     const end = walked + length;
     if (length > 1e-8) {
-      const first = Math.ceil((walked - anchor) / 29) * 29 + anchor;
-      for (let distance = first; distance < end - 1e-7; distance += 29) {
+      const first = Math.ceil((walked - anchor) / channelBrickLength) * channelBrickLength + anchor;
+      for (let distance = first; distance < end - 1e-7; distance += channelBrickLength) {
         const t = (distance - walked) / length;
         const outer = mix(run.outer[i], run.outer[i + 1], t);
         const inner = mix(run.inner[i], run.inner[i + 1], t);

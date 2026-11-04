@@ -1,4 +1,4 @@
-import { scene } from './scene.js';
+import { scene, squareFootprint } from './scene.js';
 import { projectPlane, across, receding } from './projection.js';
 
 export const mix = (a, b, t = .5) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
@@ -45,7 +45,8 @@ const bays = Object.fromEntries(towerLevels.map(level => [level.tier, bay(level,
 const edge = (id, name) => bays[id].edges[name];
 const middle = points => mix(...points);
 
-export const waterfallLip = middle(edge('left-upper', 'front')).map((value, i) =>
+const referenceFootprint=squareFootprint(scene.mill.referenceChannelHalfSide);
+export const waterfallLip = middle(bay(towerLevels.find(l=>l.tier==='left-upper'),referenceFootprint).edges.front).map((value, i) =>
   i === 1 ? value - scene.channelWallHeights[1].left + scene.channelWaterFreeboard : value);
 
 export function columnFeet(level) {
@@ -71,9 +72,13 @@ export const channel4BankY = x => waterway4From[0][1] + (x - waterway4From[0][0]
 export const channel4WaterOutlet = middle(waterway4To).map((value, i) =>
   i === 1 ? value - scene.channelWallHeights[4].left + scene.channelWaterFreeboard : value);
 export const channel4RimOutlet = [scene.waterfallOutletX, channel4BankY(scene.waterfallOutletX) - scene.channelWallHeights[4].left];
-export const waterfallTail = channel4RimOutlet;
+// Keep the established mill, fall and garden elevation while resizing the
+// aqueduct footprint. Only the channel's actual bank and pier anchors move.
+const referenceFourthNear=bay(towerLevels.find(l=>l.tier==='right-lower'),referenceFootprint).corners[1];
+const referenceBankY=x=>referenceFourthNear[1]+(x-referenceFourthNear[0])*receding[1];
+export const waterfallTail = [scene.waterfallOutletX,referenceBankY(scene.waterfallOutletX)-scene.channelWallHeights[4].left];
 const referencePlatformY = scene.millTerrace.origin[1] + (scene.waterfallOutletX - scene.millTerrace.origin[0]) * across[1];
-export const millLift = referencePlatformY - channel4RimOutlet[1];
+export const millLift = referencePlatformY - waterfallTail[1];
 const millFloorY = scene.mill.origin[1] - millLift;
 export const millLayout = { ...scene.mill, origin: projectPlane([scene.mill.origin[0], millFloorY], 0, scene.mill.slide) };
 const millTerraceBase = {

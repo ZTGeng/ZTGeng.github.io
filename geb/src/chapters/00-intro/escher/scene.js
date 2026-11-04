@@ -30,10 +30,10 @@ export const scene = {
   // Rightward screen directions: down 10 degrees and up 20 degrees.
   // Their 30-degree acute angle defines every horizontal plane.
   waterwayDirections: { across: [1, acrossSlope], receding: [1, recedingSlope] },
-  towerBay: squareFootprint(31),
-  lowerPierFootprint: { halfWidth: 5.75, halfDepth: 4.6 },
-  channelFootprint: squareFootprint(42),
-  channelWallThickness: 18,
+  towerBay: squareFootprint(37),
+  lowerPierFootprint: { halfWidth: 7.5, halfDepth: 6 },
+  channelFootprint: squareFootprint(50),
+  channelWallThickness: 25,
   // Approved turn support elevations. Straight-wall brick courses are
   // independent so stepped coping does not move the tower feet.
   channelWallHeights: {
@@ -45,30 +45,33 @@ export const scene = {
   channelWaterFreeboard: 2,
   // Allow the deeper square footprint to clear the fixed wheel outlet.
   towerBayCenterOffset: [10, -9],
-  columnCap: squareFootprint(8),
+  columnCap: squareFootprint(10),
+  columnBase: squareFootprint(11.8),
+  columnRadius: 7.5,
   columnBaseHeights: {
     'right-lower': 8,
     'left-middle': 20,
     'right-upper': 25,
     'left-upper': 31,
   },
-  towerEave: squareFootprint(44),
-  archFrame: { ...squareFootprint(40), top: 28, bottom: -18, crown: 56 },
+  towerEave: squareFootprint(54),
+  archFrame: { ...squareFootprint(48), top: 28, bottom: -18, crown: 56 },
   waterfallOutletX: 354,
   waterfallLandingExtension: 8,
   waterfallOffsetX: -10,
-  pool: { halfSide: 60, sideRetraction: 18, rearPierGap: 2, rimWidth: 3, rimHeight: 3 },
+  pool: { halfSide: 60, sideRetraction: 18, widthExpansion: 20, rearPierGap: 2, rimWidth: 3, rimHeight: 3 },
   ornamentYawDegrees: [25, 35],
   wallDepth: 8,
   // Wheel face follows the receding/vertical plane; its thickness follows across.
   // Keep the wheel faces upright; only the axle has a ground-plane incline.
   wheel: { x: 389, radius: 64, lift: 25,
-    depth: [-40 * Math.cos(azimuth), 40 * sinElevation * Math.sin(azimuth)],
+    depth: [-52 * Math.cos(azimuth), 52 * sinElevation * Math.sin(azimuth)],
     faceScale: wheelFaceScale, faceShear: 0,
     buckets: 24, flipX: true },
   mill: {
     origin: [157, 642], width: 137, depth: 205, height: 146, roofRise: 68,
     slide: -48,
+    referenceChannelHalfSide: 42,
   },
   towers: [
     // Shared bay centers anchor both the four columns and waterway corners.
@@ -81,15 +84,16 @@ export const scene = {
   ],
   // This terrace belongs only to the mill and wheel, not to the aqueduct.
   showRightHouses: false,
+  showBridgeHouse: true,
   millTerrace: {
     // Keep the terrace's front edge on the mill floor as its angle changes.
     origin: [139, 642 - (157 - 139) * acrossSlope],
-    outline: [[38, -20], [280, -20], [280, 82], [262, 82], [262, 225], [38, 225]],
-    door: { u: 280, v: 8, width: 56, height: 96 },
-    garden: { left: 38, right: 280, depth: 180, lift: 32, wallHeight: 32, gateWidth: 26, gateHeight: 46 },
-    platformOutline: [[-18, -36], [180, -36], [180, -20], [280, -20], [280, 82], [262, 82], [262, 225], [-18, 225]],
-    canalSupportHeight: 65,
-    canalLowerHeight: 95,
+    outline: [[38, -20], [306, -20], [306, 82], [288, 82], [288, 225], [38, 225]],
+    door: { u: 306, v: 8, width: 56, height: 96 },
+    garden: { left: 38, right: 306, plantWidth: 242, depth: 180, lift: 32, wallHeight: 32, gateWidth: 26, gateHeight: 46 },
+    platformOutline: [[-18, -36], [180, -36], [180, -20], [306, -20], [306, 82], [288, 82], [288, 225], [-18, 225]],
+    canalSupportHeight: 50,
+    canalLowerHeight: 110,
     canalLowerSetback: 34,
     platformThickness: 6,
     platformRailEdges: [0, 1, 2, 3, 4, 7],

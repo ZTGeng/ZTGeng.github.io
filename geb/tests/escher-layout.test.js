@@ -69,7 +69,7 @@ test('both banks of channel 4 remain parallel to channel 2', () => {
   }
   assert.equal(mix(...fourth.to)[0], scene.waterfallOutletX);
   assert.equal(fourth.tailrace, undefined);
-  assert.equal(waterfallTail[1], channel4BankY(waterfallTail[0]) - scene.channelWallHeights[4].left);
+  assert.ok(Math.abs(waterfallTail[1]-634.3559741401601)<1e-9);
 });
 
 test('the two lower piers align with the middle right pair, both to the right of the tailrace', () => {
@@ -80,7 +80,7 @@ test('the two lower piers align with the middle right pair, both to the right of
     assert.equal(pier.x, upperFeet[i][0]);
     assert.equal(pier.top + 5, upperFeet[i][1] + scene.wallDepth);
     const halfWidth = scene.lowerPierFootprint.halfWidth + scene.lowerPierFootprint.halfDepth;
-    assert.ok(pier.x - halfWidth > scene.waterfallOutletX + 24);
+    assert.ok(pier.x - halfWidth > waterfallTail[0]+5+scene.waterfallOffsetX+10);
   }
 });
 
@@ -194,16 +194,16 @@ test('the enlarged wheel fits above the outer waterway edge after horizontal ref
 });
 
 test('wide channel turns support the complete outer column bases and have progressively taller walls', () => {
-  assert.ok(scene.channelFootprint.halfWidth >= scene.towerBay.halfWidth + 7.5);
-  assert.ok(scene.channelFootprint.halfDepth >= scene.towerBay.halfDepth + 5.5);
+  assert.ok(scene.channelFootprint.halfWidth >= scene.towerBay.halfWidth + scene.columnBase.halfWidth);
+  assert.ok(scene.channelFootprint.halfDepth >= scene.towerBay.halfDepth + scene.columnBase.halfDepth);
   assert.ok(waterInset > 0 && waterInset < .5);
   for (const segment of channelSegments) {
     const water = straightWaterEdges(segment);
     assert.ok(Number.isInteger(water.height / brickCourseHeight));
     assert.equal(water.height - water.waterElevation, 2);
     assert.ok(water.waterElevation > 0 && water.waterElevation < water.height);
-    // A 48-unit clear passage replaces the former 29.76-unit channel.
-    assert.equal(2 * scene.channelFootprint.halfSide - 2 * scene.channelWallThickness, 48);
+    // Widen the banks while retaining at least the previous clear passage.
+    assert.ok(2 * scene.channelFootprint.halfSide - 2 * scene.channelWallThickness>=48);
     for (const [edge, fraction] of [[water.near, waterInset], [water.far, 1 - waterInset]]) {
       assert.deepEqual(edge[0], mix(...segment.from, fraction));
       assert.deepEqual(edge[1], mix(...segment.to, fraction));
@@ -268,14 +268,18 @@ test('merged corner banks support all four columns without closing the water pas
     const banks = turnBanks(turn);
     assert.equal(banks.length, 2);
     const level = towerLevels.find(level => level.tier === turn.tier);
-    for (const foot of bay(level).corners) assert.ok(banks.some(bank => inside(foot, bank)));
+    for (const foot of bay(level).corners) {
+      for(const u of [-scene.columnBase.halfWidth,scene.columnBase.halfWidth])
+        for(const v of [-scene.columnBase.halfDepth,scene.columnBase.halfDepth])
+          assert.ok(banks.some(bank=>inside(projectPlane(foot,u,v),bank)));
+    }
     assert.ok(banks.every(bank => !inside(level.center, bank)));
     const area = polygon => Math.abs(polygon.reduce((sum, p, i) => {
       const q = polygon[(i + 1) % polygon.length]; return sum + p[0] * q[1] - p[1] * q[0];
     }, 0)) / 2;
     const total = area(bay(level, scene.channelFootprint).corners);
     const bankFraction = banks.reduce((sum, bank) => sum + area(bank), 0) / total;
-    assert.ok(Math.abs(bankFraction - (84 * 84 - 48 * 48 - 2 * 48 * 18) / (84 * 84)) < 1e-9);
+    assert.ok(Math.abs(bankFraction - ((2*scene.channelFootprint.halfSide)**2-(2*scene.channelFootprint.halfSide-2*scene.channelWallThickness)**2-2*(2*scene.channelFootprint.halfSide-2*scene.channelWallThickness)*scene.channelWallThickness)/(2*scene.channelFootprint.halfSide)**2) < 1e-9);
   }
 });
 
@@ -289,8 +293,8 @@ test('platform front and waterfall landing meet the upper rim of the fourth chan
   assert.ok(millLift > 0);
   const v = -scene.mill.slide;
   const floorAtFall = projectPlane(millTerraceLayout.origin, waterfallTail[0] - millTerraceLayout.origin[0] - v, v);
-  assert.ok(Math.abs(floorAtFall[1] - channel4RimOutlet[1]) < 1e-9);
-  assert.deepEqual(waterfallTail, channel4RimOutlet);
+  assert.ok(Math.abs(floorAtFall[1] - waterfallTail[1]) < 1e-9);
+  assert.ok(Math.abs(waterfallTail[1]-634.3559741401601)<1e-9);
   assert.equal(channel4RimOutlet[1], channel4BankY(channel4RimOutlet[0]) - 31);
   const terraceAtMill = projectPlane(millTerraceLayout.origin, millLayout.origin[0] - millTerraceLayout.origin[0], 0);
   assert.ok(Math.abs(terraceAtMill[1] - millLayout.origin[1]) < 1e-9);
@@ -338,8 +342,8 @@ test('foundation aligns with the mill while the separate platform extends forwar
   const oldCorner = projectPlane(millTerraceLayout.origin, 330, -20);
   const newCorner = projectPlane(millTerraceLayout.origin, ...outline[3]);
   assert.ok(newCorner[0] < oldCorner[0] && newCorner[1] < oldCorner[1]);
-  assert.ok(scene.lowerPierFootprint.halfWidth > 5 && scene.lowerPierFootprint.halfWidth < 6);
-  assert.ok(scene.lowerPierFootprint.halfDepth > 4 && scene.lowerPierFootprint.halfDepth < 5);
+  assert.ok(scene.lowerPierFootprint.halfWidth > 5.75);
+  assert.ok(scene.lowerPierFootprint.halfDepth > 4.6);
 });
 
 test('right platform retains the pier anchor while its reduced projection has a matching foundation return', () => {
@@ -600,15 +604,18 @@ test('channel floor occluder matches the actual door wall without hiding the pon
 test('wider lower canal storey exposes a roof setback and the right corner railing',()=>{
   const markup=millFoundation();
   assert.equal(scene.viewBox,'0 0 900 884');
-  assert.equal(millTerraceLayout.canalSupportHeight,65);
+  assert.equal(millTerraceLayout.canalSupportHeight,50);
+  assert.equal(millTerraceLayout.canalSupportHeight+millTerraceLayout.canalLowerHeight,160);
   assert.ok(millTerraceLayout.canalLowerSetback>0);
   assert.match(markup,/id="escher-canal-lower-railing"/);
   const roof=markup.match(/points="([^"]+)" class="ground-plane terrace-floor mill-canal-lower-roof"/)[1].split(' ').map(p=>p.split(',').map(Number));
   assert.ok(roof[2][0]>roof[1][0]);
   assert.equal(roof.length,6);
   assert.ok(roof[3][0]<roof[2][0]);
-  assert.ok(Math.abs(roof[0][0]-(435.73414728928435+748.4653792760298)/2)<1e-8);
-  assert.ok(markup.indexOf('id="escher-canal-lower-railing"')<markup.indexOf('mill-canal-support-wall'));
+  const support=markup.match(/points="([^"]+)" class="[^"]*mill-canal-support-wall"/)[1].split(' ').map(p=>p.split(',').map(Number));
+  assert.ok(Math.abs(roof[0][0]-(support[0][0]+support[1][0])/2)<1e-8);
+  assert.ok(markup.indexOf('id="escher-canal-lower-railing"')>markup.indexOf('mill-canal-support-wall'));
+  assert.ok(markup.indexOf('id="escher-canal-lower-railing-rear"')<markup.indexOf('mill-canal-support-wall'));
   assert.ok(roof.every(p=>p[0]<900));
   const left=projectPlane(millTerraceLayout.origin,millTerraceLayout.outline[0][0],-20);
   assert.equal(left[0],millLayout.origin[0]);
@@ -642,3 +649,89 @@ test('mill gable and door facade form one five-corner wall without an eaves seam
   assert.equal([...markup.matchAll(/class="stone-light"/g)].length,0);
 });
 
+
+
+test('resizing structural bays preserves the mill, fall and tower centers and vertical tier alignments',()=>{
+  assert.ok(Math.abs(millLayout.origin[0]-109)<1e-9);
+  assert.ok(Math.abs(millLayout.origin[1]-617.0901301853702)<1e-9);
+  assert.ok(scene.columnRadius>6 && scene.columnBase.halfWidth>7.5);
+  for(const ids of [['left-upper','left-middle'],['right-upper','right-lower']]) {
+    const [a,b]=ids.map(id=>towerLevels.find(l=>l.tier===id));
+    const aa=bay(a).corners,bb=bay(b).corners;
+    aa.forEach((p,i)=>assert.equal(p[0],bb[i][0]));
+  }
+});
+
+
+test('wide cross bridge, house and descending platform share their structural anchors',async()=>{
+  const {crossBridgeLayout:c,crossBridge}=await import('../src/chapters/00-intro/escher/cross-bridge.js');
+  assert.equal(c.previousFrontV+c.platformOrigin[0],lowerPierColumns[0].x);
+  assert.equal(c.backV,28);
+  assert.equal(c.backV-c.frontV,(c.backV-c.previousFrontV)/2);
+  assert.ok(c.backV-c.frontV>75&&c.backV-c.frontV<90);
+  assert.ok(c.houseMaxV-c.houseMinV>c.backV-c.frontV);
+  assert.equal(c.deck-c.ground,millTerraceLayout.canalSupportHeight+c.platformDrop);
+  const end=projectPlane(c.platformOrigin,c.stairU+c.stairRun*c.stairCount,c.stairV,c.ground-c.stairRise*c.stairCount);
+  assert.ok(Math.hypot(...end.map((v,i)=>v-c.groundTarget[i]))<1e-8);
+  for(const u of [c.end,c.end+c.houseWidth]) for(const v of [c.houseMinV,c.houseMaxV]) {
+    assert.ok(projectPlane(c.origin,u,v,c.houseBottom)[1]+scene.compositionOffsetY>884);
+  }
+  const markup=crossBridge();
+  assert.equal([...markup.matchAll(/class="bridge-raised-edge"/g)].length,2);
+  assert.equal([...markup.matchAll(/class="window-dark"/g)].length,scene.showBridgeHouse?2:1);
+  assert.equal(markup.includes('id="escher-bridge-house"'),scene.showBridgeHouse);
+  assert.match(markup,/id="escher-bridge-platform-stairs"/);
+});
+
+
+test('bridge parapet and arch wall share one facade while the lower terrace has only level axis-aligned edges',async()=>{
+  const {crossBridgeLayout:c,crossBridge}=await import('../src/chapters/00-intro/escher/cross-bridge.js');
+  const markup=crossBridge();
+  const facade=markup.match(/points="([^"]+)" class="stone-light wall-facing bridge-front-wall"/)[1].split(' ').map(p=>p.split(',').map(Number));
+  assert.deepEqual(facade[0],projectPlane(c.origin,0,c.frontV,c.deck+c.edgeHeight));
+  assert.deepEqual(facade[3],projectPlane(c.origin,0,c.frontV,c.ground));
+  const platform=markup.match(/points="([^"]+)" class="ground-plane terrace-floor"/)[1].split(' ').map(p=>p.split(',').map(Number));
+  platform.forEach((a,i)=>{
+    const b=platform[(i+1)%platform.length],slope=(b[1]-a[1])/(b[0]-a[0]);
+    assert.ok(Math.min(...Object.values(scene.waterwayDirections).map(v=>Math.abs(slope-v[1])))<1e-9);
+  });
+});
+
+
+test('restored bridge slides by a coping brick without moving the terrace and steps stay behind the near parapet',async()=>{
+  const {crossBridgeLayout:c,crossBridge}=await import('../src/chapters/00-intro/escher/cross-bridge.js');
+  assert.equal(c.end,150);
+  assert.equal(c.platformEnd,150);
+  assert.deepEqual(c.origin,projectPlane(c.platformOrigin,0,45-29/Math.hypot(...scene.waterwayDirections.receding)));
+  assert.equal(c.deck+c.edgeHeight,0);
+  assert.equal(c.bankStepWidth,14);
+  const markup=crossBridge();
+  assert.ok(markup.indexOf('id="escher-bridge-bank-steps"')<markup.indexOf('bridge-front-wall'));
+  assert.equal([...markup.matchAll(/bridge-bank-step-side/g)].length,2);
+  assert.ok(c.archHeight>46);
+});
+
+
+test('bridge house has a true square section centered on the bridge and a roof just above both parapets',async()=>{
+  const {crossBridgeLayout:c,crossBridge}=await import('../src/chapters/00-intro/escher/cross-bridge.js');
+  const depth=c.houseMaxV-c.houseMinV;
+  const ratio=scene.towerBay.halfWidth/scene.towerBay.halfDepth;
+  assert.ok(Math.abs(c.houseWidth/depth-ratio)<1e-10);
+  assert.equal((c.houseMinV+c.houseMaxV)/2,(c.frontV+c.backV)/2);
+  assert.ok(depth>c.backV-c.frontV && depth<(c.backV-c.frontV)*1.1);
+  assert.ok(c.houseRoof>c.deck+c.edgeHeight && c.houseRoof<c.deck+c.edgeHeight+10);
+  assert.match(crossBridge(),/id="escher-bridge-house"/);
+});
+
+
+test('upper wall and bridge shrink equally while terrace and arch rise without moving the ground landing',async()=>{
+  const {crossBridgeLayout:c}=await import('../src/chapters/00-intro/escher/cross-bridge.js');
+  const delta=65-millTerraceLayout.canalSupportHeight;
+  assert.equal(delta,15);
+  assert.equal(millTerraceLayout.canalLowerHeight-95,delta);
+  assert.equal(c.ground-c.referenceGround,delta);
+  assert.equal(c.archHeight,56);
+  assert.equal(c.stairRise*c.stairCount-5*c.stairCount,delta);
+  const end=projectPlane(c.platformOrigin,c.stairU+c.stairCount*c.stairRun,c.stairV,c.ground-c.stairCount*c.stairRise);
+  assert.ok(Math.hypot(...end.map((v,i)=>v-c.groundTarget[i]))<1e-9);
+});

@@ -11,7 +11,7 @@ const u=dx-v;
 const footprint=squareFootprint(scene.pool.halfSide);
 const rim=squareFootprint(scene.pool.rimWidth);
 const retreat=squareFootprint(scene.pool.sideRetraction/2);
-const minU=u-footprint.halfWidth,maxU=u+footprint.halfWidth-2*retreat.halfWidth;
+const minU=u-footprint.halfWidth,maxU=u+footprint.halfWidth-2*retreat.halfWidth+scene.pool.widthExpansion;
 const minV=v-footprint.halfDepth+2*retreat.halfDepth,maxV=millPlatformAnchor[1]-scene.lowerPierFootprint.halfDepth-scene.pool.rearPierGap;
 const localCenter=[(minU+maxU)/2,(minV+maxV)/2];
 export const pondLayout={

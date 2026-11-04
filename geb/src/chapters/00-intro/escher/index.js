@@ -1,4 +1,5 @@
 import './style.css';
+import { crossBridge } from './cross-bridge.js';
 import { currentSurface } from './current.js';
 import { startAnimation } from './animation.js';
 import { scene } from './scene.js';
@@ -24,12 +25,13 @@ function stoneBlock(center, u, v, height, tier) {
 
 function column(x, bottom, top, baseHeight, tier) {
   const shaftBottom = bottom - baseHeight - 2;
+  const r=scene.columnRadius, ring=r+2.5;
   return `<g class="escher-column" data-foot-y="${bottom}" data-cap-y="${top}" data-base-height="${baseHeight}" data-shaft-length="${shaftBottom - top - 15}">
-    ${stoneBlock([x, bottom], 7.5, 5.5, baseHeight, tier)}
-    ${path(`M${x - 6},${shaftBottom}V${top + 15}h12V${shaftBottom}q-6,4 -12,0Z`, 'stone-light')}
-    ${path(`M${x + 3},${top + 15}V${shaftBottom}`, 'column-shade')}
+    ${stoneBlock([x, bottom], scene.columnBase.halfWidth, scene.columnBase.halfDepth, baseHeight, tier)}
+    ${path(`M${x - r},${shaftBottom}V${top + 15}h${2*r}V${shaftBottom}q${-r},4 ${-2*r},0Z`, 'stone-light')}
+    ${path(`M${x + r*.5},${top + 15}V${shaftBottom}`, 'column-shade')}
     ${stoneBlock([x, top + 17], scene.columnCap.halfWidth, scene.columnCap.halfDepth, 12, tier)}
-    ${path(`M${x - 8},${bottom - baseHeight - 4}q8,5 16,0M${x - 8},${top + 23}q8,5 16,0`, 'fine-line')}
+    ${path(`M${x - ring},${bottom - baseHeight - 4}q${ring},5 ${2*ring},0M${x - ring},${top + 23}q${ring},5 ${2*ring},0`, 'fine-line')}
   </g>`;
 }
 
@@ -129,8 +131,7 @@ function channelSegment(segment, side) {
 function towerLayer(tier) {
   const level = towerLevels.find(item => item.tier === tier);
   const upperTower = scene.towers.find(item => `${item.id}-upper` === tier);
-  return `<g data-structural-layer="${tier}">
-    ${level.pierBay ? millRightPlatform()+landingPond() : ''}
+  return `<g id="escher-tier-${tier}" data-structural-layer="${tier}">
     ${level.pierBay ? '' : towerColumns(level, 'rear')}
     ${towerColumns(level, 'front')}
     ${towerBeam(level)}
@@ -154,7 +155,7 @@ const [tailX, platformY] = waterfallTail;
 const tailY = platformY + scene.waterfallLandingExtension;
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${scene.viewBox}" role="img" aria-labelledby="escher-svg-title escher-svg-description" class="escher-drawing">
   <title id="escher-svg-title">瀑布：水渠、水磨房与周围建筑群</title>
-  <desc id="escher-svg-description">水轮下方的水渠向右后方伸展，再反复折回，最终接到左塔下方的高处落水口。瀑布从那里直落到水轮和平台上的方形水池，形成二维画面中的不可能循环。远处是带有石墙、耕地和植物的梯田，左上有一座高窄小屋；左下是种植着杯形与枝状植物的庭院。</desc>
+  <desc id="escher-svg-description">水轮下方的水渠向右后方伸展，再反复折回，最终接到左塔下方的高处落水口。瀑布从那里直落到水轮和平台上的方形水池，形成二维画面中的不可能循环。远处是带有石墙、耕地和植物的梯田，左上有一座高窄小屋；右下的横桥连接水道4和正方形方屋，桥下平台与小阶梯通向门洞旁的地面；左下是种植着杯形与枝状植物的庭院。</desc>
   <defs>${materialDefinitions}<filter id="escher-mist-soften" x="-50%" y="-70%" width="200%" height="240%"><feGaussianBlur stdDeviation="1.4"/></filter><clipPath id="escher-fall-clip"><path d="M${lipX - 16},${lipY}Q${lipX - 30},${lipY + 24} ${lipX - 30},${lipY + 65}L${tailX - 30},${tailY}H${tailX + 5}V${lipY + 60}Q${lipX + 5},${lipY + 20} ${lipX + 16},${lipY}Z"/></clipPath>
     <mask id="escher-foundation-floor-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="1000">
       <rect width="900" height="1000" fill="white"/>
@@ -174,6 +175,14 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${scene.viewBox}" 
     ${millBalcony('rear')}
     ${mill()}
     ${structuralLayers()}
+    ${crossBridge()}
+    <!-- The deck and pond sit above the bridge; only the pier feet need
+         restoration here. Their upper parts retain the original layer order. -->
+    <g id="escher-pool-platform-layer">
+      ${millRightPlatform()}${landingPond()}
+      <defs><clipPath id="escher-pier-feet-clip"><rect x="0" y="${Math.min(...lowerPierColumns.map(p=>p.bottom))-18}" width="900" height="90"/></clipPath></defs>
+      <use href="#escher-tier-left-lower" clip-path="url(#escher-pier-feet-clip)"/>
+    </g>
     <g id="escher-fall-route" transform="translate(${scene.waterfallOffsetX} 0)">
     <g id="escher-waterfall" clip-path="url(#escher-fall-clip)">
       <rect x="${lipX - 40}" y="${lipY}" width="90" height="${tailY - lipY + 10}" class="fall-water"/>

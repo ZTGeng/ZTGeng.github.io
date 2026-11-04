@@ -17,15 +17,15 @@ test('pond keeps its front clearance and the fall remains inside after extending
   assert.ok(p.maxV<millTerraceLayout.platformOutline[4][1]);
 });
 
-test('pond rear edge approaches the pier while left, front and right anchors remain unchanged', () => {
+test('pond widens to the right while its left and front anchors stay fixed and its rear tracks the wider pier', () => {
   const p=pondLayout,half=squareFootprint(scene.pool.halfSide);
   assert.equal(p.minU,p.impactLocal[0]-half.halfWidth);
   const retreat=squareFootprint(scene.pool.sideRetraction/2);
   assert.equal(p.maxV,millPlatformAnchor[1]-scene.lowerPierFootprint.halfDepth-scene.pool.rearPierGap);
   assert.ok(p.maxV>p.impactLocal[1]+half.halfDepth);
   assert.equal(p.minV,p.impactLocal[1]-half.halfDepth+2*retreat.halfDepth);
-  assert.equal(p.maxU,p.impactLocal[0]+half.halfWidth-2*retreat.halfWidth);
-  assert.ok(p.maxU<p.impactLocal[0]+half.halfWidth);
+  assert.equal(p.maxU,p.impactLocal[0]+half.halfWidth-2*retreat.halfWidth+scene.pool.widthExpansion);
+  assert.ok(p.maxU>p.impactLocal[0]+half.halfWidth);
   assert.ok(p.minV>p.impactLocal[1]-half.halfDepth);
   assert.ok(p.impactLocal[0]>p.minU&&p.impactLocal[0]<p.maxU);
   assert.ok(p.impactLocal[1]>p.minV&&p.impactLocal[1]<p.maxV);

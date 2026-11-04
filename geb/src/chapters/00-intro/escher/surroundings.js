@@ -54,7 +54,7 @@ export function foreground() {
     </g>`:''}
     <g id="escher-garden" data-building="garden-planter">
       ${polygon(gardenCorners, 'garden-soil')}
-      ${gardenVegetation(garden,gardenWidth,gardenDepth)}
+      ${gardenVegetation(garden,millTerraceLayout.garden.plantWidth,gardenDepth)}
       ${polygon([garden(0, 0), garden(gardenWidth, 0), garden(gardenWidth, 0, -wallHeight), garden(0, 0, -wallHeight)], 'stone-light wall-facing')}
       ${polygon([garden(gardenWidth, 0), garden(gardenWidth, gateStart), garden(gardenWidth, gateStart, -wallHeight), garden(gardenWidth, 0, -wallHeight)], 'stone-mid wall-receding')}
       ${path(linePath([garden(0,0),garden(gardenWidth,0),garden(gardenWidth,gateStart)]), 'garden-wall-cap')}

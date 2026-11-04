@@ -106,8 +106,9 @@ export function millFoundation() {
         ${polygon([outerNear,outerCorner,down(outerCorner),down(outerNear)],'stone-mid wall-receding mill-canal-lower-wall')}
         ${polygon([near,outerNear,down(outerNear),down(near)],'stone-light wall-facing mill-canal-lower-return')}
         ${polygon(roof,'ground-plane terrace-floor mill-canal-lower-roof')}
-        <g id="escher-canal-lower-railing">${railing(projectPlane(outerCorner,0,-80),outerCorner,22)}${railing(outerCorner,backOuter,22)}</g>
+        <g id="escher-canal-lower-railing-rear">${railing(outerCorner,backOuter,22)}</g>
         ${polygon([left,right,far,baseLeft], 'stone-mid wall-receding building-side-wall mill-foundation-right-wall mill-canal-support-wall')}
+        <g id="escher-canal-lower-railing">${railing(projectPlane(outerCorner,0,-80),outerCorner,22)}</g>
       </g>`;
     }
     return polygon([p(...a), p(...b), p(b[0], b[1], -height), p(a[0], a[1], -height)], 'stone-mid wall-receding building-side-wall mill-foundation-right-wall');
