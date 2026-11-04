@@ -47,7 +47,7 @@
 #escher-waterfall { opacity: .8; }
 .fall-water { fill: #c1cec0; stroke: none; }
 .fall-line { fill: none; stroke: #eff0dd; stroke-width: 1.4; }
-.water-lip, .water-foam { fill: none; stroke: #eef0df; stroke-width: 3; }
+.water-foam { fill: none; stroke: #eef0df; stroke-width: 3; }
 .channel-joint { fill: none; stroke: #777163; stroke-width: 1; }
 .channel-corner-stone { fill: #d1cbb9; }
 .channel-corner-water { fill: #9fae9f; stroke: none; }
@@ -143,3 +143,11 @@
 .garden-grass { fill:none; stroke:#4e5c48; stroke-width:1; }
 
 .bridge-arch-intrados { fill:none; stroke:#8d8e7d; stroke-width:3; }
+
+.mill-door-ground { fill: #d3cdbb; stroke: none; }
+.door-ground-grid { fill: none; stroke: #a29b89; stroke-width: .8; }
+.door-ground-right-face { fill: url(#escher-brick-ground-perspective); }
+
+#escher-replacement-platform > .terrace-floor { stroke: #514f46; }
+
+.channel-waterline { fill: none; stroke: #617c70; stroke-width: .85; }

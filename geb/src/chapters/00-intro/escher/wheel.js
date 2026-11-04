@@ -1,27 +1,14 @@
 import { scene } from './scene.js';
 import { polygon } from './drawing.js';
-import { channelSegments, channel4BankY } from './channel-layout.js';
 
 // Radius and bucket count are configured together in scene.js.
 export function wheelRadius() {
   return scene.wheel.radius;
 }
 
-// Fit the approved-size wheel above the bank, then lift it for the composition.
+// Fixed placement: changing the channel pitch must never move the wheel.
 export function wheelCenterY() {
-  const { x, radius, depth, faceScale, faceShear, flipX } = scene.wheel;
-  const fourth = channelSegments.find(segment => segment.id === 4);
-  const a = fourth.from[0];
-  const b = fourth.to[0];
-  const slope = (b[1] - a[1]) / (b[0] - a[0]);
-  const direction = flipX ? -1 : 1;
-  const support = Math.hypot(1, faceShear - direction * slope * faceScale);
-  const allowed = [false, true].map(near => {
-    const rawX = x + (near ? depth[0] : 0);
-    const screenX = flipX ? 2 * x + depth[0] - rawX : rawX;
-    return channel4BankY(screenX) - (near ? depth[1] : 0) - 3 - (radius + 3) * support;
-  });
-  return Math.min(...allowed) - scene.wheel.lift;
+  return scene.wheel.centerY;
 }
 
 // Fixed projected faces surround two independent moving layers. The circular
@@ -64,7 +51,7 @@ export function drawWaterwheel() {
   const reflection=flipX?`translate(${2*x+depth[0]} 0) scale(-1 1)`:'';
   const spokes=Array.from({length:8},(_,i)=>
     `<path d="M7,-3.5H${r-9}v7H7Z" transform="rotate(${i*45})" class="wheel-timber-spoke"/>`).join('');
-  return `<g id="escher-wheel" data-structural-layer="wheel" transform="${reflection}">
+  return `<g id="escher-wheel" data-structural-layer="wheel" transform="translate(${scene.wheel.offsetX ?? 0} 0) ${reflection}">
     <g transform="translate(${x} ${y})">
       <g transform="matrix(${faceScale} ${faceShear} 0 1 ${rear[0]} ${rear[1]})"><circle r="${r-2.5}" class="wheel-rear-rim" style="fill:none;stroke-width:5"/></g>
       <g id="escher-wheel-buckets">${Array.from({length:visibleBuckets},(_,i)=>`<g class="wheel-moving-bucket">${polygon(bucketGeometry(i/visibleBuckets),'wheel-bucket-plank')}${polygon(bucketEdgeGeometry(i/visibleBuckets),'wheel-bucket-edge')}</g>`).join('')}</g>

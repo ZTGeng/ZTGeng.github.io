@@ -6,6 +6,7 @@ const azimuth = Math.atan(Math.sqrt(acrossSlope / -recedingSlope));
 const sinElevation = Math.sqrt(acrossSlope * -recedingSlope);
 const verticalScale = Math.sqrt(1 - sinElevation ** 2);
 const wheelFaceScale = Math.sin(azimuth) / verticalScale;
+const brickCourseHeight = Math.ceil(4 * 2);
 
 // Orthographic projection of two perpendicular, equally scaled ground axes.
 // tan(10°) = sin(elevation) * tan(azimuth),
@@ -22,8 +23,10 @@ export function squareFootprint(halfSide) {
 }
 
 export const scene = {
-  viewBox: '0 0 900 884',
-  compositionOffsetY: -36,
+  viewBox: '0 0 900 800',
+  compositionOffsetY: -6,
+  backgroundOffsetY: -30,
+  brickCourseHeight,
   // The aqueduct has an independent vertical offset. The mill floor and wheel
   // are separate; the two lower piers now share one vertical length.
   aqueductDrop: 16,
@@ -34,13 +37,13 @@ export const scene = {
   lowerPierFootprint: { halfWidth: 7.5, halfDepth: 6 },
   channelFootprint: squareFootprint(50),
   channelWallThickness: 25,
-  // Approved turn support elevations. Straight-wall brick courses are
-  // independent so stepped coping does not move the tower feet.
+  channelSplitOffsets: { 2: 24, 3: -60, 4: -16 },
+  // Matching 1/3/5/7-course turns on an unsheared, continuous bed plane.
   channelWallHeights: {
-    1: { left: 4, right: 7 },
-    2: { left: 15, right: 11 },
-    3: { left: 19, right: 23 },
-    4: { left: 31, right: 27 },
+    1: { left: brickCourseHeight, right: 3 * brickCourseHeight },
+    2: { left: 5 * brickCourseHeight, right: 3 * brickCourseHeight },
+    3: { left: 5 * brickCourseHeight, right: 7 * brickCourseHeight },
+    4: { left: 9 * brickCourseHeight, right: 7 * brickCourseHeight },
   },
   channelWaterFreeboard: 2,
   // Allow the deeper square footprint to clear the fixed wheel outlet.
@@ -49,29 +52,34 @@ export const scene = {
   columnBase: squareFootprint(11.8),
   columnRadius: 7.5,
   columnBaseHeights: {
-    'right-lower': 8,
-    'left-middle': 20,
-    'right-upper': 25,
-    'left-upper': 31,
+    'right-lower': brickCourseHeight,
+    'left-middle': 3 * brickCourseHeight,
+    'right-upper': 5 * brickCourseHeight,
+    'left-upper': 7 * brickCourseHeight,
   },
   towerEave: squareFootprint(54),
   archFrame: { ...squareFootprint(48), top: 28, bottom: -18, crown: 56 },
+  intermediateArch: { top: 16, capThickness: 0 },
   waterfallOutletX: 354,
   waterfallLandingExtension: 8,
   waterfallOffsetX: -10,
-  pool: { halfSide: 60, sideRetraction: 18, widthExpansion: 20, rearPierGap: 2, rimWidth: 3, rimHeight: 3 },
+  waterfallVisualShiftX: -5,
+  pool: { halfSide: 60, sideRetraction: 18, widthExpansion: 8, rearPierGap: 2, rimWidth: 3, rimHeight: 3 },
   ornamentYawDegrees: [25, 35],
+  ornamentDrop: 6,
   wallDepth: 8,
+  doorGround: {width:150,vanishingDistance:900},
   // Wheel face follows the receding/vertical plane; its thickness follows across.
   // Keep the wheel faces upright; only the axle has a ground-plane incline.
-  wheel: { x: 389, radius: 64, lift: 25,
+  wheel: { x: 389, offsetX: -8, centerY: 552.1089319438277, radius: 64, lift: 25,
     depth: [-52 * Math.cos(azimuth), 52 * sinElevation * Math.sin(azimuth)],
     faceScale: wheelFaceScale, faceShear: 0,
     buckets: 24, flipX: true },
   mill: {
-    origin: [157, 642], width: 137, depth: 205, height: 146, roofRise: 68,
+    origin: [157, 642], width: 137, depth: 205 * 2 / 3, height: 146, roofRise: 68,
     slide: -48,
     referenceChannelHalfSide: 42,
+    referenceCopingHeight: 31,
   },
   towers: [
     // Shared bay centers anchor both the four columns and waterway corners.
@@ -85,19 +93,22 @@ export const scene = {
   // This terrace belongs only to the mill and wheel, not to the aqueduct.
   showRightHouses: false,
   showBridgeHouse: true,
+  showBridgeComplex: true,
   millTerrace: {
     // Keep the terrace's front edge on the mill floor as its angle changes.
     origin: [139, 642 - (157 - 139) * acrossSlope],
-    outline: [[38, -20], [306, -20], [306, 82], [288, 82], [288, 225], [38, 225]],
-    door: { u: 306, v: 8, width: 56, height: 96 },
-    garden: { left: 38, right: 306, plantWidth: 242, depth: 180, lift: 32, wallHeight: 32, gateWidth: 26, gateHeight: 46 },
-    platformOutline: [[-18, -36], [180, -36], [180, -20], [306, -20], [306, 82], [288, 82], [288, 225], [-18, 225]],
-    canalSupportHeight: 50,
-    canalLowerHeight: 110,
+    outline: [[38, -20], [276, -20], [276, 82], [258, 82], [258, 225], [38, 225]],
+    door: { u: 276, width: 56, height: 96 },
+    garden: { left: 38, right: 276, plantWidth: 242, soilLeftExtension: 70, soilRearExtension: 65, depth: 180, lift: 32, wallHeight: 32, gateWidth: 26, gateHeight: 46 },
+    platformOutline: [[-18, -36], [180, -36], [180, -20], [276, -20], [276, 82], [258, 82], [258, 225], [-18, 225]],
+    canalSupportHeight: 0,
+    canalLowerHeight: 160,
     canalLowerSetback: 34,
     platformThickness: 6,
     platformRailEdges: [0, 1, 2, 3, 4, 7],
     platformFrontEdges: [0, 1, 2, 3, 4],
     height: 141,
+    heightScale: 2 / 3,
+    foundationPerspectiveShift: .04,
   },
 };

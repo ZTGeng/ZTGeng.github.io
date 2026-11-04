@@ -339,3 +339,153 @@ geb/
 
 - 本轮渠下上层墙65→50、下层95→110，总高度160不变，下层墙底保持原位、屋顶及其栏杆上移15。桥身侧面同步减高15，bridge ground -108→-93，拱门随底标高上移15，宽28/高56保持。桥下平台保持原水平轮廓与位置，仅整体上移15，与下层墙屋顶同幅抬升。
 - 楼梯口的水平位置按原referenceGround=-108及原rise5固定，不随抬升重算；三级台阶每级升高量5→10，平台抬高后仍落在原groundTarget，避免新增斜坡或漂移。方屋和桥面标高、宽长、渠岸/塔楼等不动。新增墙高转移/桥身同步及门洞尺寸、楼梯落地回归，75项测试与构建通过，保存escher-raised-lower-terrace.png。
+
+
+- 本轮保持水道各段1/2/3、3/4/5、5/6/7、7/8/9层的阶梯数量，单层砖高4→ceil(4×2)=8。底板与转角统一为同一个10°/-20°投影平面，转角岸高依次8/24/40/56，两条相邻水道的完整接面与柱脚一致，不再通过下移底板抵消砖层加厚。水面、流纹裁切和导流高度继续随墙顶推导。
+- 四段柱座按左上7x=56、右上5x=40、左中3x=24、右下x=8，各柱座增加按8单位分层的正侧面砌缝。圆柱净长统一y=42.95183942717219：309×(tan10°+tan20°)减去转角5x、柱座3x、渠底8、拱梁/盖块/柱头/底座过渡合计52；右塔对应7x+x给出相同结果。中间两层拱梁顶盖上沿严格贴合各自上方渠底的下表面；四柱间距、足迹、横向尺寸和上下对齐保持。
+- 主体compositionOffsetY -36→-6整体下移30，背景局部反移30抵消，保持梯田原地。磨坊和水池原地坪继续使用独立referenceCopingHeight31，避免砖层变化牵动其尺寸；其他建筑宽高配置保持。新增等长圆柱/中层封顶/背景位移回归，76项测试与构建通过，浏览器核查全部16根柱子的净长均42.951839，保存escher-thicker-courses-equal-shafts.png。
+
+
+- 本轮修复加厚砖墙后的两处交叉遮挡，采用用户方案B保留既定结构绘制顺序：水道2裁切点535.5→575.5，水道3为535.5→475.5，水道4为507.718→491.718。额外左移水道4裁切16，消除501.945～507.718区域残留的逆序；仅移动裁切线，水道几何、砖缝、转角、动画相位不变。新增逐墙面单元多边形求交回归，对水道2/3、3/4的全部交集顶点检查后者实际可见层索引更大，避免只验证单个交点。
+- 中间两段拱梁实体顶部参数28→16（压缩12），取消原7厚顶盖，保留无厚度封顶平面；拱洞crown56、拱脚、内壁厚度10及四柱方位不变。省下19全部转给四段统一圆柱净长，42.951839→61.951839。中间拱梁顶部仍精确贴上方渠底，上层两段的拱梁本体/檐口/装饰尺寸保持，随加长圆柱上移19。
+- 78项测试与构建通过，浏览器核对交叉遮挡以及16根圆柱净长统一61.951839；保存escher-correct-crossings-slim-beams.png。
+
+- 用户要求回滚上一轮：撤销水道4纵坡/出口延伸、双方柱脚微调、横桥重定位及踏步斜面适配、扩大基础遮罩范围。恢复水道4与水道2平行及原桥位；保留前一轮的分段裁切修复、中间薄拱梁与统一61.951839圆柱。
+
+- 本轮按用户标记仅左移水道1分段裁切点60：535.5→475.5，新增channelSplitOffsets[1]=-60，水道几何/角度/砖缝/动画及其余分段点不变。将既有完整墙面多边形交叉顺序检查扩展到水道1/2，连同2/3、3/4共三处验证；78项测试与构建通过，保存escher-channel1-left-split.png。
+
+
+- 用户指出左移水道1无效，本轮撤销channelSplitOffsets[1]=-60，恢复其分段点535.5。正确冲突来自水道2分段：水道1的8单位渠底侧面与水道2侧墙交集从x561.171697开始，原水道2裁切575.5让其左半段先画、再被水道1底板盖住。将channelSplitOffsets[2]40→22，即575.5→557.5（左移18）；1、3、4及其他几何不变。
+- 补充先前遗漏的渠底侧面进水道1/2及相邻2/3求交回归；2/3含底板的交集最右x554.248299，1/2最左x561.171697，557.5连同±0.8重合带均位于二者之间。原3/4仅侧墙回归范围保持；未借此扩展修改水道4。78项测试、构建及浏览器画面检查通过，保存escher-correct-channel2-seam.png。
+
+
+- 本轮showBridgeComplex=false整组暂时隐藏横桥、单窗方屋、桥下平台与小台阶，保留模块供后续恢复，不影响渠下两层墙及其栏杆。水车中心锁定旧值scene.wheel.centerY=552.1089319438277，wheelCenterY不再依赖水道几何，避免改渠角时自动移动水车。
+- 水道4水面终点取固定水车轴向中点的底部[367.6602209921742,619.8717107452635]。由右塔下段中心及9层砖高、2单位水面净空反算纵坡-27.16830994636716°。右塔下段转角、四柱足迹、柱座/柱头和拱梁共用projectTowerPlane的相同新纵向轴，所有屏幕x保持不变，与右塔上段逐柱上下对齐；转角岸墙的整条延伸与直渠共线，不沿用之前导致弯折的旧转角。
+- 左塔下段双方柱顶部及x不变，底端分别627.511228、605.814822，底面跟随渠岸新斜面。近岸顶面的中线承担完整柱脚，末端砌体与底板多延伸24单位以托住最左柱，水面仍在水车底部终止。磨坊、基础/池体继续使用原渠角的独立锚点（mill [109,617.090130185]、terrace [91,613.916244533]），水池/瀑布/水车均不随新纵坡移动。
+- 水道3进入新转角的横截面随右塔下段调整，使用Newton反解双线性条带坐标，保证末端水面、阶梯墙高和导流路径仍贴合；水道2裁切557.5→559.5微调2单位，避开新横截面带来的邻近渠底交集，旧1/2与2/3交叉回归继续通过。基础前墙与门洞侧墙共同裁切水道4整段内容，避免下倾渠底盖住建筑。
+- 更新几何回归以区分原10°/-20°地面轴与新右下坡面；79项测试/构建通过，新增完整双方柱8角点落于岸顶、转角/直渠两侧共线、右塔上下x对应及水车固定坐标检查。浏览器确认隐藏组数量0、水车translate(389 552.1089319438277)原值，保存escher-wheel-aligned-channel-turn.png。本轮修改前源码及测试快照分别位于忽略目录.verification/escher-before-wheel-connection.json与escher-before-wheel-connection-tests.json，供精确局部回退。
+
+
+- 本轮按水道4的新纵向角-27.168309946°统一重绘磨坊房屋、门洞基础建筑、中间平台、花坛及铁栅门。新增projectMillPlane和buildingPoint的可选recedingSlope：保留默认10°/-20°给未改的塔楼/背景及隐藏建筑，只让millLayout、millTerraceLayout、gardenLayout使用新轴；原局部宽高、房屋/基础前端锚点、门洞尺寸不变。花坛与主墙的共用接点及墙底、栅门继续精确衔接。
+- 平台后侧采用原referenceMillPlatformAnchor.v=77.664993保留门洞墙宽及门洞净距，右侧覆盖片采用新斜面的实际anchor.v=60.853718；栏杆末端沿同一平台边线重排，保持水平方向x接点、不画斜切栏杆。水池随平台转到新角度：以固定瀑布impactCenter为旋转参考，局部尺寸保持，池体与平台共面，落点仍在同一世界坐标；水车中心、瀑布路径、上方塔楼和背景不变。
+- 取消渠下上层墙：canalSupportHeight50→0，canalLowerHeight110→160，总墙高160保持。下层围墙顶边直接贴水道底板的下表面，沿新纵轴绕渠右端转角；近侧退台u34、绕后v34×halfDepth/halfWidth间隔及22高两段栏杆继续保留，单一围墙不额外绘制零高上层墙面。建筑底边与顶边平行，所有新地坪/池边/花坛边均沿10°或新-27.1683°。
+- 更新房屋方向、单层围墙直接接渠底、转角间隔、主墙花坛栅门接点、水池落点的几何回归；新增读取实际SVG多边形检查四种平面的边向一致，80项测试与构建通过。浏览器验收保存escher-buildings-new-angle-single-wall.png。修改前源码与测试快照位于忽略目录.verification/escher-before-buildings-angle.json，支持仅回退本轮。
+
+
+- 本轮四处局部调整：mill.depth205→205×2/3=136.666667，仅缩短房屋与屋顶的纵深，固定有门窗正面及原origin、width137、height146和烟囱位置；平台、基础不随房屋缩短。花坛仅garden-soil多边形降低wallHeight32到地面，植物/围墙/栅门坐标及层序保持。
+- 瀑布顶沿改为与水道1相同右下10°：以原顶沿中点为中心，两端分别±16×tan10°，water-lip线的dy=32×tan10°=5.642463。仅改顶沿裁切端点及流纹起始点，补足背景水面矩形的上边以覆盖微小三角区；所有下落曲线控制点、竖直主体、落点、水花及动画速度不变，不旋转或剪切整幅瀑布。
+- 两塔多面体新增ornamentDrop6，原相对屋顶y偏移-16→-10，统一下移6，大小和朝向不变。80项既有测试及构建通过，浏览器核对入口斜线并保存escher-four-small-adjustments.png。修改前3份源码快照位于忽略目录.verification/escher-before-four-small-adjustments.json。
+
+
+- 本轮修复标注的平台屋顶缺口及水池下方露边：后绘制的millRightPlatformOutline不再只覆盖柱脚u/v范围（u238.377/v60.854），改为从房屋实际右墙u155开始，后缘到referenceMillPlatformAnchor.v77.664993；与房屋相邻的整块平台/房顶均在水道4之后重绘，覆盖其应藏在平台下面的末端墙/底板，不改变平台外边界或水池形状。柱脚仍按原use裁切恢复，水车、塔楼位置不动。
+- materials.js中escher-brick-side的patternTransform纵坡由旧receding -20°改为channel4Slope -27.168309946°，修复磨坊右墙、大门洞侧墙、渠下单层墙及同方向花坛墙的砖缝；前墙10°纹理不动。
+- 所有85丛植物统一屏幕右移18，局部布局/间距/形状/数量不变；同时根部改用garden(u,v,-wallHeight)，补上此前只降土面32而植物未随土面落地造成的悬空。围墙、栅门与绿地边界不动。新增全部植物根点落在实际绿地多边形内、实际砖纹矩阵与墙坡一致两条回归，更新整块房顶覆盖面积/房屋接边检查，82项测试及构建通过。
+- 浏览器确认缺口和多余露边被平台覆盖、三处墙砖顺坡、植物落地；保存escher-covered-platform-aligned-bricks-rooted-plants.png。修改前源码/样式/测试快照位于忽略目录.verification/escher-before-platform-texture-plants.json。
+
+
+- 本轮恢复showBridgeComplex=true，右下横桥、方屋及桥下平台/小台阶重新显示。桥锚点继续用水道4近岸x525处实际wallTopAt，沿新-27.1683°渠岸移动45减一块29长砖的投影距离；origin现为projectMillPlane(platformOrigin,0,slide)。桥、房屋和平台均传递recedingSlope=channel4Slope，桥头两阶的全宽精确贴新侧墙，不改变其局部长宽、门洞宽28/高56和桥缘18。
+- 解除桥身高度与已删除渠下上层墙的绑定：保留原15单位调整、ground=-93，桥身高75，避免此前隐藏期间canalSupportHeight=0让桥身缩成25导致门洞穿出桥面。桥下平台以新角度重算阶梯位置，三级台阶仍落在主门洞右侧的实际地面；桥继续盖水道4、低于水池平台，不移动水池、水车或塔楼。
+- 新增实际桥头踏步两侧贴岸回归，更新恢复状态、新轴向及桥身独立高度检查；83项测试、构建通过，浏览器核对桥/房屋/平台各1，保存escher-restored-bridge-new-bank.png。修改前快照.verification/escher-before-restore-bridge.json。
+
+
+- 本轮水池仅右边maxU内收12（pool.widthExpansion20→8），左/前/后边及瀑布落点不变。门洞墙/凸出平台u306→276，后段u288→258，门洞u同步276；花坛right306→276、右墙/栅门共用同一基础角点左移30。池右maxU263.089229至房间墙u276，保留12.910771间隔；平台覆盖层与基础屋顶仍共用新轮廓。
+- 绿地右沿跟随新宽width238及栅门，左侧soilLeftExtension70，绕后soilRearExtension65，形成局部六角L形[[-70,0],[238,0],[238,180],[0,180],[0,245],[-70,245]]；前矮墙左端随之扩出画框。绿地绕后段用共用基础墙遮罩处理正确前后关系，避免画到建筑墙上。原花坛高度/右墙底部/门洞尺寸不变。
+- 85丛植物按扩展后前方可种植区重排：分布宽gardenWidth-soilLeft-32，左右至少16单位缓冲，投影u+soilLeft+16并贴降低后的土面；取消上轮固定屏幕右移18。保持原植物样式/数量和确定性种子，所有根点按凹多边形射线法验证在新L形花坛内。
+- 更新池墙少量净距、L形绿地及植物边界回归，83项测试/构建通过，浏览器确认门洞墙/栅门/右墙对齐、左绕绿地未盖建筑；保存escher-inset-pool-wall-wrapped-garden.png。修改前源码/测试快照.verification/escher-before-pool-garden-inset.json。
+
+
+- 本轮横桥沿当前渠岸向左再滑一块实长29砖，slide=45-2×29/hypot(1,channel4Slope)，保持桥长宽、方屋尺寸和沿渠角度；方屋随桥移动，平台原水平轮廓和阶梯落地点不变。
+- 桥底改由实际wallHeightAt(anchor)+wallDepth推导：ground -93→-72，与水道4底板下沿共面；桥下平台同步ground=-72，上升21，三级阶梯rise10→17，仍落在原地面。桥面从-18改为低于渠墙顶一层砖的-8（原18差距并非整砖，按用户最终8差距校正）；桥缘高度18→8，顶沿仍为0不高于渠墙。桥面至桥底64，56高小门保留8净空。
+- 小门archStart8→0，紧靠渠墙端面，拱内侧描线同步前移8，门宽28高56不变。删除整个escher-bridge-bank-steps及两阶台阶侧面，不影响桥下通地面的三级楼梯。
+- 83项测试和构建通过，更新一砖滑移、无桥面踏步、桥底两端对实际渠底下沿、平台同高/阶梯落地、小门端面贴岸及一砖桥面净差回归。浏览器确认桥面踏步组数量0，保存escher-bridge-slid-bed-aligned.png。修改前源码与测试快照.verification/escher-before-bridge-bed-height.json。
+
+
+- 本轮桥头与远侧桥缘内角增加单阶：cornerStep.height4（半层砖），沿渠宽度29/hypot(1,channel4Slope)保证实际屏幕斜长一块29砖，u方向深12；范围从u0渠墙端面到u12，远边v=backV-edgeThickness22，位于凸缘内侧。顶面比桥面高4，绘制完整踏面/立面/两侧，不恢复此前删除的两阶大台阶。
+- 右侧方屋横截面两边均放大15%（houseDepth=桥宽×1.08×1.15，宽深比保持原正方形投影关系），继续以桥宽中心为中线。增加houseLeftShift8沿桥u向左、houseLift12竖直上移，屋高和窗户尺寸不变；屋体左端与桥末端重叠8保证连接。
+- 平台出口3阶改6阶，每级run7不变，总长21→42，保留原平台楼梯入口/平台平面轮廓，出口沿across方向向右延长21并位于原地面平面。总落差51保持，rise17→8.5；逆算入口仍使用referenceStairCount3，不让增加阶数反向挪动平台。
+- 85项测试和构建通过，新增实际单阶宽高/角部落座、房屋新位置/边长、六阶实际SVG与新落地点检查；浏览器核查桥角踏步1、出口踏步6，保存escher-corner-step-larger-house-six-stairs.png。修改前源码和测试快照.verification/escher-before-corner-step-larger-house.json。
+
+- 本轮仅将方屋在现有位置额外屏幕左移10、上移40，新增houseScreenOffset=[-10,-40]，应用到屋体origin后由同一坐标带动窗户；不沿斜轴移动，避免额外改变Y值。桥、平台、楼梯不动。85项测试/构建及浏览器验收通过，保存escher-house-left10-up40.png。
+
+
+- 本轮大门洞沿所在侧墙水平居中：millTerraceLayout.door.v由墙面两端v[-20,77.664993]与门宽56自动推导，v=(起点+终点-56)/2=0.832496587，门洞宽56/高96及墙体不变，scene原硬编码v8移除。
+- 删除平台下方六阶楼梯及其渲染/配置字段；桥面内角单阶保留。桥下平台保留原高度ground=-72、总地面高差platformRise51和原前/右侧轮廓基准，新左端platformLeft由主门洞右侧门框在平台高度上的投影精确反算，平台表面延伸到该点，不留间隔，不改变桥与方屋位置。
+- 平台遮罩改为保护整面基础前墙和侧墙至门洞右边缘的部分，允许平台覆盖门洞右侧墙面以形成真实贴合，同时不遮挡门洞。SVG说明移除平台通地面小楼梯的描述。
+- 更新门洞居中、平台顶点精确贴右门框、无楼梯组回归，85项测试与构建通过；浏览器确认楼梯组0，保存escher-centered-door-platform-to-jamb.png。修改前源码与测试快照.verification/escher-before-centered-door-platform.json。
+
+
+- 本轮桥下平台由六角L形改为四角长方形：u0至platformEnd150，v由大门洞右边缘对应的platformLeft.v至桥身后侧backV+8，删除原前角凹口及旧楼梯轮廓参考计算。平台高度、桥及方屋位置不变。
+- 平台遮罩恢复完整门洞建筑前墙+整面门洞侧墙，平台重合部分均由建筑遮挡，不再只保护门洞左侧。平台原始前边线仍经过门洞右侧门框投影；可见部分由建筑实际外轮廓自然裁切。
+- 更新四点矩形、门洞右缘在线段上以及完整侧墙遮挡检查，85项测试/构建与浏览器验收通过，保存escher-rectangular-platform-behind-building.png。修改前源码/测试快照.verification/escher-before-rectangular-platform.json。
+
+
+- 本轮新增millDoorGround门口地面铺砖：贴大门洞所在侧墙u276，沿u向外宽100，纵向从建筑最右端v77.664993向左延伸至v-1400越出画框；所有点z=-millTerraceLayout.height，与门洞底和地面共面，无额外高度或侧立面。
+- 地板在背景之后、基础/花坛/桥平台之前绘制，自然被建筑遮挡；独立escher-door-ground-paving纹理沿10°/-27.1683°，不改其他平台纹理。新增门槛贴合、100宽及画外延伸回归，86项测试与构建通过，保存escher-door-ground-floor-width100.png。修改前源码/样式/测试快照.verification/escher-before-door-ground-floor.json。
+
+
+- 本轮在门前地板右侧端边与下侧长边增设围墙：millDoorGround由index传入crossBridgeLayout.platformRise51作为墙顶相对地面的高度，墙顶与桥下平台同平面，不另设独立近似高度。内壁止于地板，外壁下延900单位，所有下沿均越出画框；厚度6，分别绘制两面直墙、圆角墙、内壁及顶沿。
+- 地板外角与围墙共用r18的投影二次圆角，外侧半径随6厚增加、圆心一致；地板由polygon改为带Q曲线的path，宽100、右侧建筑对齐、地面高度和向左画外延伸保持。屋顶瓦纹patternTransform的长轴由旧-20°改用channel4Slope -27.168309946°，修复屋顶纹理不随新水道方向的问题，不改变屋顶几何。
+- 新增实际地板/墙顶圆角控制点垂直差等于平台高度、墙下沿画外及屋顶纹理轴回归，87项测试及构建通过，保存escher-rounded-ground-walls-roof-texture.png。修改前源码/样式/测试快照.verification/escher-before-rounded-ground-walls.json。
+
+
+- 用户纠正围墙上沿，本轮不再把crossBridgeLayout.platformRise51直接当作门前地板的相对墙高。新增platformBuildingContact：取平台实际前边线与门洞建筑右侧外角投影x交点[444.6649931741324,769.4680525945012]，由该世界坐标反算millDoorGround墙顶，相对地面墙高为36.634781379874084，修复两套坐标基准直接套用造成的墙顶偏高。
+- 地板宽100→150，右/下围墙与同心圆角随外边界扩展，原门口贴合及地面高度不变。方屋在现位置屏幕右移8：houseScreenOffset[-10,-40]→[-2,-40]，其他建筑不动。
+- escher-paving纵向矩阵更新至channel4Slope -27.168309946°，统一门前地板（独立别名继承）、桥下平台、方屋屋顶及其他同类新角度平面铺砖；屋顶瓦纹已为新轴且继续保持。
+- 更新150宽、墙顶直接等于实际平台/建筑交点、圆角共用控制点与铺砖矩阵回归，87项测试及构建通过。浏览器验收保存escher-wall-contact-floor150-aligned-paving.png。修改前源码/测试快照.verification/escher-before-ground-wall-contact-height.json。
+
+
+- 本轮按用户要求删除上一轮圆角地板/围墙，地板恢复150宽直角矩形。millDoorGround仅绘地板，新增millDoorGroundWalls单独在crossBridge之后调用，确保围墙高于桥下平台。
+- 第一面是地板上边v=endV的150宽短墙：底边为地面、顶边使用platformBuildingContact反算的实际平台交点高度（相对地面36.634781），不向下扩墙。第二面是地板右侧u=maxU的长墙，上沿与短墙共用同一顶面，向下900单位越出画框；两面墙厚6、直角相接，不再包含任何Q圆角路径。实际绘制顺序为地板→平台→上边短墙→右边长墙，右墙包括端面与顶沿，盖住地板和短墙重叠处。
+- 方屋在当前屏幕位置额外右移16，houseScreenOffset[-2,-40]→[14,-40]，其他物体不动。87项测试/构建通过，浏览器按实际SVG索引核对四层顺序，保存escher-square-ground-walls-correct-order.png。修改前源码/测试快照.verification/escher-before-square-ground-walls.json。
+
+
+- 本轮大门洞基础建筑heightScale=2/3，实际墙高183.380441059→122.253627373，顶端origin及平台外轮廓不动，底边上移61.126813686。新增referenceHeight和heightReduction保留原基准；大门洞宽高/水平居中不变，门底、地板、花坛/栅门与植物通过同一新高度整体上移61.126814。围墙顶参考使用原交点上移相同delta，墙体亦整组上移，不因桥下平台宽度变化而改变其相对高度。
+- 桥下平台沿水道方向宽度缩为2/5：原宽以referencePlatformFrontV为基准，靠桥一侧backV+8=36保持，platformFrontV=36-(36-referenceFrontV)×0.4；靠建筑一侧向右/上方收缩，平台高度ground=-72、桥、方屋及靠桥边均不动。参考门框点改用原referenceHeight计算以避免建筑缩高连带改变平台宽度基准。
+- 区分实际新平台/建筑前线交点platformBuildingContact与门前围墙平移参考groundWallTopReference，用户要求门前围墙随建筑底部上移，未将它重新绑到收窄后的平台前线。SVG说明更新为桥下收窄长方形平台。
+- 新增实际墙顶固定/墙高2/3、地板/围墙顶/花坛共用抬升量回归，更新平台实际SVG边长2/5和靠桥边不动检查，88项测试与构建通过。浏览器验收保存escher-shorter-building-raised-ground-narrow-platform.png。修改前源码/测试快照.verification/escher-before-short-foundation-narrow-platform.json。
+
+- 用户要求仅恢复上一轮缩小的平台：platformWidthScale2/5→1，恢复缩小前完整矩形宽度，靠桥边及平台高度不变。大门洞建筑2/3高度，以及门洞、地板、围墙、花坛、植物上移61.126814全部保留，围墙参考groundWallTopReference继续独立，不随平台恢复改变。88项测试/构建和浏览器验收通过，保存escher-restored-platform-short-building.png。
+
+
+- 本轮遵循用户的局部方向要求：磨坊墙体、正面、门窗与烟囱继续用现有水道4方向，只有主屋顶面与纵向屋脊/檐线使用roofPoint的水道2方向-20°；escher-roof-tiles矩阵长轴同步恢复receding -20°。房屋原点、宽高、纵深及主体几何不动，不再将所有同向线统一到水道4。
+- 门前地板由矩形改为近端外张四边形：左长边及上端两点不变，上端宽150；scene.doorGround.vanishingDistance600，在左边延长线上定义有限消失点，右边宽度widthAt(v)=150×(1+(endV-v)/600)。左、右长边延长后指向同一消失点，靠近画外的下端更宽。右围墙/顶沿随该边外张、上端及高度不变；右墙砖纹使用新边界纵坡，避免地板与围墙脱离。
+- 地板取消平行pattern，改画同一消失点的纵向砖缝与近端间距递增的横向砖缝（分数线0/.3/.6/.9/1；横向scale=1/(1-i×.04)），裁切在实际梯形内；上端接墙150宽和原地面高度保持，桥下平台及方屋屋顶铺砖不动。
+- 新增实际屋顶两条纵边与水道2平行、主体仍保持水道4角、地板两边共用消失点及固定上端回归，89项测试与构建通过，保存escher-roof-channel2-perspective-ground.png。修改前源码/样式/测试快照.verification/escher-before-roof-channel2-perspective-floor.json。
+
+- 本轮将大门洞建筑右墙底边与花坛右侧墙底边作为同一直线做轻微透视修正：右后端固定，左下端按foundationPerspectiveShift=.04向右收进。建筑顶沿保持，底部前角约右移3.91、花坛前端约右移11.11，Y坐标不变；门洞、花坛墙/土面/栅门及植物根部共用对应投影，平台遮罩同步更新。新增固定后端、底线共线及花坛接缝回归，90项测试与构建通过，浏览器验收保存escher-foundation-garden-perspective.png。修改前快照.verification/escher-before-foundation-garden-perspective.json。
+
+- 本轮减小门前地板外张：消失点距离600→900，上端及150宽保持，前景外张增量减少三分之一，右围墙及铺砖跟随同一计算。桥下平台platformWidthScale=.5，靠桥侧backV+8保持，另一端收回原长度一半，平台高度不动。地板改到crossBridge之后绘制，使用foundation-floor-mask保持门洞建筑正确遮挡，再绘制地板围墙。90项测试和构建通过，浏览器检查通过，保存escher-milder-floor-half-platform.png；快照.verification/escher-before-milder-floor-half-platform.json。
+
+- 按用户六条边替代桥下平台：原矩形及遮罩不再输出。新replacementPlatformOutline以groundWallTopReference为窄墙右端B，左端A向左横跨18宽；C竖直到水道4底板下沿，D沿渠底到桥左下角；DE沿桥底向右下实际屏幕长度60，EF平行渠底，FA平行围墙上沿，两条投影正交轴求交闭合。顶点约A(426.665,705.167)、B(444.665,708.341)、C(444.665,686.649)、D(465.015,676.204)、E(524.103,686.623)、F(472.295,713.213)，平台侧厚7。单独函数绘制在大门洞建筑、地板、围墙之后，桥屋不动。91项测试/构建与浏览器检查通过，截图escher-six-edge-platform.png；修改前快照.verification/escher-before-polygon-platform.json。
+
+- 新平台侧厚7→1；起点A改为B沿水道4/地板左长边方向回退18的交点，AB斜率channel4Slope，与地板左边平行，而非原先横向across。B及其竖直向上的第二边保持，F按新A与E的两条投影方向重新求交闭合。91项测试及构建通过，浏览器验收escher-thin-platform-first-edge.png。修改前快照.verification/escher-before-platform-first-edge.json。
+
+- 对照官方原作LW-439.jpg绘制新平台双梯：EF与通过B的地板围墙上沿求交split，F→split的屏幕横宽18等于窄墙。短梯从此段向across右下，6阶、每阶run9、rise=(地板与围墙顶落差36.63478138)/6；补齐梯侧阶梯形封闭面及平台FA下方封闭墙。长梯从split→E向右下26阶，每阶run12/rise9，超过画外。层级crossBridge(含方屋)→长梯→地板/围墙→新平台→短梯；地板及围墙正确遮挡长梯。92项测试及构建通过，浏览器验收escher-platform-two-stairs.png；快照.verification/escher-before-platform-stairs.json。
+
+- 修正双梯侧面遮挡：原近侧封闭面先于treads绘制，被后画踏步覆盖造成缺口；现为远侧面→踏步/立面→近侧面。双侧纵向都沿across方向，远侧误用wall-receding(-27°)砖纹，已统一wall-facing(+10°)。短梯近侧将平台A→F和完整阶梯折线合成单polygon，下缘在同一地板平面闭合；移除F处平台/梯身内部分割墙及接缝。补充近面层级及单轮廓回归，93项测试通过，构建/浏览器检查通过，保存escher-stair-closed-sides.png；快照.verification/escher-before-stair-side-closure.json。
+
+- 下层渠墙左端near沿channel4Slope方向向右收回屏幕x50（y同步-25.66156），右端far、墙高160及其余墙体保持；roof及左端return跟随新左界，避免在长梯后露出旧墙。桥身frontV面u90新增14×18小窗。方屋前墙u26/64新增两扇宽18细长拱门，拱顶屏幕y754齐平，门底按长梯远侧轮廓向下18计算，左右底边分别落在对应楼梯后方；拱门随方屋绘制，位于长梯下方。93项测试与构建通过，浏览器验收escher-retaining-trim-doors-window.png。修改前快照.verification/escher-before-retaining-trim-openings.json。
+
+- 方屋双门宽18→26，中心35/73与门底落点保持；左门总高严格增至原两倍，右门共用屏幕拱顶高度，分别保留楼梯后的不同门底。拱顶不再用archDoor默认40%比例，而用独立archRise=左门总高/10的二次曲线，两门archRise相同。瀑布右缘不动，左缘及转弯控制点向左10，主体宽35→45，水口32→42均为整数；水线数量9→12、细线13→17同步覆盖扩宽区域，水池与水花位置不动。94项测试和构建、浏览器验收通过，保存escher-tall-doors-wide-fall.png；修改前快照.verification/escher-before-tall-doors-wide-fall.json。
+
+- 方屋双门本轮左门高度减至2/3，右门减去相同高度再扣除门间距38×tan10的门顶倾斜修正。两门组总宽64，以houseWidth/2居中，整体局部u右移18.6117055，门底继续根据长梯落点计算保持遮挡。门顶连线斜率tan10，与方屋前屋檐平行；两门宽26与相同拱顶高度保持。更新门组居中与门顶方向回归，94项测试及构建通过，浏览器验收escher-centered-shorter-doors.png。修改前快照.verification/escher-before-centered-shorter-doors.json。
+
+- 门前地板围墙右上转角改为圆角：内沿radius18、外沿radius24（墙厚6），在原投影平面中以二次曲线连接上墙与长右墙。上墙直段终点缩至150-18，右墙从外弧切点起画，转角竖面沿弧向下延伸出画面；墙顶内外弧形成连续顶沿，地板用同一内弧clip裁切保持衔接。其余高度/位置、楼梯和平台不动。94项测试与构建通过，浏览器验收escher-rounded-ground-wall.png。修改前快照.verification/escher-before-rounded-ground-corner.json。
+
+- 按用户要求回退上一轮全部圆角及地板曲线裁切，恢复直角几何。右竖边双线来自厚6的right-return封口面的两条竖向描边：保留封口填充，取消其整块描边并改为与右墙同色的wall-receding，再单独描画最外端唯一竖直轮廓，保留墙顶厚度线。94项测试及构建通过，浏览器验收escher-straight-wall-single-edge.png。修改前（含圆角）快照.verification/escher-before-single-wall-edge.json。
+
+- 新多边形平台顶面ground-plane的浅色描边用局部CSS覆盖为建筑通用轮廓色#514f46，其他铺砖边线保持。方屋双拱门组添加屏幕translate(20 0)，整体严格向右20，门大小/高度/门顶倾角和其他物体保持。94项测试与构建通过，浏览器验收escher-platform-outline-doors-right.png；修改前快照.verification/escher-before-platform-outline-door-shift.json。
+
+- 按用户要求裁去画面底部84：scene.viewBox由0 0 900 884改为0 0 900 800，仅改变SVG视口裁切，所有物体坐标/尺寸与动画保持。更新画幅断言，94项测试及构建通过，浏览器验收escher-cropped-900x800.png。
+
+- 池水在方柱左侧增加rearExtension22，extensionMaxU按左下方柱x与池后边maxV减去12计算，形成向水车下方延伸的局部六边形水面；其余池前/右边界及瀑布落点不变。池沿与波纹clip同步使用新轮廓；池水之后用池轮廓clip重用水车，避免扩水遮住轮底，方柱脚仍最后恢复。94项测试与构建通过，浏览器验收escher-pond-under-wheel.png；快照.verification/escher-before-pond-wheel-extension.json。
+
+- 本轮独立定义渠道连续水面：straightWaterEdges.waterAt与guideAt共用同一函数，不再waterAt跟随墙顶台阶而guideAt用另一条直线。高度进度=(smoothstep(3t-1)+smoothstep(3t-2))/2，仅在砌墙加高之后平滑抬水，两处台阶无垂直跳变；净空=原2+2sin²(πt)，两端保持2以匹配所有转角/瀑布口，内部2～4并在高台阶处露出更多内墙。水面轮廓用连续sampleEdge取代sampleSteppedEdge，远侧内壁水位线使用同一waterAt显式描线；所有动态流线同函数计算并由同一水面polygon裁切。更新密集采样净空/水面不跳变/动画路径一致回归，94项测试与构建通过，浏览器验收escher-defined-channel-water-surface.png；快照.verification/escher-before-defined-channel-surface.json。
+
+- 删除瀑布上端water-lip亮白描线路径及其闲置CSS选择器，水流轮廓/宽度/动画保持；构建与浏览器检查通过，验收escher-no-bright-waterfall-lip.png。
+
+- 水车整体屏幕水平左移10：新增scene.wheel.offsetX=-10，在水车最外层反射矩阵之前平移，圆轮/叶板/轮沿及池水上方复用实例一起移动；保留scene.wheel.x结构参考避免连带改变水道4角度与建筑布局。94项测试、构建及浏览器检查通过，验收escher-wheel-left-10.png。
+
+- 水车offsetX -10→-8，严格向右回移2；左下方柱右立面添加轴心承座（双椭圆），x=左柱中心x+halfWidth=右立面横向中央，y=scene.wheel.centerY。瀑布新增仅绘制用waterfallVisualShiftX=-5，水帘直落段及水花相对上一轮左移5，不牵动水池/水道等几何。出水口起点sourceX=lipX-fallRouteX抵消整组偏移，保持出水口锚点；上端Q改为C曲线，控制点先向左伸出再向下进入原直落段（曲线调整不再改变本轮左移后的落点）。剪裁与12条水线/17条细线共用fallLine，保持45宽。94项测试及构建通过，浏览器验收escher-wheel-axle-fall-arc.png；快照.verification/escher-before-wheel-axle-fall-arc.json。
+
+- 水车轴心承座单独下移8：y=scene.wheel.centerY+8，水车、方柱和瀑布保持。构建通过。

@@ -5,7 +5,9 @@ import { polygon, path, linePath, add } from './drawing.js';
 // A finite masonry arch: outer face, curved intrados and return at each spring.
 export function towerBeam(level) {
   if (level.pierBay) return '';
-  const { center } = bay(level), frame=scene.archFrame;
+  const intermediate=level.tier==='left-middle'||level.tier==='right-lower';
+  const { center } = bay(level), frame=intermediate
+    ? {...scene.archFrame,top:scene.intermediateArch.top} : scene.archFrame;
   const height=level.y-level.top;
   const corners=[[-frame.halfWidth,-frame.halfDepth],[frame.halfWidth,-frame.halfDepth],[frame.halfWidth,frame.halfDepth],[-frame.halfWidth,frame.halfDepth]]
     .map(([u,v])=>projectTowerPlane(level.tier,center,u,v));
@@ -40,13 +42,10 @@ export function towerBeam(level) {
     return [p[0]-origin[0],p[1]-origin[1]];
   };
   const top=corners.map(p=>add(p,[0,-height-frame.top]));
-  const capTop=top.map(p=>add(p,[0,-7]));
-  const cap=level.tier==='left-middle'||level.tier==='right-lower'
-    ? `<g class="tower-intermediate-cap" data-tier="${level.tier}">
-       ${polygon([capTop[0],capTop[1],top[1],top[0]],'stone-mid')}
-       ${polygon([capTop[1],capTop[2],top[2],top[1]],'stone-dark')}
-       ${polygon(capTop,'stone-light')}
-      </g>` : polygon(top,'stone-light');
+  // The intermediate ceiling is a flush plane: no separate thick top slab.
+  const cap=intermediate
+    ? `<g class="tower-intermediate-top" data-tier="${level.tier}" data-thickness="0">${polygon(top,'stone-light')}</g>`
+    : polygon(top,'stone-light');
   return `<g class="escher-tier-beam" data-tier="${level.tier}">
     ${face(corners[0],corners[1],inward(0,thickness),'stone-mid','front')}
     ${face(corners[1],corners[2],inward(-thickness,0),'stone-dark','right')}

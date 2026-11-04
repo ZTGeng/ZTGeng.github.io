@@ -18,7 +18,7 @@ test('channel 1 has a complete four-corner bed above the middle tower ceiling', 
   assert.ok(structuralOrder.indexOf('left-middle')<structuralOrder.indexOf('channel-1-left'));
 });
 
-test('all four arch tiers have two recessed openings and both intermediate tiers have solid caps', () => {
+test('all four arch tiers have two recessed openings and both intermediate tiers have flush ceilings', () => {
   const levels=towerLevels.filter(l=>!l.pierBay);
   const ids=new Set();
   for(const level of levels) {
@@ -29,7 +29,7 @@ test('all four arch tiers have two recessed openings and both intermediate tiers
       assert.ok(!ids.has(id));ids.add(id);
     }
     const hasCap=level.tier==='left-middle'||level.tier==='right-lower';
-    assert.equal(markup.includes('class="tower-intermediate-cap"'),hasCap);
+    assert.equal(markup.includes('class="tower-intermediate-top"'),hasCap);
     assert.ok(!/NaN|Infinity/.test(markup));
   }
 });
@@ -73,5 +73,18 @@ test('right hillside long runs and returns maintain coherent directions',()=>{
   for(const c of rightTerraces) for(let i=1;i<c.points.length;i++) {
     const a=c.points[i-1],b=c.points[i],slope=(b[1]-a[1])/(b[0]-a[0]);
     assert.ok(i%2?slope<-.15&&slope>-.6:slope>.3&&slope<1.2);
+  }
+});
+
+
+test('intermediate beams trim only solid headroom and replace their slab with a flush plane', () => {
+  assert.equal(scene.archFrame.top-scene.intermediateArch.top,12);
+  assert.equal(scene.intermediateArch.capThickness,0);
+  assert.equal(scene.archFrame.crown,56);
+  for(const tier of ['left-middle','right-lower']) {
+    const markup=towerBeam(towerLevels.find(l=>l.tier===tier));
+    assert.ok(markup.includes('class="tower-intermediate-top"'));
+    assert.ok(!markup.includes('tower-intermediate-cap'));
+    assert.equal([...markup.matchAll(/class="stone-light"/g)].length,1);
   }
 });

@@ -2,7 +2,7 @@ import { gardenVegetation } from './garden-plants.js';
 import { scene } from './scene.js';
 import { polygon, path, linePath, railing } from './drawing.js';
 import { landscapeSketch } from './landscape.js';
-import { millTerraceLayout, gardenLayout } from './channel-layout.js';
+import { millTerraceLayout, gardenLayout, projectGardenPoint } from './channel-layout.js';
 import { buildingPoint, flatHouse, faceWindow, archDoor, parapet, barrelRoof, projectedStairs } from './buildings.js';
 
 export function landscape() {
@@ -25,9 +25,9 @@ export function foreground() {
   const config = { id: 'terraced-house', origin: [530, 853], width: 171, depth: 52, height: 190 };
   const h = config.height;
   const p = buildingPoint(config);
-  const garden = buildingPoint(gardenLayout);
+  const garden = projectGardenPoint;
   const gardenWidth = gardenLayout.width, gardenDepth = gardenLayout.depth;
-  const gardenCorners = gardenLayout.outline.map(([u,v])=>garden(u,v));
+  const gardenCorners = gardenLayout.outline.map(([u,v])=>garden(u,v,-millTerraceLayout.garden.wallHeight));
   const {gateWidth, gateHeight, wallHeight} = millTerraceLayout.garden;
   const gateStart = gardenDepth-gateWidth;
   const gatePoint = (t,z) => garden(gardenWidth,gateStart+t,-wallHeight+z);
@@ -53,11 +53,11 @@ export function foreground() {
       ${path(linePath([p(104, 22, h + 10), p(128, 22, h + 10)]), 'courtyard-seat')}
     </g>`:''}
     <g id="escher-garden" data-building="garden-planter">
-      ${polygon(gardenCorners, 'garden-soil')}
-      ${gardenVegetation(garden,millTerraceLayout.garden.plantWidth,gardenDepth)}
-      ${polygon([garden(0, 0), garden(gardenWidth, 0), garden(gardenWidth, 0, -wallHeight), garden(0, 0, -wallHeight)], 'stone-light wall-facing')}
+      <g mask="url(#escher-foundation-floor-mask)">${polygon(gardenCorners, 'garden-soil')}</g>
+      ${gardenVegetation((u,v)=>garden(u+gardenLayout.soilLeft+16,v,-wallHeight),gardenWidth-gardenLayout.soilLeft-32,gardenDepth)}
+      ${polygon([garden(gardenLayout.soilLeft, 0), garden(gardenWidth, 0), garden(gardenWidth, 0, -wallHeight), garden(gardenLayout.soilLeft, 0, -wallHeight)], 'stone-light wall-facing')}
       ${polygon([garden(gardenWidth, 0), garden(gardenWidth, gateStart), garden(gardenWidth, gateStart, -wallHeight), garden(gardenWidth, 0, -wallHeight)], 'stone-mid wall-receding')}
-      ${path(linePath([garden(0,0),garden(gardenWidth,0),garden(gardenWidth,gateStart)]), 'garden-wall-cap')}
+      ${path(linePath([garden(gardenLayout.soilLeft,0),garden(gardenWidth,0),garden(gardenWidth,gateStart)]), 'garden-wall-cap')}
       <g id="escher-garden-gate" data-wall="garden-side">
         <defs><clipPath id="escher-garden-gate-clip"><path d="${gateArch}"/></clipPath></defs>
         ${path(gateGrid,'garden-gate-grid','clip-path="url(#escher-garden-gate-clip)"')}

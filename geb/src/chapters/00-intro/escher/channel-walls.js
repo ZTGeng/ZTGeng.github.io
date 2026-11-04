@@ -8,18 +8,27 @@ export const turnWaterScale = 1 - 2 * waterInset;
 const subdivisions = 24;
 export const sampleEdge = (a, b) => Array.from({ length: subdivisions + 1 }, (_, i) => mix(a, b, i / subdivisions));
 
-export const brickCourseHeight = 4;
+export const brickCourseHeight = scene.brickCourseHeight;
 export const channelBrickLength = 29;
 export const wallStepStations = [1/3,2/3];
 
 function station(segment, point) {
   const [a,d]=segment.from,b=segment.to[0];
   const along=b.map((x,i)=>x-a[i]),cross=d.map((x,i)=>x-a[i]),delta=point.map((x,i)=>x-a[i]);
+  const skew=segment.to[1].map((x,i)=>x-b[i]-d[i]+a[i]);
   const determinant=along[0]*cross[1]-along[1]*cross[0];
-  return {
-    t:(delta[0]*cross[1]-delta[1]*cross[0])/determinant,
-    v:(along[0]*delta[1]-along[1]*delta[0])/determinant,
-  };
+  let t=(delta[0]*cross[1]-delta[1]*cross[0])/determinant;
+  let v=(along[0]*delta[1]-along[1]*delta[0])/determinant;
+  // The approach to the pitched turn tapers its end cross-section. Invert
+  // that bilinear strip rather than treating it as a parallelogram.
+  for(let i=0;i<6;i++) {
+    const error=a.map((x,k)=>x+t*along[k]+v*cross[k]+t*v*skew[k]-point[k]);
+    const dt=along.map((x,k)=>x+v*skew[k]),dv=cross.map((x,k)=>x+t*skew[k]);
+    const det=dt[0]*dv[1]-dt[1]*dv[0];
+    t-=(error[0]*dv[1]-error[1]*dv[0])/det;
+    v-=(dt[0]*error[1]-dt[1]*error[0])/det;
+  }
+  return {t,v};
 }
 
 export function wallHeightAt(segment, point) {
@@ -32,20 +41,10 @@ export function wallHeightAt(segment, point) {
   return brickCourseHeight*(point.course ?? (2*segment.id-1+step));
 }
 
-// The tower feet and turn coping remain EXACTLY where they were approved.
-// Fit the continuous bed between those anchors, independently of wall courses.
-export function wallBaseAt(segment, point) {
-  const {t,v}=station(segment,point);
-  const first=brickCourseHeight*(2*segment.id-1),last=first+2*brickCourseHeight;
-  let offset;
-  if(t<=0) offset=first-turnHeightAt(segment.fromTier,point);
-  else if(t>=1) offset=last-(segment.toTier?turnHeightAt(segment.toTier,point):scene.channelWallHeights[4].left);
-  else {
-    const head=turnHeightAt(segment.fromTier,mix(...segment.from,v));
-    const tail=segment.toTier?turnHeightAt(segment.toTier,mix(...segment.to,v)):scene.channelWallHeights[4].left;
-    offset=(first-head)*(1-t)+(last-tail)*t;
-  }
-  return add(point,[0,offset]);
+// All beds and turn floors share the original channel plane. Thicker courses
+// raise the coping, rather than lowering the bed to keep old column feet.
+export function wallBaseAt(_segment, point) {
+  return [...point];
 }
 
 export const wallTopAt = (segment,point) => add(wallBaseAt(segment,point),[0,-wallHeightAt(segment,point)]);
@@ -74,7 +73,15 @@ export function wallRun(segment, bank) {
   const a = segment.from[index], b = segment.to[index];
   const innerA = mix(...segment.from, inset), innerB = mix(...segment.to, inset);
   const extend = (edge, tier, outer, inner) => {
-    if (!tier) return [outer, inner];
+    if (!tier) {
+      // Carry the masonry past the open water outlet so both mill piers
+      // have a full-width footing. The water itself ends under the wheel.
+      if(segment.id===4) {
+        const dx=-24,dy=dx*(segment.to[0][1]-segment.from[0][1])/(segment.to[0][0]-segment.from[0][0]);
+        return [add(outer,[dx,dy]),add(inner,[dx,dy])];
+      }
+      return [outer, inner];
+    }
     const turn = channelSegments.flatMap(segment => segment.turns).find(turn => turn.tier === tier);
     const geometry = turnLayout(turn);
     const same = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]) < 1e-7;
@@ -203,19 +210,24 @@ export function straightWaterEdges(segment, side = 'left') {
   const leftToRight=mix(...segment.from)[0]<mix(...segment.to)[0];
   const fraction=(side==='left')===leftToRight?.15:.85;
   const height=wallHeightAt(segment,mix(mix(...segment.from),mix(...segment.to),fraction));
+  const smooth=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};
+  const waterAt=point=>{
+    const {t,v}=station(segment,point);
+    const head=turnHeightAt(segment.fromTier,mix(...segment.from,v));
+    const tail=segment.toTier?turnHeightAt(segment.toTier,mix(...segment.to,v)):scene.channelWallHeights[4].left;
+    // Rise only AFTER each masonry step, without a vertical jump in the
+    // water. A shared smooth surface drives its boundary and every ripple.
+    const progress=(smooth(3*t-1)+smooth(3*t-2))/2;
+    const freeboard=scene.channelWaterFreeboard+2*Math.sin(Math.PI*Math.max(0,Math.min(1,t)))**2;
+    return add(point,[0,-head-(tail-head)*progress+freeboard]);
+  };
   return {
     near: [mix(a, d, waterInset), mix(b, c, waterInset)],
     far: [mix(a, d, 1 - waterInset), mix(b, c, 1 - waterInset)],
     height,
     heightAt: point => wallHeightAt(segment, point),
     waterElevation: height - scene.channelWaterFreeboard,
-    waterAt: point => add(wallTopAt(segment,point),[0,scene.channelWaterFreeboard]),
-    // Flow direction is continuous; masonry steps do not kink the stream.
-    guideAt: point => {
-      const {t,v}=station(segment,point);
-      const head=turnHeightAt(segment.fromTier,mix(...segment.from,v));
-      const tail=segment.toTier?turnHeightAt(segment.toTier,mix(...segment.to,v)):scene.channelWallHeights[4].left;
-      return add(point,[0,-head*(1-t)-tail*t+scene.channelWaterFreeboard]);
-    },
+    waterAt,
+    guideAt:waterAt,
   };
 }

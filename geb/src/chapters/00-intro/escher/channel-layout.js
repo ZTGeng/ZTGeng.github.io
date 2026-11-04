@@ -16,6 +16,23 @@ const referenceCenters = {
   'left-middle': leftMiddleCenter, 'right-lower': rightLowerCenter,
 };
 
+// Aim the final water surface at the fixed wheel's lower axle midpoint.
+export const channel4Outlet = [scene.wheel.x+scene.wheel.depth[0]/2,
+  scene.wheel.centerY+scene.wheel.depth[1]/2+scene.wheel.radius];
+export const channel4Slope=(channel4Outlet[1]+scene.channelWallHeights[4].left-scene.channelWaterFreeboard
+  -rightLowerCenter[1]-scene.aqueductDrop)/(channel4Outlet[0]-rightLowerCenter[0]);
+export const channel4Pitch=channel4Slope-receding[1];
+export const projectMillPlane=(center,u,v,height=0)=>{
+  const p=projectPlane(center,u,v,height);
+  return [p[0],p[1]+channel4Pitch*v];
+};
+
+// Clear shaft length (between base transition and capital), identical in all bays.
+// The intermediate beam cap must touch the underside of the channel above.
+export const columnShaftLength = span * (across[1] - receding[1])
+  - 5 * scene.brickCourseHeight - 3 * scene.brickCourseHeight
+  - scene.wallDepth - scene.intermediateArch.top - scene.intermediateArch.capThickness - 15 - 2;
+
 export const towerLevels = scene.towers.flatMap(tower => [
   { ...tower, tier: `${tower.id}-upper` },
   ...tower.lowerLevels.map(level => ({ x: tower.x, ...level, tier: `${tower.id}-${level.id}` })),
@@ -24,7 +41,10 @@ export const towerLevels = scene.towers.flatMap(tower => [
   const drop = level.pierBay ? 0 : scene.aqueductDrop;
   const center = [reference[0], reference[1] + drop];
   const y = center[1] + 9;
-  return { ...level, center, y, top: level.top + y - level.y };
+  const support = ({'left-upper':1,'right-upper':3,'left-middle':5,'right-lower':7}[level.tier] ?? 0) * scene.brickCourseHeight;
+  const top = level.pierBay ? level.top + y - level.y
+    : center[1] - support - scene.columnBaseHeights[level.tier] - 17 - columnShaftLength + 9;
+  return { ...level, center, y, top };
 });
 
 export function bay(level, footprint = scene.towerBay) {
@@ -32,7 +52,7 @@ export function bay(level, footprint = scene.towerBay) {
   const center = level.center ?? bayCenter({ x, y });
   const { halfWidth: u, halfDepth: v } = footprint;
   const corners = [[-u, -v], [u, -v], [u, v], [-u, v]]
-    .map(([u, v]) => projectPlane(center, u, v));
+    .map(([u, v]) => projectTowerPlane(level.tier, center, u, v));
   const [fl, fr, br, bl] = corners;
   return {
     corners,
@@ -63,57 +83,90 @@ const waterway2To = edge('left-middle', 'back');
 const waterway4From = edge('right-lower', 'front');
 const direction = middle(waterway2From).map((v, i) => middle(waterway2To)[i] - v);
 const outletStart = middle(waterway4From);
-const outletScale = (scene.waterfallOutletX - outletStart[0]) / direction[0];
-const waterway4To = waterway4From.map(p => p.map((v, i) => v + direction[i] * outletScale));
+const outletScale = (channel4Outlet[0] - outletStart[0]) / direction[0];
+const waterway4To = waterway4From.map(p => [p[0]+direction[0]*outletScale,p[1]+direction[0]*outletScale*channel4Slope]);
 
-export const channel4BankY = x => waterway4From[0][1] + (x - waterway4From[0][0]) * direction[1] / direction[0];
+export const channel4BankY = x => waterway4From[0][1] + (x - waterway4From[0][0]) * channel4Slope;
 // Keep the water surface and the upper rim distinct. The platform's visible
 // front edge must meet the near wall's upper rim at the waterfall landing.
 export const channel4WaterOutlet = middle(waterway4To).map((value, i) =>
   i === 1 ? value - scene.channelWallHeights[4].left + scene.channelWaterFreeboard : value);
-export const channel4RimOutlet = [scene.waterfallOutletX, channel4BankY(scene.waterfallOutletX) - scene.channelWallHeights[4].left];
+export const channel4RimOutlet = [channel4Outlet[0], channel4BankY(channel4Outlet[0]) - scene.channelWallHeights[4].left];
 // Keep the established mill, fall and garden elevation while resizing the
 // aqueduct footprint. Only the channel's actual bank and pier anchors move.
-const referenceFourthNear=bay(towerLevels.find(l=>l.tier==='right-lower'),referenceFootprint).corners[1];
+const referenceFourthNear=projectPlane(towerLevels.find(l=>l.tier==='right-lower').center,referenceFootprint.halfWidth,-referenceFootprint.halfDepth);
 const referenceBankY=x=>referenceFourthNear[1]+(x-referenceFourthNear[0])*receding[1];
-export const waterfallTail = [scene.waterfallOutletX,referenceBankY(scene.waterfallOutletX)-scene.channelWallHeights[4].left];
+export const waterfallTail = [scene.waterfallOutletX,referenceBankY(scene.waterfallOutletX)-scene.mill.referenceCopingHeight];
 const referencePlatformY = scene.millTerrace.origin[1] + (scene.waterfallOutletX - scene.millTerrace.origin[0]) * across[1];
 export const millLift = referencePlatformY - waterfallTail[1];
 const millFloorY = scene.mill.origin[1] - millLift;
-export const millLayout = { ...scene.mill, origin: projectPlane([scene.mill.origin[0], millFloorY], 0, scene.mill.slide) };
+export const millLayout = { ...scene.mill, recedingSlope:channel4Slope, origin: projectPlane([scene.mill.origin[0], millFloorY], 0, scene.mill.slide) };
 const millTerraceBase = {
   ...scene.millTerrace,
+  recedingSlope:channel4Slope,
   origin: projectPlane([scene.millTerrace.origin[0], scene.millTerrace.origin[1] - millLift], 0, scene.mill.slide),
   // The foundation and attached staircase share the same long-axis slide.
-  height: scene.millTerrace.height + millLift,
+  referenceHeight: scene.millTerrace.height + millLift,
+  height: (scene.millTerrace.height + millLift) * scene.millTerrace.heightScale,
+  heightReduction: (scene.millTerrace.height + millLift) * (1-scene.millTerrace.heightScale),
 };
-// Feet follow the same ground direction as their tops, retaining equal lengths.
-export const lowerPierColumns = pierTops.map(pier => ({ ...pier, bottom: channel4BankY(pier.x) - scene.channelWallHeights[4].left }));
+// Trim vertical piers to the middle of the final near-bank coping.
+const bankCenterU=-scene.channelFootprint.halfWidth*scene.channelWallThickness/(2*scene.channelFootprint.halfSide);
+export const lowerPierColumns = pierTops.map(pier => ({ ...pier,
+  bottom:channel4BankY(pier.x)+bankCenterU*(across[1]-channel4Slope)-scene.channelWallHeights[4].left }));
+// The pond and foundation retain their approved original anchor.
+const oldFourthNear=projectPlane(towerLevels.find(l=>l.tier==='right-lower').center,
+  scene.channelFootprint.halfWidth,-scene.channelFootprint.halfDepth);
+const oldPierBottom=x=>oldFourthNear[1]+(x-oldFourthNear[0])*receding[1]-scene.mill.referenceCopingHeight;
 
 // Attach the visible right apron to the left lower pier's foot, in the same
 // ground plane. It is painted above channel 4 and below the two piers.
-const leftPierFoot = [lowerPierColumns[0].x, lowerPierColumns[0].bottom];
+const leftPierFoot = [lowerPierColumns[0].x, oldPierBottom(lowerPierColumns[0].x)];
 const footDelta = leftPierFoot.map((value, i) => value - millTerraceBase.origin[i]);
-const footV = (footDelta[1] - across[1] * footDelta[0]) / (receding[1] - across[1]);
+export const referenceMillPlatformAnchor=(()=>{const v=(footDelta[1]-across[1]*footDelta[0])/(receding[1]-across[1]);return [footDelta[0]-v,v];})();
+const footV = (footDelta[1] - across[1] * footDelta[0]) / (channel4Slope - across[1]);
 export const millPlatformAnchor = [footDelta[0] - footV, footV];
-export const millPlatformRailEnd = [millPlatformAnchor[0] + scene.lowerPierFootprint.halfWidth, millPlatformAnchor[1]];
-const platformOutline=millTerraceBase.platformOutline.map(([u,v],i)=>[u,i===4||i===5?millPlatformAnchor[1]:v]);
+export const millPlatformRailEnd = [millPlatformAnchor[0] + scene.lowerPierFootprint.halfWidth
+  -(referenceMillPlatformAnchor[1]-millPlatformAnchor[1]), referenceMillPlatformAnchor[1]];
+const platformOutline=millTerraceBase.platformOutline.map(([u,v],i)=>[u,i===4||i===5?referenceMillPlatformAnchor[1]:v]);
 export const millTerraceLayout = {
   ...millTerraceBase,
+  door:{...millTerraceBase.door,v:(platformOutline[3][1]+platformOutline[4][1]-millTerraceBase.door.width)/2},
   // The projecting room and its roof share the exact same perimeter.
   outline: [[millTerraceBase.garden.left,platformOutline[3][1]],...platformOutline.slice(3,7),[millTerraceBase.garden.left,225]],
   platformOutline,
+};
+// A single perspective baseline continues from the room's fixed rear foot
+// through the planter. Only the lower silhouette opens toward the right.
+export const foundationEdgeShift=v=>scene.millTerrace.foundationPerspectiveShift
+  *Math.max(0,millTerraceLayout.outline[2][1]-v);
+const clamp01=x=>Math.max(0,Math.min(1,x));
+export const projectFoundationPoint=(u,v,z=0)=>{
+  const m=millTerraceLayout,p=projectMillPlane(m.origin,u,v,z);
+  p[0]+=foundationEdgeShift(v)*clamp01((u-m.outline[0][0])/(m.door.u-m.outline[0][0]))*clamp01(-z/m.height);
+  return p;
 };
 const garden=millTerraceLayout.garden;
 const gardenWallCorner=millTerraceLayout.outline[1];
 const gardenLeft=millTerraceLayout.outline[0][0];
 const gardenWidth=gardenWallCorner[0]-gardenLeft;
-const gardenAbutment=projectPlane(millTerraceLayout.origin,...gardenWallCorner,-millTerraceLayout.height+garden.lift);
+const gardenReferenceAbutment=projectMillPlane(millTerraceLayout.origin,...gardenWallCorner,-millTerraceLayout.height+garden.lift);
+const gardenAbutment=projectFoundationPoint(...gardenWallCorner,-millTerraceLayout.height+garden.lift);
 export const gardenLayout = {
-  origin: projectPlane(gardenAbutment,-gardenWidth,-garden.depth),
+  origin: projectMillPlane(gardenReferenceAbutment,-gardenWidth,-garden.depth),
+  recedingSlope:channel4Slope,
   abutment:gardenAbutment,
   width:gardenWidth,depth:garden.depth,backV:gardenWallCorner[1],leftU:gardenLeft,
-  outline:[[0,0],[gardenWidth,0],[gardenWidth,garden.depth],[0,garden.depth]],
+  soilLeft:-garden.soilLeftExtension,
+  outline:[[-garden.soilLeftExtension,0],[gardenWidth,0],[gardenWidth,garden.depth],
+    [0,garden.depth],[0,garden.depth+garden.soilRearExtension],[-garden.soilLeftExtension,garden.depth+garden.soilRearExtension]],
+};
+export const projectGardenPoint=(u,v,z=0)=>{
+  const p=projectMillPlane(gardenLayout.origin,u,v,z);
+  const globalV=gardenLayout.backV-gardenLayout.depth+v;
+  p[0]+=foundationEdgeShift(globalV)*clamp01(u/gardenLayout.width)
+    *clamp01(1-(garden.lift+z)/millTerraceLayout.height);
+  return p;
 };
 const clipPlatform = (polygon, axis, boundary, direction) => polygon.flatMap((a, i) => {
   const b = polygon[(i + 1) % polygon.length];
@@ -125,9 +178,12 @@ const clipPlatform = (polygon, axis, boundary, direction) => polygon.flatMap((a,
   if (insideB) return [intersection(), b];
   return [];
 });
+// Restore the entire roof beside the house above the channel, including the
+// rear strip. Its perimeter is shared with the room below.
+export const millPlatformApronStartU=millLayout.origin[0]-millTerraceLayout.origin[0]+millLayout.width;
 export const millRightPlatformOutline = clipPlatform(
-  clipPlatform(millTerraceLayout.platformOutline, 0, millPlatformAnchor[0], 1),
-  1, millPlatformAnchor[1], -1,
+  clipPlatform(millTerraceLayout.platformOutline, 0, millPlatformApronStartU, 1),
+  1, referenceMillPlatformAnchor[1], -1,
 );
 
 // The upper strips join column-defined corners. The lowest strip instead
@@ -154,8 +210,8 @@ const turnProfiles = {
 
 // A turn is a constant-elevation translation of the SAME ground projection
 // as its adjoining channels. Interpolating inlet/outlet heights across the
-// turn shears its footprint; resolve the height difference along the straight
-// channel instead, while preserving each turn's previous center elevation.
+// turn shears its footprint. Whole brick-course heights agree on both
+// adjoining runs; the columns use this same horizontal coping plane.
 export function turnHeightAt(tier, _point) {
   const [inHeight,outHeight]=turnProfiles[tier].heights;
   return (inHeight+outHeight)/2;
@@ -163,8 +219,9 @@ export function turnHeightAt(tier, _point) {
 
 // Both turn and tower use the common 10° / -20° projection. Never adapt the
 // columns to a sheared coping plane.
-export function projectTowerPlane(_tier,center,u,v,height=0) {
-  return projectPlane(center,u,v,height);
+export function projectTowerPlane(tier,center,u,v,height=0) {
+  const p=projectPlane(center,u,v,height);
+  return [p[0],p[1]+(tier==='right-lower'?channel4Pitch*v:0)];
 }
 
 export function towerCapitals(level) {
@@ -217,7 +274,10 @@ export function turnLayout(turn) {
 // positions. Overlapping vertical clips split the image without generating
 // cut-edge strokes or restarting the water/stone pattern at the seam.
 export function channelHalf(segment, side) {
-  const cutX = (middle(segment.from)[0] + middle(segment.to)[0]) / 2;
+  // Move only clip seams outside the thickened walls' crossing areas.
+  // Keep all water, brick geometry, phases and the established tower order.
+  const cutX = (middle(segment.from)[0] + middle(segment.to)[0]) / 2
+    + (scene.channelSplitOffsets[segment.id] ?? 0);
   const overlap = .8;
   return {
     ...segment, side, cutX,

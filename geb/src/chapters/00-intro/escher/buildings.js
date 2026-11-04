@@ -1,11 +1,15 @@
 import { projectPlane } from './projection.js';
-import { millLayout, millTerraceLayout, millRightPlatformOutline, millPlatformRailEnd } from './channel-layout.js';
+import { millLayout, channel4Slope, projectMillPlane, projectFoundationPoint, millTerraceLayout, millRightPlatformOutline, millPlatformRailEnd } from './channel-layout.js';
 import { polygon, path, linePath, railing } from './drawing.js';
 import { channelSegments } from './channel-layout.js';
 import { wallRun, wallBaseAt } from './channel-walls.js';
 import { scene } from './scene.js';
 
-export const buildingPoint = config => (u = 0, v = 0, z = 0) => projectPlane(config.origin, u, v, z);
+export const buildingPoint = config => (u = 0, v = 0, z = 0) => {
+  const p=projectPlane(config.origin,u,v,z);
+  if(config.recedingSlope!==undefined) p[1]+=v*(config.recedingSlope-scene.waterwayDirections.receding[1]);
+  return p;
+};
 export const millTerracePoint = buildingPoint(millTerraceLayout);
 
 export function flatHouse(config) {
@@ -68,16 +72,71 @@ export function projectedStairs(p, origin, width, run, rise, count) {
 }
 
 // The near room wall occludes channel 4's thin floor ends.
+export function millFoundationFrontOutline() {
+  const {outline,height}=millTerraceLayout;
+  const [a,b]=outline;
+  const p=projectFoundationPoint;
+  return [p(...a),p(...b),p(b[0],b[1],-height),p(a[0],a[1],-height)];
+}
+
 export function millFoundationSideOutline() {
   const {outline,height}=millTerraceLayout;
   const [a,b]=outline.slice(1,3);
-  const p=millTerracePoint;
+  const p=projectFoundationPoint;
   return [p(...a),p(...b),p(b[0],b[1],-height),p(a[0],a[1],-height)];
+}
+
+// A finite longitudinal vanishing point keeps the inner edge and upper
+// endpoint fixed while the outside edge opens toward the foreground.
+function doorGroundPlan() {
+  const {door,outline,height}=millTerraceLayout;
+  const {width,vanishingDistance}=scene.doorGround;
+  const endV=outline[2][1],startV=-1400;
+  const widthAt=v=>width*(1+(endV-v)/vanishingDistance);
+  return {u:door.u,endV,startV,ground:-height,widthAt,rightU:v=>door.u+widthAt(v)};
+}
+
+export function millDoorGround() {
+  const {u,endV,startV,ground,widthAt,rightU}=doorGroundPlan();
+  const p=(a,b)=>millTerracePoint(a,b,ground);
+  const corners=[[u,startV],[rightU(startV),startV],[rightU(endV),endV],[u,endV]].map(([a,b])=>p(a,b));
+  const columns=[0,.3,.6,.9,1].map(f=>path(linePath([p(u+f*widthAt(endV),endV),p(u+f*widthAt(startV),startV)]),'door-ground-grid'));
+  const rows=[];
+  for(let i=0;i<24;i++) {
+    const scale=1/(1-i*.04),v=endV-scene.doorGround.vanishingDistance*(scale-1);
+    if(v<startV) break;
+    rows.push(path(linePath([p(u,v),p(rightU(v),v)]),'door-ground-grid'));
+  }
+  return `<g id="escher-door-ground">${polygon(corners,'ground-plane terrace-floor mill-door-ground')}
+    <defs><clipPath id="escher-door-ground-grid-clip">${polygon(corners,'')}</clipPath></defs>
+    <g clip-path="url(#escher-door-ground-grid-clip)">${columns.join('')}${rows.join('')}</g>
+  </g>`;
+}
+
+export function millDoorGroundWalls(wallTopReference) {
+  const {door,outline,height}=millTerraceLayout;
+  const {u,endV,startV,rightU}=doorGroundPlan();
+  const maxU=rightU(endV),thickness=6;
+  const ground=-height,bottom=ground-900;
+  const wallRise=millTerracePoint(u,endV,ground)[1]-wallTopReference[1];
+  const top=ground+wallRise,p=(a,b,z)=>millTerracePoint(a,b,z);
+  return `<g id="escher-door-ground-walls">
+    <g id="escher-door-ground-upper-wall">
+      ${polygon([p(u,endV,top),p(maxU,endV,top),p(maxU,endV,ground),p(u,endV,ground)],'stone-light wall-facing door-ground-upper-face')}
+      ${polygon([p(u,endV,top),p(maxU,endV,top),p(rightU(endV+thickness),endV+thickness,top),p(u,endV+thickness,top)],'stone-light door-ground-upper-cap')}
+    </g>
+    <g id="escher-door-ground-right-wall">
+      ${polygon([p(rightU(endV+thickness)+thickness,endV+thickness,top),p(rightU(startV)+thickness,startV,top),p(rightU(startV)+thickness,startV,bottom),p(rightU(endV+thickness)+thickness,endV+thickness,bottom)],'stone-mid wall-receding door-ground-right-face')}
+      ${path(linePath([p(rightU(endV+thickness),endV+thickness,top),p(rightU(endV+thickness)+thickness,endV+thickness,top),p(rightU(endV+thickness)+thickness,endV+thickness,bottom),p(rightU(endV+thickness),endV+thickness,bottom)])+'Z','stone-mid wall-receding door-ground-right-return','stroke="none"')}
+      ${path(linePath([p(rightU(endV+thickness)+thickness,endV+thickness,top),p(rightU(endV+thickness)+thickness,endV+thickness,bottom)]),'door-ground-right-outer-edge','fill="none"')}
+      ${polygon([p(rightU(endV+thickness),endV+thickness,top),p(rightU(startV),startV,top),p(rightU(startV)+thickness,startV,top),p(rightU(endV+thickness)+thickness,endV+thickness,top)],'stone-light door-ground-right-cap')}
+    </g>
+  </g>`;
 }
 
 export function millFoundation() {
   const { outline, height, platformOutline, platformThickness, door } = millTerraceLayout;
-  const p = millTerracePoint;
+  const p = projectFoundationPoint;
   const sides = outline.map((a, i) => {
     const b = outline[(i + 1) % outline.length];
     if (b[0] <= a[0] && b[1] <= a[1]) return '';
@@ -89,16 +148,16 @@ export function millFoundation() {
       const end = wallRun(channel, 'near').outer.reduce((a,b) => a[0] > b[0] ? a : b);
       const right = wallBaseAt(channel, end).map((v,i) => v + (i === 1 ? scene.wallDepth : 0));
       const x = p(...a)[0];
-      const left = [x, right[1] + (x-right[0])*scene.waterwayDirections.receding[1]];
+      const left = [x, right[1] + (x-right[0])*channel4Slope];
       const h = millTerraceLayout.canalSupportHeight;
       const {canalLowerHeight:lowerHeight,canalLowerSetback:setback}=millTerraceLayout;
       const baseLeft=[left[0],left[1]+h],far=[right[0],right[1]+h];
-      const near=baseLeft.map((v,i)=>(v+far[i])/2);
+      const near=baseLeft.map((v,i)=>(v+far[i])/2+50*(i===0?1:channel4Slope));
       // Equal physical setbacks on the two perpendicular ground axes.
       const backGap=setback*scene.channelFootprint.halfDepth/scene.channelFootprint.halfWidth;
-      const outerNear=projectPlane(near,setback,0);
-      const outerCorner=projectPlane(far,setback,backGap);
-      const backOuter=projectPlane(far,-80,backGap),backInner=projectPlane(far,-80,0);
+      const outerNear=projectMillPlane(near,setback,0);
+      const outerCorner=projectMillPlane(far,setback,backGap);
+      const backOuter=projectMillPlane(far,-80,backGap),backInner=projectMillPlane(far,-80,0);
       const roof=[near,outerNear,outerCorner,backOuter,backInner,far];
       const down=p=>[p[0],p[1]+lowerHeight];
       return `<g id="escher-canal-two-storey">
@@ -107,8 +166,8 @@ export function millFoundation() {
         ${polygon([near,outerNear,down(outerNear),down(near)],'stone-light wall-facing mill-canal-lower-return')}
         ${polygon(roof,'ground-plane terrace-floor mill-canal-lower-roof')}
         <g id="escher-canal-lower-railing-rear">${railing(outerCorner,backOuter,22)}</g>
-        ${polygon([left,right,far,baseLeft], 'stone-mid wall-receding building-side-wall mill-foundation-right-wall mill-canal-support-wall')}
-        <g id="escher-canal-lower-railing">${railing(projectPlane(outerCorner,0,-80),outerCorner,22)}</g>
+        ${h>0?polygon([left,right,far,baseLeft], 'stone-mid wall-receding building-side-wall mill-foundation-right-wall mill-canal-support-wall'):''}
+        <g id="escher-canal-lower-railing">${railing(projectMillPlane(outerCorner,0,-80),outerCorner,22)}</g>
       </g>`;
     }
     return polygon([p(...a), p(...b), p(b[0], b[1], -height), p(a[0], a[1], -height)], 'stone-mid wall-receding building-side-wall mill-foundation-right-wall');
@@ -151,6 +210,7 @@ export function mill() {
   const config = millLayout;
   const { width: w, depth: d, height: h, roofRise } = config;
   const p = buildingPoint(config);
+  const roofPoint=buildingPoint({...config,recedingSlope:scene.waterwayDirections.receding[1]});
   const roofHeight = u => h + roofRise * (1 - Math.abs(2 * u / w - 1));
   const chimney = (u, v) => {
     const base = roofHeight(u);
@@ -164,8 +224,8 @@ export function mill() {
     ${polygon([p(0, 0), p(0, d), p(0, d, h), p(0, 0, h)], 'stone-mid')}
     ${polygon([p(0, 0), p(w, 0), p(w, 0, h), p(w / 2, 0, h + roofRise), p(0, 0, h)], 'stone-light wall-facing building-front-wall')}
     ${polygon([p(w, 0), p(w, d), p(w, d, h), p(w, 0, h)], 'stone-mid wall-receding building-side-wall')}
-    ${polygon([p(w / 2, 0, h + roofRise), p(w / 2, d, h + roofRise), p(w, d, h), p(w, 0, h)], 'roof-dark')}
-    ${path(linePath([p(-8, 0, h), p(w / 2, 0, h + roofRise + 5), p(w / 2, d, h + roofRise + 5), p(w + 8, d, h)]), 'roof-edge')}
+    ${polygon([roofPoint(w / 2, 0, h + roofRise), roofPoint(w / 2, d, h + roofRise), roofPoint(w, d, h), roofPoint(w, 0, h)], 'roof-dark')}
+    ${path(linePath([roofPoint(-8, 0, h), roofPoint(w / 2, 0, h + roofRise + 5), roofPoint(w / 2, d, h + roofRise + 5), roofPoint(w + 8, d, h)]), 'roof-edge')}
     ${path(linePath([p(w / 2, 0, h + roofRise + 5), p(w + 7, 0, h)]), 'roof-edge')}
     ${chimney(70, 15)}
     ${faceWindow(p, 24, 0, 38, 29, 45)}
