@@ -4,6 +4,7 @@ import { polygon, path, linePath, railing } from './drawing.js';
 import { channelSegments } from './channel-layout.js';
 import { wallRun, wallBaseAt } from './channel-walls.js';
 import { scene } from './scene.js';
+import { archOutline, intersectLines, stairGeometry } from './architectural-geometry.js';
 
 export const buildingPoint = config => (u = 0, v = 0, z = 0) => {
   const p=projectPlane(config.origin,u,v,z);
@@ -32,7 +33,7 @@ export function faceWindow(p, u, v, z, width, height, side = 'u') {
 
 export function archDoor(p, u, v, z, width, height, side = 'u') {
   const at = (t, dz) => p(u + (side === 'u' ? t : 0), v + (side === 'v' ? t : 0), z + dz);
-  return path(`M${at(0, 0)}L${at(0, height * .60)}Q${at(width / 2, height * 1.40)} ${at(width, height * .60)}L${at(width, 0)}Z`, 'window-dark');
+  return path(archOutline(at, width, height), 'window-dark');
 }
 
 export function parapet(config, height = 16) {
@@ -59,15 +60,11 @@ export function barrelRoof(config) {
 }
 
 export function projectedStairs(p, origin, width, run, rise, count) {
-  const local = (i, back = false, outer = false, down = false) => p(
-    origin[0] + (i + (back ? 1 : 0)) * run[0] + (outer ? width[0] : 0),
-    origin[1] + (i + (back ? 1 : 0)) * run[1] + (outer ? width[1] : 0),
-    origin[2] - (i + (down ? 1 : 0)) * rise,
-  );
+  const geometry = stairGeometry(p, origin, width, run, rise, count);
   return `<g class="stone-stairs">${Array.from({ length: count }, (_, j) => {
     const i = count - 1 - j;
-    return `${polygon([local(i, true), local(i, true, true), local(i, true, true, true), local(i, true, false, true)], 'stone-mid stair-riser')}
-      ${polygon([local(i), local(i, false, true), local(i, true, true), local(i, true)], 'stone-light stair-tread')}`;
+    return `${polygon(geometry.riser(i), 'stone-mid stair-riser')}
+      ${polygon(geometry.tread(i), 'stone-light stair-tread')}`;
   }).join('')}</g>`;
 }
 
@@ -184,9 +181,20 @@ export function millFoundation() {
     if (b[0] <= a[0] && b[1] <= a[1]) return '';
     return polygon([p(...a), p(...b), p(b[0], b[1], -platformThickness), p(a[0], a[1], -platformThickness)], 'mill-platform-rim');
   }).join('');
+  const doorAt=(t,z)=>p(door.u,door.v+t,-height+z);
+  const doorOutline=archOutline(doorAt,door.width,door.height,door.height*.4,false);
+  const leftFoot=doorAt(0,0),rightFoot=doorAt(door.width,0);
+  const originalTip=p(door.u-38,door.v+door.width,-height),leftShoulder=doorAt(0,door.height*.6);
+  const direction=originalTip.map((v,i)=>v-rightFoot[i]),edge=leftShoulder.map((v,i)=>v-leftFoot[i]);
+  const tip=intersectLines(rightFoot,direction,leftFoot,edge);
+  const insideFloor=[leftFoot,rightFoot,tip];
   return `<g id="escher-mill-foundation" data-building="mill-foundation">
     ${sides}${frontWall}
-    <g id="escher-foundation-door" data-wall="right">${archDoor(p, door.u, door.v, -height, door.width, door.height, 'v')}</g>
+    <g id="escher-foundation-door" data-wall="right">
+      ${path(doorOutline+'Z','window-dark','stroke="none"')}
+      ${polygon(insideFloor,'foundation-door-floor')}
+      ${path(doorOutline,'foundation-door-outline','fill="none"')}
+    </g>
     <g id="escher-mill-platform">${rim}${polygon(platformOutline.map(a => p(...a)), 'ground-plane terrace-floor')}</g>
   </g>`;
 }
@@ -215,10 +223,15 @@ export function mill() {
   const chimney = (u, v) => {
     const base = roofHeight(u);
     const top = base + 55;
-    return `${polygon([p(u - 9, v - 5, base), p(u + 9, v - 5, base), p(u + 9, v - 5, top), p(u - 9, v - 5, top)], 'stone-mid')}
-      ${polygon([p(u + 9, v - 5, base), p(u + 9, v + 5, base), p(u + 9, v + 5, top), p(u + 9, v - 5, top)], 'stone-dark')}
-      ${polygon([p(u - 12, v - 8, top), p(u + 12, v - 8, top), p(u, v, top + 14)], 'roof-dark')}
-      ${polygon([p(u + 12, v - 8, top), p(u + 12, v + 8, top), p(u, v, top + 14)], 'roof-dark')}`;
+    const q=roofPoint;
+    const foot=(a,b)=>q(a,b,roofHeight(a));
+    const ridge=[q(u,v-8,top+14),q(u,v+8,top+14)];
+    return `<g class="mill-chimney">
+      ${polygon([foot(u-9,v-5),foot(u+9,v-5),q(u+9,v-5,top),q(u-9,v-5,top)],'stone-mid chimney-front')}
+      ${polygon([foot(u+9,v-5),foot(u+9,v+5),q(u+9,v+5,top),q(u+9,v-5,top)],'stone-dark chimney-side')}
+      ${polygon([q(u-12,v-8,top),q(u-12,v+8,top),ridge[1],ridge[0]],'roof-dark chimney-cap-left')}
+      ${polygon([ridge[0],ridge[1],q(u+12,v+8,top),q(u+12,v-8,top)],'roof-dark chimney-cap-right')}
+    </g>`;
   };
   return `<g id="escher-mill" data-building="mill">
     ${polygon([p(0, 0), p(0, d), p(0, d, h), p(0, 0, h)], 'stone-mid')}
@@ -227,7 +240,7 @@ export function mill() {
     ${polygon([roofPoint(w / 2, 0, h + roofRise), roofPoint(w / 2, d, h + roofRise), roofPoint(w, d, h), roofPoint(w, 0, h)], 'roof-dark')}
     ${path(linePath([roofPoint(-8, 0, h), roofPoint(w / 2, 0, h + roofRise + 5), roofPoint(w / 2, d, h + roofRise + 5), roofPoint(w + 8, d, h)]), 'roof-edge')}
     ${path(linePath([p(w / 2, 0, h + roofRise + 5), p(w + 7, 0, h)]), 'roof-edge')}
-    ${chimney(70, 15)}
+    ${chimney(87, 23)}
     ${faceWindow(p, 24, 0, 38, 29, 45)}
     <g class="mill-front-door">${polygon([p(80, 0), p(109, 0), p(109, 0, 76), p(80, 0, 76)], 'window-dark')}</g>
   </g>`;

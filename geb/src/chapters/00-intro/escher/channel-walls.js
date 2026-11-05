@@ -1,6 +1,7 @@
 import { scene } from './scene.js';
-import { mix, turnHeightAt, turnLayout, channelSegments } from './channel-layout.js';
+import { mix, turnHeightAt, turnLayout, channelSegments, channel4CourseScale, channel4HeightIncrease } from './channel-layout.js';
 import { polygon, add, path, linePath } from './drawing.js';
+import { createStationLookup } from './channel-coordinates.js';
 
 // Keep a constant physical bank thickness through both straight runs and bends.
 export const waterInset = scene.channelWallThickness / (2 * scene.channelFootprint.halfSide);
@@ -12,26 +13,13 @@ export const brickCourseHeight = scene.brickCourseHeight;
 export const channelBrickLength = 29;
 export const wallStepStations = [1/3,2/3];
 
+const stationLookups = new WeakMap();
 function station(segment, point) {
-  const [a,d]=segment.from,b=segment.to[0];
-  const along=b.map((x,i)=>x-a[i]),cross=d.map((x,i)=>x-a[i]),delta=point.map((x,i)=>x-a[i]);
-  const skew=segment.to[1].map((x,i)=>x-b[i]-d[i]+a[i]);
-  const determinant=along[0]*cross[1]-along[1]*cross[0];
-  let t=(delta[0]*cross[1]-delta[1]*cross[0])/determinant;
-  let v=(along[0]*delta[1]-along[1]*delta[0])/determinant;
-  // The approach to the pitched turn tapers its end cross-section. Invert
-  // that bilinear strip rather than treating it as a parallelogram.
-  for(let i=0;i<6;i++) {
-    const error=a.map((x,k)=>x+t*along[k]+v*cross[k]+t*v*skew[k]-point[k]);
-    const dt=along.map((x,k)=>x+v*skew[k]),dv=cross.map((x,k)=>x+t*skew[k]);
-    const det=dt[0]*dv[1]-dt[1]*dv[0];
-    t-=(error[0]*dv[1]-error[1]*dv[0])/det;
-    v-=(dt[0]*error[1]-dt[1]*error[0])/det;
-  }
-  return {t,v};
+  if (!stationLookups.has(segment)) stationLookups.set(segment, createStationLookup(segment));
+  return stationLookups.get(segment)(point);
 }
 
-export function wallHeightAt(segment, point) {
+export function wallReferenceHeightAt(segment, point) {
   if(typeof point === 'number') {
     const start=mix(...segment.from),end=mix(...segment.to);
     point=mix(start,end,(point-start[0])/(end[0]-start[0]));
@@ -41,10 +29,18 @@ export function wallHeightAt(segment, point) {
   return brickCourseHeight*(point.course ?? (2*segment.id-1+step));
 }
 
-// All beds and turn floors share the original channel plane. Thicker courses
-// raise the coping, rather than lowering the bed to keep old column feet.
-export function wallBaseAt(_segment, point) {
-  return [...point];
+export const brickCourseHeightAt=(segment,point)=>brickCourseHeight*(segment.id===4?channel4CourseScale(station(segment,point).t):1);
+export const wallHeightAt=(segment,point)=>{
+  if(typeof point==='number'){
+    const start=mix(...segment.from),end=mix(...segment.to);
+    point=mix(start,end,(point-start[0])/(end[0]-start[0]));
+  }
+  return wallReferenceHeightAt(segment,point)*brickCourseHeightAt(segment,point)/brickCourseHeight;
+};
+// Expand downwards on one continuous bed plane. At the nine-course outlet,
+// the added bed drop cancels the taller wall, preserving the pier footings.
+export function wallBaseAt(segment,point){
+  return add(point,[0,segment.id===4?channel4HeightIncrease*Math.max(0,Math.min(1,station(segment,point).t)):0]);
 }
 
 export const wallTopAt = (segment,point) => add(wallBaseAt(segment,point),[0,-wallHeightAt(segment,point)]);
@@ -114,7 +110,8 @@ export function channelWall(run, height) {
   const up = point => run.segment ? wallTopAt(run.segment,point) : add(point,[0,-at(point)]);
   const base = point => run.segment ? wallBaseAt(run.segment,point) : point;
   const sampleRun = nodes => nodes.slice(1).flatMap((end, i) => (run.segment?sampleSteppedEdge(run.segment,nodes[i],end):sampleEdge(nodes[i],end)).slice(i ? 1 : 0));
-  const outerTop = sampleRun(run.outer).map(up), innerTop = sampleRun(run.inner).map(up);
+  const outerSamples = sampleRun(run.outer), innerSamples = sampleRun(run.inner);
+  const outerTop = outerSamples.map(up), innerTop = innerSamples.map(up);
   // Anchor brick spacing to the original straight section, then continue it
   // in both directions over the extended path, including the waterfall bend.
   const spans = run.outer.slice(1).map((end, i) => Math.hypot(end[0] - run.outer[i][0], end[1] - run.outer[i][1]));
@@ -144,7 +141,7 @@ export function channelWall(run, height) {
       const ta=station(segment,start).t,tb=station(segment,end).t;
       const cuts=[0,...wallStepStations.map(t=>(t-ta)/(tb-ta)).filter(t=>Number.isFinite(t)&&t>1e-8&&t<1-1e-8).sort((a,b)=>a-b),1];
       cuts.slice(1).forEach((to,j)=>{
-        const from=cuts[j],course=wallHeightAt(segment,mix(start,end,(from+to)/2))/brickCourseHeight;
+        const from=cuts[j],course=wallReferenceHeightAt(segment,mix(start,end,(from+to)/2))/brickCourseHeight;
         const at=(a,b,t)=>up(Object.assign(mix(a,b,t),{course}));
         const a=at(start,end,from),b=at(start,end,to),c=at(ia,ib,to),d=at(ia,ib,from);
         coping+=path(linePath([a,b,c,d])+'Z','channel-wall-cap','stroke="none"');
@@ -164,9 +161,9 @@ export function channelWall(run, height) {
     });
     for(let course=1;course<2*segment.id+1;course++) {
       let drawing=false,d='';
-      sampleRun(run.outer).forEach(p=>{
-        if(wallHeightAt(segment,p)>course*brickCourseHeight+.01) {
-          const q=add(base(p),[0,-course*brickCourseHeight]);
+      outerSamples.forEach(p=>{
+        if(wallHeightAt(segment,p)>course*brickCourseHeightAt(segment,p)+.01) {
+          const q=add(base(p),[0,-course*brickCourseHeightAt(segment,p)]);
           d+=`${drawing?'L':'M'}${q}`;drawing=true;
         } else drawing=false;
       });
@@ -174,8 +171,8 @@ export function channelWall(run, height) {
     }
   }
   return `<g class="channel-side-wall" data-extended-through-turn="true" data-bank="${run.bank}" data-joint-style="${run.bank === 'far' ? 'cap-only' : 'brick'}">
-    ${polygon([...sampleRun(run.inner).map(base), ...innerTop.toReversed()], 'channel-wall-inner')}
-    ${polygon([...sampleRun(run.outer).map(base), ...outerTop.toReversed()], 'channel-wall-outer')}
+    ${polygon([...innerSamples.map(base), ...innerTop.toReversed()], 'channel-wall-inner')}
+    ${polygon([...outerSamples.map(base), ...outerTop.toReversed()], 'channel-wall-outer')}
     ${run.segment?coping:polygon([...outerTop, ...innerTop.toReversed()], 'channel-wall-cap')}
     ${risers}<g class="channel-wall-joints">${courses}${joints}</g>
   </g>`;
@@ -219,12 +216,14 @@ export function straightWaterEdges(segment, side = 'left') {
     // water. A shared smooth surface drives its boundary and every ripple.
     const progress=(smooth(3*t-1)+smooth(3*t-2))/2;
     const freeboard=scene.channelWaterFreeboard+2*Math.sin(Math.PI*Math.max(0,Math.min(1,t)))**2;
-    return add(point,[0,-head-(tail-head)*progress+freeboard]);
+    const scale=segment.id===4?channel4CourseScale(t):1;
+    return add(wallBaseAt(segment,point),[0,-(head+(tail-head)*progress)*scale+freeboard]);
   };
   return {
     near: [mix(a, d, waterInset), mix(b, c, waterInset)],
     far: [mix(a, d, 1 - waterInset), mix(b, c, 1 - waterInset)],
     height,
+    referenceHeight:wallReferenceHeightAt(segment,mix(mix(...segment.from),mix(...segment.to),fraction)),
     heightAt: point => wallHeightAt(segment, point),
     waterElevation: height - scene.channelWaterFreeboard,
     waterAt,

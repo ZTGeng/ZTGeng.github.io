@@ -1,4 +1,5 @@
 import './style.css';
+import { formatSvgNumbers } from './svg-format.js';
 import { crossBridge, crossBridgeLayout, replacementPlatform, platformStairs } from './cross-bridge.js';
 import { currentSurface } from './current.js';
 import { startAnimation } from './animation.js';
@@ -12,7 +13,8 @@ import { polygon, path, linePath, add } from './drawing.js';
 import { materialDefinitions } from './materials.js';
 import { landscape, rearHouses, foreground } from './surroundings.js';
 import { mill, millDoorGround, millDoorGroundWalls, millFoundation, millBalcony, millRightPlatform, millFoundationFrontOutline, millFoundationSideOutline } from './buildings.js';
-import { channelWall, channelFloor, channelTurnFloor, sampleEdge, wallBaseAt, straightWaterEdges, turnWaterScale, waterInset, wallRun } from './channel-walls.js';
+import { channelTurnFloor, turnWaterScale, waterInset } from './channel-walls.js';
+import { channelArtwork } from './channel-artwork.js';
 import { bay, mix, towerLevels, channelSegments, channelHalf, turnLayout, structuralOrder, waterfallLip, waterfallTail, lowerPierColumns, channel4Pitch, columnFeet, towerCapitals, projectTowerPlane, turnHeightAt, turnBanks } from './channel-layout.js';
 
 function stoneBlock(center, u, v, height, tier) {
@@ -119,25 +121,22 @@ function turnSurface(turn) {
 function channelSegment(segment, side) {
   const half = channelHalf(segment, side);
   const clipId = `escher-channel-${segment.id}-${side}-clip`;
-  const [a, d] = segment.from;
-  const [b, c] = segment.to;
-  const water = straightWaterEdges(segment, side);
-  const nearRun = wallRun(segment, 'near'), farRun = wallRun(segment, 'far');
-  const wetOutline=[...sampleEdge(...water.near).map(water.waterAt),...sampleEdge(...water.far).map(water.waterAt).toReversed()];
+  const artwork = channelArtwork(segment);
+  const water = artwork.waterBySide[side];
   return `<g id="escher-channel-${segment.id}-${side}" data-structural-layer="channel-${segment.id}-${side}" data-channel-side="${side}" data-wall-height="${water.height}">
     <defs><clipPath id="${clipId}"><rect x="${half.minX}" y="-1000" width="${half.maxX - half.minX}" height="3000"/></clipPath></defs>
     <g clip-path="url(#${clipId})" class="channel-half-artwork"${segment.id === 4 && side === 'left' ? ' mask="url(#escher-landing-platform-mask)"' : ''}>
     <g${segment.id===4?' mask="url(#escher-foundation-floor-mask)"':''}>
-    ${channelFloor(farRun)}${channelFloor(nearRun)}
+    ${artwork.floors}
     ${segment.id===1?half.turns.map(turn=>channelTurnFloor(segment,turn)).join(''):''}
-    ${polygon([a, b, c, d].map(p=>wallBaseAt(segment,p)), 'channel-corner-stone')}
-    ${channelWall(farRun, water.heightAt)}
+    ${artwork.bed}
+    ${artwork.farWall}
     <g data-water-elevation="${water.waterElevation}">
-      ${polygon(wetOutline, 'channel-corner-water')}
-      ${path(linePath(sampleEdge(...water.far).map(water.waterAt)),'channel-waterline')}
-      ${currentSurface(`current-${segment.id}-${side}`,wetOutline,(t,v)=>water.guideAt(mix(mix(...water.near,t),mix(...water.far,t),v)),-1,Math.hypot(b[0]-a[0],b[1]-a[1]))}
+      ${artwork.waterSurface}
+      ${artwork.waterline}
+      ${artwork.current(`current-${segment.id}-${side}`)}
     </g>
-    ${channelWall(nearRun, water.heightAt)}
+    ${artwork.nearWall}
     ${half.turns.map(turnSurface).join('')}
     ${half.tailrace ? `${path(linePath(half.tailrace), 'channel-outline')}${path(linePath(half.tailrace), 'channel-top')}${path(linePath(half.tailrace), 'channel-water')}` : ''}
     </g></g>
@@ -189,7 +188,8 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${scene.viewBox}" 
       <rect x="${tailX - 43}" y="${platformY - 27}" width="53" height="45" fill="black"/>
     </mask>
   </defs>
-  <rect width="900" height="900" class="scene-paper"/>
+  <rect width="900" height="1040" class="scene-paper"/>
+  <g id="escher-portrait-framing" transform="translate(${scene.framing.x} ${scene.framing.y}) scale(${scene.framing.scale})">
   <g class="scene-architecture" transform="translate(0 ${scene.compositionOffsetY})" stroke-linejoin="round" stroke-linecap="round">
     <g class="scene-background" transform="translate(0 ${scene.backgroundOffsetY})">${landscape()}</g>
     ${millFoundation()}
@@ -225,8 +225,9 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${scene.viewBox}" 
     ${scene.showRightHouses?rearHouses():''}
     ${foreground()}
   </g>
+  </g>
 </svg>`;
 
-document.querySelector('#escher-scene').innerHTML = svg;
+document.querySelector('#escher-scene').innerHTML = formatSvgNumbers(svg);
 
 startAnimation(document.querySelector('#escher-scene'));

@@ -491,3 +491,43 @@ geb/
 - 水车轴心承座单独下移8：y=scene.wheel.centerY+8，水车、方柱和瀑布保持。构建通过。
 
 - 桥身正立面向下加倍：独立wallBottom=2*ground=-144替代原底边-72，上边deck+edgeHeight=0不动，拱门与窗户仍使用原g/deck坐标，平台/楼梯锚点继续原ground不变。94项测试、构建和浏览器检查通过，验收escher-double-bridge-wall.png；快照.verification/escher-before-double-bridge-wall.json。
+
+- 竖幅构图第一阶段：viewBox900×800→900×1140（30:38），paper高度同步1140。新增scene.framing={scale:1.2,x:-35,y:25}包裹原建筑与梯田，整体等比例放大20%并定位；保留全部内部连接/尺寸/角度/遮挡和动画，原compositionOffsetY=-6继续内层应用。塔顶约在上方6%，池水约在70%，右侧方屋及前景自然从画框出画。遵循分步验收，方屋单独缩窄和前景局部调整留待下一阶段。94项测试及构建、浏览器检查通过，验收escher-portrait-stage-one.png；快照.verification/escher-before-portrait-composition.json。
+
+- 竖幅第二阶段遵循原作比例/核心居中：framing.x -35→-75（建筑群及背景在900宽画布中整体左移40；scale1.2/y25保持），水道核心从偏右向中央收拢，前景自然出画避免扩大周边空白。方屋正方形截面边长整体×.85（houseDepth/houseWidth均15%缩小），houseMinV与houseAnchor保持原值固定桥侧连接点，其他高度/桥面/楼梯保持。新增upperShaftExtra左上12/右上16，仅改变towerLevels对应上段top，圆柱、柱头、拱梁、平顶和装饰随新顶高提升，柱脚/水道/下两段完全不动。更新上层独立柱长与方屋保留锚点回归，94项测试与构建、浏览器检查通过，验收escher-portrait-stage-two.png；快照.verification/escher-before-portrait-proportions-stage-two.json。
+
+- 水道4透视层高：水道2/4消失点x1808.523046315，近远比例1.2561063483；brickCourseHeightAt沿t连续线性8→10.0488507864，层数保持7/8/9。wallReferenceHeightAt区分层数和实际高度，coping按基准层数，砖缝按当地连续层高。左端增量18.43965707766，底板厚8不变。渠底向近端连续下沉同量，墙顶=新底-新墙高，保留右上转角及左下九层柱脚位置；水面和动画同步更新。
+- 大门洞建筑顶边不动，高122.253627373→140.693284451；门洞仍靠新底边，花坛/栅门/植物、地板/围墙自动下移18.439657078。多边形平台6顶点与短/长梯统一下移同量。桥用原墙高参考冻结，方屋保持。双门计算排除下移delta，门顶y740.096014104/746.796439371保持，组transform20→-18左移38，靠左余量约12。
+- 95项测试/构建通过；临时基线模块核对桥shift(0,0)，平台6点、梯起点和花坛origin均shift(0,18.43965708)，门顶y完全一致。浏览器验收escher-perspective-course-height.png；快照.verification/escher-before-perspective-brick-courses.json。
+
+- 修复多边形平台渠底缝隙：C/D用真实wallBaseAt(channel4,[x,channel4BankY(x)])+底板厚8-.75计算，向渠底重叠0.75，不再整条边使用近端统一下移delta。D.x与A/B保持，DE仍沿across且长60，EF保持channel4Slope，FA保持across，通过交点重算E/F，其他边角度不变。桥拱门新增bridgeArchFloor，将门底定位D→E线，拱门及内缘整体下移；窗户/桥身保持。方屋门底参考冻结到旧梯起点，避免平台修正连带移动双门。更新真实渠底贴合与拱门落点回归，95项测试及构建、浏览器检查通过，验收escher-platform-bed-fit.png；快照.verification/escher-before-platform-bed-fit.json。
+
+- 按用户要求减去竖幅底部约100，选定viewBox900×1040（原900×1140），paper同步1040。仅裁切视口，保留scale1.2/x-75/y25及全部物体坐标；底部大面积前景地板/墙面减少，门洞和短梯完整、长梯/花坛继续出画。95项测试及构建、浏览器验收通过，截图escher-cropped-900x1040.png。
+
+- 花坛比例/分布调整：depth180→204（+13.3%），后沿/栅门与建筑连接点保持，前沿向左下扩出画外。总85株不变（10杯形/9珊瑚/11卷须/55草），将原多数被裁到画外的杯形植株重布到u.24～.88、v.35～.94，主杯高137，其他52～114；枝状向右后部聚集、卷须居中、低草覆盖可见土面，增加可见前景层次而非堆叠总数量。所有根点仍在土面内。
+- 桥拱门移除bridge-arch-intrados浅色内描边及闲置CSS；总高56/宽28/门底不变，拱肩从总高60%升至86%，二次曲线控制点从140%改114%，将弧段高度40%压为14%，拱顶中心高度保持。95项测试（含全部85株根点在土面内）与构建、浏览器检查通过，验收escher-garden-rebalanced-shallow-arch.png；快照.verification/escher-before-garden-rebalance-flat-bridge-arch.json。
+
+- 植物按类别每三株均匀去一株：85→57（去28，约32.94%），保留7杯/6珊瑚/7卷须/37草，未移动保留植株。烟囱屋顶局部位置(70,15)→(87,23)，右下移动并留出屋脊/屋面边界距离；烟囱全部采用与屋顶相同的roofPoint(-20°)，每个底脚按所在u的roofHeight计算，使前底边与屋面坡度平行且贴合。帽顶从两片三角锥改为两片共屋脊的四边形斜面，不绘制两端山墙封口。新增实际底边与主屋顶横坡平行、双帽面均四边形检查；96项测试/构建与浏览器验收通过，截图escher-thinned-garden-open-chimney.png；快照.verification/escher-before-thinned-garden-open-chimney.json。
+
+- 植物微调：珊瑚白枝整体屏幕局部y+10，卷须局部x+12，其他植物坐标不变；原最高杯137已在上轮疏减保留，本轮降至110，避免顶端压平台。57株根点仍通过土面内检测。
+- 大门洞内部地面增加三角形：两点使用门洞左右底脚doorAt(0,0)/doorAt(width,0)，第三点沿屋内u-38投影，与外部地板共用地面z=-height及同色#d3cdbb，无描边。大门洞暗部改为无描边填充，再单独描绘不含底部门槛线的开口轮廓，避免门内/门外地板连接处产生分割线。96项测试及构建、浏览器验收通过，截图escher-garden-tweaks-doorway-floor.png；快照.verification/escher-before-garden-tweaks-door-floor.json。
+
+- 选取保留卷须中最高3株（h85.18/66.73/64.63）移至花坛右侧：u=.95×分布宽，v=.60/.73/.86×纵深，根部留在右墙内侧；该3株不再叠加旧的+12屏幕x偏移，其余植物保持。大门洞三角地面上边从右底脚沿原边方向延长，与左侧门框直边精确求交作为新顶点，保持上边原斜率与无门槛分割线。新增上边共线及顶点落在左门框回归，97项测试及构建/浏览器验收通过，截图escher-edge-curls-door-floor-extension.png；快照.verification/escher-before-edge-curls-door-floor-extension.json。
+
+- 用户要求代码优化1～6逐项实施、每项构建后等待确认。本轮只完成第1项SVG输出精度。新增svg-format.js统一formatNumber(3位、去尾零/负零)、formatNumericList、formatPoints、formatSvgNumbers；只对白名单几何属性做末端序列化，不修改ID、引用、文本或data-*计算参数。处理路径紧邻正负号及微小负数舍入失去分隔符的情况，避免M1-0.00001变为M10。index.js仅在innerHTML赋值前格式化，所有内部几何及原渲染函数输出保留完整精度。动画points/transform/dashoffset/opacity仅在DOM写入时共用格式化，不改变速度/采样/相位计算与生命周期逻辑。
+- 优化前完整SVG保存.verification/escher-before-svg-output-precision.svg；纯模块核对新旧原始SVG完全相同。71,662个数值逐项检查，数量保持、最大误差0.0005000000000024；静态SVG文本1,420,840→775,496 bytes，减少45.4%（运行时文本，不是下载包）。新增4项序列化回归，全101项测试及构建通过。浏览器确认动画running时轮子角度变化，暂停正常，完整构图无可见改变，截图escher-optimization-01-svg-precision.png。修改前源快照.verification/escher-before-svg-output-precision.json。等待用户确认后才进行第2项计算复用/缓存。
+
+- 代码优化第2项（用户确认第1项后继续）：新增channel-coordinates.js，将固定水道的投影系数预计算；平行四边形直接用仿射逆变换，渐变宽度的水道3保留原六次双线性Newton求解。按segment和point用WeakMap复用坐标，点坐标变动时失效，course元数据不影响缓存。channelWall内outer/inner采样只生成一次，砖层与墙面复用，不涉及第3项左右分段完整几何缓存。
+- 新增坐标往返测试覆盖所有水道、宽度内各点及端点外延，以及缓存复用/点变动失效。103项测试及构建通过。与.verification/escher-before-channel-coordinate-cache.svg比较，格式化后的完整静态SVG逐字符完全一致（775,166字符/775,496 UTF-8 bytes），浏览器画面正常、无控制台错误。验收截图escher-optimization-02-coordinate-cache.png。等待确认再进行第3项。
+
+- 代码优化第3项（确认第2项后）：新增channel-artwork.js，以固定segment对象为WeakMap键，共用完整直段的渠底、底板、远近侧墙、水面、水位线和流线几何，完整直段生成由8次减为4次；左右half仍保留各自裁剪范围、遮罩、转角、尾水段和结构绘制顺序。current.js新增createCurrentSurface，预计算流线并返回按实例ID输出的函数；各half仍有独立clip ID和动画DOM节点，不采用use复用，避免影响原动画查询。保留左右各自水位元数据。
+- 新增2项测试验证同段缓存复用、不同段独立、左右水位/唯一clip ID、流线实例化不再采样。共105项测试与构建通过；完整格式化静态SVG与第2项后基线逐字符完全一致（775,166字符）。浏览器无控制台错误，动画暂停/恢复正常，水轮transform变化，完整画面验收escher-optimization-03-shared-artwork.png。源快照.verification/escher-before-shared-channel-artwork.json，SVG基线.verification/escher-before-shared-channel-artwork.svg。等待确认后进行第4项动画循环缓存。
+
+- 代码优化第4项（确认第3项后）：animation.js在初始化时缓存叶板子节点/相位/淡入系数、流线速度和周期、波纹相位和速度、瀑布条纹偏移、池水波纹偏移、雾状水花横漂正弦值；新增createSplashParticle，将水滴寿命、速度和时间偏移预计算，paint仅更新随时间变化的数据。保持时间推进、可见性/切页/暂停/减少动画等生命周期逻辑及原输出精度。
+- 新增确定性SVG/RAF测试host、轨迹与暂停恢复/逐帧不读取dataset回归。107项测试与构建通过；临时脚本将旧模块快照与新实现按相同帧序列运行60秒，对比62组完整属性/样式输出完全一致；测试host的dataset读取9609→5（仅示例host，非浏览器性能测量）。静态SVG仍逐字符一致。浏览器确认水轮转动、暂停恢复、无控制台错误；完整截图escher-optimization-04-animation-cache.png。旧源码.verification/escher-before-animation-cache.json，对照脚本.verification/check-animation-cache.mjs。等待确认再进行第5项桥/门尺寸参数整理。
+
+- 代码优化第5项（确认第4项后）：scene.bridge集中最终桥长150/桥身高144、桥拱宽28高56及拱顶比例.14、方屋相对桥宽的进深比例1.0557/近侧伸出比例.121，以及双门宽26/间隔38/左门高87.0419659752562/共同局部拱顶标高269.7336017778847/拱顶比例.15/屏幕偏移-18。cross-bridge去掉旧门高754参考、先加倍再减三分之一与旧中心35/73平移等历史公式，双门直接以方屋中央对称放置，右门底按长梯坡率下降、共同局部顶高确保门顶连线与屋顶一致。方屋去掉1.08×1.15×.85累计缩放，以最终进深与近侧伸出比例定位；桥身高不再借2×地面负标高表达；固定平台参考标高-108替代-18-65-25。清理该文件已无使用的import。其他连接锚点/平台几何保持。
+- 107项测试及构建通过。完整格式化SVG仅data-*浮点末位有微小差异，将数字data属性统一到9位后逐字符完全一致；绘图属性/实际几何无变化。浏览器无控制台错误、桥/方屋双门位置大小检查通过，截图escher-optimization-05-bridge-parameters.png。旧源码.verification/escher-before-bridge-parameters.json，对照脚本.verification/check-bridge-parameters.mjs。等待确认再进行第6项小型门洞/直线求交/楼梯几何复用。
+
+- 代码优化第6项（确认第5项后）：新增architectural-geometry.js三个小型纯几何函数。archOutline统一普通门洞、桥拱门、方屋双门和大门洞的二次曲线轮廓，支持独立拱顶高度及不闭合底边；intersectLines统一门洞内部地面、六边形平台闭合点和楼梯分界点的直线求交，平行线返回null；stairGeometry统一投影楼梯/屏幕楼梯的踏面、立面和实心侧边，平台短梯的整体封闭面继续叠加原平台端点，保留无分割线设计。
+- 新增3项纯几何测试，覆盖斜线/竖线/平行线求交、改变拱顶弧高时门洞总高不变、楼梯踏面/立面/侧面端点完全一致与侧面底部闭合。110项测试和构建通过，静态SVG绘图属性与先前基线完全一致（数字data-*属性按9位归一后逐字符比较）；浏览器无控制台错误，完整画面检查门洞与楼梯接缝正常，截图escher-optimization-06-geometry-helpers.png。旧源码.verification/escher-before-geometry-helpers.json。用户授权的1～6项优化已全部实施，等待本项验收，未提交代码。

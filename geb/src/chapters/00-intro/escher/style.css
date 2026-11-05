@@ -142,7 +142,6 @@
 .garden-tendril { fill:none; stroke:#505d49; stroke-width:1.8; }
 .garden-grass { fill:none; stroke:#4e5c48; stroke-width:1; }
 
-.bridge-arch-intrados { fill:none; stroke:#8d8e7d; stroke-width:3; }
 
 .mill-door-ground { fill: #d3cdbb; stroke: none; }
 .door-ground-grid { fill: none; stroke: #a29b89; stroke-width: .8; }
@@ -151,3 +150,5 @@
 #escher-replacement-platform > .terrace-floor { stroke: #514f46; }
 
 .channel-waterline { fill: none; stroke: #617c70; stroke-width: .85; }
+
+.foundation-door-floor { fill: #d3cdbb; stroke: none; }

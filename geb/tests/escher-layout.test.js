@@ -5,8 +5,8 @@ import { mill, flatHouse, millDoorGround, millDoorGroundWalls, millFoundation, m
 import { foreground } from '../src/chapters/00-intro/escher/surroundings.js';
 import { scene } from '../src/chapters/00-intro/escher/scene.js';
 import { projectionAngles, projectPlane } from '../src/chapters/00-intro/escher/projection.js';
-import { waterInset, straightWaterEdges, wallHeightAt, wallTopAt, wallBaseAt, sampleSteppedEdge, brickCourseHeight, wallRun, channelWall } from '../src/chapters/00-intro/escher/channel-walls.js';
-import { bay, mix, towerLevels, columnShaftLength, channelSegments, structuralOrder, lowerPierColumns, channelHalf, channel4BankY, channel4Slope, channel4Pitch, channel4Outlet, channel4WaterOutlet, projectMillPlane, referenceMillPlatformAnchor, waterfallTail, columnFeet, towerCapitals, projectTowerPlane, turnHeightAt, turnBanks, channel4RimOutlet, millLayout, millTerraceLayout, millLift, millPlatformAnchor, millPlatformApronStartU, millRightPlatformOutline, gardenLayout, projectFoundationPoint, projectGardenPoint } from '../src/chapters/00-intro/escher/channel-layout.js';
+import { waterInset, straightWaterEdges, wallHeightAt, wallTopAt, wallBaseAt, sampleSteppedEdge, brickCourseHeight, brickCourseHeightAt, wallReferenceHeightAt, wallRun, channelWall } from '../src/chapters/00-intro/escher/channel-walls.js';
+import { bay, mix, towerLevels, columnShaftLength, channelSegments, structuralOrder, lowerPierColumns, channelHalf, channel4BankY, channel4Slope, channel4Pitch, channel4Outlet, channel4WaterOutlet, projectMillPlane, referenceMillPlatformAnchor, waterfallTail, columnFeet, towerCapitals, projectTowerPlane, turnHeightAt, turnBanks, channel4RimOutlet, millLayout, millTerraceLayout, millLift, millPlatformAnchor, millPlatformApronStartU, millRightPlatformOutline, gardenLayout, channel4NearScale, channel4HeightIncrease, projectFoundationPoint, projectGardenPoint } from '../src/chapters/00-intro/escher/channel-layout.js';
 
 test('shared projection uses rightward angles of down 10 and up 20 degrees', () => {
   assert.ok(Math.abs(projectionAngles.across - 10) < 1e-10);
@@ -203,7 +203,7 @@ test('wide channel turns support the complete outer column bases and have progre
   assert.ok(waterInset > 0 && waterInset < .5);
   for (const segment of channelSegments) {
     const water = straightWaterEdges(segment);
-    assert.ok(Number.isInteger(water.height / brickCourseHeight));
+    assert.ok(Number.isInteger(water.referenceHeight / brickCourseHeight));
     assert.equal(water.height - water.waterElevation, 2);
     assert.ok(water.waterElevation > 0 && water.waterElevation < water.height);
     // Widen the banks while retaining at least the previous clear passage.
@@ -219,16 +219,16 @@ test('each channel rises by two discrete brick courses without a seam between cl
   for(const segment of channelSegments) {
     const start=mix(...segment.from),end=mix(...segment.to);
     const expected=[2*segment.id-1,2*segment.id,2*segment.id+1];
-    for(const [index,t] of [.1,.5,.9].entries()) assert.equal(wallHeightAt(segment,mix(start,end,t)),expected[index]*brickCourseHeight);
+    for(const [index,t] of [.1,.5,.9].entries()) assert.ok(Math.abs(wallHeightAt(segment,mix(start,end,t))-expected[index]*brickCourseHeightAt(segment,mix(start,end,t)))<1e-8);
     const left=channelHalf(segment,'left'),right=channelHalf(segment,'right');
-    assert.equal(wallHeightAt(segment,left.cutX-1e-8),wallHeightAt(segment,right.cutX+1e-8));
+    assert.ok(Math.abs(wallHeightAt(segment,left.cutX-1e-8)-wallHeightAt(segment,right.cutX+1e-8))<1e-7);
     const samples=sampleSteppedEdge(segment,start,end);
     const risers=samples.slice(1).filter((p,i)=>Math.hypot(p[0]-samples[i][0],p[1]-samples[i][1])<1e-8);
     assert.equal(risers.length,2);
     for(const p of risers) {
       const i=samples.indexOf(p),before=samples[i-1];
-      assert.equal(wallHeightAt(segment,p)-wallHeightAt(segment,before),brickCourseHeight);
-      assert.ok(Math.abs(wallTopAt(segment,p)[1]-wallTopAt(segment,before)[1]+brickCourseHeight)<1e-8);
+      assert.ok(Math.abs(wallHeightAt(segment,p)-wallHeightAt(segment,before)-brickCourseHeightAt(segment,p))<1e-8);
+      assert.ok(Math.abs(wallTopAt(segment,p)[1]-wallTopAt(segment,before)[1]+brickCourseHeightAt(segment,p))<1e-8);
     }
   }
 });
@@ -617,7 +617,7 @@ test('channel floor occluder matches the actual door wall without hiding the pon
 
 test('wider lower canal storey exposes a roof setback and the right corner railing',()=>{
   const markup=millFoundation();
-  assert.equal(scene.viewBox,'0 0 900 800');
+  assert.equal(scene.viewBox,'0 0 900 1040');
   assert.equal(millTerraceLayout.canalSupportHeight,0);
   assert.equal(millTerraceLayout.canalSupportHeight+millTerraceLayout.canalLowerHeight,160);
   assert.ok(millTerraceLayout.canalLowerSetback>0);
@@ -648,13 +648,13 @@ test('only the unwanted rear rail is omitted and doorway exits have no stairs or
   assert.match(millBalcony('rear'),/data-platform-edge="6"/);
   assert.ok(!foreground().includes('lower-courtyard'));
   assert.match(millFoundation(),/id="escher-foundation-door"/);
-  assert.equal(gardenLayout.depth,180);
+  assert.equal(gardenLayout.depth,204);
 });
 
 
 test('new garden has mixed dense growth and all four shifted braces meet the wall',()=>{
   const markup=foreground();
-  assert.equal([...markup.matchAll(/class="garden-specimen"/g)].length,85);
+  assert.equal([...markup.matchAll(/class="garden-specimen"/g)].length,57);
   for(const kind of ['sponge','coral','curl','grass']) assert.ok(markup.includes(`data-kind="${kind}"`));
   const braces=[...millBalcony().matchAll(/<path d="([^"]+)" class="balcony-bracket"/g)];
   const x=braces.map(m=>Number(m[1].match(/^M([^,]+)/)[1]));
@@ -731,13 +731,13 @@ test('bridge slides one more coping brick and its removed bank steps do not rend
 });
 
 
-test('bridge house has a true square section centered on the bridge and a roof just above both parapets',async()=>{
+test('smaller square house retains its bridge-side anchor and its roof elevation',async()=>{
   const {crossBridgeLayout:c,crossBridge}=await import('../src/chapters/00-intro/escher/cross-bridge.js');
   const depth=c.houseMaxV-c.houseMinV;
   const ratio=scene.towerBay.halfWidth/scene.towerBay.halfDepth;
   assert.ok(Math.abs(c.houseWidth/depth-ratio)<1e-10);
-  assert.equal((c.houseMinV+c.houseMaxV)/2,(c.frontV+c.backV)/2);
-  assert.ok(depth>(c.backV-c.frontV)*1.2 && depth<(c.backV-c.frontV)*1.3);
+  assert.equal(c.houseMinV,(c.frontV+c.backV)/2-(c.backV-c.frontV)*1.08*1.15/2);
+  assert.ok(depth>(c.backV-c.frontV) && depth<(c.backV-c.frontV)*1.1);
   assert.ok(c.houseRoof>c.deck+c.edgeHeight && c.houseRoof<c.deck+c.edgeHeight+10);
   assert.match(crossBridge(),/id="escher-bridge-house"/);
 });
@@ -756,13 +756,13 @@ test('bridge keeps its approved arch height independently of the removed upper s
 });
 
 
-test('doubled courses and tier bases leave equal shafts and close both intermediate ceilings', () => {
+test('upper tiers gain independent shaft length while intermediate ceilings stay closed', () => {
   assert.equal(brickCourseHeight, Math.ceil(4 * 2));
   const counts={'left-upper':7,'right-upper':5,'left-middle':3,'right-lower':1};
   for(const level of towerLevels.filter(l=>!l.pierBay)) {
     assert.equal(scene.columnBaseHeights[level.tier],counts[level.tier]*brickCourseHeight);
     const feet=columnFeet(level),caps=towerCapitals(level);
-    feet.forEach((p,i)=>assert.ok(Math.abs(p[1]-scene.columnBaseHeights[level.tier]-2-caps[i][1]-15-columnShaftLength)<1e-9));
+    feet.forEach((p,i)=>assert.ok(Math.abs(p[1]-scene.columnBaseHeights[level.tier]-2-caps[i][1]-15-columnShaftLength-(scene.upperShaftExtra[level.tier]??0))<1e-9));
   }
   for(const [lower,upper] of [['left-middle','left-upper'],['right-lower','right-upper']]) {
     const level=towerLevels.find(l=>l.tier===lower);
@@ -866,11 +866,11 @@ test('emitted platform, retaining roof, pond edges retain the new channel direct
 });
 
 
-test('all 85 moved plants have their roots inside the lowered soil polygon',()=>{
+test('all 57 retained plants have their roots inside the lowered soil polygon',()=>{
   const markup=foreground();
   const soil=markup.match(/points="([^"]+)" class="garden-soil"/)[1].split(' ').map(p=>p.split(',').map(Number));
   const roots=[...markup.matchAll(/class="garden-specimen"[^>]*transform="translate\(([^)]+)\)"/g)].map(m=>m[1].split(' ').map(Number));
-  assert.equal(roots.length,85);
+  assert.equal(roots.length,57);
   for(const p of roots) {
     let inside=false;
     for(let i=0,j=soil.length-1;i<soil.length;j=i++) {
@@ -890,7 +890,7 @@ test('side-wall brick courses use the same new slope as the actual walls',async(
 
 
 test('bridge and terrace meet the bed underside and the arch touches the channel face',async()=>{
-  const {crossBridgeLayout:c,crossBridge}=await import('../src/chapters/00-intro/escher/cross-bridge.js');
+  const {crossBridgeLayout:c,crossBridge,bridgeArchFloor}=await import('../src/chapters/00-intro/escher/cross-bridge.js');
   const markup=crossBridge();
   for(const v of [c.frontV,c.backV]) {
     const bottom=projectMillPlane(c.origin,0,v,c.ground);
@@ -899,7 +899,7 @@ test('bridge and terrace meet the bed underside and the arch touches the channel
   assert.equal(c.archStart,0);
   assert.equal(c.deck,-brickCourseHeight);
   assert.equal(c.deck+c.edgeHeight,0);
-  const archStart=projectMillPlane(c.origin,c.archStart,c.frontV,c.ground);
+  const archStart=projectMillPlane(c.origin,c.archStart,c.frontV,bridgeArchFloor);
   assert.ok(markup.includes(`M${archStart}`));
   assert.equal(c.recedingSlope,channel4Slope);
   assert.equal(scene.showBridgeComplex,true);
@@ -966,7 +966,7 @@ test('straight ground walls meet the terrace contact and paint the long right wa
 
 test('shortened doorway building keeps its top and raises ground, wall tops and planter by one shared amount',async()=>{
   const m=millTerraceLayout;
-  assert.ok(Math.abs(m.height/m.referenceHeight-2/3)<1e-9);
+  assert.ok(Math.abs((m.height-channel4HeightIncrease)/m.referenceHeight-2/3)<1e-9);
   assert.deepEqual(m.origin,[91,613.9162445326177]);
   const delta=m.referenceHeight-m.height;
   const front=millFoundation().match(/points="([^"]+)" class="stone-light wall-facing mill-foundation-front-wall"/)[1].split(' ').map(p=>p.split(',').map(Number));
@@ -1022,9 +1022,13 @@ test('replacement platform closes six edges from the doorway return to the canal
  assert.equal(p.length,6);
  assert.deepEqual(b,c.groundWallTopReference);
  assert.equal(b[0],corner[0]);assert.ok(corner[1]<b[1]);
- assert.deepEqual(d,projectMillPlane(c.origin,0,c.frontV,c.ground));
+ assert.equal(d[0],projectMillPlane(c.origin,0,c.frontV,c.ground)[0]);
+ for(const q of [corner,d]){
+  const bed=wallBaseAt(channelSegments[3],[q[0],channel4BankY(q[0])]);
+  assert.ok(Math.abs(q[1]-(bed[1]+scene.wallDepth-.75))<1e-8);
+ }
  assert.ok(Math.abs(Math.hypot(e[0]-d[0],e[1]-d[1])-60)<1e-9);
- for(const [from,to,slope] of [[a,b,channel4Slope],[corner,d,channel4Slope],[d,e,scene.waterwayDirections.across[1]],[e,f,channel4Slope],[f,a,scene.waterwayDirections.across[1]]]){
+ for(const [from,to,slope] of [[a,b,channel4Slope],[d,e,scene.waterwayDirections.across[1]],[e,f,channel4Slope],[f,a,scene.waterwayDirections.across[1]]]){
   assert.ok(Math.abs((to[1]-from[1])/(to[0]-from[0])-slope)<1e-9);
  }
  assert.ok(replacementPlatform().includes(p.map(p=>p.join(',')).join(' ')));
@@ -1082,4 +1086,46 @@ test('shortened house doors remain centered with crowns following the roof edge'
  const positions=[...crossBridge().matchAll(/data-door-center="([^"]+)" data-door-crown="([^"]+)"/g)].map(m=>m.slice(1).map(Number));
  assert.ok(Math.abs((positions[0][0]+positions[1][0])/2-c.houseWidth/2)<1e-9);
  assert.ok(Math.abs((positions[1][1]-positions[0][1])/(positions[1][0]-positions[0][0])-scene.waterwayDirections.across[1])<1e-9);
+});
+
+
+test('fourth canal courses grow continuously while the nine-course outlet adds the shared foundation drop',async()=>{
+ const segment=channelSegments[3],a=mix(...segment.from),b=mix(...segment.to);
+ assert.ok(Math.abs(brickCourseHeightAt(segment,a)-8)<1e-9);
+ assert.ok(Math.abs(brickCourseHeightAt(segment,b)-10.048850786406732)<1e-8);
+ assert.ok(Math.abs(channel4HeightIncrease-18.4396570776606)<1e-8);
+ for(const t of [1/3,2/3]){
+  const before=brickCourseHeightAt(segment,mix(a,b,t-1e-8));
+  const after=brickCourseHeightAt(segment,mix(a,b,t+1e-8));
+  assert.ok(Math.abs(after-before)<1e-6);
+ }
+ assert.ok(Math.abs(wallHeightAt(segment,b)-9*8-channel4HeightIncrease)<1e-8);
+ assert.ok(Math.abs(wallBaseAt(segment,b)[1]-b[1]-channel4HeightIncrease)<1e-8);
+ assert.ok(Math.abs(wallTopAt(segment,b)[1]-(b[1]-72))<1e-8);
+ assert.ok(Math.abs(millTerraceLayout.height-(millTerraceLayout.referenceHeight*2/3+channel4HeightIncrease))<1e-8);
+});
+
+
+test('chimney seats on the roof slope and has two open-ended quadrilateral cap planes',()=>{
+ const markup=mill();
+ const roof=markup.match(/points="([^"]+)" class="roof-dark"/)[1].split(' ').map(p=>p.split(',').map(Number));
+ const foot=markup.match(/points="([^"]+)" class="stone-mid chimney-front"/)[1].split(' ').map(p=>p.split(',').map(Number));
+ const slope=(a,b)=>(b[1]-a[1])/(b[0]-a[0]);
+ assert.ok(Math.abs(slope(foot[0],foot[1])-slope(roof[0],roof[3]))<1e-9);
+ const caps=[...markup.matchAll(/points="([^"]+)" class="roof-dark chimney-cap-(?:left|right)"/g)];
+ assert.equal(caps.length,2);
+ assert.ok(caps.every(m=>m[1].split(' ').length===4));
+});
+
+
+test('door interior floor keeps its upper-edge angle and reaches the left jamb',()=>{
+ const m=millTerraceLayout,d=m.door;
+ const points=millFoundation().match(/points="([^"]+)" class="foundation-door-floor"/)[1].split(' ').map(p=>p.split(',').map(Number));
+ const [left,right,tip]=points;
+ const oldTip=projectFoundationPoint(d.u-38,d.v+d.width,-m.height);
+ const shoulder=projectFoundationPoint(d.u,d.v,-m.height+d.height*.6);
+ const sub=(a,b)=>a.map((v,i)=>v-b[i]),cross=(a,b)=>a[0]*b[1]-a[1]*b[0];
+ assert.ok(Math.abs(cross(sub(tip,right),sub(oldTip,right)))<1e-8);
+ assert.ok(Math.abs(cross(sub(tip,left),sub(shoulder,left)))<1e-8);
+ assert.ok(tip[0]<oldTip[0]&&tip[1]<oldTip[1]);
 });

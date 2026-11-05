@@ -23,7 +23,8 @@ export function squareFootprint(halfSide) {
 }
 
 export const scene = {
-  viewBox: '0 0 900 800',
+  viewBox: '0 0 900 1040',
+  framing: {scale:1.2, x:-75, y:25},
   compositionOffsetY: -6,
   backgroundOffsetY: -30,
   brickCourseHeight,
@@ -51,6 +52,7 @@ export const scene = {
   columnCap: squareFootprint(10),
   columnBase: squareFootprint(11.8),
   columnRadius: 7.5,
+  upperShaftExtra: {'left-upper':12,'right-upper':16},
   columnBaseHeights: {
     'right-lower': brickCourseHeight,
     'left-middle': 3 * brickCourseHeight,
@@ -69,6 +71,20 @@ export const scene = {
   ornamentDrop: 6,
   wallDepth: 8,
   doorGround: {width:150,vanishingDistance:900},
+  bridge: {
+    length: 150,
+    wallHeight: 144,
+    arch: { width: 28, height: 56, riseRatio: .14 },
+    // Final house footprint relative to bridge width; the near overhang
+    // preserves its bridge-side anchor independently of the far edge.
+    house: { depthRatio: 1.0557, nearOverhangRatio: .121 },
+    // Final approved dimensions in house-local coordinates. Both crowns
+    // share one elevation; different sill heights follow the descending stair.
+    houseDoors: {
+      width: 26, spacing: 38, leftHeight: 87.0419659752562,
+      crownElevation: 269.7336017778847, riseRatio: .15, screenOffsetX: -18,
+    },
+  },
   // Wheel face follows the receding/vertical plane; its thickness follows across.
   // Keep the wheel faces upright; only the axle has a ground-plane incline.
   wheel: { x: 389, offsetX: -8, centerY: 552.1089319438277, radius: 64, lift: 25,
@@ -99,7 +115,7 @@ export const scene = {
     origin: [139, 642 - (157 - 139) * acrossSlope],
     outline: [[38, -20], [276, -20], [276, 82], [258, 82], [258, 225], [38, 225]],
     door: { u: 276, width: 56, height: 96 },
-    garden: { left: 38, right: 276, plantWidth: 242, soilLeftExtension: 70, soilRearExtension: 65, depth: 180, lift: 32, wallHeight: 32, gateWidth: 26, gateHeight: 46 },
+    garden: { left: 38, right: 276, plantWidth: 242, soilLeftExtension: 70, soilRearExtension: 65, depth: 204, lift: 32, wallHeight: 32, gateWidth: 26, gateHeight: 46 },
     platformOutline: [[-18, -36], [180, -36], [180, -20], [276, -20], [276, 82], [258, 82], [258, 225], [-18, 225]],
     canalSupportHeight: 0,
     canalLowerHeight: 160,

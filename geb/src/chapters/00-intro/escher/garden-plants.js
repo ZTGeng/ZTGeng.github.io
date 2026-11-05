@@ -35,10 +35,15 @@ function grass(seed,h) {
 }
 export function gardenVegetation(project,width,depth) {
   const plants=[];
-  for(let i=0;i<55;i++) plants.push({u:8+noise(i)* (width-16),v:6+noise(i+80)*(depth-16),kind:'grass',h:15+noise(i+20)*24,seed:i});
-  const cups=[[.08,.8,104,27],[.19,.66,85,31],[.3,.9,125,34],[.42,.73,66,23],[.15,.43,75,38],[.32,.42,92,32],[.46,.48,52,27],[.09,.19,44,23],[.34,.18,58,35],[.53,.24,43,23]];
+  for(let i=0;i<55;i++) plants.push({u:(.32+noise(i)*.64)*width,v:(.35+noise(i+80)*.6)*depth,kind:'grass',h:15+noise(i+20)*24,seed:i});
+  const cups=[[.24,.88,114,29],[.39,.72,93,31],[.50,.94,110,36],[.68,.83,79,24],[.37,.55,86,37],[.58,.57,104,32],[.82,.65,65,27],[.40,.35,52,25],[.64,.35,70,32],[.88,.42,54,25]];
   cups.forEach(([u,v,h,w],i)=>plants.push({u:u*width,v:v*depth,kind:'sponge',h,w,seed:100+i}));
-  for(let i=0;i<9;i++) plants.push({u:(.48+noise(i+180)*.43)*width,v:(.12+noise(i+190)*.65)*depth,kind:'coral',h:45+noise(i+200)*50,seed:200+i});
-  for(let i=0;i<11;i++) plants.push({u:(.25+noise(i+220)*.65)*width,v:(.45+noise(i+240)*.5)*depth,kind:'curl',h:38+noise(i+260)*54,seed:300+i});
-  return `<g id="escher-garden-vegetation">${plants.map(p=>({...p,xy:project(p.u,p.v)})).sort((a,b)=>a.xy[1]-b.xy[1]).map(p=>`<g class="garden-specimen" data-kind="${p.kind}" transform="translate(${p.xy.join(' ')})">${p.kind==='sponge'?sponge(p.seed,p.h,p.w):p.kind==='coral'?coral(p.seed,p.h):p.kind==='curl'?curl(p.seed,p.h):grass(p.seed,p.h)}</g>`).join('')}</g>`;
+  for(let i=0;i<9;i++) plants.push({u:(.65+noise(i+180)*.30)*width,v:(.40+noise(i+190)*.46)*depth,kind:'coral',h:52+noise(i+200)*56,seed:200+i});
+  for(let i=0;i<11;i++) plants.push({u:(.38+noise(i+220)*.55)*width,v:(.62+noise(i+240)*.34)*depth,kind:'curl',h:38+noise(i+260)*54,seed:300+i});
+  const counts={};
+  const kept=plants.filter(p=>{const i=counts[p.kind]??0;counts[p.kind]=i+1;return i%3!==1;});
+  kept.filter(p=>p.kind==='curl').sort((a,b)=>b.h-a.h).slice(0,3).forEach((p,i)=>{
+    p.u=.95*width;p.v=(.60+i*.13)*depth;p.edgePlaced=true;
+  });
+  return `<g id="escher-garden-vegetation">${kept.map(p=>({...p,xy:project(p.u,p.v).map((value,i)=>value+(p.kind==='coral'&&i===1?10:p.kind==='curl'&&!p.edgePlaced&&i===0?12:0))})).sort((a,b)=>a.xy[1]-b.xy[1]).map(p=>`<g class="garden-specimen" data-kind="${p.kind}" transform="translate(${p.xy.join(' ')})">${p.kind==='sponge'?sponge(p.seed,p.h,p.w):p.kind==='coral'?coral(p.seed,p.h):p.kind==='curl'?curl(p.seed,p.h):grass(p.seed,p.h)}</g>`).join('')}</g>`;
 }

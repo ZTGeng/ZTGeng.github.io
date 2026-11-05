@@ -1,3 +1,5 @@
+import { stairGeometry } from './architectural-geometry.js';
+
 export const polygon = (points, className) => `<polygon points="${points.map(p => p.join(',')).join(' ')}" class="${className}"/>`;
 export const path = (d, className, attributes = '') => `<path d="${d}" class="${className}" ${attributes}/>`;
 export const linePath = (points) => points.map(([x, y], i) => `${i ? 'L' : 'M'}${x},${y}`).join(' ');
@@ -17,14 +19,11 @@ export function railing(a, b, height = 23) {
 // Each tread ends exactly at the next riser's top. Width and run are oblique
 // ground-plane vectors; rise is a vertical displacement on the drawing.
 export function stairs(origin, width, run, rise, count) {
+  const geometry = stairGeometry((x, y, z) => [x, y - z], [...origin, 0], width, run, rise, count);
   let result = '';
   for (let i = count - 1; i >= 0; i--) {
-    const a = add(origin, [run[0], run[1] + rise], i);
-    const b = add(a, width);
-    const c = add(b, run);
-    const d = add(a, run);
-    result += polygon([d, c, add(c, [0, rise]), add(d, [0, rise])], 'stone-mid stair-riser');
-    result += polygon([a, b, c, d], 'stone-light stair-tread');
+    result += polygon(geometry.riser(i), 'stone-mid stair-riser');
+    result += polygon(geometry.tread(i), 'stone-light stair-tread');
   }
   return `<g class="stone-stairs">${result}</g>`;
 }

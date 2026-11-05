@@ -43,7 +43,7 @@ export const towerLevels = scene.towers.flatMap(tower => [
   const y = center[1] + 9;
   const support = ({'left-upper':1,'right-upper':3,'left-middle':5,'right-lower':7}[level.tier] ?? 0) * scene.brickCourseHeight;
   const top = level.pierBay ? level.top + y - level.y
-    : center[1] - support - scene.columnBaseHeights[level.tier] - 17 - columnShaftLength + 9;
+    : center[1] - support - scene.columnBaseHeights[level.tier] - 17 - columnShaftLength - (scene.upperShaftExtra[level.tier]??0) + 9;
   return { ...level, center, y, top };
 });
 
@@ -86,6 +86,13 @@ const outletStart = middle(waterway4From);
 const outletScale = (channel4Outlet[0] - outletStart[0]) / direction[0];
 const waterway4To = waterway4From.map(p => [p[0]+direction[0]*outletScale,p[1]+direction[0]*outletScale*channel4Slope]);
 
+// A local perspective calibration from the second and fourth canal axes.
+const secondStart=middle(waterway2From),fourthStart=middle(waterway4From),fourthEnd=middle(waterway4To);
+export const canalVanishingX=fourthStart[0]+(fourthStart[1]-secondStart[1])/(receding[1]-channel4Slope);
+export const channel4NearScale=(canalVanishingX-fourthEnd[0])/(canalVanishingX-fourthStart[0]);
+export const channel4CourseScale=t=>1+(channel4NearScale-1)*Math.max(0,Math.min(1,t));
+export const channel4HeightIncrease=scene.channelWallHeights[4].left*(channel4NearScale-1);
+
 export const channel4BankY = x => waterway4From[0][1] + (x - waterway4From[0][0]) * channel4Slope;
 // Keep the water surface and the upper rim distinct. The platform's visible
 // front edge must meet the near wall's upper rim at the waterfall landing.
@@ -107,8 +114,9 @@ const millTerraceBase = {
   origin: projectPlane([scene.millTerrace.origin[0], scene.millTerrace.origin[1] - millLift], 0, scene.mill.slide),
   // The foundation and attached staircase share the same long-axis slide.
   referenceHeight: scene.millTerrace.height + millLift,
-  height: (scene.millTerrace.height + millLift) * scene.millTerrace.heightScale,
-  heightReduction: (scene.millTerrace.height + millLift) * (1-scene.millTerrace.heightScale),
+  height: (scene.millTerrace.height + millLift) * scene.millTerrace.heightScale + channel4HeightIncrease,
+  perspectiveHeightIncrease:channel4HeightIncrease,
+  heightReduction: (scene.millTerrace.height + millLift) * (1-scene.millTerrace.heightScale)-channel4HeightIncrease,
 };
 // Trim vertical piers to the middle of the final near-bank coping.
 const bankCenterU=-scene.channelFootprint.halfWidth*scene.channelWallThickness/(2*scene.channelFootprint.halfSide);

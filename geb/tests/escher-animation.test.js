@@ -1,8 +1,43 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { motion, positiveMod, splashParticle } from '../src/chapters/00-intro/escher/animation.js';
+import { motion, positiveMod, splashParticle, createSplashParticle, startAnimation } from '../src/chapters/00-intro/escher/animation.js';
+import { animationHarness } from './helpers/animation-harness.js';
 import { bucketGeometry, bucketEdgeGeometry, wheelFaces, drawWaterwheel } from '../src/chapters/00-intro/escher/wheel.js';
 import { scene } from '../src/chapters/00-intro/escher/scene.js';
+
+test('cached splash trajectories preserve the original motion at arbitrary times', () => {
+  for (let i = 0; i < 48; i++) {
+    const at = createSplashParticle(i);
+    for (const t of [0, .15, .5, 10000]) {
+      const life = .7 + (i % 5) * .09, age = positiveMod(t + i * .137, life);
+      assert.deepEqual(at(t), {
+        x: (i % 2 ? 1 : -1) * (12 + (i * 17 % 32)) * age,
+        y: -(28 + i * 13 % 34) * age + 62 * age * age,
+        opacity: Math.sin(Math.PI * age / life) * .8,
+      });
+    }
+  }
+});
+
+test('animation frames use cached metadata and pause/resume without advancing paused time', () => {
+  const host = animationHarness(startAnimation);
+  try {
+    const reads = host.datasetReads;
+    host.advance(0); host.advance(80);
+    const moving = host.snapshot();
+    host.toggle();
+    assert.equal(host.state, 'paused');
+    host.advance(1000);
+    assert.deepEqual(host.snapshot(), moving);
+    host.toggle();
+    assert.equal(host.state, 'running');
+    host.advance(2000);
+    assert.deepEqual(host.snapshot(), moving);
+    host.advance(2080);
+    assert.notDeepEqual(host.snapshot(), moving);
+    assert.equal(host.datasetReads, reads);
+  } finally { host.close(); }
+});
 
 test('each translating plank remains attached to both projected rims and has radial depth', () => {
   const {front,rear}=wheelFaces(),radius=scene.wheel.radius;
