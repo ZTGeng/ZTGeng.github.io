@@ -1,7 +1,3 @@
-.escher-lesson { padding: 30px 0 48px; }
-.escher-scene-heading > p:first-child { margin: 0 0 10px; color: var(--person-color); font-size: 12px; letter-spacing: .1em; }
-.escher-scene-heading h3 { margin: 0; font-size: 30px; font-weight: 500; }
-.escher-scene-heading > p:last-child { margin: 14px 0 24px; color: var(--muted); font-size: 15px; line-height: 1.9; }
 .escher-figure { margin: 0; }
 #escher-scene { overflow: hidden; border: 1px solid #5b5b51; border-radius: 5px; background: #e5e0d1; }
 .escher-drawing { display: block; width: 100%; height: auto; }
@@ -92,10 +88,6 @@
 .escher-motion-toggle { display: block; margin: 12px 0 0 auto; padding: 7px 14px; border: 1px solid #5b5b51; border-radius: 4px; background: transparent; color: inherit; font: inherit; font-size: 12px; cursor: pointer; }
 .escher-motion-toggle:hover { border-color: var(--person-color); }
 .escher-motion-toggle:focus-visible { outline: 2px solid var(--person-color); outline-offset: 3px; }
-@media (max-width: 540px) {
-  .escher-lesson { padding-top: 20px; }
-  .escher-scene-heading h3 { font-size: 26px; }
-}
 
 .garden-gate-frame { fill: none; stroke: #4f554b; stroke-width: 1.8; }
 .garden-gate-grid { fill: none; stroke: #555c50; stroke-width: .85; }

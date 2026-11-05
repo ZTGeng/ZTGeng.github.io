@@ -712,7 +712,7 @@ test('bridge parapet and arch wall share one facade while the lower terrace has 
   const facade=markup.match(/points="([^"]+)" class="stone-light wall-facing bridge-front-wall"/)[1].split(' ').map(p=>p.split(',').map(Number));
   assert.deepEqual(facade[0],projectMillPlane(c.origin,0,c.frontV,c.deck+c.edgeHeight));
   assert.deepEqual(facade[3],projectMillPlane(c.origin,0,c.frontV,c.wallBottom));
-  assert.equal(c.wallBottom,2*c.ground);
+  assert.equal(c.wallBottom,-scene.bridge.wallHeight);
 
 });
 

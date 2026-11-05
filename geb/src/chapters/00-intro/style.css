@@ -75,8 +75,12 @@
 .person-introduction h2 span { display: block; color: var(--muted); font: 16px/1.8 Georgia, serif; }
 .person-introduction > p:last-child { margin: 16px 0 0; color: var(--muted); font-size: 15px; line-height: 1.95; }
 
-/* 保留尚未实现的互动主体空间；已实现的内容自然撑开。 */
-.person-stage { min-height: clamp(240px, 36vh, 440px); }
+.person-stage { padding: 32px 0 48px; }
+
+.lesson-heading { max-width: 760px; margin-bottom: 28px; }
+.person-stage .lesson-eyebrow { margin: 0 0 10px; color: var(--person-color); font-size: 12px; line-height: 1.9; letter-spacing: 0.1em; }
+.lesson-heading .lesson-title { margin: 0; font-size: clamp(24px, 4vw, 30px); font-weight: 500; line-height: 1.6; }
+.lesson-heading .lesson-description { margin: 14px 0 0; color: var(--muted); font-size: 15px; line-height: 1.9; }
 
 .intro-page .chapter-navigation { margin-top: auto; }
 
@@ -87,4 +91,5 @@
   .tab-initial { font-size: 30px; }
   .person-introduction h2 { font-size: 21px; }
   .person-introduction { min-height: 240px; }
+  .person-stage { padding-top: 20px; }
 }

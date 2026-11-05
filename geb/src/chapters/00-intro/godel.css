@@ -1,18 +1,14 @@
 .godel-lesson {
-  padding: 32px 0 48px;
   line-height: 1.9;
   font-size: 15px;
 }
 
 .godel-lesson p { margin: 12px 0 0; color: var(--muted); }
-.godel-lesson h3, .godel-lesson h4, .godel-lesson h5 { margin: 0; font-weight: 500; line-height: 1.6; }
-.godel-lesson h3 { font-size: clamp(24px, 4vw, 32px); }
+.godel-lesson h4, .godel-lesson h5 { margin: 0; font-weight: 500; line-height: 1.6; }
 .godel-lesson h4 { font-size: 20px; }
 .godel-lesson h5 { font-size: 16px; }
 .godel-lesson strong { color: var(--ink); font-weight: 600; }
-.godel-lesson .lesson-eyebrow { margin: 0 0 10px; color: var(--person-color); font-size: 12px; letter-spacing: 0.1em; }
-.lesson-heading { max-width: 740px; }
-.system-setup { margin: 32px 0; }
+.system-setup { margin: 0 0 32px; }
 .system-wishes { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 22px 0; }
 .system-wishes > div { border-left: 2px solid #575042; padding-left: 18px; }
 .system-wishes h5 span { display: block; margin-top: 3px; color: var(--person-color); font-size: 13px; }
@@ -58,7 +54,6 @@
 .godel-sources li + li { margin-top: 10px; }
 
 @media (max-width: 540px) {
-  .godel-lesson { padding-top: 20px; }
   .godel-lab { padding: 24px 16px; }
   .godel-statement { align-items: flex-start; gap: 16px; }
   .statement-symbol { font-size: 52px; }

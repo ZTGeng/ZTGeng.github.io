@@ -34,8 +34,8 @@
       <article id="godel-experiment" class="person-stage godel-lesson" aria-labelledby="godel-title">
         <header class="lesson-heading">
           <p class="lesson-eyebrow">逻辑 · 证明的边界</p>
-          <h3 id="godel-title">哥德尔第一不完备性定理</h3>
-          <p>即使证明规则明确、系统不会自相矛盾，也仍有它无法证明的算术真命题。</p>
+          <h3 id="godel-title" class="lesson-title">哥德尔第一不完备性定理</h3>
+          <p class="lesson-description">即使证明规则明确、系统不会自相矛盾，也仍有它无法证明的算术真命题。</p>
         </header>
 
         <section class="system-setup" aria-labelledby="system-title">
@@ -123,10 +123,10 @@
         <p>埃舍尔用版画探索对称、无穷与不可能的空间。在《瀑布》中，水沿着看似合理的水渠流动，却又回到高处，形成一个令人困惑的循环。</p>
       </header>
       <section id="escher-experiment" class="person-stage escher-lesson" aria-labelledby="escher-scene-heading">
-        <header class="escher-scene-heading">
-          <p>空间 · 不可能的循环</p>
-          <h3 id="escher-scene-heading">瀑布</h3>
-          <p>从水轮下方出发，沿水渠看过去：水是在哪里回到高处的？</p>
+        <header class="lesson-heading">
+          <p class="lesson-eyebrow">空间 · 不可能的循环</p>
+          <h3 id="escher-scene-heading" class="lesson-title">瀑布</h3>
+          <p class="lesson-description">从水轮下方出发，沿水渠看过去：水是在哪里回到高处的？</p>
         </header>
         <figure class="escher-figure">
           <div id="escher-scene"></div>
@@ -142,7 +142,57 @@
         <h2>约翰·塞巴斯蒂安·巴赫 <span lang="de">Johann Sebastian Bach</span></h2>
         <p>巴赫的音乐将严密的结构与丰富的表达融为一体。在卡农中，一个声部先奏出旋律，另一个声部随后模仿；同一条旋律在不同时间相遇，交织成音乐。</p>
       </header>
-      <div id="bach-experiment" class="person-stage"><!-- 后续：卡农音乐播放控制与声部展示。 --></div>
+      <section id="bach-experiment" class="person-stage bach-lesson" aria-labelledby="bach-title">
+        <header class="lesson-heading">
+          <p class="lesson-eyebrow">音乐 · 模仿与交织</p>
+          <h3 id="bach-title" class="lesson-title">卡农</h3>
+          <p class="lesson-description">卡农是一种以模仿为基础的复调音乐：一个声部先奏出或唱出旋律，其他声部依照一定的规则跟随。同一条旋律在不同时间展开，彼此交织，形成新的和声与层次。</p>
+        </header>
+
+        <div class="canon" data-canon-demo>
+          <section class="canon-library" aria-labelledby="canon-library-title">
+            <div class="canon-section-heading">
+              <h4 id="canon-library-title">曲库</h4>
+              <span class="canon-secondary">候选曲目</span>
+            </div>
+            <div class="canon-library-list" data-canon-library></div>
+          </section>
+
+          <div class="canon-toolbar">
+            <div class="canon-selection"><strong data-canon-piece></strong><span data-canon-piece-meta></span></div>
+            <div class="canon-transport" role="group" aria-label="播放控制">
+              <button type="button" class="canon-play" data-canon-play><span aria-hidden="true">▶</span> 播放</button>
+              <button type="button" data-canon-rewind aria-label="回到开头">从头</button>
+              <button type="button" data-canon-loop aria-pressed="false">循环</button>
+            </div>
+          </div>
+
+          <div class="canon-viewbar">
+            <div class="canon-view-options" role="group" aria-label="音轨显示方式">
+              <button type="button" data-canon-view="waveform" aria-pressed="true">波形</button>
+              <button type="button" data-canon-view="notes" aria-pressed="false">音符</button>
+              <label class="canon-lyrics-toggle"><input type="checkbox" data-canon-lyrics checked> 歌词</label>
+            </div>
+            <span class="canon-preview-label">UI 预览 · 暂无音频</span>
+          </div>
+
+          <div class="canon-timeline-scroll" tabindex="0" role="region" aria-label="声部时间轴，横向滚动查看全部小节">
+            <div class="canon-timeline">
+              <div class="canon-ruler"><div class="canon-ruler-label">声部 <span>吸附：小节</span></div><div class="canon-bars" data-canon-bars></div></div>
+              <div data-canon-tracks></div>
+              <div class="canon-playhead" aria-hidden="true"><span></span></div>
+            </div>
+          </div>
+
+          <div class="canon-add-row"><button type="button" class="canon-add" data-canon-add>＋ 添加声部</button><span data-canon-count></span></div>
+          <div class="canon-footer">
+            <div class="canon-speed" role="group" aria-label="所有声部的整体速度"><span>整体速度</span><button type="button" data-canon-rate="0.75" aria-pressed="false">0.75×</button><button type="button" data-canon-rate="1" aria-pressed="true">1×</button><button type="button" data-canon-rate="1.25" aria-pressed="false">1.25×</button><button type="button" data-canon-rate="1.5" aria-pressed="false">1.5×</button></div>
+            <span class="canon-position">第 1 小节 <span>·</span> <span data-canon-meter>4/4</span></span>
+          </div>
+          <p class="canon-status" data-canon-status role="status" aria-live="polite">曲目待定；波形、音符与歌词均为排版示意。</p>
+        </div>
+        <noscript><p>启用 JavaScript 后可查看卡农工作台的界面预览。</p></noscript>
+      </section>
     </section>
 
     <nav class="chapter-navigation" aria-label="章节导航">

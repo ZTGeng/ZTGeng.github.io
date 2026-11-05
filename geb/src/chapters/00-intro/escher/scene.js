@@ -73,7 +73,7 @@ export const scene = {
   doorGround: {width:150,vanishingDistance:900},
   bridge: {
     length: 150,
-    wallHeight: 144,
+    wallHeight: 152,
     arch: { width: 28, height: 56, riseRatio: .14 },
     // Final house footprint relative to bridge width; the near overhang
     // preserves its bridge-side anchor independently of the far edge.
