@@ -95,7 +95,10 @@ export async function createSculptureScene(stage) {
     if (animating) invalidate();
   }
 
-  interaction = attachSculptureInteraction({ canvas, sculpture, camera, reset: stage.querySelector('#reset'), invalidate });
+  interaction = attachSculptureInteraction({
+    control: stage.querySelector('#sculpture-control'),
+    canvas, sculpture, camera, reset: stage.querySelector('#reset'), invalidate,
+  });
   function resize() {
     const { width, height } = stage.getBoundingClientRect();
     if (!width || !height) return;

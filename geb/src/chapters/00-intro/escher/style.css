@@ -85,7 +85,7 @@
 .fall-line { opacity: .35; }
 .fall-streak { fill: none; stroke: #f7f6df; stroke-width: 1.5; stroke-dasharray: 26 7 6 25; opacity: .85; }
 .splash-mist, .splash-drop { fill: #f2f1db; stroke: none; pointer-events: none; }
-.escher-motion-toggle { display: block; margin: 12px 0 0 auto; padding: 7px 14px; border: 1px solid #5b5b51; border-radius: 4px; background: transparent; color: inherit; font: inherit; font-size: 12px; cursor: pointer; }
+.escher-motion-toggle { display: block; margin: 0 0 12px auto; padding: 7px 14px; border: 1px solid #5b5b51; border-radius: 4px; background: transparent; color: inherit; font: inherit; font-size: 12px; cursor: pointer; }
 .escher-motion-toggle:hover { border-color: var(--person-color); }
 .escher-motion-toggle:focus-visible { outline: 2px solid var(--person-color); outline-offset: 3px; }
 

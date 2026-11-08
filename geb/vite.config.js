@@ -3,7 +3,10 @@ import { fileURLToPath } from 'node:url';
 import { readdirSync } from 'node:fs';
 
 const source = new URL('./src/', import.meta.url);
-const input = { geb: fileURLToPath(new URL('index.html', source)) };
+const input = {
+  geb: fileURLToPath(new URL('index.html', source)),
+  '404': fileURLToPath(new URL('404.html', source)),
+};
 for (const chapter of readdirSync(new URL('chapters/', source), { withFileTypes: true })) {
   if (chapter.isDirectory()) {
     input[chapter.name] = fileURLToPath(new URL(`chapters/${chapter.name}/index.html`, source));

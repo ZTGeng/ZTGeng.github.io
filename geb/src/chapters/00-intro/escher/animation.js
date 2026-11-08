@@ -25,9 +25,11 @@ export function createSplashParticle(index) {
 export function startAnimation(root) {
   const button = document.createElement('button');
   button.type = 'button'; button.className = 'escher-motion-toggle';
-  root.after(button);
+  root.before(button);
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
-  let paused = reduce.matches, inView = false, frame = 0, previous = null, seconds = 0;
+  const touch = matchMedia('(pointer: coarse)');
+  const pauseByDefault = () => reduce.matches || touch.matches;
+  let paused = pauseByDefault(), inView = false, frame = 0, previous = null, seconds = 0;
   const rotor = root.querySelector('#escher-wheel-rotor');
   // SVG geometry and data-* parameters stay fixed for this animation's lifetime.
   // Cache references and constants here; paint() only evaluates time-dependent values.
@@ -115,7 +117,7 @@ export function startAnimation(root) {
     root.dataset.motionState=active()?'running':'paused';
   }
   button.addEventListener('click',()=>{paused=!paused;label();sync();});
-  const onReduce = () => {paused=reduce.matches;label();sync();};
+  const onReduce = () => {paused=pauseByDefault();label();sync();};
   reduce.addEventListener('change',onReduce);
   document.addEventListener('visibilitychange',sync);
   const intersection=new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;sync();});

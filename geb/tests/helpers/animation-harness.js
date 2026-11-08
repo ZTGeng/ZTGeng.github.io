@@ -1,5 +1,5 @@
 // Minimal deterministic SVG/RAF host: records all visible attribute/style writes.
-export function animationHarness(startAnimation) {
+export function animationHarness(startAnimation, { touch = false, reducedMotion = false } = {}) {
   const saved = new Map();
   const install = (name, value) => {
     saved.set(name, Object.getOwnPropertyDescriptor(globalThis, name));
@@ -38,14 +38,16 @@ export function animationHarness(startAnimation) {
   };
   const button = element(), panel = { hidden: false };
   const root = {
-    dataset: {}, after() {}, closest: () => panel,
+    dataset: {}, before() {}, closest: () => panel,
     querySelector: () => rotor, querySelectorAll: selector => selectors[selector],
   };
   let intersection;
-  const reduce = { matches: false, addEventListener() {}, removeEventListener() {} };
   install('document', { hidden: false, createElement: () => button, addEventListener() {}, removeEventListener() {} });
   install('window', { addEventListener() {} });
-  install('matchMedia', () => reduce);
+  install('matchMedia', query => ({
+    matches: query === '(pointer: coarse)' ? touch : reducedMotion,
+    addEventListener() {}, removeEventListener() {},
+  }));
   install('requestAnimationFrame', fn => { const id = nextFrame++; frames.set(id, fn); return id; });
   install('cancelAnimationFrame', id => frames.delete(id));
   install('IntersectionObserver', class {
@@ -65,6 +67,7 @@ export function animationHarness(startAnimation) {
   return {
     get datasetReads() { return datasetReads; },
     get state() { return root.dataset.motionState; },
+    get scheduledFrames() { return frames.size; },
     snapshot: () => nodes.filter(node => node !== button)
       .map(({ attributes, style }) => ({ attributes: { ...attributes }, style: { ...style } })),
     advance(now) {

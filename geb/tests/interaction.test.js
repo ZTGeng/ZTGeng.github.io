@@ -24,7 +24,7 @@ test('drag rotates only the sculpture, release persists, Reset restores the exac
   const camera = new PerspectiveCamera(); camera.position.set(8,7,9); camera.lookAt(0,0,0);
   const cameraPosition = camera.position.clone(), cameraQuaternion = camera.quaternion.clone();
   let renders = 0;
-  const interaction = attachSculptureInteraction({ canvas, reset, sculpture, camera, invalidate: () => renders++ });
+  const interaction = attachSculptureInteraction({ control: canvas, canvas, reset, sculpture, camera, invalidate: () => renders++ });
   const identity = new Quaternion();
   send(canvas,'pointerdown',{pointerId:1,isPrimary:true,button:0,clientX:300,clientY:200});
   send(canvas,'pointermove',{pointerId:1,clientX:440,clientY:270});
@@ -51,7 +51,7 @@ test('drag rotates only the sculpture, release persists, Reset restores the exac
 test('secondary buttons/pointers are ignored and cancellation ends a touch drag', () => {
   globalThis.window = { matchMedia: () => ({ matches: true }) };
   const canvas = new Canvas(), reset = new EventTarget(), sculpture = new Object3D();
-  const interaction = attachSculptureInteraction({ canvas, reset, sculpture, camera: new PerspectiveCamera(), invalidate() {} });
+  const interaction = attachSculptureInteraction({ control: canvas, canvas, reset, sculpture, camera: new PerspectiveCamera(), invalidate() {} });
   send(canvas,'pointerdown',{pointerId:1,isPrimary:true,button:2,clientX:0,clientY:0});
   send(canvas,'pointermove',{pointerId:1,clientX:100,clientY:100});
   assert.deepEqual(sculpture.quaternion.toArray(),new Quaternion().toArray());

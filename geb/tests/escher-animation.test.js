@@ -39,6 +39,21 @@ test('animation frames use cached metadata and pause/resume without advancing pa
   } finally { host.close(); }
 });
 
+test('touch and reduced-motion sessions start paused and can play on demand', () => {
+  for (const options of [{ touch: true }, { reducedMotion: true }]) {
+    const host = animationHarness(startAnimation, options);
+    try {
+      assert.equal(host.state, 'paused');
+      assert.equal(host.scheduledFrames, 0);
+      const still = host.snapshot();
+      host.toggle();
+      assert.equal(host.state, 'running');
+      host.advance(0); host.advance(80);
+      assert.notDeepEqual(host.snapshot(), still);
+    } finally { host.close(); }
+  }
+});
+
 test('each translating plank remains attached to both projected rims and has radial depth', () => {
   const {front,rear}=wheelFaces(),radius=scene.wheel.radius;
   assert.deepEqual(front,scene.wheel.depth);

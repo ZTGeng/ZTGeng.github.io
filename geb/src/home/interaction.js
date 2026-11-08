@@ -1,6 +1,6 @@
 import { Quaternion, Vector3 } from 'three';
 
-export function attachSculptureInteraction({ canvas, sculpture, camera, reset, invalidate }) {
+export function attachSculptureInteraction({ control, canvas, sculpture, camera, reset, invalidate }) {
   const controller = new AbortController();
   const options = { signal: controller.signal };
   const identity = new Quaternion();
@@ -21,16 +21,16 @@ export function attachSculptureInteraction({ canvas, sculpture, camera, reset, i
     invalidate();
   }
 
-  canvas.addEventListener('pointerdown', event => {
+  control.addEventListener('pointerdown', event => {
     if (pointer !== null || !event.isPrimary || event.button !== 0) return;
     pointer = event.pointerId;
     previous = { x: event.clientX, y: event.clientY };
     resetting = false;
-    canvas.setPointerCapture(pointer);
-    canvas.classList.add('dragging');
+    control.setPointerCapture(pointer);
+    control.classList.add('dragging');
   }, options);
 
-  canvas.addEventListener('pointermove', event => {
+  control.addEventListener('pointermove', event => {
     if (event.pointerId !== pointer) return;
     const scale = Math.PI * 1.5 / Math.min(canvas.clientWidth, canvas.clientHeight);
     rotate((event.clientX - previous.x) * scale, (event.clientY - previous.y) * scale);
@@ -40,12 +40,12 @@ export function attachSculptureInteraction({ canvas, sculpture, camera, reset, i
   function release(event) {
     if (event.pointerId !== pointer) return;
     pointer = null;
-    canvas.classList.remove('dragging');
+    control.classList.remove('dragging');
     // No inertia: the exact released orientation persists.
   }
-  for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) canvas.addEventListener(type, release, options);
+  for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) control.addEventListener(type, release, options);
 
-  canvas.addEventListener('keydown', event => {
+  control.addEventListener('keydown', event => {
     const steps = { ArrowLeft: [-.10,0], ArrowRight: [.10,0], ArrowUp: [0,-.10], ArrowDown: [0,.10] };
     if (!steps[event.key]) return;
     event.preventDefault();
@@ -53,9 +53,9 @@ export function attachSculptureInteraction({ canvas, sculpture, camera, reset, i
   }, options);
 
   reset.addEventListener('click', () => {
-    if (pointer !== null && canvas.hasPointerCapture(pointer)) canvas.releasePointerCapture(pointer);
+    if (pointer !== null && control.hasPointerCapture(pointer)) control.releasePointerCapture(pointer);
     pointer = null;
-    canvas.classList.remove('dragging');
+    control.classList.remove('dragging');
     startQuaternion.copy(sculpture.quaternion);
     resetStart = performance.now();
     resetting = true;

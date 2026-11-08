@@ -8,7 +8,10 @@
   <script type="module" src="./home/main.js"></script>
 </head>
 <body>
-  <main>
+  <nav class="site-navigation" aria-label="网站导航">
+    <a class="site-home-link" href="/">返回网站首页</a>
+  </nav>
+  <main class="home-page">
     <section class="introduction" aria-label="Gödel, Escher, Bach">
       <h1 class="title" aria-label="Gödel, Escher, Bach">
         <button class="name name-godel" type="button" aria-label="Gödel" aria-expanded="false"><span class="initial">G</span><span class="name-rest" aria-hidden="true"><span>ödel</span></span><span class="period" aria-hidden="true">.</span></button>
@@ -22,7 +25,8 @@
       </div>
     </section>
     <section id="model-stage" aria-label="GEB 三维投影雕塑">
-      <canvas id="sculpture-canvas" tabindex="0" aria-label="拖动旋转木质雕塑，观察 G、E、B 的实时阴影。也可使用方向键旋转。" aria-describedby="sculpture-hint"></canvas>
+      <canvas id="sculpture-canvas" aria-hidden="true"></canvas>
+      <div id="sculpture-control" role="group" tabindex="0" aria-label="旋转木质雕塑，观察 G、E、B 的实时阴影。也可使用方向键旋转。" aria-describedby="sculpture-hint" hidden></div>
       <p id="scene-status" role="status">正在布置光与影…</p>
       <p id="sculpture-hint">拖动木雕，观察光与影</p>
       <button id="reset" type="button" disabled>Reset</button>

@@ -1,5 +1,11 @@
+.home-page {
+  flex: 1 0 auto;
+  max-height: calc(100svh - var(--site-navigation-height));
+}
+
 .introduction {
-  padding: clamp(40px, 8vh, 88px) 20px 0;
+  flex: none;
+  padding: clamp(2px, 1.5svh, 16px) 20px 0;
   text-align: center;
 }
 
@@ -8,7 +14,7 @@
   align-items: baseline;
   justify-content: center;
   gap: clamp(6px, 2vw, 26px);
-  margin: 0 0 32px;
+  margin: 0 0 12px;
   font-weight: 400;
 }
 
@@ -20,7 +26,7 @@
   background: transparent;
   color: inherit;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(62px, 12vw, 148px);
+  font-size: clamp(60px, 8vw, 100px);
   font-weight: 400;
   line-height: 1.15;
   cursor: pointer;
@@ -63,7 +69,7 @@
 
 .biographies {
   display: inline-grid;
-  gap: 13px;
+  gap: 4px;
   text-align: left;
   font-size: clamp(11px, 2.5vw, 14px);
   line-height: 1.8;
@@ -84,26 +90,12 @@
 }
 
 #model-stage {
-  flex: 1;
-  min-height: 38vh;
-  width: 100%;
-  display: grid;
-  place-items: center;
-}
-
-
-.introduction { padding-top: clamp(30px, 5vh, 54px); }
-.title { margin-bottom: 18px; }
-.name { font-size: clamp(62px, 9vw, 110px); }
-.biographies { gap: 6px; }
-
-#model-stage {
   position: relative;
-  flex: none;
+  flex: 1 1 700px;
   width: min(100%, 1280px);
-  height: clamp(500px, 78vh, 880px);
-  min-height: 0;
-  margin: 12px auto 0;
+  min-height: 180px;
+  max-height: 700px;
+  margin-inline: auto;
   overflow: hidden;
   isolation: isolate;
 }
@@ -112,18 +104,24 @@
   display: block;
   width: 100%;
   height: 100%;
+}
+
+#sculpture-control {
+  position: absolute;
+  inset: 0;
   cursor: grab;
   touch-action: none;
+  touch-action: pinch-zoom;
   outline: none;
 }
 
-#sculpture-canvas:focus-visible { outline: 1px solid #98bbb0; outline-offset: -8px; }
-#sculpture-canvas.dragging { cursor: grabbing; }
+#sculpture-control:focus-visible { outline: 1px solid #98bbb0; outline-offset: -4px; }
+#sculpture-control.dragging { cursor: grabbing; }
 
 #reset {
   position: absolute;
   right: clamp(20px, 5vw, 64px);
-  bottom: 24px;
+  bottom: 8px;
   padding: 9px 16px;
   border: 1px solid #5f5e5b;
   border-radius: 3px;
@@ -141,7 +139,7 @@
 
 #sculpture-hint {
   position: absolute;
-  bottom: 24px;
+  bottom: 8px;
   left: clamp(20px, 5vw, 64px);
   margin: 0;
   padding: 9px 0;
@@ -162,11 +160,43 @@
 }
 
 .scene-unavailable #sculpture-hint { display: none; }
-.chapter-navigation { padding-top: 18px; }
+.home-page .chapter-navigation { flex: none; padding-block: 8px 16px; }
 
 @media (max-width: 600px) {
-  #model-stage { height: clamp(440px, 70svh, 650px); margin-top: 4px; }
-  .introduction { padding-inline: 16px; }
+  .introduction { padding: 4px 16px 0; }
+  .title { margin-bottom: 8px; }
+  .name { font-size: clamp(54px, 15vw, 76px); }
+  #model-stage {
+    flex-basis: min(100vw, 460px);
+    max-height: min(100vw, 460px);
+  }
+}
+
+@media (pointer: coarse) {
+  #sculpture-control {
+    inset: 50% auto auto 50%;
+    width: clamp(100px, 32vw, 144px);
+    height: clamp(94px, 28vw, 128px);
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media (min-width: 541px) and (max-height: 540px) {
+  .introduction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  .title { margin: 0; }
+  .name { font-size: 52px; }
+  .biographies { font-size: 12px; line-height: 1.55; }
+  #model-stage { min-height: 128px; }
+}
+
+@media (max-height: 310px) {
+  .home-page { max-height: none; }
+  #model-stage { flex-basis: 180px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

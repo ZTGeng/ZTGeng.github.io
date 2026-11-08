@@ -6,12 +6,14 @@ import { createSculptureScene } from './scene.js';
 const stage = document.getElementById('model-stage');
 const status = document.getElementById('scene-status');
 const reset = document.getElementById('reset');
+const control = document.getElementById('sculpture-control');
 let app;
 
 async function start() {
   try {
     app = await createSculptureScene(stage);
     status.hidden = true;
+    control.hidden = false;
     reset.disabled = false;
   } catch (error) {
     console.error('Unable to initialize GEB sculpture:', error);

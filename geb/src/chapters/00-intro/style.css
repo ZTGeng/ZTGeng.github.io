@@ -1,23 +1,13 @@
 .intro-page {
   width: min(960px, 100%);
   margin-inline: auto;
-  padding: 36px 32px 0;
+  padding: 24px 32px 0;
 }
 
 .chapter-heading { margin-bottom: 36px; }
 
-.home-link {
-  color: var(--muted);
-  font-family: Georgia, serif;
-  font-size: 20px;
-  letter-spacing: 0.1em;
-  text-decoration: none;
-}
-
-.home-link:hover { color: var(--ink); }
-
 .chapter-number {
-  margin: 32px 0 12px;
+  margin: 0 0 12px;
   color: var(--muted);
   font-size: 12px;
   letter-spacing: 0.16em;
@@ -64,7 +54,6 @@
 .person-tab[aria-selected="true"] { border-bottom-color: var(--person-color); color: var(--person-color); }
 
 .person-tab:focus-visible,
-.home-link:focus-visible,
 .person-panel:focus-visible { outline: 2px solid var(--person-color, #98bbb0); outline-offset: 4px; }
 
 .person-panel { padding-top: 32px; }
