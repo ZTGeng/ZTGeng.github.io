@@ -6,7 +6,7 @@ const candidates = [
   prepareNotePiece({ ...tigers, defaultVoiceDelayBars: 2, subtitle: '儿歌', type: '旋律 · 无歌词', available: true }),
   { id: 'yellow-river', title: '保卫黄河', defaultVoiceDelayBars: 1, subtitle: '合唱', type: '人声素材待定', available: false },
   prepareNotePiece({ ...goldberg, defaultVoiceDelayBars: 1, subtitle: '巴赫', type: '旋律 · 无歌词', available: true }),
-  { id: 'dona', title: 'Dona Nobis Pacem', type: '人声素材待定', available: false },
+  { id: 'dona', title: 'Dona Nobis Pacem', defaultVoiceDelayBars: 8, subtitle: '传统轮唱', type: '人声素材待定', available: false },
 ];
 
 const recordings = import.meta.glob('./pieces/recordings/*/recording.json', { eager: true, import: 'default' });

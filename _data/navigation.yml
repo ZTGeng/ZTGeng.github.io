@@ -1,3 +1,7 @@
+- id: geb
+  url: /geb/
+  en: G.E.B.
+  zh: G.E.B.
 - id: games
   url: /games/
   en: Games

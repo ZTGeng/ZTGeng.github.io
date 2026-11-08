@@ -35,11 +35,21 @@ test('arrangement enforces five copies, at least one voice, stable IDs and solo 
   for (const t of [...m.tracks]) m.remove(t.id);
   assert.equal(m.tracks.length, 1);
 });
+test('eight-bar entries stay staggered and later starts extend the arrangement', () => {
+  const arrangement = new Arrangement({ ...piece, beats: 3, durationBeats: 72, defaultVoiceDelayBars: 8 });
+  arrangement.add();
+  arrangement.add();
+  arrangement.add();
+  assert.deepEqual(arrangement.tracks.map(track => track.start), [0, 8, 16, 24, 32]);
+  arrangement.setStart(5, 36);
+  assert.equal(arrangement.tracks[4].start, 36);
+  assert.equal(arrangement.length, 180);
+});
 test('bar snapping, seven rates, unavailable selection and pause/reset preserve mix', () => {
   const m = new Arrangement(piece);
   m.setStart(1, 2.7); assert.equal(m.tracks[0].start, 3);
   m.setStart(1, -1); assert.equal(m.tracks[0].start, 0);
-  m.setStart(1, 100); assert.equal(m.tracks[0].start, 8);
+  m.setStart(1, 100); assert.equal(m.tracks[0].start, 100);
   assert.throws(() => m.setRate(.6));
   m.setRate(.5); m.pause(14.25); assert.equal(m.position, 14.25);
   m.rewind(); assert.equal(m.rate, .5); assert.equal(m.tracks[0].volume, 80);

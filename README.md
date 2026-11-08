@@ -6,7 +6,7 @@ Geng's web space
 Pages using the shared header/footer must have YAML front matter and be served
 from Jekyll's generated output (a plain static server does not expand includes).
 Use `{% include header.html %}` and `{% include footer.html %}`. The homepage
-intentionally includes only the footer. Independent apps can keep their own shell.
+uses the shared header with `nav_section: home`. Independent apps can keep their own shell.
 
 Navigation links and translations live in `_data/navigation.yml`. Header options
 can be declared in front matter:

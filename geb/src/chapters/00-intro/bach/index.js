@@ -200,7 +200,7 @@ if (root) {
         <div class="canon-track-name"><span class="canon-track-dot" aria-hidden="true"></span><strong>声部 ${i + 1}</strong><button class="canon-remove" type="button" data-track-action="remove" aria-label="删除声部 ${i + 1}"${tracks.length === 1 ? ' disabled' : ''}>×</button></div>
         <div class="canon-mix-controls"><button type="button" data-track-action="mute" aria-label="静音声部 ${i + 1}" aria-pressed="${track.muted}">静音</button><button type="button" data-track-action="solo" aria-label="独听声部 ${i + 1}" aria-pressed="${model.soloId === track.id}">独听</button></div>
         <label class="canon-volume"><span>音量</span><input type="range" min="0" max="100" value="${track.volume}" data-track-volume aria-label="声部 ${i + 1}音量"><output>${track.volume}%</output></label>
-        <label class="canon-track-start"><span>开始</span><select data-track-start aria-label="声部 ${i + 1}开始小节">${Array.from({ length: 9 }, (_, n) => `<option value="${n}"${n === track.start ? ' selected' : ''}>第 ${n + 1} 小节</option>`).join('')}</select></label>
+        <label class="canon-track-start"><span>开始</span><select data-track-start aria-label="声部 ${i + 1}开始小节"></select></label>
       </div>
       <div class="canon-track-lane"><button type="button" class="canon-clip" data-track-clip style="--clip-start:${track.start};--clip-bars:${piece.bars}" aria-label="声部 ${i + 1}，${piece.title}，第 ${track.start + 1} 小节开始，可用左右方向键调整开始小节">
         <span class="canon-clip-heading"><span><span class="canon-clip-grip" aria-hidden="true">⠿</span>${piece.title}</span><span>${piece.bars} 小节</span></span>
@@ -216,15 +216,20 @@ if (root) {
       active: -1,
     }));
     resizeTimeline();
-    paint(audio.running ? audio.position() : model.position);
   }
 
-  function resizeTimeline() {
-    const bars = Math.max(8, ...tracks.map(track => track.start + piece.bars));
+  function resizeTimeline(minimumBars = 8) {
+    const bars = Math.max(minimumBars, ...tracks.map(track => track.start + piece.bars));
     timeline.style.setProperty('--canon-bar-count', bars);
     barsElement.innerHTML = Array.from({ length: bars }, (_, i) => `<span>${i + 1}</span>`).join('');
+    const options = Array.from({ length: bars + 1 }, (_, i) => `<option value="${i}">第 ${i + 1} 小节</option>`).join('');
+    tracksElement.querySelectorAll('[data-track-start]').forEach((select, index) => {
+      if (select.length !== bars + 1) select.innerHTML = options;
+      select.value = tracks[index].start;
+    });
     syncZoomButtons();
     drawWaveforms();
+    paint(audio.running ? audio.position() : model.position);
   }
 
   function syncZoomButtons() {
@@ -392,7 +397,6 @@ if (root) {
     pauseForEdit();
     setStart(track, Number(event.target.value), row.querySelector('[data-track-clip]'));
     resizeTimeline();
-    paint(model.position);
   });
   tracksElement.addEventListener('keydown', event => {
     const clip = event.target.closest('[data-track-clip]');
@@ -402,7 +406,6 @@ if (root) {
     pauseForEdit();
     setStart(track, track.start + (event.key === 'ArrowRight' ? 1 : -1), clip);
     resizeTimeline();
-    paint(model.position);
     announce(`开始位置：第 ${track.start + 1} 小节。`);
   });
 
@@ -411,25 +414,30 @@ if (root) {
     if (!clip || !event.isPrimary || event.button !== 0) return;
     const track = tracks.find(item => item.id === Number(clip.closest('[data-track-id]').dataset.trackId));
     const original = track.start;
-    const originX = event.clientX;
-    const originScroll = scroller.scrollLeft;
-    let lastX = originX;
+    function barAt(clientX) {
+      const { left, width } = barsElement.getBoundingClientRect();
+      return (clientX - left) / width * barsElement.childElementCount;
+    }
+    const grabOffset = barAt(event.clientX) - original;
+    let lastX = event.clientX;
     let dragFrame = 0;
     function updateDrag() {
-      const offset = lastX - originX + scroller.scrollLeft - originScroll;
-      const next = Math.max(0, Math.min(8, original + Math.round(offset / barWidth)));
+      const next = Math.max(0, Math.round(barAt(lastX) - grabOffset));
       if (next === track.start) return;
       if (audio.running || loading || model.status === 'ended') pauseForEdit();
       setStart(track, next, clip);
+      if (next + piece.bars > barsElement.childElementCount) resizeTimeline();
     }
     function edgeScroll() {
       const bounds = scroller.getBoundingClientRect();
       const controls = clip.closest('[data-track-id]').querySelector('.canon-track-controls').offsetWidth;
       const delta = lastX > bounds.right - 32 ? 8 : lastX < bounds.left + controls + 12 ? -8 : 0;
+      if (delta > 0 && scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 1) {
+        resizeTimeline(barsElement.childElementCount + 1);
+      }
       if (delta) { scroller.scrollLeft += delta; updateDrag(); }
       dragFrame = requestAnimationFrame(edgeScroll);
     }
-    const barWidth = clip.parentElement.clientWidth / Number(timeline.style.getPropertyValue('--canon-bar-count'));
     clip.setPointerCapture(event.pointerId);
     clip.classList.add('is-dragging');
     function move(e) {
@@ -449,7 +457,6 @@ if (root) {
       clip.removeEventListener('lostpointercapture', finish);
       if (clip.hasPointerCapture(event.pointerId)) clip.releasePointerCapture(event.pointerId);
       resizeTimeline();
-      paint(audio.running ? audio.position() : model.position);
       announce(`开始位置：第 ${track.start + 1} 小节。`);
     }
     clip.addEventListener('pointermove', move);

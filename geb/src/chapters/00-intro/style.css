@@ -82,6 +82,16 @@
 .lesson-heading .lesson-title { margin: 0; font-size: clamp(24px, 4vw, 30px); font-weight: 500; line-height: 1.6; }
 .lesson-heading .lesson-description { margin: 14px 0 0; color: var(--muted); font-size: 15px; line-height: 1.9; }
 
+.lesson-sources, .precision-note { margin-top: 24px; font-size: 13px; line-height: 1.9; }
+:is(.lesson-sources, .precision-note) summary { width: fit-content; cursor: pointer; color: var(--person-color); text-underline-offset: 4px; }
+:is(.lesson-sources, .precision-note) summary:hover { text-decoration: underline; }
+:is(.lesson-sources, .precision-note) summary:focus-visible,
+.lesson-sources a:focus-visible { outline: 2px solid var(--person-color); outline-offset: 4px; }
+.lesson-sources a { color: var(--muted); overflow-wrap: anywhere; text-underline-offset: 3px; }
+.lesson-sources a:hover { color: var(--ink); }
+.lesson-sources ul { padding-left: 20px; }
+.lesson-sources li + li { margin-top: 10px; }
+
 .intro-page .chapter-navigation { margin-top: auto; }
 
 @media (max-width: 540px) {

@@ -20,7 +20,7 @@ export class Arrangement {
     this.add();
   }
   defaultStartAfter(track) {
-    return Math.min(8, track.start + (this.piece.defaultVoiceDelayBars ?? 2));
+    return track.start + (this.piece.defaultVoiceDelayBars ?? 2);
   }
   add() {
     if (this.tracks.length === 5) return false;
@@ -38,7 +38,7 @@ export class Arrangement {
   }
   setStart(id, bar) {
     const track = this.tracks.find(t => t.id === id);
-    if (track && Number.isFinite(bar)) track.start = Math.max(0, Math.min(8, Math.round(bar)));
+    if (track && Number.isFinite(bar)) track.start = Math.max(0, Math.round(bar));
   }
   setRate(rate) {
     if (!rates.includes(rate)) throw new Error('速度必须为 0.50×～2.00× 的七个档位');

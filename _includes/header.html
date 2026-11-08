@@ -2,10 +2,14 @@
 {% assign breadcrumb = include.breadcrumb-page | default: page.breadcrumb_en %}
 {% assign breadcrumb_zh = include.breadcrumb-page-zh | default: page.breadcrumb_zh | default: breadcrumb %}
 {% assign bilingual = include.lang-enabled | default: page.bilingual %}
-<header id="site-header" lang="en" data-bilingual="{% if bilingual %}true{% else %}false{% endif %}" data-callback-en="{{ include.callback-en | default: page.callback_en | escape }}" data-callback-zh="{{ include.callback-zh | default: page.callback_zh | escape }}">
+<header id="site-header"{% if section == 'home' %} class="mb-4"{% endif %} lang="en" data-bilingual="{% if bilingual %}true{% else %}false{% endif %}" data-callback-en="{{ include.callback-en | default: page.callback_en | escape }}" data-callback-zh="{{ include.callback-zh | default: page.callback_zh | escape }}">
     <nav class="navbar navbar-expand-lg bg-body-secondary" aria-label="Main navigation" data-ui-aria-en="Main navigation" data-ui-aria-zh="主导航">
         <div class="container-fluid">
+            {% if section == 'home' %}
+            <a class="navbar-brand" href="/" aria-current="page" data-ui-en="Geng's Website" data-ui-zh="小耿的网站">Geng's Website</a>
+            {% else %}
             <a class="navbar-brand" href="/" data-ui-en="Home" data-ui-zh="首页">Home</a>
+            {% endif %}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#site-navbar" aria-controls="site-navbar" aria-expanded="false" aria-label="Toggle navigation" data-ui-aria-en="Toggle navigation" data-ui-aria-zh="展开或收起导航">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -23,6 +27,7 @@
             </div>
         </div>
     </nav>
+    {% unless section == 'home' %}
     <nav aria-label="Breadcrumb" data-ui-aria-en="Breadcrumb" data-ui-aria-zh="当前位置" style="--bs-breadcrumb-divider: '|';">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/" data-ui-en="Home" data-ui-zh="首页">Home</a></li>
@@ -40,6 +45,7 @@
             {% endif %}
         </ol>
     </nav>
+    {% endunless %}
 </header>
 <noscript><style>#site-navbar.collapse { display: block; } #site-header .navbar-toggler { display: none; }</style></noscript>
 <script src="/shared/site-ui.js"></script>
