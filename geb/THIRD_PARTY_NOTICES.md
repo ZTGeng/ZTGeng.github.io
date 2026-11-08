@@ -10,6 +10,15 @@ The letter outlines, voxel construction, wood shader and scene are original work
 for this project. No book-cover image, scanned illustration, external texture,
 font file or photographic wood material is included.
 
+## Traditional melody data
+
+`src/chapters/00-intro/bach/pieces/tigers.json` and `tigers.abc` contain a newly
+entered, single-voice C-major transcription of the traditional melody Frère
+Jacques (两只老虎). Source publications identify the melody as public domain.
+Source URLs, transposition and verification details are recorded in the adjacent
+`pieces/README.md` and the JSON provenance. No lyrics, source score images,
+recordings, arrangements with accompaniment or sound samples are included.
+
 ## Three.js license
 
 The MIT License

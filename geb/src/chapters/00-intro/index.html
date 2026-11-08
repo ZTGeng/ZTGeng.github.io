@@ -143,14 +143,14 @@
         <header class="lesson-heading">
           <p class="lesson-eyebrow">音乐 · 模仿与交织</p>
           <h3 id="bach-title" class="lesson-title">卡农</h3>
-          <p class="lesson-description">卡农是一种以模仿为基础的复调音乐：一个声部先奏出或唱出旋律，其他声部依照一定的规则跟随。同一条旋律在不同时间展开，彼此交织，形成新的和声与层次。</p>
+          <p class="lesson-description">试着在下方错开各声部，听听同一段旋律如何交织。</p>
         </header>
 
         <div class="canon" data-canon-demo>
           <section class="canon-library" aria-labelledby="canon-library-title">
             <div class="canon-section-heading">
               <h4 id="canon-library-title">曲库</h4>
-              <span class="canon-secondary">候选曲目</span>
+              <span class="canon-secondary" data-canon-library-count></span>
             </div>
             <div class="canon-library-list" data-canon-library></div>
           </section>
@@ -158,35 +158,41 @@
           <div class="canon-toolbar">
             <div class="canon-selection"><strong data-canon-piece></strong><span data-canon-piece-meta></span></div>
             <div class="canon-transport" role="group" aria-label="播放控制">
-              <button type="button" class="canon-play" data-canon-play><span aria-hidden="true">▶</span> 播放</button>
+              <button type="button" class="canon-play" data-canon-play>
+                <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false" fill="currentColor"><path data-canon-play-icon d="M4 2.5v11L13 8z"/></svg>
+                <span data-canon-play-text>播放</span>
+              </button>
               <button type="button" data-canon-rewind aria-label="回到开头">从头</button>
               <button type="button" data-canon-loop aria-pressed="false">循环</button>
             </div>
           </div>
 
-          <div class="canon-viewbar">
-            <div class="canon-view-options" role="group" aria-label="音轨显示方式">
-              <button type="button" data-canon-view="waveform" aria-pressed="true">波形</button>
-              <button type="button" data-canon-view="notes" aria-pressed="false">音符</button>
-              <label class="canon-lyrics-toggle"><input type="checkbox" data-canon-lyrics checked> 歌词</label>
-            </div>
-            <span class="canon-preview-label">UI 预览 · 暂无音频</span>
+          <div class="canon-zoom" role="group" aria-label="时间轴缩放">
+            <span>时间轴</span>
+            <button type="button" data-canon-zoom-out aria-label="缩小时间轴" title="显示更多小节">−</button>
+            <button type="button" data-canon-zoom-in aria-label="放大时间轴" title="显示更少小节">＋</button>
           </div>
-
           <div class="canon-timeline-scroll" tabindex="0" role="region" aria-label="声部时间轴，横向滚动查看全部小节">
             <div class="canon-timeline">
               <div class="canon-ruler"><div class="canon-ruler-label">声部 <span>吸附：小节</span></div><div class="canon-bars" data-canon-bars></div></div>
               <div data-canon-tracks></div>
-              <div class="canon-playhead" aria-hidden="true"><span></span></div>
+              <div class="canon-playhead">
+                <div class="canon-playhead-handle" data-canon-seek role="slider" tabindex="0" aria-label="播放起始位置" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"></div>
+              </div>
             </div>
           </div>
 
           <div class="canon-add-row"><button type="button" class="canon-add" data-canon-add>＋ 添加声部</button><span data-canon-count></span></div>
           <div class="canon-footer">
-            <div class="canon-speed" role="group" aria-label="所有声部的整体速度"><span>整体速度</span><button type="button" data-canon-rate="0.75" aria-pressed="false">0.75×</button><button type="button" data-canon-rate="1" aria-pressed="true">1×</button><button type="button" data-canon-rate="1.25" aria-pressed="false">1.25×</button><button type="button" data-canon-rate="1.5" aria-pressed="false">1.5×</button></div>
-            <span class="canon-position">第 1 小节 <span>·</span> <span data-canon-meter>4/4</span></span>
+            <div class="canon-speed">
+              <label for="canon-rate">整体速度 <output for="canon-rate" data-canon-rate-value>1.00×</output></label>
+              <input id="canon-rate" type="range" min="0.5" max="2" step="0.25" value="1" list="canon-rate-stops" data-canon-rate aria-label="所有声部的整体速度" aria-valuetext="1.00倍">
+              <datalist id="canon-rate-stops"><option value="0.5"></option><option value="0.75"></option><option value="1"></option><option value="1.25"></option><option value="1.5"></option><option value="1.75"></option><option value="2"></option></datalist>
+              <div class="canon-speed-ticks" aria-hidden="true"><span>0.50×</span><span>0.75×</span><span>1.00×</span><span>1.25×</span><span>1.50×</span><span>1.75×</span><span>2.00×</span></div>
+            </div>
+            <span class="canon-position"><span data-canon-position>第 1 小节</span> <span>·</span> <span data-canon-meter>4/4</span></span>
           </div>
-          <p class="canon-status" data-canon-status role="status" aria-live="polite">曲目待定；波形、音符与歌词均为排版示意。</p>
+          <p class="canon-status" data-canon-status role="status" aria-live="polite">《两只老虎》 · 单声部主旋律，100 BPM。</p>
         </div>
         <noscript><p>启用 JavaScript 后可查看卡农工作台的界面预览。</p></noscript>
       </section>

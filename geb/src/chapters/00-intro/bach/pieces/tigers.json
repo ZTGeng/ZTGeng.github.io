@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "tigers",
+  "title": "两只老虎",
+  "alternateTitle": "Frère Jacques",
+  "kind": "notes",
+  "display": "notes",
+  "hasLyrics": false,
+  "key": "C major",
+  "timeSignature": { "numerator": 4, "denominator": 4 },
+  "beatUnit": "quarter",
+  "tempoBpm": 100,
+  "barCount": 8,
+  "durationBeats": 32,
+  "notes": [
+    { "midi": 60, "startBeat": 0, "durationBeats": 1 },
+    { "midi": 62, "startBeat": 1, "durationBeats": 1 },
+    { "midi": 64, "startBeat": 2, "durationBeats": 1 },
+    { "midi": 60, "startBeat": 3, "durationBeats": 1 },
+    { "midi": 60, "startBeat": 4, "durationBeats": 1 },
+    { "midi": 62, "startBeat": 5, "durationBeats": 1 },
+    { "midi": 64, "startBeat": 6, "durationBeats": 1 },
+    { "midi": 60, "startBeat": 7, "durationBeats": 1 },
+    { "midi": 64, "startBeat": 8, "durationBeats": 1 },
+    { "midi": 65, "startBeat": 9, "durationBeats": 1 },
+    { "midi": 67, "startBeat": 10, "durationBeats": 2 },
+    { "midi": 64, "startBeat": 12, "durationBeats": 1 },
+    { "midi": 65, "startBeat": 13, "durationBeats": 1 },
+    { "midi": 67, "startBeat": 14, "durationBeats": 2 },
+    { "midi": 67, "startBeat": 16, "durationBeats": 0.5 },
+    { "midi": 69, "startBeat": 16.5, "durationBeats": 0.5 },
+    { "midi": 67, "startBeat": 17, "durationBeats": 0.5 },
+    { "midi": 65, "startBeat": 17.5, "durationBeats": 0.5 },
+    { "midi": 64, "startBeat": 18, "durationBeats": 1 },
+    { "midi": 60, "startBeat": 19, "durationBeats": 1 },
+    { "midi": 67, "startBeat": 20, "durationBeats": 0.5 },
+    { "midi": 69, "startBeat": 20.5, "durationBeats": 0.5 },
+    { "midi": 67, "startBeat": 21, "durationBeats": 0.5 },
+    { "midi": 65, "startBeat": 21.5, "durationBeats": 0.5 },
+    { "midi": 64, "startBeat": 22, "durationBeats": 1 },
+    { "midi": 60, "startBeat": 23, "durationBeats": 1 },
+    { "midi": 60, "startBeat": 24, "durationBeats": 1 },
+    { "midi": 55, "startBeat": 25, "durationBeats": 1 },
+    { "midi": 60, "startBeat": 26, "durationBeats": 2 },
+    { "midi": 60, "startBeat": 28, "durationBeats": 1 },
+    { "midi": 55, "startBeat": 29, "durationBeats": 1 },
+    { "midi": 60, "startBeat": 30, "durationBeats": 2 }
+  ],
+  "provenance": {
+    "checkedOn": "2026-11-05",
+    "melodyRights": "Traditional melody; public domain according to the source publications.",
+    "preparation": "Single melody statement, transposed from the F-major reference down five semitones to C major; original internal phrase repetitions retained; no accompaniment, lyrics or whole-song repeat.",
+    "sources": [
+      {
+        "title": "Porte-Notes — Frère Jacques, À une voix",
+        "url": "https://portenotes.lacultureataporte.fr/composition/repertoire/frere-jacques",
+        "use": "Complete eight-bar ABC reference for pitches and durations; quarter-note tempo 100."
+      },
+      {
+        "title": "Online Piano Keyboard — Frère Jacques sheet music and piano notes",
+        "url": "https://onlinepianokeyboard.com/songs/frere-jacques",
+        "use": "Cross-check C-major octave positions, including G3 in bars 7–8, and rhythm."
+      }
+    ]
+  }
+}

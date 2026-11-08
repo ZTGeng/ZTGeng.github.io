@@ -1,0 +1,48 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { Arrangement } from '../src/chapters/00-intro/bach/model.js';
+const piece = { beats: 4, durationBeats: 32, available: true };
+test('switching pieces resets the current arrangement to two voices with the new defaults', () => {
+  const tigers = { ...piece, defaultVoiceDelayBars: 2 };
+  const river = { ...piece, beats: 2, durationBeats: 62, defaultVoiceDelayBars: 1 };
+  const arrangement = new Arrangement(tigers);
+  const tracks = arrangement.tracks;
+  arrangement.add();
+  assert.deepEqual(tracks.map(track => track.start), [0, 2, 4]);
+  arrangement.setStart(1, 2);
+  arrangement.setStart(2, 6);
+  arrangement.setStart(3, 5);
+  tracks[0].volume = 35;
+  tracks[1].muted = true;
+  arrangement.soloId = tracks[2].id;
+  arrangement.pause(12);
+  arrangement.select(river);
+  assert.equal(arrangement.tracks, tracks);
+  assert.deepEqual(tracks.map(track => [track.start, track.volume, track.muted]), [[0, 80, false], [1, 70, false]]);
+  assert.equal(arrangement.soloId, null);
+  assert.equal(arrangement.position, 0);
+  arrangement.add();
+  assert.deepEqual(tracks.map(track => track.start), [0, 1, 2]);
+  arrangement.select(tigers);
+  assert.deepEqual(tracks.map(track => track.start), [0, 2]);
+});
+test('arrangement enforces five copies, at least one voice, stable IDs and solo removal', () => {
+  const m = new Arrangement(piece);
+  for (let i = 0; i < 8; i++) m.add();
+  assert.equal(m.tracks.length, 5);
+  m.soloId = 2; m.remove(2); assert.equal(m.soloId, null);
+  m.add(); assert.equal(m.tracks.at(-1).id, 6);
+  for (const t of [...m.tracks]) m.remove(t.id);
+  assert.equal(m.tracks.length, 1);
+});
+test('bar snapping, seven rates, unavailable selection and pause/reset preserve mix', () => {
+  const m = new Arrangement(piece);
+  m.setStart(1, 2.7); assert.equal(m.tracks[0].start, 3);
+  m.setStart(1, -1); assert.equal(m.tracks[0].start, 0);
+  m.setStart(1, 100); assert.equal(m.tracks[0].start, 8);
+  assert.throws(() => m.setRate(.6));
+  m.setRate(.5); m.pause(14.25); assert.equal(m.position, 14.25);
+  m.rewind(); assert.equal(m.rate, .5); assert.equal(m.tracks[0].volume, 80);
+  assert.equal(m.select({ available: false }), false);
+  assert.equal(m.piece, piece);
+});
