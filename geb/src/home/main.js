@@ -1,4 +1,5 @@
 import '../../shared/geb.css';
+import '../../shared/copyright.js';
 import './style.css';
 import './names.js';
 import { createSculptureScene } from './scene.js';

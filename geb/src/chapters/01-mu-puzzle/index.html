@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MU 谜题 · G.E.B.</title>
+  <script type="module" src="./main.js"></script>
+</head>
+<body>
+  <nav class="site-navigation" aria-label="网站导航">
+    <a class="geb-home-link" href="/geb/" aria-label="返回 G.E.B. 首页">G.E.B.</a>
+    <a class="site-home-link" href="/">返回网站首页</a>
+  </nav>
+  <main class="chapter-page">
+    <header class="chapter-heading">
+      <p class="chapter-number">第一章 · 01</p>
+      <h1>MU 谜题</h1>
+      <p class="chapter-lead">一个简单的谜题，探索形式系统的规则与局限。</p>
+    </header>
+
+    <div class="chapter-content">
+      <div class="puzzle-introduction">
+        <p>本章通过一个简单的形式系统，展示了如何按照明确的规则操作符号，以及如何跳出规则来思考整个系统。这个系统称为 MIU 系统，由三个字母 M（机械）、I（智能）和 U（无）组成。谜题的目标是从 MI 出发，通过规定的规则得到 MU。MU 同时也是禅宗“无”的日语读音。</p>
+        <p>中文版将 MIU 系统改称 WJU 系统，将 MU 谜题改称 WU 谜题。其中 W 代表“惟”，J 代表“机”，U 代表“无”，分别对应英文的 Intelligent、Mechanical 和 Un。WU 恰好是汉字“无”的汉语拼音，保留了原文的文字游戏。</p>
+      </div>
+      <section id="mu-puzzle" class="miu-puzzle" aria-labelledby="miu-title">
+        <header class="miu-header">
+          <h2 id="miu-title">MIU 符号工作台</h2>
+          <div class="miu-goal" role="group" aria-label="目标字符串 MU">
+            <span>目标</span><span class="miu-token" data-letter="M">M</span><span class="miu-token" data-letter="U">U</span>
+          </div>
+        </header>
+
+        <div class="miu-layout">
+          <div class="miu-work">
+            <div class="miu-row miu-rule-heading">
+              <h3 id="miu-rule-title" aria-live="polite">应用规则</h3>
+              <button type="button" id="miu-help-toggle" class="miu-quiet" aria-haspopup="dialog" aria-controls="miu-help">详细规则</button>
+            </div>
+            <div class="miu-rules" id="miu-rules">
+              <button type="button" data-rule="0">
+                <span class="miu-rule-name"><span>Ⅰ</span> 末尾加 U</span>
+                <span class="miu-formula" aria-hidden="true"><code>…<span class="miu-token" data-letter="I">I</span></code><b>→</b><code>…<span class="miu-token" data-letter="I">I</span><span class="miu-token" data-letter="U">U</span></code></span>
+              </button>
+              <button type="button" data-rule="1">
+                <span class="miu-rule-name"><span>Ⅱ</span> 复制M后全部</span>
+                <span class="miu-formula" aria-hidden="true"><code><span class="miu-token" data-letter="M">M</span><span class="miu-token">x</span></code><b>→</b><code><span class="miu-token" data-letter="M">M</span><span class="miu-token">x</span><span class="miu-token">x</span></code></span>
+              </button>
+              <button type="button" data-rule="2" disabled>
+                <span class="miu-rule-name"><span>Ⅲ</span> 替换 III</span>
+                <span class="miu-formula" aria-hidden="true"><code><span class="miu-token" data-letter="I">I</span><span class="miu-token" data-letter="I">I</span><span class="miu-token" data-letter="I">I</span></code><b>→</b><code><span class="miu-token" data-letter="U">U</span></code></span>
+              </button>
+              <button type="button" data-rule="3" disabled>
+                <span class="miu-rule-name"><span>Ⅳ</span> 删除 UU</span>
+                <span class="miu-formula" aria-hidden="true"><code><span class="miu-token" data-letter="U">U</span><span class="miu-token" data-letter="U">U</span></code><b>→</b><code><span class="miu-token">∅</span></code></span>
+              </button>
+            </div>
+            <p id="miu-notice" class="miu-notice" role="status" hidden></p>
+
+            <section class="miu-string-panel" aria-labelledby="miu-string-label">
+              <div class="miu-row"><h3 id="miu-string-label">当前字符串</h3><span id="miu-length">2 / 256 字符</span></div>
+              <div id="miu-string" class="miu-string" role="group" aria-label="当前字符串 MI"><span class="miu-token" data-letter="M" aria-hidden="true">M</span><span class="miu-token" data-letter="I" aria-hidden="true">I</span></div>
+            </section>
+            <p id="miu-status" class="miu-sr" role="status" aria-live="polite"></p>
+          </div>
+
+          <aside class="miu-history" aria-labelledby="miu-history-label">
+            <div class="miu-row">
+              <h3 id="miu-history-label">可回溯字符串</h3>
+              <button type="button" id="miu-reset" class="miu-quiet" disabled>重置</button>
+            </div>
+            <ol id="miu-history" class="miu-history-list"><li><button type="button" data-node="0" aria-current="step"><code>MI</code><span>起点</span></button></li></ol>
+          </aside>
+        </div>
+
+        <dialog id="miu-help" class="miu-help" aria-labelledby="miu-help-heading">
+          <div class="miu-row"><h3 id="miu-help-heading">详细规则</h3><button type="button" id="miu-help-close" class="miu-quiet" autofocus>关闭</button></div>
+          <p>从 <strong><code>MI</code></strong> 出发，每步选择一条已得到的字符串，并应用一条规则。</p>
+          <ol>
+            <li>末尾是 <strong><code>I</code></strong> 时，在末尾追加一个 <strong><code>U</code></strong>。</li>
+            <li>将 <strong><code>M</code></strong> 后面的<strong>全部内容</strong>复制一遍，接在末尾。</li>
+            <li>选一处连续的 <strong><code>III</code></strong>，将这三个字母替换为一个 <strong><code>U</code></strong>。</li>
+            <li>选一处相邻的 <strong><code>UU</code></strong>，同时删掉这两个字母。</li>
+          </ol>
+          <p>如果有多个匹配位置，点击<strong>带下划线的起始字母</strong>进行选择。再次点击规则按钮可取消选择。</p>
+          <p>字符串最多 <strong>256 个字符</strong>（包括开头的 <strong><code>M</code></strong>）。超过上限的操作不可用。</p>
+          <p>按钮图示：规则只能沿箭头方向使用；<strong><code>x</code></strong> 代表任意一段字符串，<strong><code>∅</code></strong> 代表删除。</p>
+        </dialog>
+        <div id="miu-history-tooltip" class="miu-history-tooltip" aria-hidden="true" hidden></div>
+      </section>
+      <p class="puzzle-question">你能从 <code>MI</code> 出发推导出 <code>MU</code>，或者证明这个目标无法实现吗？</p>
+    </div>
+
+    <nav class="chapter-navigation" aria-label="章节导航">
+      <a class="chapter-link" href="/geb/chapters/00-intro/"><span>上一章</span><span><span aria-hidden="true">←</span> 哥德尔、埃舍尔、巴赫</span></a>
+      <a class="chapter-link" href="/geb/404.html"><span>下一章</span><span>形式与意义 <span aria-hidden="true">→</span></span></a>
+    </nav>
+  </main>
+  <footer>© 2014–<span id="copyright-year">2026</span> <a href="/">@ztgeng</a>. All rights reserved.</footer>
+</body>
+</html>

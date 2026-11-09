@@ -1,0 +1,15 @@
+.puzzle-introduction {
+  max-width: 760px;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.puzzle-introduction p { margin: 0; }
+.puzzle-introduction p + p { margin-top: 12px; }
+
+.puzzle-question {
+  margin: 20px 0 16px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.9;
+}

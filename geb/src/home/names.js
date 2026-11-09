@@ -32,5 +32,3 @@ for (const button of document.querySelectorAll('.name')) {
     }
   });
 }
-
-document.getElementById('copyright-year').textContent = new Date().getFullYear();

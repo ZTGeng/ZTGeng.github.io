@@ -14,6 +14,8 @@ npm run dev
 
 打开终端显示的地址，默认是 <http://127.0.0.1:5173/geb/>。依赖版本由 `package-lock.json` 锁定，也可用 `npm ci` 安装。当前使用 Three.js 0.186.1 和兼容本地 Node.js 20 的 Vite 6.4.5。
 
+第一章的本地测试地址是 <http://127.0.0.1:5173/geb/chapters/01-mu-puzzle/>。
+
 ## 构建和静态发布
 
 ```powershell
@@ -98,11 +100,10 @@ geb/
 │   ├── index.html                 # 首页源码
 │   ├── 404.html                   # 未开放章节页源码
 │   ├── home/                      # 首页脚本、样式和木雕场景
-│   └── chapters/00-intro/
-│       ├── index.html             # 人物介绍与三分页框架
-│       ├── main.js
-│       └── style.css
-├── shared/geb.css                 # 通用主题、基础布局和导航
+│   └── chapters/
+│       ├── 00-intro/              # 序章的人物介绍、分页及互动
+│       └── 01-mu-puzzle/          # 第一章的介绍和 MIU 工作台
+├── shared/                        # 通用主题、章节版式和跨页面脚本
 ├── assets/model/                  # 模型与诊断文件
 ├── assets/app/                    # 生成的浏览器资源
 ├── scripts/
@@ -111,11 +112,13 @@ geb/
 ├── vite.config.js
 ├── index.html                     # 生成的首页
 ├── 404.html                       # 生成的未开放章节页
-├── chapters/00-intro/index.html    # 生成的章节页
+├── chapters/                      # 生成的章节页
 └── dist/                          # 完整构建结果，不提交
 ```
 
-首页专用模块在 src/home/，章节源码在 src/chapters/<编号-名称>/，每章包含 index.html、main.js 和 style.css。Vite 自动发现各章 HTML 入口，dist/ 包含所有已实现页面，可独立预览整个项目。发布脚本不自动清理历史产物，删除或改名页面时需检查旧发布文件。
+首页专用模块在 `src/home/`，章节源码在 `src/chapters/<编号-名称>/`。章节入口导入 `shared/geb.css` 和 `shared/chapter.css`，需要分页时再导入 `shared/chapter-tabs.js`。各章按需添加专用样式与互动。第一章的 `#mu-puzzle` 使用 `miu-rules.js` 校验四条规则和 256 字符上限，`miu.js` 管理位置选择和按字符串去重的历史记录。刷新同一标签页可继续操作，点击「重置」会选回 `MI`，此前的字符串仍可回溯。
+
+Vite 自动发现各章 HTML 入口，`dist/` 包含所有已实现页面，可独立预览整个项目。发布脚本不自动清理历史产物，删除或改名页面时需检查旧发布文件。
 
 第三方依赖统一使用 npm 和 package-lock.json 管理，由 Vite 打包为本地静态资源，不另建手动 vendor/。每章只导入自身所需依赖；shared/ 保留自行编写的跨页面代码，首页专用样式已移到 src/home/style.css。素材按需添加，记录来源与授权。
 

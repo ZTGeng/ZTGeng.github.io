@@ -50,7 +50,7 @@
   .godel-lab { padding: 24px 16px; }
   .godel-statement { align-items: flex-start; gap: 16px; }
   .statement-symbol { font-size: 52px; }
-  .godel-statement .lesson-eyebrow { letter-spacing: 0; }
+  .godel-statement p.lesson-eyebrow { letter-spacing: 0; }
   .system-wishes { grid-template-columns: 1fr; gap: 20px; }
   .proof-choices { gap: 10px; }
   .proof-choice { gap: 6px; font-size: 14px; padding-inline: 4px; }

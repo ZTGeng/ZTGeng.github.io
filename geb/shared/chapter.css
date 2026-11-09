@@ -1,0 +1,84 @@
+.chapter-page {
+  --chapter-accent: #98bbb0;
+  width: min(960px, 100%);
+  margin-inline: auto;
+  padding: 24px 32px 0;
+}
+
+.chapter-heading { margin-bottom: 36px; }
+
+.chapter-number {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+}
+
+.chapter-heading h1 {
+  margin: 0;
+  font-size: clamp(26px, 4.5vw, 40px);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.chapter-lead { margin: 14px 0 0; color: var(--muted); line-height: 1.8; }
+
+.chapter-tabs {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  border-bottom: 1px solid #45464b;
+}
+
+.chapter-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px 10px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tab-initial { font: 38px/1 Georgia, serif; }
+.chapter-tab small { display: block; margin-top: 4px; font-size: 12px; }
+.chapter-tab:hover { background: #202227; color: var(--chapter-accent); }
+.chapter-tab[aria-selected="true"] { border-bottom-color: var(--chapter-accent); color: var(--chapter-accent); }
+
+.chapter-tab:focus-visible,
+.chapter-panel:focus-visible { outline: 2px solid var(--chapter-accent); outline-offset: 4px; }
+
+.chapter-panel { padding-top: 32px; }
+.chapter-panel[hidden] { display: none; }
+
+.lesson-stage { padding: 32px 0 48px; }
+.lesson-heading { max-width: 760px; margin-bottom: 28px; }
+.lesson-stage .lesson-eyebrow { margin: 0 0 10px; color: var(--chapter-accent); font-size: 12px; line-height: 1.9; letter-spacing: 0.1em; }
+.lesson-heading .lesson-title { margin: 0; font-size: clamp(24px, 4vw, 30px); font-weight: 500; line-height: 1.6; }
+.lesson-heading .lesson-description { margin: 14px 0 0; color: var(--muted); font-size: 15px; line-height: 1.9; }
+
+.lesson-details { margin-top: 24px; font-size: 13px; line-height: 1.9; }
+.lesson-details summary { width: fit-content; cursor: pointer; color: var(--chapter-accent); text-underline-offset: 4px; }
+.lesson-details summary:hover { text-decoration: underline; }
+.lesson-details summary:focus-visible,
+.lesson-sources a:focus-visible { outline: 2px solid var(--chapter-accent); outline-offset: 4px; }
+.lesson-sources a { color: var(--muted); overflow-wrap: anywhere; text-underline-offset: 3px; }
+.lesson-sources a:hover { color: var(--ink); }
+.lesson-sources ul { padding-left: 20px; }
+.lesson-sources li + li { margin-top: 10px; }
+
+.chapter-page .chapter-navigation { margin-top: auto; }
+
+@media (max-width: 540px) {
+  .chapter-page { padding: 24px 20px 0; }
+  .chapter-heading { margin-bottom: 24px; }
+  .chapter-tab { gap: 8px; padding: 16px 4px; font-size: 14px; }
+  .tab-initial { font-size: 30px; }
+  .lesson-stage { padding-top: 20px; }
+}

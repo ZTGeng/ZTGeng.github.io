@@ -6,35 +6,36 @@
   <meta name="description" content="认识数学家哥德尔、版画艺术家埃舍尔与作曲家巴赫。">
   <title>哥德尔 埃舍尔 巴赫 · G.E.B.</title>
   <script type="module" crossorigin src="/geb/assets/app/00-intro.js"></script>
-  <link rel="modulepreload" crossorigin href="/geb/assets/app/modulepreload-polyfill.js">
+  <link rel="modulepreload" crossorigin href="/geb/assets/app/copyright.js">
   <link rel="stylesheet" crossorigin href="/geb/assets/app/00-intro.css">
   <link rel="stylesheet" crossorigin href="/geb/assets/app/geb2.css">
+  <link rel="stylesheet" crossorigin href="/geb/assets/app/chapter.css">
 </head>
 <body>
   <nav class="site-navigation" aria-label="网站导航">
     <a class="geb-home-link" href="/geb/" aria-label="返回 G.E.B. 首页">G.E.B.</a>
     <a class="site-home-link" href="/">返回网站首页</a>
   </nav>
-  <main class="intro-page">
+  <main class="chapter-page">
     <header class="chapter-heading">
       <p class="chapter-number">序章 · 00</p>
       <h1>哥德尔、埃舍尔、巴赫</h1>
       <p class="chapter-lead">从数学、图像与音乐，认识三个人。</p>
     </header>
 
-    <div class="person-tabs" role="tablist" aria-label="选择人物">
-      <button id="tab-godel" class="person-tab" type="button" role="tab" aria-selected="true" aria-controls="panel-godel" data-person="godel"><span class="tab-initial" aria-hidden="true">G</span><span>哥德尔<small>Gödel</small></span></button>
-      <button id="tab-escher" class="person-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-escher" tabindex="-1" data-person="escher"><span class="tab-initial" aria-hidden="true">E</span><span>埃舍尔<small>Escher</small></span></button>
-      <button id="tab-bach" class="person-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-bach" tabindex="-1" data-person="bach"><span class="tab-initial" aria-hidden="true">B</span><span>巴赫<small>Bach</small></span></button>
+    <div class="chapter-tabs" role="tablist" aria-label="选择人物">
+      <button id="tab-godel" class="chapter-tab" type="button" role="tab" aria-selected="true" aria-controls="panel-godel" data-person="godel"><span class="tab-initial" aria-hidden="true">G</span><span>哥德尔<small>Gödel</small></span></button>
+      <button id="tab-escher" class="chapter-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-escher" tabindex="-1" data-person="escher"><span class="tab-initial" aria-hidden="true">E</span><span>埃舍尔<small>Escher</small></span></button>
+      <button id="tab-bach" class="chapter-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-bach" tabindex="-1" data-person="bach"><span class="tab-initial" aria-hidden="true">B</span><span>巴赫<small>Bach</small></span></button>
     </div>
 
-    <section id="panel-godel" class="person-panel" role="tabpanel" aria-labelledby="tab-godel" tabindex="0" data-person="godel">
+    <section id="panel-godel" class="chapter-panel" role="tabpanel" aria-labelledby="tab-godel" tabindex="0" data-person="godel">
       <header class="person-introduction">
         <p class="person-meta">1906—1978 · 数学家、逻辑学家、哲学家</p>
         <h2>库尔特·哥德尔 <span lang="de">Kurt Gödel</span></h2>
         <p>哥德尔研究数学证明的边界。他在 1931 年提出的不完备性定理揭示：任何一致、可有效公理化且足以表达基本算术的形式系统，都有它无法判定的命题。</p>
       </header>
-      <article id="godel-experiment" class="person-stage godel-lesson" aria-labelledby="godel-title">
+      <article id="godel-experiment" class="lesson-stage godel-lesson" aria-labelledby="godel-title">
         <header class="lesson-heading">
           <p class="lesson-eyebrow">逻辑 · 证明的边界</p>
           <h3 id="godel-title" class="lesson-title">哥德尔第一不完备性定理</h3>
@@ -92,7 +93,7 @@
           <p class="lesson-eyebrow">两条路，一个边界</p>
           <h4 id="theorem-conclusion-title">规则能机械执行，又足以表达基本算术：<br>这样的系统，如果自洽，就不完备。</h4>
           <p>准确地说，总有一个算术命题，系统既不能证明它，也不能证明它的否定。这是第一不完备性定理的现代形式（含罗瑟的加强）。</p>
-          <details class="precision-note">
+          <details class="lesson-details precision-note">
             <summary>直观推演与完整定理，还有什么区别？</summary>
             <div>
               <p>上面的演示说明：在自洽的前提下，标准哥德尔句 G 不可证明，并在通常的自然数中为真。我们在系统外，借助对系统自洽性的假设得出这一结论；这不是系统内部的一份 G 的证明。</p>
@@ -109,7 +110,7 @@
           <div class="meaning-item"><span aria-hidden="true">03</span><div><h5>算法也有原则性的边界</h5><p>图灵证明，不存在一个总能给出正确答案的通用算法，判断任意程序在给定输入下是否会停止。这种与自我指涉有关的限制，与不完备性密切相连；它不只是“计算太慢”。</p></div></div>
         </section>
 
-        <details class="lesson-sources">
+        <details class="lesson-details lesson-sources">
           <summary>延伸阅读与核对来源</summary>
           <ul>
             <li><a href="https://virtualmath1.stanford.edu/~feferman/papers/Godel-IAS.pdf" target="_blank" rel="noopener noreferrer" lang="en">Solomon Feferman · The nature and significance of Gödel’s incompleteness theorems（PDF）</a></li>
@@ -119,13 +120,13 @@
       </article>
     </section>
 
-    <section id="panel-escher" class="person-panel" role="tabpanel" aria-labelledby="tab-escher" tabindex="0" data-person="escher" hidden>
+    <section id="panel-escher" class="chapter-panel" role="tabpanel" aria-labelledby="tab-escher" tabindex="0" data-person="escher" hidden>
       <header class="person-introduction">
         <p class="person-meta">1898—1972 · 版画艺术家</p>
         <h2>毛里茨·科内利斯·埃舍尔 <span lang="nl">M. C. Escher</span></h2>
         <p>埃舍尔用版画探索对称、无穷与不可能的空间。在《瀑布》中，水沿着看似合理的水渠流动，却又回到高处，形成一个令人困惑的循环。</p>
       </header>
-      <section id="escher-experiment" class="person-stage escher-lesson" aria-labelledby="escher-scene-heading">
+      <section id="escher-experiment" class="lesson-stage escher-lesson" aria-labelledby="escher-scene-heading">
         <header class="lesson-heading">
           <p class="lesson-eyebrow">空间 · 不可能的循环</p>
           <h3 id="escher-scene-heading" class="lesson-title">瀑布</h3>
@@ -139,13 +140,13 @@
       </section>
     </section>
 
-    <section id="panel-bach" class="person-panel" role="tabpanel" aria-labelledby="tab-bach" tabindex="0" data-person="bach" hidden>
+    <section id="panel-bach" class="chapter-panel" role="tabpanel" aria-labelledby="tab-bach" tabindex="0" data-person="bach" hidden>
       <header class="person-introduction">
         <p class="person-meta">1685—1750 · 作曲家、管风琴演奏家</p>
         <h2>约翰·塞巴斯蒂安·巴赫 <span lang="de">Johann Sebastian Bach</span></h2>
         <p>巴赫的音乐将严密的结构与丰富的表达融为一体。在卡农中，一个声部先奏出旋律，另一个声部随后模仿；同一条旋律在不同时间相遇，交织成音乐。</p>
       </header>
-      <section id="bach-experiment" class="person-stage bach-lesson" aria-labelledby="bach-title">
+      <section id="bach-experiment" class="lesson-stage bach-lesson" aria-labelledby="bach-title">
         <header class="lesson-heading">
           <p class="lesson-eyebrow">音乐 · 模仿与交织</p>
           <h3 id="bach-title" class="lesson-title">卡农</h3>
@@ -200,7 +201,7 @@
           </div>
           <p class="canon-status" data-canon-status role="status" aria-live="polite">《两只老虎》 · 单声部主旋律，100 BPM。</p>
         </div>
-        <details class="lesson-sources">
+        <details class="lesson-details lesson-sources">
           <summary>人声录音来源</summary>
           <ul>
             <li><strong>《保卫黄河》</strong> — 《黄河大合唱》第七乐章，光未然作词，冼星海作曲。录音节选自央视 2016 年《信念永恒》音乐会的合唱演出。<a href="https://www.youtube.com/watch?v=a2pXYihXE8E" target="_blank" rel="noopener noreferrer" aria-label="观看《保卫黄河》原视频">观看原视频</a></li>
@@ -212,7 +213,7 @@
     </section>
 
     <nav class="chapter-navigation" aria-label="章节导航">
-      <a class="next-chapter" href="/geb/404.html"><span>下一章</span><span>MU 谜题 <span aria-hidden="true">→</span></span></a>
+      <a class="chapter-link" href="/geb/chapters/01-mu-puzzle/"><span>下一章</span><span>MU 谜题 <span aria-hidden="true">→</span></span></a>
     </nav>
   </main>
   <footer>© 2014–<span id="copyright-year">2026</span> <a href="/">@ztgeng</a>. All rights reserved.</footer>
